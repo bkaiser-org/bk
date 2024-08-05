@@ -1,0 +1,10 @@
+{
+  "name": "bko-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/bko-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["bko"],
+  "// targets": "to see all targets run: nx show project bko-e2e --web",
+  "targets": {}
+}
