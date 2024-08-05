@@ -1,12 +1,19 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# sensitive production keys
+**/environments/environment.ts
+**/environments/environment.prod.ts
+emulator-storage
+**/firebase.config.ts
+environment.global.ts
+
 # compiled output
 dist
 tmp
 /out-tsc
 
 # dependencies
-node_modules
+**/node_modules
 
 # IDEs and editors
 /.idea
@@ -28,11 +35,17 @@ node_modules
 /.sass-cache
 /connect.lock
 /coverage
+/typings
+.firebase
+
+# log files
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log
 testem.log
-/typings
+ui-debug.log
+pubsub-debug.log
+firestore-debug.log
 
 # System Files
 .DS_Store
