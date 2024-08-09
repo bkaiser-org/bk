@@ -1,15 +1,13 @@
 import { Component, input } from "@angular/core";
-import { LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts';
 import { GraphDataSeries } from "./graph-data";
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from "@ionic/angular/standalone";
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem, IonLabel } from "@ionic/angular/standalone";
 
 @Component({
     selector: 'bk-line-chart',
     standalone: true,
     animations: [],
     imports: [
-      NgxChartsModule, 
-      IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent
+      IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel
     ],
     template: `
       <ion-card style="height: 550px">
@@ -18,7 +16,11 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle }
           <ion-card-title>{{ subTitle() }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          @defer {
+        <ion-item lines="none">
+            <ion-label>'ngx-charts are not supported anymore'</ion-label>
+          </ion-item>
+
+<!--           @defer {
             <div #containerRef>
             <ngx-charts-line-chart 
               [results]="graphData()"
@@ -38,7 +40,7 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle }
           }
           @placeholder (minimum 300ms) {
             <p>Line Chart</p>
-          }
+          } -->
         </ion-card-content>
       </ion-card>
     `
@@ -60,7 +62,6 @@ export class BkLineChartComponent {
   showXAxisLabel = true;
   showYAxisLabel = true;
   autoScale = true;
-  legendPosition = LegendPosition.Below;
 
   colorScheme = [
     { name: 'Aktive', value: '#009D53' },

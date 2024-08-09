@@ -1,14 +1,12 @@
 import { Component, input } from "@angular/core";
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { GraphDataRow } from "./graph-data";
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from "@ionic/angular/standalone";
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem, IonLabel } from "@ionic/angular/standalone";
 
 @Component({
     selector: 'bk-advanced-pie-chart',
     standalone: true,
     imports: [
-      NgxChartsModule, 
-      IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent
+      IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonItem, IonLabel
     ],
     template: `
       <ion-card style="height: 550px">
@@ -17,7 +15,10 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle }
             <ion-card-title>{{ title() }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          @defer {
+          <ion-item lines="none">
+            <ion-label>'ngx-charts are not supported anymore'</ion-label>
+          </ion-item>
+<!--           @defer {
             <ngx-charts-advanced-pie-chart
               [results]="graphData()"
               [gradient]="gradient"
@@ -25,11 +26,12 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle }
               (activate)="onActivate($event)"
               [scheme]="colorScheme"
               (deactivate)="onDeactivate($event)">
-          </ngx-charts-advanced-pie-chart>
-          }
+          </ngx-charts-advanced-pie-chart> 
+  }
           @placeholder (minimum 300ms) {
             <p>Pie Chart</p>
           }
+                      -->
         </ion-card-content>
       </ion-card>
     `
