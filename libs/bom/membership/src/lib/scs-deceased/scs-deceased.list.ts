@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FilterType, ListType, ListTypes } from '@bk/categories';
-import { CollectionNames, MembershipTags, die } from '@bk/util';
+import { CollectionNames, MembershipTags, die, uniqueElements } from '@bk/util';
 import { BkAvatarLabelComponent, BkCatComponent, BkLabelSelectModalComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
 import { DurationPipe, FullNamePipe, IsSortedPipe, MemberCategoriesPipe, MemberHeaderPipe, PrettyDatePipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
@@ -9,7 +9,6 @@ import { IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHea
 import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, combineLatest, map, switchMap } from 'rxjs';
-import { uniq } from 'lodash'; 
 import { ScsDeceasedService } from './scs-deceased.service';
 
 @Component({
@@ -148,7 +147,7 @@ export class MembershipScsDeceasedListComponent extends BaseModelListComponent i
       ) as Observable<RelationshipModel[]>;
     _memberships$.pipe(
       switchMap(_memberships => {
-        const _foreignKeys = uniq(_memberships.map(_membership => _membership.subjectKey));
+        const _foreignKeys = uniqueElements(_memberships.map(_membership => _membership.subjectKey));
         return combineLatest([
           _memberships$,
           combineLatest(_foreignKeys.map(_key => this.dataService.readModel(CollectionNames.Subject, _key) as unknown as Observable<SubjectModel>))

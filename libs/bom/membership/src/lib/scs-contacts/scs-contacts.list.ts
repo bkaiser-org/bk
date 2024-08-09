@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FilterType, ListType, ListTypes, getOrgId } from '@bk/categories';
-import { CollectionNames, MembershipTags, bkTranslate, die } from '@bk/util';
+import { CollectionNames, MembershipTags, bkTranslate, die, uniqueElements } from '@bk/util';
 import { export2excel } from '@bk/core';
 import { BkAvatarLabelComponent, BkCatComponent, BkLabelSelectModalComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
 import { FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
@@ -10,7 +10,6 @@ import { IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHea
 import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, combineLatest, map, switchMap } from 'rxjs';
-import { uniq } from 'lodash';
 import { Browser } from '@capacitor/browser';
 import { ScsContactsService } from './scs-contacts.service';
 
@@ -159,18 +158,21 @@ export class MembershipScsContactsListComponent extends BaseModelListComponent i
   protected override prepareData(listType: ListType) {
     this.baseService.listType$.next(listType);
 
+    // 1) search the memberships according to the search criteria given in the listType
     const _memberships$ = this.dataService.searchData(
       this.collectionName, 
       ListTypes[listType].initialQuery ?? [],
       ListTypes[listType].orderBy ?? 'name',
       ListTypes[listType].sortOrder ?? 'asc'
       ) as Observable<RelationshipModel[]>;
+    
+    // 2) join the memberships with the subjects
     _memberships$.pipe(
       switchMap(_memberships => {
-        const _foreignKeys = uniq(_memberships.map(_membership => _membership.subjectKey));
+        const _foreignKeys = uniqueElements(_memberships.map(_membership => _membership.subjectKey));
         return combineLatest([
           _memberships$,
-          combineLatest(_foreignKeys.map(_key => this.dataService.readModel(CollectionNames.Subject, _key) as unknown as Observable<SubjectModel>))
+          combineLatest(_foreignKeys.map((_key: string | undefined) => this.dataService.readModel(CollectionNames.Subject, _key) as unknown as Observable<SubjectModel>))
         ])
       }),  
     map(([memberships, subjects]) => {      // join the data

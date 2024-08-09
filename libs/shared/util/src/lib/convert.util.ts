@@ -139,6 +139,23 @@ export function stringArray2ObjectArray(words: string[]): NameObject[] {
     return _result;
 }
 
+/**
+ * Takes an array of strings and returns a new array with only the unique elements, removing all duplicates.
+ * This function is case insensitive.
+ * It is an alternative to using Lodash uniq() function.
+ * @param duplicates  the string array with duplicates
+ * @returns  the string array with unique elements
+ */
+export function uniqueElements(duplicates: string[]): string[] {
+  /* Pluck the values of the object mapping to an array */
+  return Object.values(
+    /* "Reduce" input array to an object mapping */
+    duplicates.reduce((obj, str) =>     
+    /* Insert str value into obj mapping with lower case key */
+    ({ ...obj, [str.toLowerCase()] : str }), {})
+  );
+}
+
 /*-------------------------------------------- NAME ----------------------------------------------------- */
 export interface NameObject { name: string }
 
