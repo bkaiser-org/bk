@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BoatTypes, ListType } from '@bk/categories';
-import { CollectionNames, bkTranslate } from '@bk/util';
+import { BoatTags, CollectionNames, bkTranslate } from '@bk/util';
 import { ALL_RESOURCE_FIELDS, ResourceModel } from '@bk/models';
 import { BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
 import { CategoryNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
@@ -39,7 +39,7 @@ import { RowingBoatsService } from './rowing-boats/rowing-boats.service';
           <bk-searchbar placeholder="{{ '@general.operation.search.placeholder' | translate | async }}" (ionInput)="baseService.onSearchtermChange($event)" />
         </ion-col>
         <ion-col size="6" size-md="3">
-          <bk-single-tag (selectedTag)="onTagSelected($event)" />
+          <bk-single-tag (selectedTag)="onTagSelected($event)" [tags]="boatTags" />
         </ion-col>
         <ion-col size="6" size-md="3">
           <bk-cat [config]="baseService.categoryConfig()!" (ionChange)="onCategoryChange($event)" />
@@ -109,6 +109,7 @@ export class ResourceRowingBoatsListComponent extends BaseModelListComponent imp
   protected baseService = inject(RowingBoatsService);
 
   public BT = BoatTypes;
+  protected boatTags = BoatTags;
 
   protected listType = ListType.ResourceRowingBoats;
   protected collectionName = CollectionNames.Boat;
