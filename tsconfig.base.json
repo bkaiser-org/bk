@@ -14,7 +14,35 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@bk/address": ["libs/bom/address/src/index.ts"],
+      "@bk/aoc": ["libs/aoc/src/index.ts"],
+      "@bk/auth": ["libs/shared/auth/src/index.ts"],
+      "@bk/base": ["libs/bom/base/src/index.ts"],
+      "@bk/birthday": ["libs/bom/birthday/src/index.ts"],
+      "@bk/categories": ["libs/shared/categories/src/index.ts"],
+      "@bk/chat": ["libs/bom/chat/src/index.ts"],
+      "@bk/competition-level": ["libs/bom/competition-level/src/index.ts"],
+      "@bk/content": ["libs/bom/content/src/index.ts"],
+      "@bk/core": ["libs/shared/core/src/index.ts"],
+      "@bk/document": ["libs/bom/document/src/index.ts"],
+      "@bk/event": ["libs/bom/event/src/index.ts"],
+      "@bk/invoice-position": ["libs/bom/invoice-position/src/index.ts"],
+      "@bk/location": ["libs/bom/location/src/index.ts"],
+      "@bk/membership": ["libs/bom/membership/src/index.ts"],
+      "@bk/models": ["libs/shared/models/src/index.ts"],
+      "@bk/ownership": ["libs/bom/ownership/src/index.ts"],
+      "@bk/pipes": ["libs/shared/pipes/src/index.ts"],
+      "@bk/relationship": ["libs/bom/relationship/src/index.ts"],
+      "@bk/reservation": ["libs/bom/reservation/src/index.ts"],
+      "@bk/resource": ["libs/bom/resource/src/index.ts"],
+      "@bk/subject": ["libs/bom/subject/src/index.ts"],
+      "@bk/task": ["libs/bom/task/src/index.ts"],
+      "@bk/trip": ["libs/bom/trip/src/index.ts"],
+      "@bk/ui": ["libs/shared/ui/src/index.ts"],
+      "@bk/user": ["libs/bom/user/src/index.ts"],
+      "@bk/util": ["libs/shared/util/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
