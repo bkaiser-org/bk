@@ -3,9 +3,9 @@ import { AfterViewInit, Component, computed, inject, input, model, output, viewC
 import { IonIcon, IonInput, IonItem, ModalController } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@bk/pipes';
-import { MaskitoModule } from '@maskito/angular';
+import { MaskitoDirective } from '@maskito/angular';
 import { maskitoDateOptionsGenerator } from '@maskito/kit';
-import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
+import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { bkTranslate, convertDateFormatToString, DATE_LENGTH, DateFormat, getTodayStr, InputMode } from '@bk/util';
 import { BkDateSelectModalComponent } from '../modals/date-select.modal';
 import { vestFormsViewProviders } from 'ngx-vest-forms';
@@ -35,7 +35,7 @@ export const chFutureDate = maskitoDateOptionsGenerator({
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe,
-    MaskitoModule,
+    MaskitoDirective,
     IonItem, IonIcon, IonInput
   ],
   viewProviders: [vestFormsViewProviders],
@@ -132,5 +132,5 @@ export class BkDateInputComponent implements AfterViewInit {
     }
   }
 
-  protected readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
+  protected readonly maskPredicate: MaskitoElementPredicate = async (el: HTMLElement) => (el as HTMLIonInputElement).getInputElement();
 }

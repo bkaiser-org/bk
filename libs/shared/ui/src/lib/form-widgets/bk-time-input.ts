@@ -3,18 +3,18 @@ import { Component, inject, input, output } from '@angular/core';
 import { IonIcon, IonInput, IonItem, ModalController } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@bk/pipes';
-import { MaskitoModule } from '@maskito/angular';
 import { maskitoTimeOptionsGenerator } from '@maskito/kit';
-import { MaskitoElementPredicateAsync } from '@maskito/core';
+import { MaskitoElementPredicate } from '@maskito/core';
 import { BkTimeSelectModalComponent } from '../modals/time-select.modal';
 import { getCurrentTime, InputMode } from '@bk/util';
+import { MaskitoDirective } from '@maskito/angular';
 
 @Component({
   selector: 'bk-time-input',
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe,
-    MaskitoModule,
+    MaskitoDirective,
     IonItem, IonIcon, IonInput
   ],
   template: `
@@ -82,5 +82,5 @@ export class BkTimeInputComponent {
     mode: 'HH:MM'
   });
 
-  protected readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
+  protected readonly maskPredicate: MaskitoElementPredicate = async (el: HTMLElement) => (el as HTMLIonInputElement).getInputElement();
 }

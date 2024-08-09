@@ -4,8 +4,8 @@ import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
 import { AddressFormModel, OrgNewFormModel, PersonNewFormModel } from '@bk/models';
 import { TranslatePipe } from '@bk/pipes';
 import { IonInput, IonItem } from '@ionic/angular/standalone';
-import { MaskitoModule } from '@maskito/angular';
-import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
+import { MaskitoDirective } from '@maskito/angular';
+import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { BkCopyButtonComponent } from '../form/bk-copy-button';
 
 @Component({
@@ -13,7 +13,7 @@ import { BkCopyButtonComponent } from '../form/bk-copy-button';
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe,
-    FormsModule, MaskitoModule,
+    FormsModule, MaskitoDirective,
     IonItem, IonInput,
     BkCopyButtonComponent
   ],
@@ -59,7 +59,7 @@ export class BkPhoneComponent {
   readonly chPhoneMask: MaskitoOptions = {
     mask: ['+', '4', '1', ' ', /[1-9]/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/],
   };
-  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
+  readonly maskPredicate: MaskitoElementPredicate = async (el: HTMLElement) => (el as HTMLIonInputElement).getInputElement();
 
   /*
   tbd: replace with dynamic maskito masks based on countryCode:

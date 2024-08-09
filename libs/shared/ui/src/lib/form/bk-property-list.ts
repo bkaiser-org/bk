@@ -5,15 +5,15 @@ import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIco
 import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import { BaseProperty, arrayMove, getIndexOfKey } from '@bk/util';
 import { FormsModule } from '@angular/forms';
-import { MaskitoModule } from '@maskito/angular';
-import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
+import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
+import { MaskitoDirective } from '@maskito/angular';
 
 @Component({
   selector: 'bk-property-list',
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe, KeyValuePipe,
-    FormsModule, MaskitoModule,
+    FormsModule, MaskitoDirective,
     IonList, IonListHeader, IonItem, IonButton,
     IonLabel, IonInput, IonIcon,
     IonReorderGroup, IonReorder,
@@ -106,6 +106,6 @@ export class BkPropertyListComponent {
   readonly wordMask: MaskitoOptions = {
     mask: /^[a-z0-9-_]+$/,
   };
-  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
+  readonly maskPredicate: MaskitoElementPredicate = async (el: HTMLElement) => (el as HTMLIonInputElement).getInputElement();
 }
 

@@ -7,16 +7,16 @@ import { BkStringsComponent } from './bk-strings';
 import { Category, ModelType, ModelTypes } from '@bk/categories';
 import { ModelInfo } from '@bk/models';
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
+import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { TranslatePipe } from '@bk/pipes';
-import { MaskitoModule } from '@maskito/angular';
 import { caseInsensitiveWordMask } from '../form-widgets/bk-text-input';
+import { MaskitoDirective } from '@maskito/angular';
 
 @Component({
   selector: 'bk-model-info',
   standalone: true,
   imports: [
-    FormsModule, MaskitoModule,
+    FormsModule, MaskitoDirective,
     JsonPipe, TranslatePipe, AsyncPipe,
     BkCatComponent, BkStringsComponent,
     IonButton, IonGrid, IonRow, IonCol, IonInput
@@ -105,5 +105,5 @@ export class BkModelInfoComponent  {
     ev.detail.complete();
   }
 
-  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
+  readonly maskPredicate: MaskitoElementPredicate = async (el: HTMLElement) => (el as HTMLIonInputElement).getInputElement();
 }

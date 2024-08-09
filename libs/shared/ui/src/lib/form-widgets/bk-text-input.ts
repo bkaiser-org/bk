@@ -3,10 +3,10 @@ import { AfterViewInit, Component, input, output, viewChild } from '@angular/cor
 import { TranslatePipe } from '@bk/pipes';
 import { AutoComplete, bkTranslate, InputMode, SHORT_NAME_LENGTH } from '@bk/util';
 import { IonInput, IonItem } from '@ionic/angular/standalone';
-import { MaskitoModule } from '@maskito/angular';
-import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
+import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { BkCopyButtonComponent } from '../form/bk-copy-button';
 import { vestFormsViewProviders } from 'ngx-vest-forms';
+import { MaskitoDirective } from '@maskito/angular';
 
 export const lowercaseWordMask: MaskitoOptions = {
   mask: /^[a-z0-9-_]+$/,
@@ -46,7 +46,7 @@ export const chZipCodeMask: MaskitoOptions = {
   imports: [
     TranslatePipe, AsyncPipe,
     BkCopyButtonComponent,
-    MaskitoModule,
+    MaskitoDirective,
     IonItem, IonInput
   ],
   viewProviders: [vestFormsViewProviders],
@@ -122,5 +122,5 @@ export class BkTextInputComponent implements AfterViewInit {
     this.changed.emit(event.detail.value);
   }
 
-  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
+  readonly maskPredicate: MaskitoElementPredicate = async (el: HTMLElement) => (el as HTMLIonInputElement).getInputElement();
 }

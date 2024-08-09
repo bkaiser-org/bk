@@ -4,16 +4,16 @@ import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
 import { AddressFormModel } from '@bk/models';
 import { TranslatePipe } from '@bk/pipes';
 import { IonInput, IonItem } from '@ionic/angular/standalone';
-import { MaskitoModule } from '@maskito/angular';
-import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
+import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { BkCopyButtonComponent } from '../form/bk-copy-button';
+import { MaskitoDirective } from '@maskito/angular';
 
 @Component({
   selector: 'bk-iban',
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe, 
-    FormsModule, MaskitoModule,
+    FormsModule, MaskitoDirective,
     IonItem, IonInput,
     BkCopyButtonComponent
   ],
@@ -58,6 +58,6 @@ export class BkIbanComponent {
   readonly chIbanMask: MaskitoOptions = {
     mask: ['C', 'H', /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\w/, /\w/, /\w/, ' ', /\w/, /\w/, /\w/, /\w/, ' ', /\w/, /\w/, /\w/, /\w/, ' ', /\w/],
   };
-  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
+  readonly maskPredicate: MaskitoElementPredicate = async (el: HTMLElement) => (el as HTMLIonInputElement).getInputElement();
 }
 

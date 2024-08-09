@@ -3,16 +3,16 @@ import { TranslatePipe } from '@bk/pipes';
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonInput, IonItem, IonLabel, IonList, IonListHeader, IonReorder, IonReorderGroup, ItemReorderEventDetail } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { arrayMove } from '@bk/util';
-import { MaskitoModule } from '@maskito/angular';
-import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
+import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { FormsModule } from '@angular/forms';
+import { MaskitoDirective } from '@maskito/angular';
 
 @Component({
   selector: 'bk-strings',
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe,
-    FormsModule, MaskitoModule,
+    FormsModule, MaskitoDirective,
     IonList, IonListHeader, IonItem,
     IonLabel, IonInput, IonIcon,
     IonReorderGroup, IonReorder,
@@ -90,6 +90,6 @@ export class BkStringsComponent {
   readonly wordMask: MaskitoOptions = {
     mask: /^[a-z0-9-_]+$/,
   };
-  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
+  readonly maskPredicate: MaskitoElementPredicate = async (el: HTMLElement) => (el as HTMLIonInputElement).getInputElement();
 }
 
