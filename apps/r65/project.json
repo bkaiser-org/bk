@@ -2,7 +2,7 @@
   "name": "r65",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
+  "prefix": "bk",
   "sourceRoot": "apps/r65/src",
   "tags": [],
   "targets": {

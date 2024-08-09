@@ -2,7 +2,7 @@
   "name": "cwst",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
+  "prefix": "bk",
   "sourceRoot": "apps/cwst/src",
   "tags": [],
   "targets": {
