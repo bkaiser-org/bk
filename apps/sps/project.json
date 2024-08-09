@@ -2,7 +2,7 @@
   "name": "sps",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
+  "prefix": "bk",
   "sourceRoot": "apps/sps/src",
   "tags": [],
   "targets": {

@@ -2,7 +2,7 @@
   "name": "sc7",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
+  "prefix": "bk",
   "sourceRoot": "apps/sc7/src",
   "tags": [],
   "targets": {
