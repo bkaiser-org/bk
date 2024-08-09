@@ -26,7 +26,6 @@
         ],
         "styles": [
           "apps/bko/src/styles.scss",
-          "./node_modules/ngx-lightbox/lightbox.css",
           {
             "input": "apps/bko/src/theme/variables.scss"
           }
