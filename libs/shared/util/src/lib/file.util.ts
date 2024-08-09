@@ -1,4 +1,4 @@
-import { getType, getExtension } from 'mime';
+import mime from 'mime';
 
 /*------------------------ file pathes -----------------------*/
 /*  path = {/}dir{/dir}
@@ -137,11 +137,11 @@ export function fileSizeUnit(bytes = 0, precision = 2): string {
 }
 
 export function getMimeType(pathOrExtension: string): string {
-  return getType(pathOrExtension) ?? '';
+  return mime.getType(pathOrExtension) ?? '';
 }
 
 export function getExtensionFromMimeType(mimeType: string): string {
-  return getExtension(mimeType) ?? '';
+  return mime.getExtension(mimeType) ?? '';
 }
 
 export function isMimeTypeAccepted(mimeType: string, imagesOnly = false): boolean {
