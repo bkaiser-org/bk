@@ -1,0 +1,176 @@
+<bk-header title="{{ '@aoc.title' | translate | async }}" />
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ '@aoc.adminops.title' | translate | async }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <!-- IBAN -->
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.iban.label' | translate | async  }}</ion-col>
+          <ion-col size="6">
+            <bk-button label=" {{ '@aoc.adminops.iban.button' | translate | async }}" iconName="checkmark-circle-outline" (click)="listIban()" />
+          </ion-col>
+        </ion-row>
+        <!-- Old Juniors -->
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.oldJuniors.label' | translate | async  }}</ion-col>
+          <ion-col size="6">
+            <bk-button label=" {{ '@aoc.adminops.oldJuniors.button' | translate | async  }}" iconName="checkmark-circle-outline" (click)="listOldJuniors()" />
+          </ion-col>
+        </ion-row>
+        <!-- Membership Prices -->
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.membershipPrices.label' | translate | async  }}</ion-col>
+          <ion-col size="6">
+            <bk-button label=" {{ '@aoc.adminops.membershipPrices.button' | translate | async  }}" iconName="checkmark-circle-outline" (click)="updateMembershipPrices()" />
+          </ion-col>
+        </ion-row>
+        <!-- Membership Attributes -->
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.membershipAttributes.label' | translate | async  }}</ion-col>
+          <ion-col size="6">
+            <bk-button label=" {{ '@aoc.adminops.membershipAttributes.button' | translate | async  }}" iconName="checkmark-circle-outline" (click)="updateMembershipAttributes()" />
+          </ion-col>
+        </ion-row>
+        <!-- Check entry date for juniors -->
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.checkJuniorEntry.label' | translate | async  }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.checkJuniorEntry.description' | translate | async  }}</ion-col>
+          <ion-col size="6">
+            <bk-button label=" {{ '@aoc.adminops.checkJuniorEntry.button' | translate | async  }}" iconName="checkmark-circle-outline" (click)="checkJuniorEntry()" />
+          </ion-col>
+        </ion-row>
+        <!-- Find orphaned sections -->
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.orphanedSections.label' | translate | async  }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.orphanedSections.description' | translate | async  }}</ion-col>
+          <ion-col size="6">
+            <bk-button label=" {{ '@aoc.adminops.orphanedSections.button' | translate | async  }}" iconName="checkmark-circle-outline" (click)="findOrphanedSections()" />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ '@aoc.adminops.statistics.title' | translate | async  }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <!-- Update Competition Levels -->
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.competitionLevels.label' | translate | async  }}</ion-col>
+          <ion-col size="6">
+            <bk-button label=" {{ '@aoc.adminops.competitionLevels.button' | translate | async  }}"  iconName="checkmark-circle-outline" (click)="updateCompetitionLevels()" />
+          </ion-col>
+        </ion-row>
+        <!-- Update Competition Levels statistics -->
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.clStats.label' | translate | async  }}</ion-col>
+          <ion-col size="6">
+            <bk-button label="{{ '@aoc.adminops.clStats.button' | translate | async  }}" iconName="checkmark-circle-outline" (click)="updateCLStatistics()" />
+          </ion-col>
+        </ion-row>
+        <!-- Update Age by Gender -->
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.ageByGender.label' | translate | async  }}</ion-col>
+          <ion-col size="6">
+            <bk-button label="{{ '@aoc.adminops.ageByGender.button' | translate | async  }}" iconName="checkmark-circle-outline" (click)="updateAgeByGender()" />
+          </ion-col>
+        </ion-row>
+        <!-- Update Category by Gender -->
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.categoryByGender.label' | translate | async  }}</ion-col>
+          <ion-col size="6">
+            <bk-button label="{{ '@aoc.adminops.categoryByGender.button' | translate | async  }}"  iconName="checkmark-circle-outline" (click)="updateCategoryByGender()" />
+          </ion-col>
+        </ion-row>
+        <!-- Update Member Location -->
+        <ion-row>
+          <ion-col size="6">{{ '@aoc.adminops.memberLocation.label' | translate | async  }}</ion-col>
+          <ion-col size="6">
+            <bk-button label="{{ '@aoc.adminops.memberLocation.button' | translate | async  }}"  iconName="checkmark-circle-outline" (click)="updateMemberLocation()" />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ '@aoc.fix.title' | translate | async  }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>{{ '@aoc.fix.content' | translate | async }}</ion-col>
+          <ion-col>
+            <bk-button label=" {{ '@aoc.fix.operation.fix' | translate | async  }}" iconName="warning-outline" (click)="fixModels()" />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ '@aoc.validate.title' | translate | async  }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>{{ '@aoc.validate.content' | translate | async }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="none">
+              <ion-select label="{{'@aoc.validate.operation.select' | translate | async }}" name="modelValidation" 
+                [ngModel]="selectedModelValidationType" (ionChange)="changeModelValidationType($event.detail.value)"
+                placeholder="{{'@language.select' | translate | async }}">
+                <ion-select-option [value]="MVT.Subject">subject</ion-select-option>
+                <ion-select-option [value]="MVT.Resource">resource</ion-select-option>
+                <ion-select-option [value]="MVT.CompetitionLevel">competitionLevel</ion-select-option>
+                <ion-select-option [value]="MVT.Event">event</ion-select-option>
+                <ion-select-option [value]="MVT.Document">document</ion-select-option>
+                <ion-select-option [value]="MVT.Location">location</ion-select-option>
+                <ion-select-option [value]="MVT.Relnote">relnote</ion-select-option>
+                <ion-select-option [value]="MVT.Ownership">ownership</ion-select-option>
+                <ion-select-option [value]="MVT.Membership">membership</ion-select-option>
+                <ion-select-option [value]="MVT.Page">page</ion-select-option>
+                <ion-select-option [value]="MVT.Section">section</ion-select-option>
+                <ion-select-option [value]="MVT.User">user</ion-select-option>
+                <ion-select-option [value]="MVT.InvoicePosition">invoicePosition</ion-select-option>
+                <ion-select-option [value]="MVT.Address">address</ion-select-option>
+                <ion-select-option [value]="MVT.Comment">comment</ion-select-option>
+              </ion-select>
+            </ion-item>        
+            </ion-col>
+          <ion-col>
+            <bk-button label=" {{ '@aoc.validate.operation.validate' | translate | async  }}" iconName="information-circle-outline" (click)="validateModels(selectedModelValidationType)" />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ '@aoc.result.title' | translate | async  }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row><strong>{{ logTitle$ | async }}</strong></ion-row>
+        @for (logEntry of logInfo; track logEntry.id) {
+          <ion-row>
+            <ion-col size="4"><small>{{ logEntry.id }}</small></ion-col>
+            <ion-col size="4"><small>{{ logEntry.name }}</small></ion-col>
+            <ion-col size="4"><small>{{ logEntry.message }}</small></ion-col>
+          </ion-row>  
+        }
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

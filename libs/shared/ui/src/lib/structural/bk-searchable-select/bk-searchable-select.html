@@ -1,0 +1,31 @@
+@if(selected.length) {
+  @for(item of selected; track item; let last = last) {
+    {{ leaf(item) }}{{ last ? '' : ', '}}
+  }
+} @else {
+  <ion-modal [isOpen]="isOpen">
+    <ion-header>
+      @if(multiple) {
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>{{ title }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="select()">Select</ion-button>
+          </ion-buttons>
+        </ion-toolbar>  
+      }
+      <ion-toolbar>
+        <ion-searchbar (ionChange)="filter($any($event))" />
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      @for(item of filtered; track item) {
+        <ion-item>
+          <bk-check name="item" [checked]="item.selected" (changed)="itemSelected(item)" />
+        </ion-item>
+      }
+    </ion-content>
+  </ion-modal>
+}

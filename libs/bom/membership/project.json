@@ -2,7 +2,7 @@
   "name": "membership",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/bom/membership/src",
-  "prefix": "lib",
+  "prefix": "bk",
   "projectType": "library",
   "tags": [],
   "targets": {

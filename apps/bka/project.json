@@ -22,7 +22,9 @@
             "input": "apps/bka/public"
           }
         ],
-        "styles": ["apps/bka/src/styles.scss"],
+        "styles": [
+          "apps/bka/src/styles.scss"
+        ],
         "scripts": [],
         "server": "apps/bka/src/main.server.ts",
         "prerender": true,

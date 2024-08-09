@@ -2,7 +2,7 @@
   "name": "content",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/bom/content/src",
-  "prefix": "lib",
+  "prefix": "bk",
   "projectType": "library",
   "tags": [],
   "targets": {

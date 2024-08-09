@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="619 667 201.5 141" width="201.5" height="141">
+  <defs/>
+  <g id="Canvas_1" stroke="none" stroke-opacity="1" fill-opacity="1" stroke-dasharray="none" fill="none">
+    <title>Canvas 1</title>
+    <g id="Canvas_1_Layer_1">
+      <title>Layer 1</title>
+      <g id="Group_179">
+        <g id="Graphic_59">
+          <rect x="619.5" y="667.5" width="200.5" height="140" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Group_136">
+          <g id="Graphic_138">
+            <rect x="634.1685" y="682.732" width="46.5" height="4" fill="#ccc"/>
+            <rect x="634.1685" y="682.732" width="46.5" height="4" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          </g>
+          <g id="Graphic_137">
+            <rect x="634.1685" y="691.732" width="60.5" height="4" fill="#999"/>
+            <rect x="634.1685" y="691.732" width="60.5" height="4" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          </g>
+        </g>
+        <g id="Group_150">
+          <g id="Graphic_129">
+            <title>Person</title>
+            <path d="M 640.1007 715.616 C 641.7395 715.616 643.0668 714.04975 643.0668 712.116 C 643.0668 710.18225 641.7395 708.616 640.1007 708.616 C 638.4619 708.616 637.1346 710.18225 637.1346 712.116 C 637.1346 714.04975 638.4619 715.616 640.1007 715.616 Z M 640.1007 717.366 C 638.1208 717.366 634.1685 718.5385 634.1685 720.866 L 634.1685 722.616 L 646.0329 722.616 L 646.0329 720.866 C 646.0329 718.5385 642.0806 717.366 640.1007 717.366 Z" fill="#999"/>
+          </g>
+          <g id="Group_146">
+            <g id="Graphic_148">
+              <rect x="652.8126" y="715.924" width="39.40678" height="1.751385" fill="#ccc"/>
+              <rect x="652.8126" y="715.924" width="39.40678" height="1.751385" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+            <g id="Graphic_147">
+              <rect x="652.8126" y="719.8646" width="51.271186" height="1.751385" fill="#999"/>
+              <rect x="652.8126" y="719.8646" width="51.271186" height="1.751385" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+          </g>
+        </g>
+        <g id="Group_151">
+          <g id="Graphic_155">
+            <title>Person</title>
+            <path d="M 640.1007 738 C 641.7395 738 643.0668 736.43375 643.0668 734.5 C 643.0668 732.56625 641.7395 731 640.1007 731 C 638.4619 731 637.1346 732.56625 637.1346 734.5 C 637.1346 736.43375 638.4619 738 640.1007 738 Z M 640.1007 739.75 C 638.1208 739.75 634.1685 740.9225 634.1685 743.25 L 634.1685 745 L 646.0329 745 L 646.0329 743.25 C 646.0329 740.9225 642.0806 739.75 640.1007 739.75 Z" fill="#999"/>
+          </g>
+          <g id="Group_152">
+            <g id="Graphic_154">
+              <rect x="652.8126" y="738.308" width="39.40678" height="1.751385" fill="#ccc"/>
+              <rect x="652.8126" y="738.308" width="39.40678" height="1.751385" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+            <g id="Graphic_153">
+              <rect x="652.8126" y="742.2486" width="51.271186" height="1.751385" fill="#999"/>
+              <rect x="652.8126" y="742.2486" width="51.271186" height="1.751385" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+          </g>
+        </g>
+        <g id="Group_156">
+          <g id="Graphic_160">
+            <title>Person</title>
+            <path d="M 640.1007 758.312 C 641.7395 758.312 643.0668 756.7457 643.0668 754.812 C 643.0668 752.8782 641.7395 751.312 640.1007 751.312 C 638.4619 751.312 637.1346 752.8782 637.1346 754.812 C 637.1346 756.7457 638.4619 758.312 640.1007 758.312 Z M 640.1007 760.062 C 638.1208 760.062 634.1685 761.2345 634.1685 763.562 L 634.1685 765.312 L 646.0329 765.312 L 646.0329 763.562 C 646.0329 761.2345 642.0806 760.062 640.1007 760.062 Z" fill="#999"/>
+          </g>
+          <g id="Group_157">
+            <g id="Graphic_159">
+              <rect x="652.8126" y="758.62" width="39.40678" height="1.751385" fill="#ccc"/>
+              <rect x="652.8126" y="758.62" width="39.40678" height="1.751385" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+            <g id="Graphic_158">
+              <rect x="652.8126" y="762.5606" width="51.271186" height="1.751385" fill="#999"/>
+              <rect x="652.8126" y="762.5606" width="51.271186" height="1.751385" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+          </g>
+        </g>
+        <g id="Group_161">
+          <g id="Graphic_165">
+            <title>Person</title>
+            <path d="M 640.1007 778.16 C 641.7395 778.16 643.0668 776.5937 643.0668 774.66 C 643.0668 772.7262 641.7395 771.16 640.1007 771.16 C 638.4619 771.16 637.1346 772.7262 637.1346 774.66 C 637.1346 776.5937 638.4619 778.16 640.1007 778.16 Z M 640.1007 779.91 C 638.1208 779.91 634.1685 781.0825 634.1685 783.41 L 634.1685 785.16 L 646.0329 785.16 L 646.0329 783.41 C 646.0329 781.0825 642.0806 779.91 640.1007 779.91 Z" fill="#999"/>
+          </g>
+          <g id="Group_162">
+            <g id="Graphic_164">
+              <rect x="652.8126" y="778.468" width="39.40678" height="1.751385" fill="#ccc"/>
+              <rect x="652.8126" y="778.468" width="39.40678" height="1.751385" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+            <g id="Graphic_163">
+              <rect x="652.8126" y="782.4086" width="51.271186" height="1.751385" fill="#999"/>
+              <rect x="652.8126" y="782.4086" width="51.271186" height="1.751385" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+          </g>
+        </g>
+        <g id="Group_166">
+          <g id="Graphic_170">
+            <title>Person</title>
+            <path d="M 732.4322 715.616 C 734.071 715.616 735.3983 714.04975 735.3983 712.116 C 735.3983 710.18225 734.071 708.616 732.4322 708.616 C 730.7934 708.616 729.4661 710.18225 729.4661 712.116 C 729.4661 714.04975 730.7934 715.616 732.4322 715.616 Z M 732.4322 717.366 C 730.4523 717.366 726.5 718.5385 726.5 720.866 L 726.5 722.616 L 738.3644 722.616 L 738.3644 720.866 C 738.3644 718.5385 734.4121 717.366 732.4322 717.366 Z" fill="#999"/>
+          </g>
+          <g id="Group_167">
+            <g id="Graphic_169">
+              <rect x="745.1441" y="715.924" width="39.40678" height="1.751385" fill="#ccc"/>
+              <rect x="745.1441" y="715.924" width="39.40678" height="1.751385" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+            <g id="Graphic_168">
+              <rect x="745.1441" y="719.8646" width="51.271186" height="1.751385" fill="#999"/>
+              <rect x="745.1441" y="719.8646" width="51.271186" height="1.751385" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+          </g>
+        </g>
+        <g id="Group_171">
+          <g id="Graphic_175">
+            <title>Person</title>
+            <path d="M 732.4322 738 C 734.071 738 735.3983 736.43375 735.3983 734.5 C 735.3983 732.56625 734.071 731 732.4322 731 C 730.7934 731 729.4661 732.56625 729.4661 734.5 C 729.4661 736.43375 730.7934 738 732.4322 738 Z M 732.4322 739.75 C 730.4523 739.75 726.5 740.9225 726.5 743.25 L 726.5 745 L 738.3644 745 L 738.3644 743.25 C 738.3644 740.9225 734.4121 739.75 732.4322 739.75 Z" fill="#999"/>
+          </g>
+          <g id="Group_172">
+            <g id="Graphic_174">
+              <rect x="745.1441" y="738.308" width="39.40678" height="1.751385" fill="#ccc"/>
+              <rect x="745.1441" y="738.308" width="39.40678" height="1.751385" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+            <g id="Graphic_173">
+              <rect x="745.1441" y="742.2486" width="51.271186" height="1.751385" fill="#999"/>
+              <rect x="745.1441" y="742.2486" width="51.271186" height="1.751385" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

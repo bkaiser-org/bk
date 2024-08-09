@@ -2,7 +2,7 @@
   "name": "pipes",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/pipes/src",
-  "prefix": "lib",
+  "prefix": "bk",
   "projectType": "library",
   "tags": [],
   "targets": {

@@ -1,1 +1,2 @@
-export * from './lib/relationship/relationship.component';
+export * from './lib/relationship.util';
+export * from './lib/personal/personalRelationshipType';

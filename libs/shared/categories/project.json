@@ -2,7 +2,7 @@
   "name": "categories",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/categories/src",
-  "prefix": "lib",
+  "prefix": "bk",
   "projectType": "library",
   "tags": [],
   "targets": {

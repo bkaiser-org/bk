@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="619 508.5 201.5 141" width="201.5" height="141">
+  <defs/>
+  <g id="Canvas_1" stroke="none" stroke-opacity="1" fill-opacity="1" stroke-dasharray="none" fill="none">
+    <title>Canvas 1</title>
+    <g id="Canvas_1_Layer_1">
+      <title>Layer 1</title>
+      <g id="Group_503">
+        <g id="Group_178">
+          <g id="Graphic_36">
+            <rect x="655.5" y="586.5" width="4" height=".5" stroke="#0432ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          </g>
+          <g id="Graphic_70">
+            <rect x="619.5" y="509" width="200.5" height="140" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          </g>
+          <g id="Graphic_128">
+            <title>View Carousel</title>
+            <path d="M 674.7921 625.384 L 764.7079 625.384 L 764.7079 550.5 L 674.7921 550.5 L 674.7921 625.384 Z M 629.83425 615.3995 L 665.80055 615.3995 L 665.80055 560.48453 L 629.83425 560.48453 L 629.83425 615.3995 Z M 773.69945 560.48453 L 773.69945 615.3995 L 809.66575 615.3995 L 809.66575 560.48453 L 773.69945 560.48453 Z" fill="#999"/>
+          </g>
+          <g id="Group_133">
+            <g id="Graphic_135">
+              <rect x="632.1685" y="520.308" width="46.5" height="4" fill="#ccc"/>
+              <rect x="632.1685" y="520.308" width="46.5" height="4" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+            <g id="Graphic_134">
+              <rect x="632.1685" y="529.308" width="60.5" height="4" fill="#999"/>
+              <rect x="632.1685" y="529.308" width="60.5" height="4" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+          </g>
+        </g>
+        <g id="Group_500">
+          <g id="Graphic_502">
+            <line x1="757.6638" y1="588.4488" x2="745.83065" y2="578.0081" fill="black"/>
+            <line x1="757.6638" y1="588.4488" x2="745.83065" y2="578.0081" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+          </g>
+          <g id="Graphic_501">
+            <line x1="757.5498" y1="588.5475" x2="746.36555" y2="598.4156" fill="black"/>
+            <line x1="757.5498" y1="588.5475" x2="746.36555" y2="598.4156" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+          </g>
+        </g>
+        <g id="Group_497">
+          <g id="Graphic_499">
+            <line x1="678.83065" y1="588.4488" x2="690.6638" y2="578.0081" fill="#333"/>
+            <line x1="678.83065" y1="588.4488" x2="690.6638" y2="578.0081" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+          </g>
+          <g id="Graphic_498">
+            <line x1="678.94466" y1="588.5475" x2="690.1289" y2="598.4156" fill="#333"/>
+            <line x1="678.94466" y1="588.5475" x2="690.1289" y2="598.4156" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

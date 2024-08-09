@@ -1,0 +1,62 @@
+import { AsyncPipe } from '@angular/common';
+import { Component, Input, inject } from '@angular/core';
+import { Category } from '@bk/categories';
+import { CategoryImagePipe, TranslatePipe } from '@bk/pipes';
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonNote, IonRow, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
+
+@Component({
+  selector: 'bk-category-select-modal',
+  standalone: true,
+  imports: [
+    TranslatePipe, CategoryImagePipe, AsyncPipe, 
+    IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonContent, IonList, IonItem, IonLabel, IonNote,
+    IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent
+  ],
+  styles: [`
+  /* iOS places the subtitle above the title */
+  ion-card-header { display: flex; flex-flow: column-reverse; }
+`],
+  template: `
+    <ion-header>
+      <ion-toolbar color="secondary">
+        <ion-title>{{ '@content.section.operation.select.label' | translate | async }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button color="light" (click)="cancel()">
+            <ion-icon slot="icon-only" name="close-circle-outline" />
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-grid>
+        <ion-row>
+          @for (cat of categories; track cat) {
+            <ion-col size="6">
+              <ion-card (click)="selectCategory(cat)">
+                <img alt="" src="{{ cat.name | categoryImage:'sections' }}" />
+                <ion-card-header>
+                  <ion-card-title>{{ '@' + cat.i18nBase + '.label' | translate | async }}</ion-card-title>
+                  <ion-card-subtitle>{{ cat.name }}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>{{ '@' + cat.i18nBase + '.description' | translate | async }}</ion-card-content>
+              </ion-card>
+            </ion-col>
+          }
+      </ion-row>
+      </ion-grid>
+
+    </ion-content>
+  `
+})
+export class BkCategorySelectModalComponent {
+  private modalController = inject(ModalController);
+  public categories = input.required<Category[]>();
+
+  public cancel(): Promise<boolean> {
+    return this.modalController.dismiss(null, 'cancel');
+  }
+
+  public selectCategory(cat: Category): Promise<boolean> {
+    return this.modalController.dismiss(cat, 'confirm');
+  }
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="620 1308.125 201.5 141" width="201.5" height="141">
+  <defs/>
+  <g id="Canvas_1" stroke="none" stroke-opacity="1" fill-opacity="1" stroke-dasharray="none" fill="none">
+    <title>Canvas 1</title>
+    <g id="Canvas_1_Layer_1">
+      <title>Layer 1</title>
+      <g id="Group_247">
+        <g id="Graphic_222">
+          <rect x="620.5" y="1308.625" width="200.5" height="140" fill="#999"/>
+          <rect x="620.5" y="1308.625" width="200.5" height="140" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_231">
+          <rect x="697.5" y="1353.5" width="46.5" height="4" fill="white"/>
+          <rect x="697.5" y="1353.5" width="46.5" height="4" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_230">
+          <rect x="690.5" y="1367.375" width="60.5" height="8.125" fill="white"/>
+          <rect x="690.5" y="1367.375" width="60.5" height="8.125" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_246">
+          <title>Filter HDR</title>
+          <path d="M 727.3409 1390.5 L 714.98295 1406.125 L 724.375 1418 L 719.1023 1421.75 C 713.53295 1414.7188 704.2727 1403 704.2727 1403 L 684.5 1428 L 757 1428 L 727.3409 1390.5 Z" fill="black"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

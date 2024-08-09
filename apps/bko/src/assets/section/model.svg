@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="1281.5125 364.788 201.5 141" width="201.5" height="141">
+  <defs/>
+  <g id="Canvas_1" stroke="none" stroke-opacity="1" fill-opacity="1" stroke-dasharray="none" fill="none">
+    <title>Canvas 1</title>
+    <g id="Canvas_1_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_348">
+        <title>Subject</title>
+        <path d="M 1434.2 429.87057 L 1382.0125 429.87057 L 1382.0125 434.442 L 1434.2 434.442 L 1434.2 429.87057 Z M 1465.5125 411.58486 L 1382.0125 411.58486 L 1382.0125 416.1563 L 1465.5125 416.1563 L 1465.5125 411.58486 Z M 1382.0125 425.29914 L 1465.5125 425.29914 L 1465.5125 420.7277 L 1382.0125 420.7277 L 1382.0125 425.29914 Z M 1382.0125 402.442 L 1382.0125 407.01343 L 1465.5125 407.01343 L 1465.5125 402.442 L 1382.0125 402.442 Z" fill="#ccc"/>
+      </g>
+      <g id="Graphic_347">
+        <rect x="1282.0125" y="365.288" width="200.5" height="140" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Group_344">
+        <g id="Graphic_346">
+          <rect x="1382.0125" y="382.442" width="55.124405" height="4" fill="#ccc"/>
+          <rect x="1382.0125" y="382.442" width="55.124405" height="4" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_345">
+          <rect x="1382.0125" y="391.442" width="71.721" height="4" fill="#999"/>
+          <rect x="1382.0125" y="391.442" width="71.721" height="4" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Group_341">
+        <g id="Graphic_343">
+          <title>Person</title>
+          <path d="M 1316.1668 407.212 C 1320.5868 407.212 1324.1668 403.632 1324.1668 399.212 C 1324.1668 394.792 1320.5868 391.212 1316.1668 391.212 C 1311.7468 391.212 1308.1668 394.792 1308.1668 399.212 C 1308.1668 403.632 1311.7468 407.212 1316.1668 407.212 Z M 1316.1668 411.212 C 1310.8268 411.212 1300.1668 413.892 1300.1668 419.212 L 1300.1668 423.212 L 1332.1668 423.212 L 1332.1668 419.212 C 1332.1668 413.892 1321.5068 411.212 1316.1668 411.212 Z" fill="#999"/>
+        </g>
+        <g id="Graphic_342">
+          <rect x="1289.9168" y="380.962" width="52.5" height="52.5" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Group_359">
+        <g id="Graphic_353">
+          <rect x="1306.7928" y="417.288" width="52.5" height="52.5" fill="white"/>
+          <rect x="1306.7928" y="417.288" width="52.5" height="52.5" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_350">
+          <title>business</title>
+          <rect x="1306.7928" y="417.288" width="52.5" height="52.5" fill="white"/>
+          <text transform="translate(1306.7928 428.538)" fill="#a5a5a5">
+            <tspan font-family="Material Icons" font-size="30" fill="#a5a5a5" x="11.25" y="30" xml:space="preserve"></tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_358">
+        <g id="Graphic_355">
+          <rect x="1333.4895" y="444.192" width="52.5" height="52.5" fill="white"/>
+          <rect x="1333.4895" y="444.192" width="52.5" height="52.5" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_351">
+          <title>directions_boat</title>
+          <text transform="translate(1331.0125 455.442)" fill="#a5a5a5">
+            <tspan font-family="Material Icons" font-size="30" fill="#a5a5a5" x="13.727" y="30" xml:space="preserve"></tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

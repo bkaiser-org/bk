@@ -1,0 +1,51 @@
+import { DeepPartial, DeepRequired } from 'ngx-vest-forms';
+
+export type PersonNewFormModel = DeepPartial<{
+  firstName: string,
+  lastName: string,
+  gender: number,
+  dateOfBirth: string,
+  dateOfDeath: string,
+  countryCode: string,
+  street: string,
+  zipCode: string,
+  city: string,
+  phone: string,
+  email: string,
+  ssn: string,
+  notes: string,
+  tags: string,
+  modelType: number,
+  orgId: string,
+  dateOfEntry: string,
+  dateOfExit: string,
+  memberCategory: number,
+  function: string,
+  abbreviation: string,
+  nickName: string
+}>;
+
+export const personNewFormModelShape: DeepRequired<PersonNewFormModel> = {
+  firstName: '',
+  lastName: '',
+  gender: -1,
+  dateOfBirth: '',
+  dateOfDeath: '',
+  countryCode: '',
+  street: '',
+  zipCode: '',
+  city: '',
+  phone: '',
+  email: '',
+  ssn: '',
+  notes: '',
+  tags: '',
+  modelType: -1,
+  orgId: '',
+  dateOfEntry: '',
+  dateOfExit: '',
+  memberCategory: -1,
+  function: '',
+  abbreviation: '',
+  nickName: ''
+};

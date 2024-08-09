@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="108.96875 166.99072 60 60.5" width="60" height="60.5">
+  <defs/>
+  <g id="Canvas_1" fill="none" stroke-dasharray="none" fill-opacity="1" stroke="none" stroke-opacity="1">
+    <title>Canvas 1</title>
+    <g id="Canvas_1_Layer_1">
+      <title>Layer 1</title>
+      <g id="Group_21">
+        <g id="Graphic_23">
+          <path d="M 138.96875 226.99072 C 122.67649 226.99072 109.46875 213.78298 109.46875 197.49072 C 109.46875 181.19846 122.67649 167.99072 138.96875 167.99072 C 155.26101 167.99072 168.46875 181.19846 168.46875 197.49072 C 168.46875 213.78298 155.26101 226.99072 138.96875 226.99072 Z" fill="#c2d9e4"/>
+        </g>
+        <g id="Graphic_22">
+          <path d="M 138.96875 226.99072 C 122.67649 226.99072 109.46875 213.78298 109.46875 197.49072 C 109.46875 181.19846 122.67649 167.99072 138.96875 167.99072 C 155.26101 167.99072 168.46875 181.19846 168.46875 197.49072 C 168.46875 213.78298 155.26101 226.99072 138.96875 226.99072 Z" fill="black" fill-opacity="0"/>
+          <path d="M 138.96875 226.99072 C 122.67649 226.99072 109.46875 213.78298 109.46875 197.49072 C 109.46875 181.19846 122.67649 167.99072 138.96875 167.99072 C 155.26101 167.99072 168.46875 181.19846 168.46875 197.49072 C 168.46875 213.78298 155.26101 226.99072 138.96875 226.99072 Z" stroke="#073347" stroke-linecap="butt" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="Graphic_31">
+        <text transform="translate(117.42578 171.99072)" fill="#00297e">
+          <tspan font-family="VAGRounded" font-weight="bold" font-size="41" fill="#00297e" x="0" y="40" xml:space="preserve">bk</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>
