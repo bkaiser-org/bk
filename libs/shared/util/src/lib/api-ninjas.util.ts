@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom, Observable, of } from 'rxjs';
-import { ApiNinjaToken, ApiNinjaBaseUrl } from '@bk/env';
 
 /**
  * Helper functions to access APIs on api-ninjas.com.
@@ -23,14 +22,15 @@ export interface RandomUser {
   // add additionally supported types here to make them usable in the funcitons below
 export type ApiNinjaType = RandomUser | WhoIsInfo;
 
-export async function getRandomUser(http: HttpClient): Promise<RandomUser | null> {
+// this is called by a cloud function, the cloud function needs to read the token from a secret
+export async function getRandomUser(http: HttpClient, apiNinjaBaseUrl: string, apiNinjaToken: string): Promise<RandomUser | null> {
   const httpOptions = {
     headers: new HttpHeaders({
-      'X-Api-Key': ApiNinjaToken
+      'X-Api-Key': apiNinjaToken
     })
   }
   try {
-      const _user = await firstValueFrom(http.get<RandomUser>(new URL('v1/randomuser', ApiNinjaBaseUrl).toString(), httpOptions));
+      const _user = await firstValueFrom(http.get<RandomUser>(new URL('v1/randomuser', apiNinjaBaseUrl).toString(), httpOptions));
       _user.selected = false;
       return _user;
   }
@@ -54,16 +54,17 @@ export interface WhoIsInfo {
   dnssec: string
 }
 
-export function getWhoIsInfo(http: HttpClient, domain: string): Observable<WhoIsInfo[]> {
+// this is called by a cloud function, the cloud function needs to read the token from a secret
+export function getWhoIsInfo(http: HttpClient, domain: string, apiNinjaBaseUrl: string, apiNinjaToken: string): Observable<WhoIsInfo[]> {
   const httpOptions = {
     headers: new HttpHeaders({
-      'X-Api-Key': ApiNinjaToken
+      'X-Api-Key': apiNinjaToken
     })
   }
   //     params: new HttpParams().set('domain', domain)
   try {
-    console.log('calling ' + new URL('v1/whois?domain=' + domain, ApiNinjaBaseUrl).toString() + ' with options:', httpOptions);
-    return http.get<WhoIsInfo[]>(new URL('v1/whois?domain=' + domain, ApiNinjaBaseUrl).toString(), httpOptions);
+    console.log('calling ' + new URL('v1/whois?domain=' + domain, apiNinjaBaseUrl).toString() + ' with options:', httpOptions);
+    return http.get<WhoIsInfo[]>(new URL('v1/whois?domain=' + domain, apiNinjaBaseUrl).toString(), httpOptions);
   }
   catch(_ex) {
     console.error('ApiNinjaUtil.getWhoIsInfo: ', _ex);
