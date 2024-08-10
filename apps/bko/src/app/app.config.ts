@@ -18,6 +18,10 @@ import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "firebase/app-ch
 
 const app = initializeApp(environment.firebase);
 
+if (environment.production === false) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (<any>window).FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+} 
 // Create a ReCaptchaEnterpriseProvider instance using the reCAPTCHA Enterprise
 // site key and pass it to initializeAppCheck().
 initializeAppCheck(app, {

@@ -8,16 +8,7 @@
       "login": "Anmelden",
       "logout": "Abmelden",
       "news": {
-        "title": "Neuigkeiten",
-        "clubRegatta": "Club Regatta",
-        "scsWebsite": "Website Seeclub Stäfa",
-        "scsTwitter": "Twitter @staefarowing",
-        "scsInstagram": "Instagram Seeclub Stäfa",
-        "stuerbord": "Stüürbord Archiv",
-        "srvWebsite": "Website SRV",
-        "srvTwitter": "Twitter @swissrowing",
-        "srvMagazin": "SRV Magazin",
-        "srvNews": "SRV Newsletter"
+        "title": "Neuigkeiten"
       },
       "gallery": {
         "personal": "Persönliches Album",
@@ -609,7 +600,7 @@
     "gravatarEmail": {
       "label": "Gravatar E-Mail",
       "placeholder": "E-Mail Adresse für Gravatar",
-      "helper": "Die E-Mail Adresse, die für den Gravatar verwendet wird (globally recognized avatar auf gravatar.com). Wenn du deinen Gravatar angibst, wird dieser anstelle eines hochgeladenen Bildes im Avatar der Seeclub App verwendet."
+      "helper": "Die E-Mail Adresse, die für den Gravatar verwendet wird (globally recognized avatar auf gravatar.com). Wenn du deinen Gravatar angibst, wird dieser anstelle eines hochgeladenen Bildes im Avatar der App verwendet."
     },
     "height": {
       "label": "Höhe",
@@ -1467,8 +1458,8 @@
           "email": {
             "label": "E-Mail senden",
             "description": "Eine E-Mail Nachricht an diese Adresse senden.",
-            "subjectPlaceholder": "SCS: Information",
-            "bodyPlaceholder": "Liebe Grüsse,\nSeeclub Stäfa"
+            "subjectPlaceholder": "Information",
+            "bodyPlaceholder": "Liebe Grüsse,\bkaiser.org"
           }
         },
         "browse": {
@@ -1510,7 +1501,7 @@
         },
         "web": {
           "label": "Website",
-          "placeholder": "z.B. https://www.seeclub-staefa.ch",
+          "placeholder": "z.B. https://www.bkaiser.org",
           "description": "Web Adresse (URL)"  
         },
         "twitter": {
@@ -1940,8 +1931,8 @@
   },
   "cms": {
     "welcome": {
-      "title": "Seeclub Stäfa",
-      "subTitle": "Rudern auf dem Zürichsee",
+      "title": "bkaiser.org",
+      "subTitle": "Open Source Software",
       "help": "Dies ist die Startseite. Klicke oben links aufs Menü und wähle eine Funktion."    
     },
     "boatinfo": {
@@ -2019,14 +2010,14 @@
       },
       "editor": {
           "title": "Redaktion und Inhalts-Bewirtschaftung",
-          "description": "Barbara Kaiser, Bruno Kaiser, Nadia Hungerbühler und weitere Mitglieder des Seeclub Stäfa in Spezialfunktionen."
+          "description": "Mitglieder der bkaiser.org"
       },
       "coding": {
           "title": "Programmierung"
       },
       "photograph": {
           "title": "Fotografen",
-          "description": "Bruno Kaiser, Andi Hartmann, Benjamin Soland und weitere Mitglieder vom Seeclub Stäfa."
+          "description": "Mitglieder der bkaiser.org."
       },
       "help": {
           "title": "Hilfe-Videos"
@@ -2372,7 +2363,7 @@
         "title": "Titel",
         "subTitle": "Untertitel",
         "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id diam augue. Donec augue ante, pellentesque eu libero ut, auctor ullamcorper tellus. Praesent nulla massa, fermentum ut sem non, consequat consequat est. Maecenas sit amet ipsum venenatis nibh vestibulum facilisis non at justo. Vestibulum posuere non tellus finibus volutpat. Suspendisse sit amet lacus nibh. Nullam quis velit et ligula commodo cursus. Vivamus malesuada ante justo, quis convallis justo interdum in. Etiam vulputate purus dolor. Ut eu ex pellentesque purus scelerisque lacinia. Fusce et magna eget enim dictum tempus non in elit. Sed malesuada massa a sapien lobortis malesuada. Mauris et risus eget tellus semper pretium. Phasellus tempor id elit sed cursus. Aliquam iaculis facilisis dapibus.</p>",
-        "url": "https://seeclub.imgix.net/app_v6/app/banner2.png",
+        "url": "https://bk.imgix.net/app_v6/app/banner.png",
         "none": "Kein Inhalt.",
         "type": "Sektions-Art"
       },
@@ -3144,7 +3135,7 @@
       },
       "membership": {
         "label": "Mitgliedschaft",
-        "description": "Mitglied einer Organisation, zB. SeeclubMitglied oder Altherren"
+        "description": "Mitglied einer Organisation"
       },
       "ownershipTransfer": {
         "label": "Eigentumsübertragung",
@@ -3237,48 +3228,6 @@
         "description": "Passiv Mitglied"
       }
     },
-    "scsType": {
-      "A1": {
-        "label": "Aktive 1",
-        "abbreviation": "A1",
-        "description": "Statuten Art. 2.2: Aktivmitglieder haben mindestens im Vorjahr das 18. Lebensjahr erreicht. Sie geniessen die vollen Rechte des SCS und sind in seine Organe wählbar."
-      },
-      "A2": {
-        "label": "Aktive 2",
-        "abbreviation": "A2",
-        "description": "Statuten Art. 2.3: Mitglieder, die mindestens 30 Jahre Aktive 1 waren, werden auf Wunsch in die Kategorie Aktive 2 eingeteilt. Bei Krankheit, Wegzug oder anderen triftigen Gründen kann der Vorstand eine Umteilung zu den Aktiven 2 auch vor Ablauf der erwähnten 30 Jahre beschliessen. Aktive 2 geniessen die gleichen Rechte wie Aktive 1, bezahlen jedoch einen reduzierten Betrag."
-      },
-      "A3": {
-        "label": "Aktive 3",
-        "abbreviation": "A3",
-        "description": "Statuten Art. 2.4: Aktivmitglieder, die das 65. Alterjahr erreicht haben, werden im darauf folgenden Vereinsjahr auf Wunsch zu den Aktiven 3 umgeteilt. Sie geniessen die gleichen Rechte wie Aktive 2, bezahlen jedoch einen weiter reduzierten Betrag."
-      },
-      "J": {
-        "label": "Junioren",
-        "abbreviation": "J",
-        "description": "Statuten Art. 2.5: Junioren müssen im Vorjahr das 10. Lebensjahr erreicht haben und bleiben in dieser Kategorie bis und mit dem Jahr, in dem sie das 18. Lebensjahr erreichen. Junioren haben an den Versammlungen des SCS eine beratende Stimme, können aber nicht an Wahlen oder Abstimmungen teilnehmen und sind nicht in Organe wählbar."
-      },
-      "F": {
-        "label": "Freimitglieder",
-        "abbreviation": "F",
-        "description": "Mitglieder mit reduziertem Beitrag. Diese Kategorie stammt noch aus früheren Zeiten. Sie ist in den Statuten nicht mehr enthalten und kann nicht mehr neu vergeben werden."
-      },
-      "E": {
-        "label": "Ehrenmitglieder",
-        "abbreviation": "E",
-        "description": "Personen, die sich um den SCS ganz besonders verdient gemacht haben, können an der Generalversammlung auf Antrag des Vorstandes zu Ehrenmitgliedern ernannt werden. Ehrenmitglieder geniessen die vollen Rechte des SCS und sind in seine Organe wählbar. Sie sind von der Bezahlung des Clubbeitrages befreit."
-      },
-      "kandidaten": {
-        "label": "Kandidaten",
-        "abbreviation": "K",
-        "description": "Statuten Art. 2.6: Ruderunkundige Personen werden bis maximal Ende Jahr als Kandidaten aufgenommen. Nach dieser Frist werden sie als Aktive 1 bzw. als Junioren aufgenommen oder sie verlieren die Berechtigung, die Anlagen und Boote des SCS zu benutzen. Kandidaten haben an den Versammlungen des SCS eine beratende Stimme; sie können aber nicht an Wahlen und Abstimmungen teilnehmen und sind nicht in Organe wählbar. Neumitglieder, die bereits einmal in einem anderen Ruderclub aktiv waren, werden direkt als Aktive 1 bzw. als Junioren aufgenommen."
-      },
-      "passiv": {
-        "label": "Passivmitglieder",
-        "abbreviation": "P",
-        "description": "Statuten Art. 2.8: Dem Rudersport verbundene Personen oder Firmen können dem SCS als Passivmitglieder beitreten. Passivmitglieder können an gesellschaftlichen Anlässen teilnehmen und erhalten die Clubzeitung zugestellt."
-      }
-    },
     "state": {
       "applied": {
         "label": "Angemeldet",
@@ -3299,7 +3248,6 @@
     "plural": "Mitglieder",
     "operation": {
       "create": {
-        "SCS": "Neues Seeclub Mitglied erfassen",
         "label": "Neues Mitglied erfassen"
       }
     }
@@ -3640,7 +3588,6 @@
         "deleted": "Person gelöscht"
       },
       "membership": {
-        "scsCreated": "SCS Mitgliedschaft erstellt",
         "created": "Mitgliedschaft erstellt",
         "changed": "Mitgliedschaft geändert",
         "deleted": "Mitgliedschaft beendet"
@@ -3879,7 +3826,7 @@
     "operation": {
       "login": {
         "title": "Anmelden",
-        "confirmation": "Willkommen im Mitgliederbereich des Seeclub Stäfa !",
+        "confirmation": "Willkommen im Mitgliederbereich !",
         "error": "Die Anmeldung war nicht erfolgreich. Bitte prüfe die E-Mail Adresse und das Passwort und versuche es nochmals.",
         "note": "Falls du noch kein Passwort hast oder dieses nicht kennst, kannst du unten auf den Button 'Passwort zurücksetzen' klicken und ein neues Passwort setzen."
       },
@@ -3887,7 +3834,7 @@
         "title": "Passwort zurücksetzen...",
         "confirmation": "Ein E-Mail mit Instruktionen zum zurücksetzen des Passworts wurde an die folgende E-Mail Adresse verschickt: ",
         "error": "Das Zurücksetzen des Passworts war nicht erfolgreich",
-        "note": "Es wird dir eine Email auf die angegebene Email-Adresse geschickt mit Instruktionen, wie du dein Passwort neu setzen oder ändern kannst. Die Email-Adresse muss deiner Login ID entsprechen. Normalerweise ist es die Email-Adresse, unter der du die Informationen vom Seeclub erhälst."
+        "note": "Es wird dir eine Email auf die angegebene Email-Adresse geschickt mit Instruktionen, wie du dein Passwort neu setzen oder ändern kannst. Die Email-Adresse muss deiner Login ID entsprechen. Normalerweise ist es die Email-Adresse, unter der du die Informationen erhälst."
       },
       "logout": {
         "label": "Abmelden",
@@ -4389,53 +4336,6 @@
           "title": "Orte"
         }
       },
-      "member": {
-        "scs": {
-          "all": {
-            "title": "SCS-Mitglieder",
-            "categoryLabel": "Kategorie"
-          },
-          "active": {
-            "title": "SCS Aktive",
-            "categoryLabel": "Kategorie"
-          }, 
-          "passive": {
-            "title": "SCS Passive"
-          }, 
-          "alumni": {
-            "title": "SCS Ehemalige"
-          }, 
-          "deceased": {
-            "title": "SCS Verstorbene"
-          }, 
-          "entries": {
-            "title": "SCS Eintritte",
-            "yearLabel": "Eintritts-Jahr"
-          }, 
-          "exits": {
-            "title": "SCS Austritte",
-            "yearLabel": "Austritts-Jahr"
-          }, 
-          "men": {
-            "title": "SCS Männer",
-            "categoryLabel": "Kategorie"
-          }, 
-          "women": {
-            "title": "SCS Frauen",
-            "categoryLabel": "Kategorie"
-          },
-          "contacts": {
-            "title": "SCS Kontakte",
-            "categoryLabel": "Kategorie"
-          }
-        },
-        "srv": {
-          "all": {
-            "title": "SRV-Mitglieder",
-            "categoryLabel": "Kategorie"
-          }  
-        }
-      },
       "menuItem": {
         "all": {
           "title": "Menüpunkte",
@@ -4724,9 +4624,6 @@
     "relSubTypeOwnership": "SubType einer Ownership muss undefined sein.",
     "memberObjTypeOrgGroup": "Der ObjectType eines Mitglieds muss Org oder Group sein.",
     "memberObjCatOrgType": "Die ObjectCategory eines Mitglieds muss OrgType sein.",
-    "memberScsSubType": "Der SubType eines SCS-Mitglieds muss SCSMemberType sein.",
-    "memberNonScsSubType": "Der SubType eines Nicht-SCS-Mitglieds muss MemberType sein.",
-    "memberScsPassiveState": "Der State eines passiven SCS-Mitglieds muss MembershipState.Passive.",
     "resSubjCatGroup": "Die SubjectCategory einer Reservation muss Group sein.",
     "resourceModelType": "Der ModelType muss Boat oder Resourc sein.",
     "boatSubType": "Der SubType eines Bootes muss BoatType sein.",

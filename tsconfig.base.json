@@ -22,6 +22,7 @@
       "@bk/birthday": ["libs/bom/birthday/src/index.ts"],
       "@bk/categories": ["libs/shared/categories/src/index.ts"],
       "@bk/chat": ["libs/bom/chat/src/index.ts"],
+      "@bk/cms": ["libs/cms/src/index.ts"],
       "@bk/competition-level": ["libs/bom/competition-level/src/index.ts"],
       "@bk/content": ["libs/bom/content/src/index.ts"],
       "@bk/core": ["libs/shared/core/src/index.ts"],

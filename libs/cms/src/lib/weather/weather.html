@@ -1,0 +1,569 @@
+<bk-header title="{{ '@cms.weather.title' | translate | async }}" />
+<ion-content>
+    <ion-grid class="ion-hide-sm-down">
+        <ion-row>
+            <ion-col size="6">
+                <ion-card>
+                    <ion-card-header class="center">
+                        <ion-card-title>{{ '@cms.weather.sun.title' | translate | async }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <ion-icon class="sun" name="sunny-outline"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.sunrise }}</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.sun.sunrise' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.sunset }}</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.sun.sunset' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <small>{{ '@cms.weather.sun.desc' | translate | async }}</small>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card>
+                    <ion-card-header class="center">
+                        <ion-card-title>{{ '@cms.weather.wind.title' | translate | async }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <ion-icon class="wind" name="shuffle-outline"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.windSpeed | number: '1.0-0'}}</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.wind.speed' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.windDir }}</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.wind.dir' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <small>{{ '@cms.weather.wind.desc' | translate | async }} {{ currentTime }}</small>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-card>
+                    <ion-card-header class="center">
+                        <ion-card-title>{{ '@cms.weather.temperature.title' | translate | async }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <ion-icon class="temp" name="thermometer-outline"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.tempAir | number: '1.0-0'}}</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.temperature.air' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.tempFelt | number: '1.0-0' }}</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.temperature.felt' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <small>{{ '@cms.weather.temperature.desc' | translate | async }} {{ currentTime }}</small>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card>
+                    <ion-card-header class="center">
+                        <ion-card-title>{{ '@cms.weather.precipitation.title' | translate | async }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <ion-icon class="precip" name="rainy-outline"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.rain1 | number: '1.0-0'}}</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.precipitation.hour' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.clouds }}</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.precipitation.clouds' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <small>{{ '@cms.weather.precipitation.desc' | translate | async }}</small>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header class="center">
+                        <ion-card-title>{{ '@cms.weather.overview.title' | translate | async }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-item lines="none">
+                          @if(meteoData && meteoData.forecast; as forecast) {
+                            <ion-grid>
+                              <ion-row>
+                                  <ion-col size="2"></ion-col>
+                                  <ion-col size="2" class="center">
+                                      <ion-label><small>{{ '@' + forecast[0].weekday | translate | async }}</small></ion-label>
+                                      <ion-label><small>{{ forecast[0].date | prettyDate }}</small></ion-label>
+                                  </ion-col>
+                                  <ion-col size="2" class="center">
+                                      <ion-label><small>{{ '@' + forecast[1].weekday | translate | async }}</small></ion-label>
+                                      <ion-label><small>{{ forecast[1].date | prettyDate }}</small></ion-label>
+                                  </ion-col>
+                                  <ion-col size="2" class="center">
+                                      <ion-label><small>{{ '@' + forecast[2].weekday | translate | async }}</small></ion-label>
+                                      <ion-label><small>{{ forecast[2].date | prettyDate }}</small></ion-label>
+                                  </ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">
+                                      <ion-label><small>{{ '@' + forecast[3].weekday | translate | async }}</small></ion-label>
+                                      <ion-label><small>{{ forecast[3].date | prettyDate }}</small></ion-label>
+                                  </ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">
+                                      <ion-label><small>{{ '@' + forecast[4].weekday | translate | async }}</small></ion-label>
+                                      <ion-label><small>{{ forecast[4].date | prettyDate }}</small></ion-label>
+                                  </ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="2"></ion-col>
+                                  <ion-col size="2" class="center">
+                                      <ion-icon src="{{ forecast[0].weatherCondition | weatherIcon }}" size="large"></ion-icon>
+                                  </ion-col>
+                                  <ion-col size="2" class="center">
+                                      <ion-icon src="{{ forecast[1].weatherCondition | weatherIcon }}" size="large"></ion-icon>
+                                  </ion-col>
+                                  <ion-col size="2" class="center">
+                                      <ion-icon src="{{ forecast[2].weatherCondition | weatherIcon }}" size="large"></ion-icon>
+                                  </ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">
+                                      <ion-icon src="{{ forecast[3].weatherCondition | weatherIcon }}" size="large"></ion-icon>
+                                  </ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">
+                                      <ion-icon src="{{ forecast[4].weatherCondition | weatherIcon }}" size="large"></ion-icon>
+                                  </ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="2"><small>{{ '@cms.weather.temperature.title' | translate | async }} [C]</small></ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[0].tempMin | round }} - {{ forecast[0].tempMax | round }}</ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[1].tempMin | round}} - {{ forecast[1].tempMax  | round}}</ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[2].tempMin | round}} - {{ forecast[2].tempMax  | round}}</ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">{{ forecast[3].tempMin | round}} - {{ forecast[3].tempMax  | round}}</ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">{{ forecast[4].tempMin | round}} - {{ forecast[4].tempMax  | round}}</ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="2"><small>{{ '@cms.weather.wind.title' | translate | async }} [km/h]</small></ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[0].windSpeed * 3.6 | round}}, {{ forecast[0].windDir }}</ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[1].windSpeed * 3.6 | round}}, {{ forecast[1].windDir }}</ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[2].windSpeed * 3.6 | round}}, {{ forecast[2].windDir }}</ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">{{ forecast[3].windSpeed * 3.6 | round}}, {{ forecast[3].windDir }}</ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">{{ forecast[4].windSpeed * 3.6 | round}}, {{ forecast[4].windDir }}</ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="2"><small>{{ '@cms.weather.sun.title' | translate | async }}</small></ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[0].sunrise}} - {{ forecast[0].sunset}}</ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[1].sunrise}} - {{ forecast[1].sunset}}</ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[2].sunrise}} - {{ forecast[2].sunset}}</ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">{{ forecast[3].sunrise}} - {{ forecast[3].sunset}}</ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">{{ forecast[4].sunrise}} - {{ forecast[4].sunset}}</ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="2"><small>{{ '@cms.weather.cloudyness.title' | translate | async}}</small></ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[0].clouds }}%</ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[1].clouds }}%</ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[2].clouds }}%</ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">{{ forecast[3].clouds }}%</ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">{{ forecast[4].clouds }}%</ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="2"><small>{{ '@cms.weather.precipitation.label' | translate | async }}</small></ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[0].pop }}%</ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[1].pop }}%</ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[2].pop }}%</ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">{{ forecast[3].pop }}%</ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">{{ forecast[4].pop }}%</ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="2"><small>{{'@cms.weather.humidity.title' | translate | async}}</small></ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[0].humidity }}%</ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[1].humidity }}%</ion-col>
+                                  <ion-col size="2" class="center">{{ forecast[2].humidity }}%</ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">{{ forecast[3].humidity }}%</ion-col>
+                                  <ion-col size="2" class="center ion-hide-md-down">{{ forecast[4].humidity }}%</ion-col>
+                              </ion-row>
+                          </ion-grid>
+                          }
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-card>
+                <ion-card-header class="center">
+                    <ion-card-title>{{ '@cms.weather.waterTemp.desc' | translate | async}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="center">
+                    <p>Siehe alle Daten der <a href="https://www.tecson-data.ch/zurich/tiefenbrunnen/index.php">{{'@cms.weather.waterTemp.location' | translate | async}}</a>.</p>
+                    <img [src]="getUrl(11)" alt="{{ '@cms.weather.waterTemp.desc' | translate | async}}" />
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header class="center">
+                        <ion-card-title>{{ '@cms.weather.airTemp.desc' | translate | async}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <img [src]="getUrl(0)" alt="{{ '@cms.weather.airTemp.desc' | translate | async}}" />
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ion-hide-sm-up">
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header class="center">
+                        <ion-card-title>{{ '@cms.weather.sun.title' | translate | async }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <ion-icon class="sun" name="sunny-outline"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.sunrise }}</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.sun.sunrise' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.sunset }}</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.sun.sunset' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <small>{{ '@cms.weather.sun.desc' | translate | async }}</small>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header class="center">
+                        <ion-card-title>{{ '@cms.weather.wind.title' | translate | async }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <ion-icon class="wind" name="shuffle-outline"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.windSpeed | number: '1.0-0'}}</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.wind.speed' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.windDir }}</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.wind.dir' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <small>{{ '@cms.weather.wind.desc' | translate | async }} {{ currentTime }}</small>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header class="center">
+                        <ion-card-title>{{ '@cms.weather.temperature.title' | translate | async }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <ion-icon class="temp" name="thermometer-outline"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.tempAir | number: '1.0-0'}} C°</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.temperature.air' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.tempFelt | number: '1.0-0' }} C°</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.temperature.felt' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <small>{{ '@cms.weather.temperature.desc' | translate | async }} {{ currentTime }}</small>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header class="center">
+                        <ion-card-title>{{ '@cms.weather.precipitation.title' | translate | async }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <ion-icon class="precip" name="rainy-outline"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.rain1 | number: '1.0-0'}} mm</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.precipitation.hour' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="6" class="center">
+                                    <ion-item lines="none" style="display: flex" class="center">
+                                        <ion-badge color="light">{{ meteoData?.clouds }} mm</ion-badge>
+                                    </ion-item>
+                                    <ion-item lines="none">
+                                        <ion-label class="center">{{ '@cms.weather.precipitation.clouds' | translate | async }}</ion-label>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="center">
+                                    <small>{{ '@cms.weather.precipitation.desc' | translate | async }}</small>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header class="center">
+                        <ion-card-title>{{ '@cms.weather.overview.title' | translate | async }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-item lines="none">
+                          @if(meteoData && meteoData.forecast; as forecast) {
+                            <ion-grid>
+                              <ion-row>
+                                  <ion-col size="3"></ion-col>
+                                  <ion-col size="3" class="center">
+                                      <ion-label><small>{{ forecast[0].weekday | translate | async }}</small></ion-label>
+                                      <ion-label><small>{{ forecast[0].date | prettyDate }}</small></ion-label>
+                                  </ion-col>
+                                  <ion-col size="3" class="center">
+                                      <ion-label><small>{{ forecast[1].weekday | translate | async }}</small></ion-label>
+                                      <ion-label><small>{{ forecast[1].date | prettyDate }}</small></ion-label>
+                                  </ion-col>
+                                  <ion-col size="3" class="center">
+                                      <ion-label><small>{{ forecast[2].weekday | translate | async }}</small></ion-label>
+                                      <ion-label><small>{{ forecast[2].date | prettyDate }}</small></ion-label>
+                                  </ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="3"></ion-col>
+                                  <ion-col size="3" class="center">
+                                      <ion-icon src="{{ forecast[0].weatherCondition | weatherIcon }}" size="large"></ion-icon>
+                                  </ion-col>
+                                  <ion-col size="3" class="center">
+                                      <ion-icon src="{{ forecast[1].weatherCondition | weatherIcon }}" size="large"></ion-icon>
+                                  </ion-col>
+                                  <ion-col size="3" class="center">
+                                      <ion-icon src="{{ forecast[2].weatherCondition | weatherIcon }}" size="large"></ion-icon>
+                                  </ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="3"><small>Temp.</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[0].tempMin | round}} - {{ forecast[0].tempMax | round }}</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[1].tempMin | round}} - {{ forecast[1].tempMax  | round}}</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[2].tempMin | round}} - {{ forecast[2].tempMax  | round}}</small></ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="3"><small>Wind</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[0].windSpeed * 3.6 | round}}, {{ forecast[0].windDir }}</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[1].windSpeed * 3.6 | round}}, {{ forecast[1].windDir }}</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[2].windSpeed * 3.6 | round}}, {{ forecast[2].windDir }}</small></ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="3"><small>Sonne</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[0].sunrise}} {{ forecast[0].sunset}}</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[1].sunrise}} {{ forecast[1].sunset}}</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[2].sunrise}} {{ forecast[2].sunset}}</small></ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="3"><small>Wolken</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[0].clouds }} %</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[1].clouds }} %</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[2].clouds }} %</small></ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="3"><small>P(Regen)</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[0].pop * 100 }} %</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[1].pop * 100 }} %</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[2].pop * 100 }} %</small></ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col size="3"><small>Feuchte</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[0].humidity }} %</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[1].humidity }} %</small></ion-col>
+                                  <ion-col size="3" class="center"><small>{{ forecast[2].humidity }} %</small></ion-col>
+                              </ion-row>
+                          </ion-grid>
+                          }
+                         </ion-item>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-card>
+                <ion-card-header class="center">
+                    <ion-card-title>{{ '@cms.weather.waterTemp.desc' | translate | async}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="center">
+                    <p>Siehe alle Daten der <a href="https://www.tecson-data.ch/zurich/tiefenbrunnen/index.php">{{ '@cms.weather.waterTemp.location' | translate | async}}</a>.</p>
+                    <img [src]="getUrl(11)" alt="{{ '@cms.weather.waterTemp.desc' | translate | async}}" />
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+        </ion-row>
+                <ion-row>
+            <ion-col>
+                <ion-card>
+                    <ion-card-header class="center">
+                        <ion-card-title>{{ '@cms.weather.airTemp.desc' | translate | async}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content class="center">
+                        <img [src]="getUrl(0)" alt="{{ '@cms.weather.airTemp.desc' | translate | async}}" />
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

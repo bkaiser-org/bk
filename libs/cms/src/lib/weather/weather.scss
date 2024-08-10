@@ -1,0 +1,56 @@
+.sun {
+    font-size: 64px;
+    color: rgb(255, 230, 0);
+    margin: 0 auto;
+  }
+
+  .center, h1 {
+        text-align: center;
+        margin: auto;
+  }
+
+  .temp {
+    font-size: 64px;
+    color: rgb(255, 0, 0);
+    margin: 0 auto;
+  }
+
+  .wind {
+    font-size: 64px;
+    color: rgb(42, 173, 68);
+    margin: 0 auto;
+  }
+
+  .precip {
+    font-size: 64px;
+    color: rgb(0, 76, 255);
+    margin: 0 auto;
+  }
+
+  ion-badge {
+    font-size: 32px;
+    color: darkolivegreen;
+    margin: auto;
+  }
+
+  ion-card {
+    padding: 0;
+  }
+
+  ion-item {
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+    }
+
+    img {
+      width: 100%;
+      height: 600px;
+    }
+
+    .myLocationButton {
+      display: none;
+    }
+
+    .location-widget {
+      display: none;
+    }

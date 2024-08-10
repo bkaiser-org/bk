@@ -1,0 +1,71 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuthenticated() {
+      return request.auth.uid != null;
+    }
+    function isOwnDocument(docId) {
+      return request.auth.uid == docId;
+    }
+    function isSubjectCurrentUser(subjectId) {
+      let _user = get(/databases/{database}/documents/users3/$(request.auth.uid)).data;
+      return _user.subjectKey == subjectId;
+    }
+    function hasRole(role) {
+      return get(/databases/{database}/documents/users3/$(request.auth.uid)).data.roles[role];
+    }
+    function isAdmin() {
+      return isAuthenticated() && hasRole('admin');
+    }
+    function isPrivileged() {
+      return isAuthenticated() && (hasRole('privileged') || hasRole('admin'));
+    }
+
+    // default rule: read access is restricted to authenticated users, write access is restricted to privileged users
+    match /{document=**} {
+      allow read: if isAuthenticated();
+      allow create, update: if isPrivileged();
+      allow delete: if isAdmin();
+    }
+
+    // user can update her own profile information
+    match /subjects2/{docId} {
+      allow update: if isSubjectCurrentUser(docId);
+
+      match /addresses/{address} {
+        allow create, update: if isSubjectCurrentUser(docId);
+      }
+    }
+    match /users3/{docId} {
+      allow update: if isOwnDocument(docId);
+    }
+    // we need to make pages, sections and statistics readable for everyone, in order to serve public content
+    // access to private content is restricted with route guards
+    match /sections2/{document=**} {
+      allow read: if true;
+    }
+    match /pages2/{document=**} {
+      allow read: if true;
+    }
+    match /statistics2/{document=**} {
+      allow read: if true;
+    }
+    match /memberStatistics2/{document=**} {
+      allow read: if true;
+    }
+  }
+}
+
+
+// The above configuration would be more secure, but leads to permission problems for privileged users when updating.
+// That's why we have deployed the following simpler default configuration: 
+// rules_version = '2';
+
+// Allow read/write access on all documents to any user signed in to the application
+// service cloud.firestore {
+//   match /databases/{database}/documents {
+//     match /{document=**} {
+//       allow read, write: if request.auth != null;
+//     }
+//   }
+// }
