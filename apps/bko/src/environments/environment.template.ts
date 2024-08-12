@@ -30,7 +30,7 @@ export const environment = {
     "app_releaseDate": "APP_RELEASE_DATE",
     "app_version": "APP_VERSION",
     "cms_imgix_base_url": "CMS_IMGIX_BASE_URL",
-    "cms_login_url": "/auth/login",
+    "cms_login_url": "/auth/login/bko",
     "cms_logo_url": "CMS_LOGO_URL",
     "cms_notfound_banner_url": "CMS_NOTFOUND_BANNER_URL",
     "cms_osilogo_url": "assets/img/osi_logo.png",

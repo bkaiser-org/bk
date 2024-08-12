@@ -1,5 +1,5 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonRow } from '@ionic/angular/standalone';
-import { BkHeaderComponent } from '@bk/ui';
+import { BkHeaderComponent, BkImgComponent } from '@bk/ui';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { ConfigService } from '@bk/util';
@@ -10,7 +10,7 @@ import { inject, OnInit, Component } from '@angular/core';
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe,
-    BkHeaderComponent, 
+    BkHeaderComponent, BkImgComponent,
     IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonGrid, IonRow, IonCol
   ],
   styles: `
@@ -169,6 +169,7 @@ export class TermsPageComponent implements OnInit {
   public operatorName = ''; 
   public operatorWeb = '';
   public appName = '';
+  public baseImgixUrl = '';
   public appTenant = '';
   public appRepo = '';
   public issueUrl = '';
@@ -178,9 +179,12 @@ export class TermsPageComponent implements OnInit {
     this.operatorName = this.configService.getConfigString('operator_name'); 
     this.operatorWeb = this.configService.getConfigString('operator_web');
     this.appName = this.configService.getConfigString('app_name');
+    this.baseImgixUrl = this.configService.getConfigString('cms_imgix_base_url');
+    console.log(this.baseImgixUrl);
     this.appTenant = this.configService.getConfigString('tenant_name');
     this.appRepo = this.configService.getConfigString('git_org') + '/' + this.configService.getConfigString('git_name');
     this.issueUrl = this.configService.getConfigString('git_issue_url');
-    this.osiLogo = this.configService.getConfigString('cms_osilogo_url');
+    this.osiLogo = this.baseImgixUrl + '/' + this.configService.getConfigString('cms_osilogo_url');
+    console.log(this.osiLogo);
   }
 }

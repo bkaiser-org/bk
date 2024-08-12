@@ -78,7 +78,7 @@ export const appRoutes: Route[] = [
     path: 'auth', 
     children: [
       { path: 'login/:tenant', component: LoginPageComponent },
-      { path: 'login',  redirectTo: '/auth/login/bk', pathMatch: 'full' }, 
+      { path: 'login',  redirectTo: '/auth/login/bko', pathMatch: 'full' }, 
       { path: 'pwdreset/:tenant', component: PasswordResetPageComponent },
       { path: 'pwdreset',  redirectTo: '/auth/pwdreset/bk', pathMatch: 'full' } 
     ]

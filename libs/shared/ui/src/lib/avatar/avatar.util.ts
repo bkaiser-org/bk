@@ -62,30 +62,30 @@ export function getLogoUrlByModel(modelType: ModelType): string {
     case ModelType.Person: 
     case ModelType.Subject:
     case ModelType.MembershipSubject:
-    case ModelType.User: return 'assets/models/person.png';
-    case ModelType.Org: return 'assets/models/org.png';
-    case ModelType.Boat: return 'assets/models/boat.png';
-    case ModelType.Resource: return 'assets/models/tool.png';
-    case ModelType.Group: return 'assets/models/group.png';
-    case ModelType.Event: return 'assets/models/event.png';
+    case ModelType.User: return 'logo/models/person.svg';
+    case ModelType.Org: return 'logo/models/org.svg';
+    case ModelType.Boat: return 'logo/models/boat.svg';
+    case ModelType.Resource: return 'logo/models/tool.svg';
+    case ModelType.Group: return 'logo/models/group.svg';
+    case ModelType.Event: return 'logo/models/event.svg';
     case ModelType.Page:
     case ModelType.Section:
-    case ModelType.Document: return 'assets/models/doc.png';
-    case ModelType.Locker: return 'assets/models/lock.png';
-    case ModelType.HouseKey: return 'assets/models/key.png';
-    case ModelType.Location: return 'assets/models/location.png';
+    case ModelType.Document: return 'logo/models/doc.svg';
+    case ModelType.Locker: return 'logo/models/lock.svg';
+    case ModelType.HouseKey: return 'logo/models/key.svg';
+    case ModelType.Location: return 'logo/models/location.svg';
     case ModelType.Application:
-    case ModelType.Relnote:  return 'assets/models/text.png';
-    case ModelType.Comment: return 'assets/models/chat.png';
+    case ModelType.Relnote:  return 'logo/models/text.svg';
+    case ModelType.Comment: return 'logo/models/chat.svg';
     case ModelType.Menu: 
-    case ModelType.MenuItem: return 'assets/models/menu.png';
-    case ModelType.Task: return 'assets/models/task.png';
-    case ModelType.Trip: return 'assets/models/trip.png';
-    case ModelType.CompetitionLevel: return 'assets/models/competition.png';
-    case ModelType.InvoicePosition:  return 'assets/models/money.png';
-    case ModelType.Address:  return 'assets/models/address.png';
-    case ModelType.Relationship:  return 'assets/models/relationship.png';
-    default:  return 'assets/models/bullet.png';
+    case ModelType.MenuItem: return 'logo/models/menu.svg';
+    case ModelType.Task: return 'logo/models/task.svg';
+    case ModelType.Trip: return 'logo/models/trip.svg';
+    case ModelType.CompetitionLevel: return 'logo/models/competition.svg';
+    case ModelType.InvoicePosition:  return 'logo/models/money.svg';
+    case ModelType.Address:  return 'logo/models/address.svg';
+    case ModelType.Relationship:  return 'logo/models/relationship.svg';
+    default:  return 'logo/models/bullet.svg';
   }
 
 }

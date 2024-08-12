@@ -85,7 +85,7 @@ export class AvatarService {
     const _avatar = await firstValueFrom(this.readAvatar(key));
     if (!_avatar) {
       const _modelType = parseInt(key.split('.')[0]);
-      return getLogoUrlByModel(_modelType);
+      return _baseImgixUrl + '/' + getLogoUrlByModel(_modelType);
     } else {
       return _baseImgixUrl + '/' + getAvatarUrl(_avatar.storagePath, size);
     }

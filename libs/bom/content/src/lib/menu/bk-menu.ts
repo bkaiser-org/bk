@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@bk/auth';
 import { AppNavigationService, isInSplitPane } from '@bk/util';
@@ -6,22 +6,23 @@ import { selectMenuItem } from './menu.util';
 import { IonAccordion, IonAccordionGroup, IonIcon, IonItem, IonItemDivider, IonLabel, IonList, MenuController } from '@ionic/angular/standalone';
 import { AuthorizationService } from '@bk/base';
 import { TranslatePipe } from '@bk/pipes';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { MenuAction } from '@bk/categories';
 import { MenuItemModel } from '@bk/models';
 import { BkSpinnerComponent } from '@bk/ui';
 import { MenuItemService } from './menu-item.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'bk-menu',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, JsonPipe,
     BkSpinnerComponent, BkMenuComponent,
     IonList, IonItem, IonIcon, IonLabel, IonAccordionGroup, IonAccordion, IonItemDivider
   ],
   template: `
-    @if(menuItem$() | async; as menuItem) {
+    @if(menuItem$ | async; as menuItem) {
        @if (authorizationService.hasRole(menuItem.roleNeeded)) {
         @switch(menuItem.category) {
           @case(MA.Navigate) {
@@ -90,9 +91,15 @@ export class BkMenuComponent {
   private menuController = inject(MenuController);
 
   public menuName = input.required<string>();
-  public menuItem$ = computed(() => this.menuItemService.readMenuItem(this.menuName()));
+  public menuItem$!: Observable<MenuItemModel>;
 
   public MA = MenuAction;
+
+  constructor() {
+    effect(async () => {
+      this.menuItem$ = this.menuItemService.readMenuItem(this.menuName());
+    });
+  }
 
   public async select(menuItem: MenuItemModel): Promise<void> {
     this.appNavigationService.resetLinkHistory(menuItem.url);
