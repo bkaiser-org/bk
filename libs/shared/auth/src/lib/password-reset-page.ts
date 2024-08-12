@@ -1,14 +1,13 @@
 /* eslint-disable no-useless-escape */
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { getImgixUrlWithAutoParams, navigateByUrl } from '@bk/util';
+import { getImgixUrlWithAutoParams, navigateByUrl, ConfigService } from '@bk/util';
 import { FormsModule } from '@angular/forms';
 import { IonButton, IonCol, IonContent, IonGrid, IonImg, IonInput, IonItem, IonLabel, IonNote, IonRow } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '@bk/ui';
 import { AuthService } from './auth.service';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
-import { ConfigService } from '@bk/util';
 
 
 @Component({
