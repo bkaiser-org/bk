@@ -87,11 +87,6 @@ import { Router } from '@angular/router';
               </ion-label>
             </ion-col>
           </ion-row>
-          <ion-row class="ion-hide-md-down">
-            <ion-col>
-              <p><small>Photo by <a [href]="authorLink">{{ authorText }}</a></small></p>
-            </ion-col>
-          </ion-row>
         </ion-grid>
       </div>
     </ion-content>
@@ -101,11 +96,10 @@ export class PageNotFoundComponent {
   private router = inject(Router);
   private configService = inject(ConfigService);
 
-  public logoUrl = getImgixUrlWithAutoParams(this.configService.getConfigString('cms_logo_url'));
-  public backgroundImageUrl = getImgixUrlWithAutoParams(this.configService.getConfigString('cms_notfound_banner_url'));
+  public baseImgixUrl = this.configService.getConfigString('cms_imgix_base_url');
+  public logoUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_logo_url'));
+  public backgroundImageUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_welcome_banner_url'));
   public logoAlt = this.configService.getConfigString('tenant_name') + ' Logo';
-  public authorLink = 'https://' + this.configService.getConfigString('operator_web');
-  public authorText = this.configService.getConfigString('dba_name');
   public rootUrl = this.configService.getConfigString('cms_root_url');
 
   public async gotoHome(): Promise<void> {

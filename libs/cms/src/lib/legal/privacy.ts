@@ -105,12 +105,11 @@ import { inject } from '@angular/core';
         </ion-card-header>
         <ion-card-content>
             Der Datenschutzbeauftragte des Betreibers ist:<br />
-            {{dbaName }}<br />
+            {{dpoName }}<br />
             {{operatorName }}<br />
             {{operatorStreet }}<br />
             {{operatorZip }} {{operatorCity }}<br />
-            Tel: {{operatorPhone }}<br />
-            E-Mail: <a href="mailto:{{ dbaEmail }}">{{ dbaEmail }}</a>
+            E-Mail: <a href="mailto:{{ dpoEmail }}">{{ dpoEmail }}</a>
         </ion-card-content>
     </ion-card>
     <ion-card>
@@ -477,7 +476,7 @@ import { inject } from '@angular/core';
             Einf&uuml;hrung neuer Services. F&uuml;r deinen Besuch gilt die jeweils aktuellste Fassung.
             Diese Datenschutzerkl&auml;rung basiert auf Vorlagen von <a href="https://www.datenschutzexperte.de/">
                 www.datenschutzexperte.de</a> und <a href="https://www.peax.ch">peax.ch</a>.<br />
-            Stand dieser Version: {{ dbaVersion }}.
+            Stand dieser Version: {{ dpaVersion }}.
         </ion-card-content>
     </ion-card>
 </ion-content>
@@ -493,9 +492,11 @@ export class PrivacyPageComponent {
   public operatorStreet = this.configService.getConfigString('operator_street');
   public operatorZip = this.configService.getConfigString('operator_zipcode');
   public operatorCity = this.configService.getConfigString('operator_city');
-  public operatorPhone = this.configService.getConfigString('operator_phone');
   public operatorEmail = this.configService.getConfigString('operator_email');
-  public dbaName = this.configService.getConfigString('dba_name');
-  public dbaEmail = this.configService.getConfigString('dba_email');
-  public dbaVersion = this.configService.getConfigString('dba_version');
+  // data protection officer
+  public dpoName = this.configService.getConfigString('dpo_name');
+  public dpoEmail = this.configService.getConfigString('dpo_email');
+
+  // data protection agreement
+  public dpaVersion = this.configService.getConfigString('dpa_version');
 }

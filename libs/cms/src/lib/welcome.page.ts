@@ -108,11 +108,6 @@ import { ConfigService, getImgixUrlWithAutoParams, navigateByUrl } from '@bk/uti
               </ion-label>
             </ion-col>
           </ion-row>
-          <ion-row class="ion-hide-md-down">
-            <ion-col>
-              <p><small>Photo by <a [href]="authorLink">{{ authorText }}</a></small></p>
-            </ion-col>
-          </ion-row>
         </ion-grid>
       </div>
     </ion-content>
@@ -127,8 +122,6 @@ export class BkWelcomePageComponent {
   public logoUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_logo_url'));
   public backgroundImageUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_welcome_banner_url'));
   public logoAlt = this.configService.getConfigString('tenant_name') + ' Logo';
-  public authorLink = 'https://' + this.configService.getConfigString('operator_web');
-  public authorText = this.configService.getConfigString('dba_name');
   public rootUrl = this.configService.getConfigString('cms_root_url');
   public loginUrl = this.configService.getConfigString('cms_login_url');
 
