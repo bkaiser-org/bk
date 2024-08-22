@@ -1,0 +1,11 @@
+{
+  "name": "<%= fb_project_id %>",
+  "short_name": "<%= tenant_id %>",
+  "icons": [{
+      "src": "<%= imgix_baseurl %>/tenant/<%= tenant_id %>/logo/google-touch-icon.png",
+      "sizes": "512x512"
+  }],
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "display": "fullscreen"
+}

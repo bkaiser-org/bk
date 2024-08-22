@@ -1,0 +1,48 @@
+{
+  "name": "bk-nx-plugin",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "tools/bk-nx-plugin/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/tools/bk-nx-plugin",
+        "main": "tools/bk-nx-plugin/src/index.ts",
+        "tsConfig": "tools/bk-nx-plugin/tsconfig.lib.json",
+        "assets": [
+          "tools/bk-nx-plugin/*.md",
+          {
+            "input": "./tools/bk-nx-plugin/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/bk-nx-plugin/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/bk-nx-plugin",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./tools/bk-nx-plugin",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "tools/bk-nx-plugin/jest.config.ts"
+      }
+    }
+  }
+}

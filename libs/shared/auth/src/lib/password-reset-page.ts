@@ -118,8 +118,9 @@ export class PasswordResetPageComponent {
   private authService = inject(AuthService);
   private configService = inject(ConfigService);
 
-  public logoUrl = getImgixUrlWithAutoParams(this.configService.getConfigString('cms_logo_url'));
-  public backgroundImageUrl = getImgixUrlWithAutoParams(this.configService.getConfigString('cms_welcome_banner_url'));
+  public baseImgixUrl = this.configService.getConfigString('cms_imgix_base_url');
+  public logoUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_logo_url'));
+  public backgroundImageUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_welcome_banner_url'));
   public email: string | undefined;
 
   /**

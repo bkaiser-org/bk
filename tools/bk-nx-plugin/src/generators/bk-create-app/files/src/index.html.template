@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title><%= fb_project_id %></title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="<%= imgix_baseurl %>/tenant/<%= tenant_id %>/logo/favicon.svg">
+    <link rel="mask-icon" href="<%= imgix_baseurl %>/tenant/<%= tenant_id %>/logo/mask-icon.svg" color="#000000">
+    <link rel="apple-touch-icon" href="<%= imgix_baseurl %>/tenant/<%= tenant_id %>/logo/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  </head>
+  <body>
+    <bk-root></bk-root>
+  </body>
+</html>

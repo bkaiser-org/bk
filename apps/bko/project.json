@@ -37,7 +37,8 @@
           "flat",
           "rfdc",
           "mime",
-          "file-saver"
+          "file-saver",
+          "fast-deep-equal"
         ], 
         "scripts": [],
         "server": "apps/bko/src/main.server.ts",
@@ -50,7 +51,7 @@
             {
               "type": "initial",
               "maximumWarning": "1mb",
-              "maximumError": "4mb"
+              "maximumError": "6mb"
             },
             {
               "type": "anyComponentStyle",

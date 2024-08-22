@@ -141,9 +141,9 @@ export const fixFunction = async (sig: OpSignature): Promise<void> => {
     const _collName = CollectionNames.Subject + '/' + sig.model.bkey + '/' + CollectionNames.Address;
     const _addresses = await firstValueFrom(listModelsBySingleQuery(getFirestore(), _collName, sig.model.tenant, 'category', AddressChannel.BankAccount, '==', 'name', 'asc')) as AddressModel[];
     if (_addresses?.length > 0) {
-      for (let i = 0; i < _addresses.length; i++) {
-        console.log(sig.model.bkey, sig.model.firstName + ' ' + sig.model.name, _addresses[i].name);
-        sig.logInfo.push(getLogInfo(sig.model.bkey, sig.model.firstName + ' ' + sig.model.name, _addresses[i].name));
+      for (const element of _addresses) {
+        console.log(sig.model.bkey, sig.model.firstName + ' ' + sig.model.name, element.name);
+        sig.logInfo.push(getLogInfo(sig.model.bkey, sig.model.firstName + ' ' + sig.model.name, element.name));
       }
     }
   }

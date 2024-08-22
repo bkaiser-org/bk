@@ -1,13 +1,12 @@
 import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { getImgixUrlWithAutoParams, navigateByUrl } from '@bk/util';
+import { getImgixUrlWithAutoParams, navigateByUrl, ConfigService } from '@bk/util';
 import { FormsModule } from '@angular/forms';
 import { IonButton, IonCol, IonContent, IonGrid, IonImg, IonInput, IonItem, IonLabel, IonNote, IonRow } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '@bk/ui';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { AuthService } from './auth.service';
-import { ConfigService } from '@bk/util';
 
 @Component({
   selector: 'bk-login-page',
@@ -146,8 +145,9 @@ export class LoginPageComponent {
   private authService = inject(AuthService);
   private configService = inject(ConfigService);
 
-  public logoUrl = getImgixUrlWithAutoParams(this.configService.getConfigString('cms_logo_url'));
-  public backgroundImageUrl = getImgixUrlWithAutoParams(this.configService.getConfigString('cms_welcome_banner_url'));
+  public baseImgixUrl = this.configService.getConfigString('cms_imgix_base_url');
+  public logoUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_logo_url'));
+  public backgroundImageUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_welcome_banner_url'));
   public email = '';
   public password = '';
   protected isContentLoaded = false;

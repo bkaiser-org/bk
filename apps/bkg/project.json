@@ -17,31 +17,52 @@
         "tsConfig": "apps/bkg/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
+          "apps/bkg/src/assets",
           {
-            "glob": "**/*",
-            "input": "apps/bkg/public"
+            "glob": "**/*.svg",
+            "input": "node_modules/ionicons/dist/ionicons/svg",
+            "output": "./svg"
           }
         ],
-        "styles": ["apps/bkg/src/styles.scss"],
+        "styles": [
+          "apps/bkg/src/styles.scss",
+          {
+            "input": "apps/bkg/src/theme/variables.scss"
+          }
+        ],
+        "allowedCommonJsDependencies": [
+          "countries-list",
+          "i18n-iso-countries",
+          "crypto-js",
+          "flat",
+          "rfdc",
+          "mime",
+          "file-saver",
+          "fast-deep-equal"
+        ],
         "scripts": [],
         "server": "apps/bkg/src/main.server.ts",
-        "prerender": true,
-        "ssr": {
-          "entry": "apps/bkg/server.ts"
-        }
+        "prerender": false,
+        "ssr": false
       },
       "configurations": {
         "production": {
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "1mb",
+              "maximumError": "6mb"
             },
             {
               "type": "anyComponentStyle",
               "maximumWarning": "2kb",
               "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "./apps/bkg/src/environments/environment.ts",
+              "with": "./apps/bkg/src/environments/environment.prod.ts"
             }
           ],
           "outputHashing": "all"

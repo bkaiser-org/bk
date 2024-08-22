@@ -20,6 +20,7 @@
       "@bk/auth": ["libs/shared/auth/src/index.ts"],
       "@bk/base": ["libs/bom/base/src/index.ts"],
       "@bk/birthday": ["libs/bom/birthday/src/index.ts"],
+      "@bk/bk-nx-plugin": ["tools/bk-nx-plugin/src/index.ts"],
       "@bk/categories": ["libs/shared/categories/src/index.ts"],
       "@bk/chat": ["libs/bom/chat/src/index.ts"],
       "@bk/cms": ["libs/cms/src/index.ts"],

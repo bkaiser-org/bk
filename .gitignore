@@ -6,11 +6,14 @@
 emulator-storage
 **/firebase.config.ts
 environment.global.ts
+**/bk-config.ts
+**/schema.json
 
 # compiled output
 dist
 tmp
 /out-tsc
+**/data
 
 # dependencies
 **/node_modules

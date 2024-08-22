@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "bk-create-app": {
+      "factory": "./src/generators/bk-create-app/generator",
+      "schema": "./src/generators/bk-create-app/schema.json",
+      "description": "bk-create-app generator"
+    }
+  }
+}

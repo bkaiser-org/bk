@@ -1,0 +1,116 @@
+{
+  "name": "<%= tenant_id %>",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "bk",
+  "sourceRoot": "apps/<%= tenant_id %>/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/<%= tenant_id %>",
+        "index": "apps/<%= tenant_id %>/src/index.html",
+        "browser": "apps/<%= tenant_id %>/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/<%= tenant_id %>/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/<%= tenant_id %>/src/assets",
+          {
+            "glob": "**/*.svg",
+            "input": "node_modules/ionicons/dist/ionicons/svg",
+            "output": "./svg"
+          }
+        ],
+        "styles": [
+          "apps/<%= tenant_id %>/src/styles.scss",
+          {
+            "input": "apps/<%= tenant_id %>/src/theme/variables.scss"
+          }
+        ],
+        "allowedCommonJsDependencies": [
+          "countries-list",
+          "i18n-iso-countries",
+          "crypto-js",
+          "flat",
+          "rfdc",
+          "mime",
+          "file-saver",
+          "fast-deep-equal"
+        ], 
+        "scripts": [],
+        "server": "apps/<%= tenant_id %>/src/main.server.ts",
+        "prerender": false,
+        "ssr": false
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "1mb",
+              "maximumError": "6mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "./apps/<%= tenant_id %>/src/environments/environment.ts",
+              "with": "./apps/<%= tenant_id %>/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "<%= tenant_id %>:build:production"
+        },
+        "development": {
+          "buildTarget": "<%= tenant_id %>:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "<%= tenant_id %>:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/<%= tenant_id %>/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "<%= tenant_id %>:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/<%= tenant_id %>/browser",
+        "spa": true
+      }
+    }
+  }
+}
