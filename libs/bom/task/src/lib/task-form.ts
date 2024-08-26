@@ -9,6 +9,8 @@ import { AsyncPipe } from '@angular/common';
 import { Importances, ListType, ModelType, Priorities, TaskState, TaskStates } from '@bk/categories';
 import { Observable, firstValueFrom } from 'rxjs';
 import { vestForms } from 'ngx-vest-forms';
+import { addIcons } from "ionicons";
+import { search } from "ionicons/icons";
 
 @Component({
   selector: 'bk-task-form',
@@ -123,6 +125,11 @@ export class TaskFormComponent extends AbstractFormComponent implements AfterVie
   protected taskState = TaskState;
   protected taskStates = TaskStates;
   
+  constructor() {
+    super();
+    addIcons({search});
+  }
+
   async ngOnInit() {
     if (this.vm().assignee) {
       this.assignee = await firstValueFrom(this.dataService.readModel(CollectionNames.Person, this.vm().assignee) as Observable<SubjectModel | undefined>); 

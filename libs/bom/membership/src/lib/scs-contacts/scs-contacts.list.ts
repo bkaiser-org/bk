@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FilterType, ListType, ListTypes, getOrgId } from '@bk/categories';
 import { CollectionNames, MembershipTags, bkTranslate, die, uniqueElements } from '@bk/util';
 import { export2excel } from '@bk/core';
-import { BkAvatarLabelComponent, BkCatComponent, BkLabelSelectModalComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
+import { BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
 import { FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { ALL_RELATIONSHIP_FIELDS, MembershipSubjectModel, RelationshipModel, SubjectModel } from '@bk/models';
@@ -12,6 +12,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, combineLatest, map, switchMap } from 'rxjs';
 import { Browser } from '@capacitor/browser';
 import { ScsContactsService } from './scs-contacts.service';
+import { addIcons } from "ionicons";
+import { atOutline, addCircleOutline, callOutline, copyOutline, downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-membership-scs-contacts-list',
@@ -35,7 +37,7 @@ import { ScsContactsService } from './scs-contacts.service';
   standalone: true,
   imports: [
     TranslatePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, 
-    BkYearSelectComponent, BkLabelSelectModalComponent, BkSingleTagComponent,
+    BkYearSelectComponent, BkSingleTagComponent,
     BkAvatarLabelComponent, BkSpinnerComponent, BkSearchbarComponent, BkCatComponent, IonBackdrop,
     IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonIcon,
     IonGrid, IonRow, IonCol, IonLabel, IonContent, IonItem
@@ -150,6 +152,11 @@ export class MembershipScsContactsListComponent extends BaseModelListComponent i
   protected listType = ListType.MemberScsContacts;
   protected collectionName = CollectionNames.Membership;
   protected listRoute = '/membership/scsContacts';
+
+  constructor() {
+    super();
+    addIcons({atOutline, addCircleOutline, callOutline, copyOutline, downloadOutline, arrowUpOutline, arrowDownOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

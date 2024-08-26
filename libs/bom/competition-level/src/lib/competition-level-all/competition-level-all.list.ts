@@ -9,6 +9,8 @@ import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon,
 import { BaseModelListComponent } from '@bk/base';
 import { AsyncPipe } from '@angular/common';
 import { CompetitionLevelAllService } from './competition-level-all.service';
+import { addIcons } from "ionicons";
+import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-competition-level-all-list',
@@ -27,7 +29,9 @@ import { CompetitionLevelAllService } from './competition-level-all.service';
     <ion-title>{{ baseService.filteredItems().length }} {{ '@competitionLevel.plural' | translate | async }}</ion-title>
     <ion-buttons slot="end">
       @if(authorizationService.isPrivilegedOr('memberAdmin')) {
-        <ion-button (click)="export()"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
+        <ion-button (click)="export()">
+          <ion-icon slot="icon-only" name="download-outline" />
+        </ion-button>
       }
     </ion-buttons>
   </ion-toolbar>
@@ -106,6 +110,11 @@ export class CompetitionLevelAllListComponent extends BaseModelListComponent imp
   protected listType = ListType.CompetitionLevelAll;
   protected collectionName = CollectionNames.CompetitionLevel;
   protected listRoute = '/competitionLevel/all';
+
+  constructor() {
+    super();
+    addIcons({downloadOutline, arrowUpOutline, arrowDownOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

@@ -8,6 +8,8 @@ import { BkImgComponent, BkSpinnerComponent } from '@bk/ui';
 import { DocumentService } from '@bk/document';
 import { SectionService } from '../section.service';
 import { newImage } from '../section.util';
+import { addIcons } from "ionicons";
+import { addCircleOutline, closeCircleOutline } from "ionicons/icons";
 
 /**
  * This form lets a user pick an image and define its properties.
@@ -63,6 +65,10 @@ export class SingleImageFormComponent {
   public vm = model.required<SectionFormModel>();
   protected image = computed(() => this.vm().properties?.image ?? newImage());
   public changedProperties = output<SectionProperties>();
+
+  constructor() {
+    addIcons({addCircleOutline, closeCircleOutline});
+  }
 
   // call modal with input form to select an image and add metadata
   protected async addImage() {

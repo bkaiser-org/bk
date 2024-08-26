@@ -3,18 +3,20 @@ import { ALL_RELATIONSHIP_FIELDS, RelationshipModel } from '@bk/models';
 import { BoatTypes, FilterType, ListType, RelationshipStates } from '@bk/categories';
 import { BoatTags, CollectionNames, bkTranslate } from '@bk/util';
 import { export2excel } from '@bk/core';
-import { AvatarPipe, BkAvatarLabelComponent, BkCatComponent, BkLabelSelectModalComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
+import { AvatarPipe, BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
 import { CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar ,IonBackdrop, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonImg } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { PrivateBoatsService } from './private-boats.service';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-ownership-private-boat-list',
   standalone: true,
   imports: [ 
-    BkSearchbarComponent, BkSpinnerComponent,BkLabelSelectModalComponent,
+    BkSearchbarComponent, BkSpinnerComponent,
     BkSingleTagComponent, BkCatComponent, BkAvatarLabelComponent,
     TranslatePipe, CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, AvatarPipe,
     IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton,
@@ -114,6 +116,11 @@ export class OwnershipPrivateBoatsListComponent extends BaseModelListComponent i
   protected listType = ListType.OwnershipPrivateBoats;
   protected collectionName = CollectionNames.Ownership;
   protected listRoute = '/ownership/privateBoats';
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

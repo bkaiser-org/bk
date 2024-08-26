@@ -5,6 +5,8 @@ import { TranslatePipe } from '@bk/pipes';
 import { bkTranslate, decrypt, DESCRIPTION_LENGTH, encrypt } from '@bk/util';
 import { AlertController, IonCol, IonGrid, IonIcon, IonItem, IonRow, IonTextarea } from '@ionic/angular/standalone';
 import { BkCopyButtonComponent } from '../form/bk-copy-button';
+import { addIcons } from "ionicons";
+import { closeOutline, keyOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-notes',
@@ -76,6 +78,10 @@ export class BkNotesComponent {
 
   protected ionTextArea = viewChild<HTMLIonTextareaElement>('bkNotes');
   private password = '';
+
+  constructor() {
+    addIcons({closeOutline, keyOutline});
+  }
 
   public clearValue(): void {
     this.value.update(() => '');

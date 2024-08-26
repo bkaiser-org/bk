@@ -5,6 +5,8 @@ import { AvatarService } from './avatar.service';
 import { ImageViewModalComponent } from '../modals/image-view.modal';
 import { CategoryPlainNamePipe } from '@bk/pipes';
 import { ColorIonic, ColorsIonic } from '@bk/categories';
+import { addIcons } from "ionicons";
+import { camera } from "ionicons/icons";
 
 @Component({
   selector: 'bk-avatar-toolbar',
@@ -53,6 +55,7 @@ export class BkAvatarToolbarComponent {
   protected colorsIonic = ColorsIonic;
 
   constructor() {
+    addIcons({camera});
     effect(async () => {
       this.url = await this.avatarService.getAbsoluteAvatarUrl(this.key());
     });

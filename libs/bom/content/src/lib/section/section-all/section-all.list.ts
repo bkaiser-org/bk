@@ -10,6 +10,8 @@ import { BaseModelListComponent } from '@bk/base';
 import { SectionAllService } from './section-all.service';
 import { createSection } from '../section.util';
 import { Router } from '@angular/router';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, trash } from "ionicons/icons";
 
 @Component({
   selector: 'bk-section-all-list',
@@ -30,7 +32,9 @@ import { Router } from '@angular/router';
       <ion-title>{{ '@content.section.plural' | translate | async }}</ion-title>
       <ion-buttons slot="end">
         @if(authorizationService.isPrivilegedOr('contentAdmin')) {
-          <ion-button (click)="addSection()"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+          <ion-button (click)="addSection()">
+            <ion-icon slot="icon-only" name="add-circle-outline" />
+          </ion-button>
         }
       </ion-buttons>
     </ion-toolbar>
@@ -94,8 +98,12 @@ import { Router } from '@angular/router';
             <ion-label>{{ section.category | categoryName:sectionTypes }}</ion-label>
           </ion-item>
           <ion-item-options side="end">
-            <ion-item-option color="danger" (click)="deleteSection(slidingItem, section)"><ion-icon slot="icon-only" name="trash" /></ion-item-option>
-            <ion-item-option color="primary" (click)="editSection(slidingItem, section.bkey)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+            <ion-item-option color="danger" (click)="deleteSection(slidingItem, section)">
+              <ion-icon slot="icon-only" name="trash" />
+            </ion-item-option>
+            <ion-item-option color="primary" (click)="editSection(slidingItem, section.bkey)">
+              <ion-icon slot="icon-only" name="create-outline" />
+            </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       }
@@ -115,6 +123,11 @@ export class SectionAllListComponent extends BaseModelListComponent implements O
   protected listRoute = '/section/all';
   protected modalController = inject(ModalController);
   protected sectionTypes = SectionTypes;
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, createOutline, trash});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

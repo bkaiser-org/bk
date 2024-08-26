@@ -8,6 +8,8 @@ import { AsyncPipe } from '@angular/common';
 import { ListType, ModelType } from '@bk/categories';
 import { BaseModelListComponent } from '@bk/base';
 import { PageAllService } from './page-all.service';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, trash } from "ionicons/icons";
 
 @Component({
   selector: 'bk-page-all-list',
@@ -107,6 +109,10 @@ export class PageAllListComponent extends BaseModelListComponent implements OnIn
   protected listRoute = '/page/all';
   private alertController = inject(AlertController);
 
+  constructor() {
+    super();
+    addIcons({ addCircleOutline, createOutline, trash});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

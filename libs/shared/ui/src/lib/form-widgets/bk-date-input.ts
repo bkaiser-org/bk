@@ -9,6 +9,8 @@ import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { bkTranslate, convertDateFormatToString, DATE_LENGTH, DateFormat, getTodayStr, InputMode } from '@bk/util';
 import { BkDateSelectModalComponent } from '../modals/date-select.modal';
 import { vestFormsViewProviders } from 'ngx-vest-forms';
+import { addIcons } from "ionicons";
+import { calendarOutline } from "ionicons/icons";
 
  // tbd: solve this based on the locale. Currently, we only support the swiss locale.
  export const chAnyDate = maskitoDateOptionsGenerator({
@@ -83,6 +85,10 @@ export class BkDateInputComponent implements AfterViewInit {
 
   public changed = output<string>();
   public ionInput = viewChild.required<IonInput>('bkDateInput');
+
+  constructor() {
+    addIcons({calendarOutline});
+  }
 
   protected updateDate(storeDate: string) {
     this.storeDate.update(() => storeDate);

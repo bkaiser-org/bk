@@ -2,13 +2,15 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FilterType, ListType, getOrgId } from '@bk/categories';
 import { CollectionNames, MembershipTags, bkTranslate } from '@bk/util';
 import { export2excel } from '@bk/core';
-import { AvatarPipe, BkCatComponent, BkLabelSelectModalComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
+import { AvatarPipe, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
 import { DurationPipe, FullNamePipe, IsSortedPipe, MemberCategoriesPipe, MemberHeaderPipe, MemberValuePipe, SortDirectionPipe, TranslatePipe, YearFormatPipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { ALL_RELATIONSHIP_FIELDS, RelationshipModel } from '@bk/models';
 import { IonAvatar, IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonMenuButton, IonPopover, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { ScsPassiveService } from './scs-passive.service';
+import { addIcons } from "ionicons";
+import { addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-membership-scs-passive-list',
@@ -33,7 +35,7 @@ import { ScsPassiveService } from './scs-passive.service';
   imports: [
     TranslatePipe, FullNamePipe, MemberValuePipe, YearFormatPipe, IsSortedPipe, SortDirectionPipe, MemberHeaderPipe, AsyncPipe,  AvatarPipe,
     MemberCategoriesPipe, DurationPipe,
-    BkYearSelectComponent, BkLabelSelectModalComponent, BkSingleTagComponent,
+    BkYearSelectComponent, BkSingleTagComponent,
     BkSpinnerComponent, BkSearchbarComponent, BkCatComponent, IonBackdrop,
     IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonIcon,
     IonGrid, IonRow, IonCol, IonLabel, IonContent, IonItem, IonPopover, IonImg,
@@ -156,6 +158,11 @@ export class MembershipScsPassiveListComponent extends BaseModelListComponent im
   protected listType = ListType.MemberScsPassive;
   protected collectionName = CollectionNames.Membership;
   protected listRoute = '/membership/scsPassive';
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

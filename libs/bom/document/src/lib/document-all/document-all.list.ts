@@ -9,6 +9,8 @@ import { BaseModelListComponent } from '@bk/base';
 import { IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonProgressBar, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { DocumentAllService } from './document-all.service';
+import { addIcons } from "ionicons";
+import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-document-all-list',
@@ -27,7 +29,9 @@ import { DocumentAllService } from './document-all.service';
     <ion-title>{{ baseService.filteredItems().length }} {{ '@document.plural' | translate | async }}</ion-title>
     <ion-buttons slot="end">
       @if(authorizationService.isPrivilegedOr('contentAdmin')) {
-        <ion-button (click)="export()"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
+        <ion-button (click)="export()">
+          <ion-icon slot="icon-only" name="download-outline" />
+        </ion-button>
       }
     </ion-buttons>
   </ion-toolbar>
@@ -119,6 +123,11 @@ export class DocumentAllListComponent extends BaseModelListComponent implements 
   protected listType = ListType.DocumentAll;
   protected collectionName = CollectionNames.Document;
   protected listRoute = '/document/all';
+
+  constructor() {
+    super();
+    addIcons({downloadOutline, arrowUpOutline, arrowDownOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

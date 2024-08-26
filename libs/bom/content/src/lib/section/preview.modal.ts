@@ -19,6 +19,8 @@ import { BkIframeSectionComponent } from './bk-iframe-section';
 import { BkListSectionComponent } from './bk-list-section';
 import { BkTableSectionComponent } from './bk-table-section';
 import { BkAccordionSectionComponent } from './bk-accordion-section';
+import { addIcons } from "ionicons";
+import { closeOutline } from "ionicons/icons";
 
 @Component( {
   selector: 'bk-preview-modal',
@@ -109,6 +111,10 @@ export class PreviewModalComponent {
   public title = input('Preview');
 
   public ST = SectionType;
+
+  constructor() {
+    addIcons({closeOutline });
+  }
 
   public close(): void {
     this.modalController.dismiss(null, 'cancel');

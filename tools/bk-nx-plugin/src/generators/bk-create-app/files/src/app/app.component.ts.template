@@ -104,7 +104,7 @@ import { ModelType } from '@bk/categories';
     }
     @placeholder (minimum 1000ms) {
       <div class="logo-container">
-        <img class="kenburns-top" src="assets/icon/logo.svg" alt="logo" />
+        <img class="kenburns-top" [src]="logoUrl" alt="logo" />
       </div>
     }
     @loading(after 100ms; minimum 500ms) {
@@ -121,7 +121,8 @@ export class AppComponent {
   private platform = inject(Platform);
   private configService = inject(ConfigService);
 
-    public appVersion = this.configService.getConfigString('app_version');    
+    public appVersion = this.configService.getConfigString('app_version');
+    public logoUrl = this.configService.getConfigString('cms_imgix_base_url') + '/' + this.configService.getConfigString('cms_logo_url');    
     public MT = ModelType;
 
     constructor() {

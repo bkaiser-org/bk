@@ -8,6 +8,8 @@ import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon,
 import { AsyncPipe } from '@angular/common';
 import { BaseModelListComponent } from '@bk/base';
 import { RowingBoatsService } from './rowing-boats/rowing-boats.service';
+import { addIcons } from "ionicons";
+import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-resource-list',
@@ -25,10 +27,14 @@ import { RowingBoatsService } from './rowing-boats/rowing-boats.service';
     <ion-title>{{baseService.filteredItems().length }} {{ baseService.title() | translate | async}}</ion-title>
     <ion-buttons slot="end">
       @if(authorizationService.hasRole('resourceAdmin')) {
-        <ion-button (click)="add()"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+        <ion-button (click)="add()">
+          <ion-icon slot="icon-only" name="add-circle-outline" />
+        </ion-button>
       }
       @if(authorizationService.isPrivilegedOr('resourceAdmin')) {
-        <ion-button (click)="export()"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
+        <ion-button (click)="export()">
+          <ion-icon slot="icon-only" name="download-outline" />
+        </ion-button>
       }
     </ion-buttons>
   </ion-toolbar>
@@ -114,6 +120,11 @@ export class ResourceRowingBoatsListComponent extends BaseModelListComponent imp
   protected listType = ListType.ResourceRowingBoats;
   protected collectionName = CollectionNames.Boat;
   protected listRoute = '/resource/rowingBoats';
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

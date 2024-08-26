@@ -9,6 +9,8 @@ import { BaseModelListComponent } from '@bk/base';
 import { ListType } from '@bk/categories';
 import { TripAllService } from './trip-all.service';
 import { TripModalComponent } from '../trip.modal';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, trash } from "ionicons/icons";
 
 @Component({
   selector: 'bk-trip-all-list',
@@ -29,7 +31,9 @@ import { TripModalComponent } from '../trip.modal';
       <ion-title>{{ '@trip.plural' | translate | async }}</ion-title>
       <ion-buttons slot="end">
         @if(authorizationService.isPrivilegedOr('admin')) {
-          <ion-button (click)="editTrip()"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+          <ion-button (click)="editTrip()">
+            <ion-icon slot="icon-only" name="add-circle-outline" />
+          </ion-button>
         }
       </ion-buttons>
     </ion-toolbar>
@@ -93,8 +97,12 @@ import { TripModalComponent } from '../trip.modal';
             <ion-label>{{ trip.resourceKey }}</ion-label>
           </ion-item>
           <ion-item-options side="end">
-            <ion-item-option color="danger" (click)="deleteTrip(slidingItem, trip)"><ion-icon slot="icon-only" name="trash" /></ion-item-option>
-            <ion-item-option color="primary" (click)="editTrip(slidingItem, trip)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+            <ion-item-option color="danger" (click)="deleteTrip(slidingItem, trip)">
+              <ion-icon slot="icon-only" name="trash" />
+            </ion-item-option>
+            <ion-item-option color="primary" (click)="editTrip(slidingItem, trip)">
+              <ion-icon slot="icon-only" name="create-outline" />
+            </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       }
@@ -112,6 +120,11 @@ export class TripAllListComponent extends BaseModelListComponent implements OnIn
   protected collectionName = CollectionNames.Trip;
   protected listRoute = '/trip/all';
   protected modalController = inject(ModalController);
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, createOutline, trash});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

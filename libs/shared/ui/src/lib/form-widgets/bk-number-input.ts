@@ -4,6 +4,8 @@ import { TranslatePipe } from '@bk/pipes';
 import { AutoComplete, bkTranslate, ConfigService, copyToClipboard, InputMode, INT_LENGTH, showToast } from '@bk/util';
 import { ToastController } from '@ionic/angular';
 import { IonIcon, IonInput, IonItem } from '@ionic/angular/standalone';
+import { addIcons } from "ionicons";
+import { copyOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-number-input',
@@ -27,7 +29,7 @@ import { IonIcon, IonInput, IonItem } from '@ionic/angular/standalone';
     [readonly]="readOnly()"
   />
   @if (copyable()) {
-    <ion-icon slot="end" name="copy-outline" (click)="copyValue()"></ion-icon>
+    <ion-icon slot="end" name="copy-outline" (click)="copyValue()" />
   }
 </ion-item>
   `
@@ -51,6 +53,10 @@ export class BkNumberInputComponent implements AfterViewInit {
 
   public changed = output<number>();
   public ionInput = viewChild.required<IonInput>('bkNumberInput');
+
+  constructor() {
+    addIcons({copyOutline});
+  }
 
   ngAfterViewInit(): void {
     if (this.showError() === true) {

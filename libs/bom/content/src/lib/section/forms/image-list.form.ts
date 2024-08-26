@@ -7,6 +7,8 @@ import { arrayMove, deleteFileFromStorage } from '@bk/util';
 import { BkImgComponent, BkSpinnerComponent } from '@bk/ui';
 import { SectionService } from '../section.service';
 import { DocumentService } from '@bk/document';
+import { addIcons } from "ionicons";
+import { addCircleOutline } from "ionicons/icons";
 
 /**
  * This form lets a user compose a list of images.
@@ -78,6 +80,10 @@ export class BkImageListFormComponent {
   protected imageList = computed(() => this.vm().properties?.imageList ?? []);
 
   public changedProperties = output<SectionProperties>();
+
+  constructor() {
+    addIcons({addCircleOutline});
+  }
 
   // call modal with input form to select an image and add metadata
   protected async addImage() {

@@ -7,6 +7,8 @@ import { BaseProperty, arrayMove, getIndexOfKey } from '@bk/util';
 import { FormsModule } from '@angular/forms';
 import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { MaskitoDirective } from '@maskito/angular';
+import { addIcons } from "ionicons";
+import { closeCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-property-list',
@@ -73,6 +75,10 @@ export class BkPropertyListComponent {
   public propertiesChanged = output<void>();
   
   protected newProperty: BaseProperty = { key: '', value: '' };
+
+  constructor() {
+    addIcons({closeCircleOutline});
+  }
 
   protected isDisabled() {
     return this.newProperty['key'] === '' || this.newProperty['value'] === '';

@@ -3,6 +3,8 @@ import { Component, Input, inject } from '@angular/core';
 import { Category } from '@bk/categories';
 import { CategoryImagePipe, TranslatePipe } from '@bk/pipes';
 import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonNote, IonRow, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
+import { addIcons } from "ionicons";
+import { closeCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-category-select-modal',
@@ -51,6 +53,10 @@ import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardS
 export class BkCategorySelectModalComponent {
   private modalController = inject(ModalController);
   public categories = input.required<Category[]>();
+
+  constructor() {
+    addIcons({closeCircleOutline});
+  }
 
   public cancel(): Promise<boolean> {
     return this.modalController.dismiss(null, 'cancel');

@@ -9,6 +9,8 @@ import { AuthorizationService } from '@bk/base';
 import { AsyncPipe } from '@angular/common';
 import { navigateByUrl } from '@bk/util';
 import { Router } from '@angular/router';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
 
 @Component({
     selector: 'bk-ownerships-accordion',
@@ -81,6 +83,10 @@ export class BkOwnershipsComponent {
 
   public RT = ResourceTypes;
   public MT = ModelType;
+
+  constructor() {
+    addIcons({addCircleOutline, createOutline, trashOutline});
+  }
 
   public async addOwnership(): Promise<void> {
     await this.ownershipService.createNewOwnershipFromSubject(this.subjectKey());

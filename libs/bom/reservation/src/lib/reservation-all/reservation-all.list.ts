@@ -2,12 +2,14 @@ import { Component, OnInit, inject } from '@angular/core';
 import { RelationshipModel } from '@bk/models';
 import { FilterType, ListType, RelationshipStates } from '@bk/categories';
 import { CollectionNames, ReservationTags } from '@bk/util';
-import { AvatarPipe, BkCatComponent, BkLabelSelectModalComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
+import { AvatarPipe, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
 import { CategoryNamePipe, FullNamePipe, IsSortedPipe, PrettyDatePipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar ,IonBackdrop, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonImg } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { ReservationAllService } from './reservation-all.service';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, arrowUpOutline, arrowDownOutline, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-reservation-all-list',
@@ -37,7 +39,7 @@ import { ReservationAllService } from './reservation-all.service';
   `,
   standalone: true,
   imports: [ 
-    BkSearchbarComponent, BkSpinnerComponent,BkLabelSelectModalComponent, BkYearSelectComponent,
+    BkSearchbarComponent, BkSpinnerComponent, BkYearSelectComponent,
     BkSingleTagComponent, BkCatComponent,
     TranslatePipe, CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, PrettyDatePipe, AvatarPipe,
     IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton,
@@ -51,7 +53,9 @@ import { ReservationAllService } from './reservation-all.service';
     <ion-title>{{baseService.filteredItems().length }} {{ baseService.title() | translate | async }}</ion-title>
     <ion-buttons slot="end">
       @if(authorizationService.hasRole('resourceAdmin')) {
-        <ion-button (click)="addReservation()"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+        <ion-button (click)="addReservation()">
+          <ion-icon slot="icon-only" name="add-circle-outline" />
+        </ion-button>
       }
     </ion-buttons>
   </ion-toolbar>
@@ -121,8 +125,12 @@ import { ReservationAllService } from './reservation-all.service';
             <ion-label class="ion-text-right">{{ _reservation.validFrom | prettyDate }}</ion-label>
           </ion-item>
           <ion-item-options side="end">
-            <ion-item-option color="danger" (click)="endReservation(slidingItem, _reservation)"><ion-icon slot="icon-only" name="trash-outline" /></ion-item-option>
-            <ion-item-option color="primary" (click)="editReservation(slidingItem, _reservation)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+            <ion-item-option color="danger" (click)="endReservation(slidingItem, _reservation)">
+              <ion-icon slot="icon-only" name="trash-outline" />
+            </ion-item-option>
+            <ion-item-option color="primary" (click)="editReservation(slidingItem, _reservation)">
+              <ion-icon slot="icon-only" name="create-outline" />
+            </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       }
@@ -144,6 +152,11 @@ export class ReservationAllListComponent extends BaseModelListComponent implemen
   protected listType = ListType.ReservationAll;
   protected collectionName = CollectionNames.Reservation;
   protected listRoute = '/reservation/all';
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, createOutline, arrowUpOutline, arrowDownOutline, trashOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

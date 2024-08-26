@@ -3,6 +3,8 @@ import { Component, inject, input } from '@angular/core';
 import { TranslatePipe } from '@bk/pipes';
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonModal, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '../structural/bk-header';
+import { addIcons } from "ionicons";
+import { listOutline, listCircleOutline, menuOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-label-select',
@@ -32,6 +34,10 @@ export class BkLabelSelectModalComponent {
   public labels = input<string[]>([]);
   public icons = input<string[]>([]);
   public title = input('');
+
+  constructor() {
+    addIcons({listOutline, listCircleOutline, menuOutline});
+  }
 
   public async select(index: number): Promise<boolean> {
     return await this.modalController.dismiss(index, 'confirm');

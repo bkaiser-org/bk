@@ -9,6 +9,8 @@ import { ListType, LocationTypes } from '@bk/categories';
 import { LocationAllService } from './location-all.service';
 import { LocationModel, isLocation } from '@bk/models';
 import { LocationModalComponent } from '../location.modal';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, trash } from "ionicons/icons";
 
 @Component({
   selector: 'bk-location-all-list',
@@ -29,7 +31,9 @@ import { LocationModalComponent } from '../location.modal';
       <ion-title>{{ '@location.plural' | translate | async }}</ion-title>
       <ion-buttons slot="end">
         @if(authorizationService.isPrivilegedOr('admin')) {
-          <ion-button (click)="editLocation()"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+          <ion-button (click)="editLocation()">
+            <ion-icon slot="icon-only" name="add-circle-outline" />
+          </ion-button>
         }
       </ion-buttons>
     </ion-toolbar>
@@ -110,6 +114,11 @@ export class LocationAllListComponent extends BaseModelListComponent implements 
   protected modalController = inject(ModalController);
 
   protected locationTypes = LocationTypes;
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, createOutline, trash});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

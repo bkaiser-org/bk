@@ -10,6 +10,8 @@ import { ListType } from '@bk/categories';
 import { Router } from '@angular/router';
 import { MembershipService } from './membership.service';
 import { MembershipEditModalComponent } from './membership-edit.modal';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, reloadOutline, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-memberships-accordion',
@@ -49,9 +51,15 @@ import { MembershipEditModalComponent } from './membership-edit.modal';
                 </ion-item>
                 @if(authorizationService.hasRole('memberAdmin')) {
                   <ion-item-options side="end">
-                    <ion-item-option color="danger" (click)="endMembership(slidingItem, membership)"><ion-icon slot="icon-only" name="trash-outline" /></ion-item-option>
-                    <ion-item-option color="light" (click)="changeMembershipCategory(slidingItem, membership)"><ion-icon slot="icon-only" name="reload-outline" /></ion-item-option>
-                    <ion-item-option color="primary" (click)="editMembership(slidingItem, membership)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+                    <ion-item-option color="danger" (click)="endMembership(slidingItem, membership)">
+                      <ion-icon slot="icon-only" name="trash-outline" />
+                    </ion-item-option>
+                    <ion-item-option color="light" (click)="changeMembershipCategory(slidingItem, membership)">
+                      <ion-icon slot="icon-only" name="reload-outline" />
+                    </ion-item-option>
+                    <ion-item-option color="primary" (click)="editMembership(slidingItem, membership)">
+                      <ion-icon slot="icon-only" name="create-outline" />
+                    </ion-item-option>
                   </ion-item-options>
                 }
               </ion-item-sliding>
@@ -78,6 +86,10 @@ export class BkMembershipsAccordionComponent {
   protected memberships$ = computed(() => this.membershipService.listMembershipsOfSubject(this.subjectKey()));
 
   public LT = ListType;
+
+  constructor() {
+    addIcons({addCircleOutline, createOutline, reloadOutline, trashOutline});
+  }
 
   protected async addMembership() {
     await this.membershipService.createNewMembership(this.subjectKey());

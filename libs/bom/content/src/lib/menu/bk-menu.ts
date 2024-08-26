@@ -12,6 +12,10 @@ import { MenuItemModel } from '@bk/models';
 import { BkSpinnerComponent } from '@bk/ui';
 import { MenuItemService } from './menu-item.service';
 import { Observable } from 'rxjs';
+import { addIcons } from "ionicons";
+import { addCircleOutline, calendarOutline, contractOutline, documentOutline, documentTextOutline, enterOutline, eyeOffOutline, globeOutline, golfOutline,
+    helpCircleOutline, homeOutline, idCardOutline, informationCircleOutline, keyOutline, logInOutline, logOutOutline,
+    menuOutline, mapOutline, personCircleOutline, reorderFourOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-menu',
@@ -96,6 +100,9 @@ export class BkMenuComponent {
   public MA = MenuAction;
 
   constructor() {
+    addIcons({addCircleOutline, calendarOutline, contractOutline, documentOutline, documentTextOutline, enterOutline, eyeOffOutline, globeOutline, golfOutline,
+      helpCircleOutline, homeOutline, idCardOutline, informationCircleOutline, keyOutline, logInOutline, logOutOutline,
+      menuOutline, mapOutline, personCircleOutline, reorderFourOutline});
     effect(async () => {
       this.menuItem$ = this.menuItemService.readMenuItem(this.menuName());
     });

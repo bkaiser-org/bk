@@ -2,13 +2,15 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FilterType, ListType, getOrgId } from '@bk/categories';
 import { CollectionNames, MembershipTags, bkTranslate } from '@bk/util';
 import { export2excel } from '@bk/core';
-import { AvatarPipe, BkCatComponent, BkLabelSelectModalComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
+import { AvatarPipe, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
 import { DurationPipe, FullNamePipe, IsSortedPipe, MemberCategoriesPipe, MemberHeaderPipe, MemberValuePipe, SortDirectionPipe, TranslatePipe, YearFormatPipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { ALL_RELATIONSHIP_FIELDS, RelationshipModel } from '@bk/models';
 import { IonAvatar, IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonMenuButton, IonPopover, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { ScsWomenService } from './scs-women.service';
+import { addIcons } from "ionicons";
+import { addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-membership-scs-women-list',
@@ -33,7 +35,7 @@ import { ScsWomenService } from './scs-women.service';
   imports: [
     TranslatePipe, FullNamePipe, MemberValuePipe, YearFormatPipe, IsSortedPipe, SortDirectionPipe, MemberHeaderPipe, AsyncPipe,  AvatarPipe,
     MemberCategoriesPipe, DurationPipe,
-    BkYearSelectComponent, BkLabelSelectModalComponent, BkSingleTagComponent,
+    BkYearSelectComponent, BkSingleTagComponent,
     BkSpinnerComponent, BkSearchbarComponent, BkCatComponent, IonBackdrop,
     IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonIcon,
     IonGrid, IonRow, IonCol, IonLabel, IonContent, IonItem, IonPopover, IonImg,
@@ -46,13 +48,17 @@ import { ScsWomenService } from './scs-women.service';
     <ion-title>{{ (baseService.filteredItems()).length }} {{ baseService.title() | translate | async }}</ion-title>
     <ion-buttons slot="end">
       @if(authorizationService.hasRole('memberAdmin')) {
-        <ion-button (click)="copyEmailAddresses()" id="tooltip-copy"><ion-icon slot="icon-only" name="copy-outline" /></ion-button>
+        <ion-button (click)="copyEmailAddresses()" id="tooltip-copy">
+          <ion-icon slot="icon-only" name="copy-outline" />
+        </ion-button>
         <ion-popover trigger="tooltip-copy" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.copyEmail' | translate | async}}</ion-content>
             </ng-template>
           </ion-popover>
-        <ion-button (click)="addMembership()" id="tooltip-add"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+        <ion-button (click)="addMembership()" id="tooltip-add">
+          <ion-icon slot="icon-only" name="add-circle-outline" />
+        </ion-button>
         <ion-popover trigger="tooltip-add" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.add' + baseService.slug() | translate | async}}</ion-content>
@@ -60,7 +66,9 @@ import { ScsWomenService } from './scs-women.service';
         </ion-popover>
       }
       @if(authorizationService.isPrivilegedOr('memberAdmin')) {
-        <ion-button (click)="export()" id="tooltip-export"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
+        <ion-button (click)="export()" id="tooltip-export">
+          <ion-icon slot="icon-only" name="download-outline" />
+        </ion-button>
         <ion-popover trigger="tooltip-export" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.export' + baseService.slug() | translate | async}}</ion-content>
@@ -131,8 +139,12 @@ import { ScsWomenService } from './scs-women.service';
           </ion-item>
           @if(authorizationService.hasRole('memberAdmin')) {
             <ion-item-options side="end">
-              <ion-item-option color="danger" (click)="endMembership(slidingItem, membership)"><ion-icon slot="icon-only" name="trash-outline" /></ion-item-option>
-              <ion-item-option color="primary" (click)="editMembership(slidingItem, membership)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+              <ion-item-option color="danger" (click)="endMembership(slidingItem, membership)">
+                <ion-icon slot="icon-only" name="trash-outline" />
+              </ion-item-option>
+              <ion-item-option color="primary" (click)="editMembership(slidingItem, membership)">
+                <ion-icon slot="icon-only" name="create-outline" />
+              </ion-item-option>
             </ion-item-options>
           }
         </ion-item-sliding>
@@ -159,6 +171,11 @@ export class MembershipScsWomenListComponent extends BaseModelListComponent impl
   protected listType = ListType.MemberScsWomen;
   protected collectionName = CollectionNames.Membership;
   protected listRoute = '/membership/scsWomen';
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

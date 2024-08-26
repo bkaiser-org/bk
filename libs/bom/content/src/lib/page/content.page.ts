@@ -10,6 +10,8 @@ import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon,
 import { AuthorizationService } from '@bk/base';
 import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { addIcons } from "ionicons";
+import { addCircleOutline, camera, createOutline, reorderFourOutline, syncCircleOutline, toggle, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-content-page',
@@ -129,6 +131,10 @@ export class ContentPageComponent implements OnInit {
   public isArchivedVisible = false;
   public isEditMode = false;
   public doReorder = false;
+
+  constructor() {
+    addIcons({addCircleOutline, camera, createOutline, reorderFourOutline, syncCircleOutline, toggle, trashOutline });
+  }
 
   ngOnInit(): void {
     this.activatedRoute.fragment.subscribe((fragment: string | null) => {

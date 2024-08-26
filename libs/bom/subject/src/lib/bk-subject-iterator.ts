@@ -2,6 +2,8 @@ import { Component, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { SubjectService } from './subject.service';
+import { addIcons } from "ionicons";
+import { arrowBackCircleOutline, arrowForwardCircleOutline } from "ionicons/icons";
 
 @Component({
     selector: 'bk-subject-iterator',
@@ -22,6 +24,10 @@ import { SubjectService } from './subject.service';
     public subjectService = inject(SubjectService);
 
     public subjectSelected = output<string>();
+
+    constructor() {
+      addIcons({arrowBackCircleOutline, arrowForwardCircleOutline});
+    }
 
     public prev(): void {
         this.subjectSelected.emit(this.subjectService.previousKey());

@@ -9,6 +9,8 @@ import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon,
 import { AsyncPipe } from '@angular/common';
 import { BaseModelListComponent } from '@bk/base';
 import { RowingBoatsService } from './rowing-boats.service';
+import { addIcons } from "ionicons";
+import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-resource-list',
@@ -115,6 +117,11 @@ export class ResourceRowingBoatsListComponent extends BaseModelListComponent imp
   protected collectionName = CollectionNames.Boat;
   protected listRoute = '/resource/rowingBoats';
   protected boatTags = BoatTags;
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

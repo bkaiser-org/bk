@@ -6,6 +6,8 @@ import { arrayMove } from '@bk/util';
 import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { FormsModule } from '@angular/forms';
 import { MaskitoDirective } from '@maskito/angular';
+import { addIcons } from "ionicons";
+import { closeCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-strings',
@@ -61,6 +63,10 @@ export class BkStringsComponent {
   public addLabel = input('@input.strings.addString');
   public newString = '';
   public stringsChanged = output<void>();
+
+  constructor() {
+    addIcons({closeCircleOutline});
+  }
 
   public save(): void {
     if (this.newString && this.newString.length > 0) {

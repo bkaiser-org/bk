@@ -3,18 +3,20 @@ import { ALL_RELATIONSHIP_FIELDS, RelationshipModel } from '@bk/models';
 import { BoatTypes, FilterType, ListType, RelationshipStates } from '@bk/categories';
 import { CollectionNames, ResourceTags, bkTranslate } from '@bk/util';
 import { export2excel } from '@bk/core';
-import { AvatarPipe, BkAvatarLabelComponent, BkCatComponent, BkLabelSelectModalComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
+import { AvatarPipe, BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
 import { CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar ,IonBackdrop, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonImg } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { MaleLockersService } from './male-lockers.service';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-ownership-male-locker-list',
   standalone: true,
   imports: [ 
-    BkSearchbarComponent, BkSpinnerComponent,BkLabelSelectModalComponent,
+    BkSearchbarComponent, BkSpinnerComponent,
     BkSingleTagComponent, BkCatComponent, BkAvatarLabelComponent,
     TranslatePipe, CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, AvatarPipe,
     IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton,
@@ -28,10 +30,14 @@ import { MaleLockersService } from './male-lockers.service';
       <ion-title>{{baseService.filteredItems().length }} {{ baseService.title() | translate | async }}</ion-title>
       <ion-buttons slot="end">
         @if(authorizationService.hasRole('resourceAdmin')) {
-          <ion-button (click)="addOwnership()"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+          <ion-button (click)="addOwnership()">
+            <ion-icon slot="icon-only" name="add-circle-outline" />
+          </ion-button>
         }
         @if(authorizationService.isPrivilegedOr('resourceAdmin')) {
-          <ion-button (click)="export()"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
+          <ion-button (click)="export()">
+            <ion-icon slot="icon-only" name="download-outline" />
+          </ion-button>
         }
       </ion-buttons>
     </ion-toolbar>
@@ -87,8 +93,12 @@ import { MaleLockersService } from './male-lockers.service';
           </ion-item>
           @if(authorizationService.hasRole('resourceAdmin')) {
             <ion-item-options side="end">
-              <ion-item-option color="danger" (click)="endOwnership(slidingItem, _ownership)"><ion-icon slot="icon-only" name="trash-outline" /></ion-item-option>
-              <ion-item-option color="primary" (click)="editOwnership(slidingItem, _ownership)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+              <ion-item-option color="danger" (click)="endOwnership(slidingItem, _ownership)">
+                <ion-icon slot="icon-only" name="trash-outline" />
+              </ion-item-option>
+              <ion-item-option color="primary" (click)="editOwnership(slidingItem, _ownership)">
+                <ion-icon slot="icon-only" name="create-outline" />
+              </ion-item-option>
             </ion-item-options>
           }
         </ion-item-sliding>
@@ -112,6 +122,11 @@ export class OwnershipMaleLockerListComponent extends BaseModelListComponent imp
   protected listType = ListType.OwnershipMaleLockers;
   protected collectionName = CollectionNames.Ownership;
   protected listRoute = '/ownership/maleLockers';
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

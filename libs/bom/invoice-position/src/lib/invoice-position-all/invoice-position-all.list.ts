@@ -8,6 +8,8 @@ import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon,
 import { AsyncPipe } from '@angular/common';
 import { InvoicePositionTypes, ListType } from '@bk/categories';
 import { InvoicePositionAllService } from './invoice-position-all.service';
+import { addIcons } from "ionicons";
+import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-invoice-position-all-list',
@@ -25,10 +27,14 @@ import { InvoicePositionAllService } from './invoice-position-all.service';
       <ion-title>{{baseService.filteredItems().length }} {{ '@finance.invoicePosition.plural' | translate | async }}</ion-title>
       <ion-buttons slot="end">
         @if(authorizationService.hasRole('treasurer')) {
-          <ion-button (click)="add()"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+          <ion-button (click)="add()">
+            <ion-icon slot="icon-only" name="add-circle-outline" />
+          </ion-button>
         }
         @if(authorizationService.isPrivilegedOr('treasurer')) {
-          <ion-button (click)="export()"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
+          <ion-button (click)="export()">
+            <ion-icon slot="icon-only" name="download-outline" />
+          </ion-button>
         }
       </ion-buttons>
   </ion-toolbar>
@@ -113,6 +119,11 @@ export class InvoicePositionAllListComponent extends BaseModelListComponent impl
   protected listRoute = '/invoicePosition/all';
   protected invoicePositionTags = InvoicePositionTags;
   protected invoicePositionTypes = InvoicePositionTypes;
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

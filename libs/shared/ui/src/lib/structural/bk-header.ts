@@ -4,6 +4,8 @@ import { IonButton, IonButtons, IonHeader, IonIcon, IonMenuButton, IonTitle, Ion
 import { BkSearchbarComponent } from './bk-searchbar/bk-searchbar';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
+import { addIcons } from "ionicons";
+import { closeCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-header',
@@ -49,6 +51,10 @@ export class BkHeaderComponent {
   public isRoot = input(false);
   public isSearchable = input(false);
   public placeholder = input('@general.operation.search.placeholder');
+
+  constructor() {
+    addIcons({closeCircleOutline});
+  }
 
   public back(): void {
     if (this.isModal()) {

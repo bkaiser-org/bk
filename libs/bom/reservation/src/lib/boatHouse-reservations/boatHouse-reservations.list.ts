@@ -2,14 +2,17 @@ import { Component, OnInit, inject } from '@angular/core';
 import { RelationshipModel } from '@bk/models';
 import { FilterType, ListType, ReservationStates } from '@bk/categories';
 import { CollectionNames, ReservationTags } from '@bk/util';
-import { AvatarPipe, BkAvatarLabelComponent, BkCatComponent, BkLabelSelectModalComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
+import { AvatarPipe, BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
 import { CategoryIconPipe, FullNamePipe, IsSortedPipe, PrettyDatePipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar ,IonBackdrop, IonItemSliding, IonItemOptions, IonItemOption, IonImg, IonAvatar } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { BoatHouseKey, BoatHouseReservationsService } from './boatHouse-reservations.service';
+import { addIcons } from "ionicons";
+import { addCircleOutline, arrowUpOutline, arrowDownOutline, bulbOutline, checkmarkOutline, closeOutline, createOutline, 
+  downloadOutline, helpOutline, trashOutline, thumbsDownOutline, thumbsUpOutline } from "ionicons/icons";
 
-@Component({
+  @Component({
     selector: 'bk-boathouse-reservation-list',
     styles: `
       ion-backdrop {
@@ -37,7 +40,7 @@ import { BoatHouseKey, BoatHouseReservationsService } from './boatHouse-reservat
   `,
   standalone: true,
   imports: [ 
-    BkSearchbarComponent, BkSpinnerComponent,BkLabelSelectModalComponent, BkYearSelectComponent,
+    BkSearchbarComponent, BkSpinnerComponent, BkYearSelectComponent,
     BkSingleTagComponent, BkCatComponent, BkAvatarLabelComponent,
     TranslatePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, 
     PrettyDatePipe, AvatarPipe, CategoryIconPipe,
@@ -52,8 +55,12 @@ import { BoatHouseKey, BoatHouseReservationsService } from './boatHouse-reservat
     <ion-title>{{baseService.filteredItems().length }} {{ baseService.title() | translate | async }}</ion-title>
     <ion-buttons slot="end">
       @if(authorizationService.hasRole('resourceAdmin')) {
-        <ion-button (click)="export()" id="tooltip-export"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
-        <ion-button (click)="addReservation()"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+        <ion-button (click)="export()" id="tooltip-export">
+          <ion-icon slot="icon-only" name="download-outline" />
+        </ion-button>
+        <ion-button (click)="addReservation()">
+          <ion-icon slot="icon-only" name="add-circle-outline" />
+        </ion-button>
       }
     </ion-buttons>
   </ion-toolbar>
@@ -133,8 +140,12 @@ import { BoatHouseKey, BoatHouseReservationsService } from './boatHouse-reservat
             <ion-icon size="small" name="{{ _reservation.state | categoryIcon:RS }}" slot="end" (click)="editReservation(_reservation)" />
           </ion-item>
           <ion-item-options side="end">
-            <ion-item-option color="danger" (click)="endReservation(_reservation, slidingItem)"><ion-icon slot="icon-only" name="trash-outline" /></ion-item-option>
-            <ion-item-option color="primary" (click)="editReservation(_reservation, slidingItem)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+            <ion-item-option color="danger" (click)="endReservation(_reservation, slidingItem)">
+              <ion-icon slot="icon-only" name="trash-outline" />
+            </ion-item-option>
+            <ion-item-option color="primary" (click)="editReservation(_reservation, slidingItem)">
+              <ion-icon slot="icon-only" name="create-outline" />
+            </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       }
@@ -156,6 +167,12 @@ export class BoatHouseReservationListComponent extends BaseModelListComponent im
   protected listType = ListType.ReservationBoatHouse;
   protected collectionName = CollectionNames.Reservation;
   protected listRoute = '/reservation/boathouse';
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, arrowUpOutline, arrowDownOutline, bulbOutline, checkmarkOutline, closeOutline, createOutline, 
+      downloadOutline, helpOutline, trashOutline, thumbsDownOutline, thumbsUpOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

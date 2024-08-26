@@ -8,6 +8,8 @@ import { ListType, ModelType } from '@bk/categories';
 import { bkPrompt } from '@bk/util';
 import { AvatarPipe, BkSpinnerComponent } from '@bk/ui';
 import { BkModelSelectComponent } from '../model-select.modal/model-select.modal';
+import { addIcons } from "ionicons";
+import { addCircleOutline, trashOutline, createOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-model-list',
@@ -65,6 +67,10 @@ export class BkModelListComponent {
   public vm = model.required<SectionFormModel>(); // mandatory view model
 
   public MT = ModelType;
+
+  constructor() {
+    addIcons({addCircleOutline, trashOutline, createOutline});
+  }
 
   public async addPerson(): Promise<void> {
     const _properties = this.vm().properties

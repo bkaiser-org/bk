@@ -12,6 +12,8 @@ import { SectionFormModel, SectionModel } from '@bk/models';
 import { convertFormToSection, convertSectionToForm } from './forms/section.form.util';
 import { PreviewModalComponent } from './preview.modal';
 import { SectionFormComponent } from './forms/section.form';
+import { addIcons } from "ionicons";
+import { closeCircleOutline, eyeOutline } from "ionicons/icons";
 
 @Component({
     selector: 'bk-section-page',
@@ -69,6 +71,10 @@ export class SectionPageComponent implements OnInit {
   protected formCanBeSaved = false;
   public currentForm: SectionFormModel | undefined;
   public MT = ModelType;
+
+  constructor() {
+    addIcons({closeCircleOutline, eyeOutline});
+  }
 
   ngOnInit(): void {
     const _sectionKey = this.id();

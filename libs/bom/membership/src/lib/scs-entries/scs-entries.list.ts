@@ -2,13 +2,15 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FilterType, ListType, getOrgId } from '@bk/categories';
 import { CollectionNames, MembershipTags, bkTranslate } from '@bk/util';
 import { export2excel } from '@bk/core';
-import { AvatarPipe, BkLabelSelectModalComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
+import { AvatarPipe, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
 import { DurationPipe, FullNamePipe, IsSortedPipe, MemberCategoriesPipe, MemberHeaderPipe, MemberValuePipe, SortDirectionPipe, TranslatePipe, YearFormatPipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { ALL_RELATIONSHIP_FIELDS, RelationshipModel } from '@bk/models';
 import { IonAvatar, IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonMenuButton, IonPopover, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { ScsEntriesService } from './scs-entries.service';
+import { addIcons } from "ionicons";
+import { addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-membership-scs-entries-list',
@@ -33,7 +35,7 @@ import { ScsEntriesService } from './scs-entries.service';
   imports: [
     TranslatePipe, FullNamePipe, MemberValuePipe, YearFormatPipe, IsSortedPipe, SortDirectionPipe, MemberHeaderPipe, AsyncPipe,  AvatarPipe,
     MemberCategoriesPipe, DurationPipe,
-    BkYearSelectComponent, BkLabelSelectModalComponent, BkSingleTagComponent,
+    BkYearSelectComponent, BkSingleTagComponent,
     BkSpinnerComponent, BkSearchbarComponent, IonBackdrop,
     IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonIcon,
     IonGrid, IonRow, IonCol, IonLabel, IonContent, IonItem, IonPopover, IonImg,
@@ -154,6 +156,11 @@ export class MembershipScsEntriesListComponent extends BaseModelListComponent im
   protected listType = ListType.MemberScsEntries;
   protected collectionName = CollectionNames.Membership;
   protected listRoute = '/membership/scsEntries';
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

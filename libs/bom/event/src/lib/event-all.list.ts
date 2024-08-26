@@ -9,6 +9,8 @@ import { ListType } from '@bk/categories';
 import { EventAllService } from './event-all.service';
 import { ALL_EVENT_FIELDS, EventModel } from '@bk/models';
 import { EventDurationPipe } from './event-duration.pipe';
+import { addIcons } from "ionicons";
+import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trash } from "ionicons/icons";
 
 @Component({
     selector: 'bk-event-all-list',
@@ -105,6 +107,11 @@ export class EventAllListComponent extends BaseModelListComponent implements OnI
   protected collectionName = CollectionNames.Event;
   protected listRoute = '/event/all';
   protected eventTags = EventTags;
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trash});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

@@ -5,6 +5,8 @@ import { BkHeaderComponent, BkImgComponent } from '@bk/ui';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { addIcons } from "ionicons";
+import { informationCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-page-not-found',
@@ -101,6 +103,10 @@ export class PageNotFoundComponent {
   public backgroundImageUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_welcome_banner_url'));
   public logoAlt = this.configService.getConfigString('tenant_name') + ' Logo';
   public rootUrl = this.configService.getConfigString('cms_root_url');
+
+  constructor() {
+    addIcons({informationCircleOutline});
+  }
 
   public async gotoHome(): Promise<void> {
     console.log('Navigating to home page');

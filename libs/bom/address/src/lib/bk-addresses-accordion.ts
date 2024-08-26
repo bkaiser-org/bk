@@ -9,6 +9,11 @@ import { BkSpinnerComponent } from '@bk/ui';
 import { AddressEditModalComponent } from './address-edit-modal';
 import { createPostalAddress } from './address.util';
 import { AddressUsage, ModelType } from '@bk/categories';
+import { addIcons } from "ionicons";
+import { addCircleOutline, logoClosedCaptioning, shieldCheckmarkOutline, star, starOutline, callOutline, atOutline, globeOutline,
+  logoTwitter, logoLinkedin, logoFacebook, logoXing, logoSkype, logoReddit, mailOpenOutline, logoInstagram, chatbubbleOutline, 
+  chatboxEllipsesOutline, logoGithub, cashOutline, trash, copyOutline, createOutline, qrCodeOutline
+ } from "ionicons/icons";
 
 @Component({
   selector: 'bk-addresses-accordion',
@@ -98,6 +103,12 @@ export class BkAddressesAccordionComponent implements OnInit {
 
   ngOnInit() {
     this.addresses$ = this.addressService.listAddresses(this.parentKey());
+  }
+
+  constructor() {
+    addIcons({addCircleOutline, logoClosedCaptioning, shieldCheckmarkOutline, star, starOutline, callOutline, atOutline, globeOutline,
+      logoTwitter, logoLinkedin, logoFacebook, logoXing, logoSkype, logoReddit, mailOpenOutline, logoInstagram, chatbubbleOutline, 
+      chatboxEllipsesOutline, logoGithub, cashOutline, trash, copyOutline, createOutline, qrCodeOutline});
   }
 
   public async toggleFavoriteAddress(address: AddressModel): Promise<void> {

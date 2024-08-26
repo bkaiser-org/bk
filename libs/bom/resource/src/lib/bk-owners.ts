@@ -9,6 +9,8 @@ import { IonAccordion, IonAvatar, IonButton, IonButtons, IonIcon, IonImg, IonIte
 import { AsyncPipe } from '@angular/common';
 import { AuthorizationService } from '@bk/base';
 import { OwnershipService } from '@bk/ownership';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
 
 @Component({
     selector: 'bk-owners',
@@ -27,7 +29,7 @@ import { OwnershipService } from '@bk/ownership';
           <ion-label>{{ '@input.price.label' | translate | async  }}</ion-label>
           @if(authorizationService.hasRole('resourceAdmin')) {
             <ion-button fill="outline" (click)="addOwner()">
-              <ion-icon color="secondary" slot="icon-only" name="add-circle-outline"></ion-icon> 
+              <ion-icon color="secondary" slot="icon-only" name="add-circle-outline" />
             </ion-button>
           }
       </ion-item>
@@ -51,8 +53,12 @@ import { OwnershipService } from '@bk/ownership';
                   </ion-item>
                   <ion-item-options side="end">
                     @if(authorizationService.isPrivilegedOr('resourceAdmin')) {
-                      <ion-item-option color="danger" (click)="endOwnership(slidingItem, ownership)"><ion-icon slot="icon-only" name="trash-outline" /></ion-item-option>
-                      <ion-item-option color="primary" (click)="editOwnership(slidingItem, ownership)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+                      <ion-item-option color="danger" (click)="endOwnership(slidingItem, ownership)">
+                        <ion-icon slot="icon-only" name="trash-outline" />
+                      </ion-item-option>
+                      <ion-item-option color="primary" (click)="editOwnership(slidingItem, ownership)">
+                        <ion-icon slot="icon-only" name="create-outline" />
+                      </ion-item-option>
                     }
                   </ion-item-options>
                 </ion-item-sliding>
@@ -77,6 +83,10 @@ export class BkOwnersComponent {
 
     public ND = NameDisplay;
 
+    constructor() {
+      addIcons({addCircleOutline, createOutline, trashOutline});
+    }
+  
     public async addOwner(): Promise<void> {
       this.ownershipService.createNewOwnershipFromResource(this.resourceKey());
     }

@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { BkDateSelectModalComponent } from './date-select.modal';
 import { BkChangeConfirmationComponent } from '../form/bk-change-confirmation';
 import { RelationshipModel } from '@bk/models';
+import { addIcons } from "ionicons";
+import { listOutline, calendarOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-membership-category-change-modal',
@@ -64,6 +66,10 @@ export class MembershipCategoryChangeModalComponent implements OnInit {
   protected isoDate = '';
   protected selectedCategoryId: number | undefined;
   
+  constructor() {
+    addIcons({listOutline, calendarOutline});
+  }
+
   ngOnInit(): void {
     this.config = this.membership().objectKey === OrgKey.SCS ? {
       label: '@categories.listType.member.scs.all.categoryLabel',

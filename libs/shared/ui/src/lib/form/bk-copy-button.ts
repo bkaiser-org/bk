@@ -3,6 +3,8 @@ import { Component, inject, input } from '@angular/core';
 import { TranslatePipe } from '@bk/pipes';
 import { ConfigService, copyToClipboard, showToast } from '@bk/util';
 import { IonButton, IonIcon, ToastController } from '@ionic/angular/standalone';
+import { addIcons } from "ionicons";
+import { copyOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-copy-button',
@@ -28,6 +30,10 @@ export class BkCopyButtonComponent {
 
   public value = input.required<string | number | null | undefined>(); // data to copy
   public label = input(''); // optional label for the button
+
+  constructor() {
+    addIcons({copyOutline});
+  }
 
   public copyValue(): void {
     const _value = this.value();

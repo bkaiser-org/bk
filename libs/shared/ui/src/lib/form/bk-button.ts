@@ -2,6 +2,8 @@ import { Component, input } from '@angular/core';
 import { IonButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
 import { ColorIonic, ColorsIonic } from '@bk/categories';
 import { CategoryPlainNamePipe } from '@bk/pipes';
+import { addIcons } from "ionicons";
+import { checkmarkCircleOutline, helpOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-button',
@@ -31,4 +33,8 @@ export class BkButtonComponent {
 
   protected iconColor = 'white';
   protected colorsIonic = ColorsIonic;
+
+  constructor() {
+    addIcons({checkmarkCircleOutline, helpOutline});
+  }
 }

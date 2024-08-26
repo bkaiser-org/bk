@@ -5,6 +5,8 @@ import { PrettyDatePipe, RoundFloatPipe, TranslatePipe, WeatherIconPipe } from '
 import { BkHeaderComponent } from '@bk/ui';
 import { convertOpenWeatherData, DateFormat, getTodayStr, getYear, MeteoData, OpenWeatherData } from '@bk/util';
 import { IonBadge, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonIcon, IonItem, IonLabel, IonRow } from '@ionic/angular/standalone';
+import { addIcons } from "ionicons";
+import { sunnyOutline, shuffleOutline, thermometerOutline, rainyOutline } from "ionicons/icons";
 
 @Component({
     selector: 'bk-weather',
@@ -25,6 +27,10 @@ export class WeatherPageComponent implements OnInit {
     public currentTime: string | undefined;
     public todayDate: string | undefined;
 
+    constructor() {
+      addIcons({sunnyOutline, shuffleOutline, thermometerOutline, rainyOutline});
+    }
+  
     ngOnInit() {
         this.getOpenWeatherData();
         this.currentTime = getTodayStr(DateFormat.Time);

@@ -6,6 +6,8 @@ import { TranslatePipe } from "@bk/pipes";
 import { BkButtonComponent, BkHeaderComponent } from "@bk/ui";
 import { ConfigService, copyToClipboard, showToast } from "@bk/util";
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCheckbox, IonCol, IonContent, IonGrid, IonIcon, IonRow, ToastController } from "@ionic/angular/standalone";
+import { addIcons } from "ionicons";
+import { closeOutline, copyOutline } from "ionicons/icons";
 
 @Component({
     selector: 'bk-firebase-storage',
@@ -34,8 +36,12 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCheckbox, IonC
           </ion-row>
           <ion-row>
             <ion-col size="10"><input type="text" [(ngModel)]="path" /></ion-col>
-            <ion-col size="1"><ion-icon name="copy-outline" (click)="copy()" /></ion-col>
-            <ion-col size="1"><ion-icon name="close-outline" (click)="clear()" /></ion-col>
+            <ion-col size="1">
+              <ion-icon name="copy-outline" (click)="copy()" />
+            </ion-col>
+            <ion-col size="1">
+              <ion-icon name="close-outline" (click)="clear()" />
+            </ion-col>
           </ion-row>
           <ion-row>
             <ion-col size="6" >
@@ -61,8 +67,12 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCheckbox, IonC
           </ion-row>
           <ion-row>
             <ion-col size="10"><input type="text" [(ngModel)]="path" /></ion-col>
-            <ion-col size="1"><ion-icon name="copy-outline" (click)="copy()" /></ion-col>
-            <ion-col size="1"><ion-icon name="close-outline" (click)="clear()" /></ion-col>
+            <ion-col size="1">
+              <ion-icon name="copy-outline" (click)="copy()" />
+            </ion-col>
+            <ion-col size="1">
+              <ion-icon name="close-outline" (click)="clear()" />
+            </ion-col>
           </ion-row>
           <ion-row>
             <ion-col size="6">
@@ -81,6 +91,10 @@ export class FirebaseStorageComponent {
   private toastController = inject(ToastController);
   private documentService = inject(DocumentService);
   private configService = inject(ConfigService);
+
+  constructor() {
+    addIcons({closeOutline, copyOutline});
+  }
 
   public path = '';
   protected size = 0;

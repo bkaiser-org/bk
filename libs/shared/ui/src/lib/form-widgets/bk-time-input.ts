@@ -8,6 +8,8 @@ import { MaskitoElementPredicate } from '@maskito/core';
 import { BkTimeSelectModalComponent } from '../modals/time-select.modal';
 import { getCurrentTime, InputMode } from '@bk/util';
 import { MaskitoDirective } from '@maskito/angular';
+import { addIcons } from "ionicons";
+import { calendarOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-time-input',
@@ -46,6 +48,10 @@ export class BkTimeInputComponent {
   public inputMode = input<InputMode>('text'); // A hint to the browser for which keyboard to display.
   
   public changed = output<string>();
+
+  constructor() {
+    addIcons({calendarOutline});
+  }
 
   /**
    * Update the date with the date changed in the input field (ViewDate format).

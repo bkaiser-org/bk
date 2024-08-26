@@ -7,6 +7,8 @@ import { CategoryPlainNamePipe, FileTypeIconPipe } from '@bk/pipes';
 import { downloadToBrowser, navigateByUrl } from '@bk/util';
 import { IonButton, IonIcon } from '@ionic/angular/standalone';
 import { newButton, newIcon } from '../section.util';
+import { addIcons } from "ionicons";
+import { closeOutline, copyOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-button-widget',
@@ -68,6 +70,11 @@ export class ButtonWidgetComponent {
       'color': this.button().color ?? ColorIonic.Primary
     };
   });
+
+  constructor() {
+    // todo: add icons as defined in the sections collection; properties buttonInfo.iconName
+    addIcons({});
+  }
 
   protected action(): void {
     const _url = this.section()?.url;

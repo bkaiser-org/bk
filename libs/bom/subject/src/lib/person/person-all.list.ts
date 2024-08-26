@@ -8,6 +8,8 @@ import { BaseModelListComponent } from '@bk/base';
 import { AsyncPipe } from '@angular/common';
 import { ListType } from '@bk/categories';
 import { PersonAllService } from './person-all.service';
+import { addIcons } from "ionicons";
+import { addCircleOutline, arrowUpOutline, arrowDownOutline, atOutline, callOutline, copyOutline, downloadOutline, trash } from "ionicons/icons";
 
 @Component({
     selector: 'bk-person-all-list',
@@ -26,13 +28,17 @@ import { PersonAllService } from './person-all.service';
       <ion-title>{{ baseService.filteredItems().length }} {{ baseService.title() | translate | async }}</ion-title>
       <ion-buttons slot="end">
         @if(authorizationService.hasRole('memberAdmin')) {
-          <ion-button (click)="copyEmailAddresses()" id="tooltip-copy"><ion-icon slot="icon-only" name="copy-outline" /></ion-button>
+          <ion-button (click)="copyEmailAddresses()" id="tooltip-copy">
+            <ion-icon slot="icon-only" name="copy-outline" />
+          </ion-button>
           <ion-popover trigger="tooltip-copy" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.copyEmail' | translate | async}}</ion-content>
             </ng-template>
           </ion-popover>
-          <ion-button (click)="add()" id="tooltip-add"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+          <ion-button (click)="add()" id="tooltip-add">
+            <ion-icon slot="icon-only" name="add-circle-outline" />
+          </ion-button>
           <ion-popover trigger="tooltip-add" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.add' + baseService.slug() | translate | async}}</ion-content>
@@ -40,7 +46,9 @@ import { PersonAllService } from './person-all.service';
           </ion-popover>
         }
         @if(authorizationService.isPrivilegedOr('memberAdmin')) {
-          <ion-button (click)="export()" id="tooltip-export"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
+          <ion-button (click)="export()" id="tooltip-export">
+            <ion-icon slot="icon-only" name="download-outline" />
+          </ion-button>
           <ion-popover trigger="tooltip-export" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.export' + baseService.slug() | translate | async}}</ion-content>
@@ -101,7 +109,7 @@ import { PersonAllService } from './person-all.service';
               <ion-label>
                 @if(subject.fav_phone) {
                   <a href="tel:{{subject.fav_phone}}" style="text-decoration:none;">
-                    <ion-icon name="call-outline" slot="start" class="ion-hide-md-up"></ion-icon>
+                    <ion-icon name="call-outline" slot="start" class="ion-hide-md-up" />
                     <span class="ion-hide-md-down">{{subject.fav_phone }}</span>
                   </a>
                 }
@@ -117,7 +125,9 @@ import { PersonAllService } from './person-all.service';
             </ion-item>
             @if(authorizationService.hasRole('memberAdmin')) {
               <ion-item-options side="end">
-                <ion-item-option color="danger" (click)="deleteSubject(slidingItem, subject)"><ion-icon slot="icon-only" name="trash" /></ion-item-option>
+                <ion-item-option color="danger" (click)="deleteSubject(slidingItem, subject)">
+                  <ion-icon slot="icon-only" name="trash" />
+                </ion-item-option>
               </ion-item-options>
             }
           </ion-item-sliding>
@@ -134,6 +144,11 @@ export class PersonAllListComponent extends BaseModelListComponent implements On
   protected collectionName = CollectionNames.Person;
   protected listRoute = '/person/all';
   protected personTags = PersonTags;
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, arrowUpOutline, arrowDownOutline, atOutline, callOutline, copyOutline, downloadOutline, trash});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

@@ -7,6 +7,8 @@ import { ModelType } from '@bk/categories';
 import { getImgixUrlWithAutoParams } from '@bk/util';
 import { BkHeaderComponent, BkTextInputComponent } from '@bk/ui';
 import { DocumentService } from './document.service';
+import { addIcons } from "ionicons";
+import { camera } from "ionicons/icons";
 
 /**
  * This modal requests a user to select an image file and provide some metadata about the image.
@@ -55,6 +57,10 @@ export class ImageSelectModalComponent {
     hasPriority: false   // whether the image should be loaded first
   }
   protected canSave = false;
+
+  constructor() {
+    addIcons({camera});
+  }
 
   // select a photo from the camera or the photo library
   protected async pickImage() {

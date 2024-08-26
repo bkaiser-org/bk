@@ -6,6 +6,8 @@ import { ImgixUrlPipe, TranslatePipe } from '@bk/pipes';
 import { BkHeaderComponent } from '@bk/ui';
 import { AuthService } from '@bk/auth';
 import { ConfigService, getImgixUrlWithAutoParams, navigateByUrl } from '@bk/util';
+import { addIcons } from "ionicons";
+import { informationCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-welcome-page',
@@ -124,6 +126,10 @@ export class BkWelcomePageComponent {
   public logoAlt = this.configService.getConfigString('tenant_name') + ' Logo';
   public rootUrl = this.configService.getConfigString('cms_root_url');
   public loginUrl = this.configService.getConfigString('cms_login_url');
+
+  constructor() {
+    addIcons({informationCircleOutline});
+  }
 
   public async gotoHome(): Promise<void> {
     await navigateByUrl(this.router, this.configService.getConfigString('cms_root_url'));

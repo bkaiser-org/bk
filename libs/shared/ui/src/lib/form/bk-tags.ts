@@ -4,6 +4,8 @@ import { IonButton, IonButtons, IonChip, IonContent, IonHeader, IonIcon, IonItem
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { BkTagSelectModalComponent } from '../modals/tag-select.modal';
+import { addIcons } from "ionicons";
+import { pricetagOutline, closeCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-tags',
@@ -35,7 +37,7 @@ import { BkTagSelectModalComponent } from '../modals/tag-select.modal';
           @for (tag of selectedTags; track tag) {
             <ion-chip color="primary">
               <ion-button fill="clear" (click)="removeTag(tag)">
-                <ion-icon name="close-circle-outline" slot="start" [style.color]="'primary'"></ion-icon>
+                <ion-icon name="close-circle-outline" slot="start" [style.color]="'primary'" />
                 <ion-label>{{ '@tag.' + tag | translate | async }}</ion-label>
               </ion-button>
             </ion-chip>
@@ -55,6 +57,7 @@ export class BkTagsComponent {
   public changedTags = output<string>(); // event to notify the parent component about changes
 
   constructor() {
+    addIcons({pricetagOutline, closeCircleOutline});
     effect(() => {
       this.selectedTags = string2stringArray(this.storedTags());
       this.nonSelectedTags = getNonSelectedTags(string2stringArray(this.allTags()), this.selectedTags);

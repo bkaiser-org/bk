@@ -2,6 +2,8 @@ import { Component, input } from '@angular/core';
 import { IonButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
 import { ColorIonic, ColorsIonic } from '@bk/categories';
 import { CategoryPlainNamePipe } from '@bk/pipes';
+import { addIcons } from "ionicons";
+import { arrowUpOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-sort-button',
@@ -25,4 +27,8 @@ export class BkSortButtonComponent {
   public label = input<string>();
 
   protected colorsIonic = ColorsIonic;
+
+  constructor() {
+    addIcons({arrowUpOutline});
+  }
 }

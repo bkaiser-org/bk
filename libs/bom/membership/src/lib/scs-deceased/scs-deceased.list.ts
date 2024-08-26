@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FilterType, ListType, ListTypes } from '@bk/categories';
 import { CollectionNames, MembershipTags, die, uniqueElements } from '@bk/util';
-import { BkAvatarLabelComponent, BkCatComponent, BkLabelSelectModalComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
+import { BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
 import { DurationPipe, FullNamePipe, IsSortedPipe, MemberCategoriesPipe, MemberHeaderPipe, PrettyDatePipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { MembershipSubjectModel, RelationshipModel, SubjectModel } from '@bk/models';
@@ -10,6 +10,8 @@ import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, combineLatest, map, switchMap } from 'rxjs';
 import { ScsDeceasedService } from './scs-deceased.service';
+import { addIcons } from "ionicons";
+import { arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-membership-scs-deceased-list',
@@ -34,7 +36,7 @@ import { ScsDeceasedService } from './scs-deceased.service';
   imports: [
     TranslatePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, MemberHeaderPipe,
     DurationPipe, MemberCategoriesPipe, PrettyDatePipe,
-    BkYearSelectComponent, BkLabelSelectModalComponent, BkSingleTagComponent,
+    BkYearSelectComponent, BkSingleTagComponent,
     BkAvatarLabelComponent, BkSpinnerComponent, BkSearchbarComponent, BkCatComponent, IonBackdrop,
     IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonIcon,
     IonGrid, IonRow, IonCol, IonLabel, IonContent, IonItem
@@ -131,6 +133,11 @@ export class MembershipScsDeceasedListComponent extends BaseModelListComponent i
   protected listType = ListType.MemberScsDeceased;
   protected collectionName = CollectionNames.Membership;
   protected listRoute = '/membership/scsDeceased';
+
+  constructor() {
+    super();
+    addIcons({arrowUpOutline, arrowDownOutline});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

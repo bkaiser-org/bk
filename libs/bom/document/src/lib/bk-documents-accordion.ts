@@ -10,6 +10,8 @@ import { DocumentService } from './document.service';
 import { getDocumentStoragePath } from './document.util';
 import { Browser } from '@capacitor/browser';
 import { ConfigService } from '@bk/util';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-documents-accordion',
@@ -77,6 +79,10 @@ export class BkDocumentsAccordionComponent {
   protected isAllowed = computed(() => this.authorizationService.checkAuthorization(getModelAdmin(this.modelType())));
   protected path = computed(() => getDocumentStoragePath(this.tenant, this.modelType(), this.parentKey(), this.relationshipType()));
   protected documents = computed(() => this.documentService.listDocumentsFromStorageDirectory(this.modelType(), this.parentKey(), this.relationshipType()));
+
+  constructor() {
+    addIcons({addCircleOutline, createOutline, trashOutline});
+  }
 
    /**
    * Show a modal to upload a file.

@@ -20,6 +20,8 @@ import { vestForms } from 'ngx-vest-forms';
 import { BkImageConfigFormComponent } from './default-image-config.form';
 import { BkImageListFormComponent } from "./image-list.form";
 import { SingleImageFormComponent } from "./image.form";
+import { addIcons } from "ionicons";
+import { copyOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-section-form',
@@ -168,6 +170,11 @@ export class SectionFormComponent extends AbstractFormComponent implements After
   protected toolbar = BkEditorToolbar;
   protected role = RoleEnum;
   protected roles = RoleEnums;
+
+  constructor() {
+    super();
+    addIcons({copyOutline});
+  }
 
   ngAfterViewInit() {
     this.resetForm();

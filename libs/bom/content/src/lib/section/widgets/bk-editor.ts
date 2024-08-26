@@ -6,6 +6,8 @@ import { BkCopyButtonComponent } from '@bk/ui';
 import { IonButton, IonIcon, IonItem } from '@ionic/angular/standalone';
 import { Editor, NgxEditorModule } from 'ngx-editor';
 import { BkEditorToolbar } from './bk-editor-toolbar';
+import { addIcons } from "ionicons";
+import { closeOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-editor',
@@ -56,6 +58,10 @@ export class BkEditorComponent implements OnInit, OnDestroy {
 
   public editor: Editor | undefined;
   protected toolbar = BkEditorToolbar;
+
+  constructor() {
+    addIcons({closeOutline});
+  }
 
   ngOnInit() {
     this.editor = new Editor({

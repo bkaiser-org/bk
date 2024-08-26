@@ -10,6 +10,8 @@ import { MenuItemAllService } from './menu-item-all.service';
 import { newMenuItem } from '../menu.util';
 import { MenuItemModalComponent } from '../menu-item.modal';
 import { ListType, MenuAction, MenuActions } from '@bk/categories';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, trash } from "ionicons/icons";
 
 @Component({
   selector: 'bk-menu-item-all-list',
@@ -121,6 +123,11 @@ export class MenuItemAllListComponent extends BaseModelListComponent implements 
 
   public menuActions = MenuActions;
   public MA = MenuAction;
+
+  constructor() {
+    super();
+    addIcons({addCircleOutline, createOutline, trash});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

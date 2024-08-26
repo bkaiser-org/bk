@@ -10,6 +10,8 @@ import { Observable, of } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MembershipService } from './membership.service';
 import { Router } from '@angular/router';
+import { addIcons } from "ionicons";
+import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
 
 @Component({
     selector: 'bk-members',
@@ -85,6 +87,10 @@ export class BkMembersComponent {
   public ND = NameDisplay;
   public OT = OrgType;
   public RT = RelationshipType;
+
+  constructor() {
+    addIcons({addCircleOutline, createOutline, trashOutline});
+  }
 
   private getMembers(orgKey: string | undefined): Observable<RelationshipModel[]> {
     if (!orgKey) return of([]);

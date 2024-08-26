@@ -8,6 +8,8 @@ import { BaseModelListComponent } from '@bk/base';
 import { AsyncPipe } from '@angular/common';
 import { ListType, ModelType, OrgType } from '@bk/categories';
 import { GroupAllService } from './group-all.service';
+import { addIcons } from "ionicons";
+import { atOutline, addCircleOutline, callOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trash } from "ionicons/icons";
 
 @Component({
     selector: 'bk-group-all-list',
@@ -26,7 +28,9 @@ import { GroupAllService } from './group-all.service';
       <ion-title>{{ baseService.filteredItems().length }} {{ baseService.title() | translate | async }}</ion-title>
       <ion-buttons slot="end">
         @if(authorizationService.hasRole('memberAdmin')) {
-          <ion-button (click)="add()" id="tooltip-add"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+          <ion-button (click)="add()" id="tooltip-add">
+            <ion-icon slot="icon-only" name="add-circle-outline" />
+          </ion-button>
           <ion-popover trigger="tooltip-add" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.add.group' | translate | async}}</ion-content>
@@ -34,7 +38,9 @@ import { GroupAllService } from './group-all.service';
           </ion-popover>
         }
         @if(authorizationService.isPrivilegedOr('memberAdmin')) {
-          <ion-button (click)="export()" id="tooltip-export"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
+          <ion-button (click)="export()" id="tooltip-export">
+            <ion-icon slot="icon-only" name="download-outline" />
+          </ion-button>
           <ion-popover trigger="tooltip-export" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.export' + baseService.slug() | translate | async}}</ion-content>
@@ -98,7 +104,9 @@ import { GroupAllService } from './group-all.service';
             </ion-item>
             @if(authorizationService.hasRole('memberAdmin')) {
               <ion-item-options side="end">
-                <ion-item-option color="danger" (click)="deleteSubject(slidingItem, subject)"><ion-icon slot="icon-only" name="trash" /></ion-item-option>
+                <ion-item-option color="danger" (click)="deleteSubject(slidingItem, subject)">
+                  <ion-icon slot="icon-only" name="trash" />
+                </ion-item-option>
               </ion-item-options>
             }
           </ion-item-sliding>
@@ -117,6 +125,11 @@ export class GroupAllListComponent extends BaseModelListComponent implements OnI
   protected collectionName = CollectionNames.Subject;
   protected listRoute = '/group/all';
   protected groupTags = GroupTags;
+
+  constructor() {
+    super();
+    addIcons({atOutline, addCircleOutline, callOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trash});
+  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);
