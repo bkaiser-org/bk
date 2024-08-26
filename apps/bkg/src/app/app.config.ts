@@ -34,6 +34,7 @@ import {
   initializeAppCheck,
   ReCaptchaEnterpriseProvider,
 } from 'firebase/app-check';
+import { provideServiceWorker } from '@angular/service-worker';
 
 const app = initializeApp(environment.firebase);
 
@@ -80,6 +81,9 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
-    I18nService,
+    I18nService, provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          }),
   ],
 };

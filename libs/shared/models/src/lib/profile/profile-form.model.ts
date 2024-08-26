@@ -9,13 +9,11 @@ export type ProfileFormModel = DeepPartial<{
   dateOfBirth: string,
   email: string,
   ssn: string,
-  iban: string,
   url: string,
   userLanguage: string,
   showDebugInfo: boolean,
   showTestData: boolean,
-  showArchivedData: boolean,
-  notes: string
+  showArchivedData: boolean
 }>;
 
 export const profileFormModelShape: DeepRequired<ProfileFormModel> = {
@@ -26,11 +24,9 @@ export const profileFormModelShape: DeepRequired<ProfileFormModel> = {
   dateOfBirth: '',
   email: '',
   ssn: '',
-  iban: '',
   url: '',
   userLanguage: '',
   showDebugInfo: false,
   showTestData: false,
-  showArchivedData: false,
-  notes: ''
+  showArchivedData: false
 };

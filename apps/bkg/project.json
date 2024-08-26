@@ -8,12 +8,16 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/bkg",
         "index": "apps/bkg/src/index.html",
         "browser": "apps/bkg/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/bkg/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -65,7 +69,8 @@
               "with": "./apps/bkg/src/environments/environment.prod.ts"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "serviceWorker": "apps/bkg/ngsw-config.json"
         },
         "development": {
           "optimization": false,
@@ -98,7 +103,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/bkg/jest.config.ts"
       }

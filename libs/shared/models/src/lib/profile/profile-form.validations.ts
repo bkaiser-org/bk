@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { enforce, omitWhen, only, staticSuite, test} from 'vest';
 import { ProfileFormModel } from './profile-form.model';
-import { ibanValidations } from '../fields/iban.validations';
 import { ssnValidations } from '../fields/ssn.validations';
 import { urlValidations } from '../fields/url.validations';
 import { stringValidations } from '../primitive-validations/string.validations';
-import { DESCRIPTION_LENGTH, SHORT_NAME_LENGTH, isFutureDate } from '@bk/util';
+import { SHORT_NAME_LENGTH, isFutureDate } from '@bk/util';
 import { categoryValidations } from '../primitive-validations/category.validations';
 import { GenderType } from '@bk/categories';
 import { dateValidations } from '../primitive-validations/date.validations';
@@ -20,13 +19,11 @@ export const profileFormValidations = staticSuite((model: ProfileFormModel, fiel
   categoryValidations('gender', model.gender, GenderType);
   dateValidations('dateOfBirth', model.dateOfBirth);
   ssnValidations('ssn', model.ssn);
-  ibanValidations('iban', model.iban);
   urlValidations('url', model.url);
   stringValidations('userLanguage', model.userLanguage, 2);
   booleanValidations('showDebugInfo', model.showDebugInfo);
   booleanValidations('showTestData', model.showTestData);
   booleanValidations('showArchivedData', model.showArchivedData);
-  stringValidations('notes', model.notes, DESCRIPTION_LENGTH);
 
   omitWhen(model.dateOfBirth === '', () => {
     test('dateOfBirth', 'personDateOfBirthNotFuture', () => {
