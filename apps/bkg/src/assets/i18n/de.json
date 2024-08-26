@@ -1931,63 +1931,10 @@
   },
   "cms": {
     "welcome": {
-      "title": "bkaiser.org",
-      "subTitle": "Open Source Software",
+      "header": "Willkommen !",
+      "title": "bkaiser GmbH",
+      "subTitle": "IT AdInterim Management & Consulting",
       "help": "Dies ist die Startseite. Klicke oben links aufs Menü und wähle eine Funktion."
-    },
-    "boatinfo": {
-      "title": "Boots-Statistiken",
-      "graph": {
-        "pkm": {
-          "title": "nach Jahr gem. Logbuch",
-          "subtitle": "Personen-Kilometer",
-          "xLabel": "Jahr",
-          "yLabel": "km"
-        },
-        "bkm": {
-          "title": "nach Jahr gem. Logbuch",
-          "subtitle": "Boots-Kilometer",
-          "xLabel": "Jahr",
-          "yLabel": "km"
-        },
-        "boats": {
-          "title": "Anzahl Boote pro Jahr",
-          "subtitle": "Boote",
-          "xLabel": "Jahr",
-          "yLabel": "Anzahl"
-        }
-      }
-    },
-    "clubinfo": {
-      "title": "Club Informationen",
-      "official": {
-        "title": "Offizielles",
-        "name": "Vereinsname",
-        "bank": "Bank",
-        "account": "Bankkonto (IBAN)",
-        "insurance": "GVZ Grundstücknummer",
-        "founded": "Gründung"
-      },
-      "contact": {
-        "title": "Kontaktangaben",
-        "address": "Vereinsadresse (Post)",
-        "phone": "Telefon Bootshaus",
-        "web": "Website (URL)",
-        "email": "E-Mail"
-      },
-      "location": {
-        "title": "Ortsangaben",
-        "location": "Bootshaus Adresse",
-        "coordinates": "Koordinaten",
-        "latitude": "Breitengrad",
-        "longitude": "Längengrad",
-        "w3w": "what3words",
-        "street": "Strasse",
-        "ponton": "Ponton"
-      },
-      "presidents": {
-        "title": "Präsidium"
-      }
     },
     "help": {
       "title": "Hilfe und Anleitung",
