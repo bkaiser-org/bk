@@ -53,6 +53,5 @@ export const ReservationStates: ReservationStateCategory[] = [
     name: 'denied',
     i18nBase: 'reservation.state.denied',
     icon: 'thumbs-down-outline'
-  },
-
+  }
 ]
