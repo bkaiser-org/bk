@@ -10,13 +10,12 @@ import {
   IonToolbar,
   Platform,
 } from '@ionic/angular/standalone';
-import { TranslocoModule } from '@jsverse/transloco';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@bk/pipes';
 import { BkMenuComponent } from '@bk/content';
 import { AuthInfoComponent, AuthorizationService } from '@bk/base';
 import { AuthService } from '@bk/auth';
-import { ConfigService } from '@bk/util';
+import { ConfigService, getImgixUrlWithAutoParams } from '@bk/util';
 import { ModelType } from '@bk/categories';
 
 @Component({
@@ -126,7 +125,7 @@ import { ModelType } from '@bk/categories';
     </ion-app>
     } @placeholder (minimum 1000ms) {
     <div class="logo-container">
-      <img class="kenburns-top" src="assets/icon/logo.svg" alt="logo" />
+      <img class="kenburns-top" [src]="logoUrl" alt="logo" />
     </div>
     } @loading(after 100ms; minimum 500ms) {
     <span>Bitte warten... die Applikation wird geladen.</span>
@@ -145,6 +144,9 @@ export class AppComponent {
   private configService = inject(ConfigService);
 
   public appVersion = this.configService.getConfigString('app_version');
+  public baseImgixUrl = this.configService.getConfigString('cms_imgix_base_url');
+  public logoUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_logo_url'));
+
   public MT = ModelType;
 
   constructor() {
