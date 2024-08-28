@@ -113,15 +113,15 @@ export class DocumentService extends BaseService {
     const _path = getDocumentStoragePath(this.configService.getConfigString('tenant_id'), modelType, key, relationshipType);
     const _ref = ref(this.storage, _path);
     try {
-      const _result = await listAll(_ref);
-      for (const _item of _result.items) {
+      const _items = await listAll(_ref);
+      await Promise.all(_items.items.map(async (_item) => {
         const _metadata = await getMetadata(_item);
         const _doc = await this.convertStorageMetadataToDocumentModel(_metadata);
         _docs.push(_doc);
-      }
+      }));
     }
     catch(_ex) {
-      error(undefined, 'DocumentService.calculateStorageConsumption: ERROR: ' + JSON.stringify(_ex));
+      error(undefined, 'DocumentService.listDocumentsFromStorageDirectory: ERROR: ' + JSON.stringify(_ex));
     }
     return _docs;
   }

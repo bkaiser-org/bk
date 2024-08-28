@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { DocumentModel } from '@bk/models';
 import { BkSpinnerComponent } from '@bk/ui';
 import { FileLogoPipe, FileSizePipe, PrettyDatePipe, TranslatePipe } from '@bk/pipes';
@@ -12,6 +12,7 @@ import { Browser } from '@capacitor/browser';
 import { ConfigService } from '@bk/util';
 import { addIcons } from "ionicons";
 import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
+import { from, Observable } from 'rxjs';
 
 @Component({
   selector: 'bk-documents-accordion',
@@ -33,7 +34,7 @@ import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
       }
     </ion-item>
     <div slot="content">
-      @if((documents() | async); as documents) {
+      @if((documents$ | async); as documents) {
         <ion-list lines="none">
           @if(documents.length === 0) {
             <ion-item>
@@ -64,7 +65,7 @@ import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
   </ion-accordion>
   `,
 })
-export class BkDocumentsAccordionComponent {
+export class BkDocumentsAccordionComponent implements OnInit {
   public dataService = inject(DataService);
   public documentService = inject(DocumentService);
   public authorizationService = inject(AuthorizationService);
@@ -78,10 +79,14 @@ export class BkDocumentsAccordionComponent {
   private tenant = this.configService.getConfigString('tenant_id');
   protected isAllowed = computed(() => this.authorizationService.checkAuthorization(getModelAdmin(this.modelType())));
   protected path = computed(() => getDocumentStoragePath(this.tenant, this.modelType(), this.parentKey(), this.relationshipType()));
-  protected documents = computed(() => this.documentService.listDocumentsFromStorageDirectory(this.modelType(), this.parentKey(), this.relationshipType()));
+  public documents$: Observable<DocumentModel[]> | undefined;
 
   constructor() {
     addIcons({addCircleOutline, createOutline, trashOutline});
+  }
+
+  ngOnInit() {
+    this.documents$ = from(this.documentService.listDocumentsFromStorageDirectory(this.modelType(), this.parentKey(), this.relationshipType()));
   }
 
    /**
