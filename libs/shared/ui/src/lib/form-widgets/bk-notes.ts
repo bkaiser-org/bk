@@ -1,6 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, input, model, output, viewChild } from '@angular/core';
-import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
+import { Component, inject, input, model, output } from '@angular/core';
 import { TranslatePipe } from '@bk/pipes';
 import { bkTranslate, decrypt, DESCRIPTION_LENGTH, encrypt } from '@bk/util';
 import { AlertController, IonCol, IonGrid, IonIcon, IonItem, IonRow, IonTextarea } from '@ionic/angular/standalone';
@@ -13,7 +12,6 @@ import { closeOutline, keyOutline } from "ionicons/icons";
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe,
-    FormsModule, 
     IonGrid, IonRow, IonCol, IonTextarea, IonItem, IonIcon,
     BkCopyButtonComponent
   ],
@@ -50,16 +48,7 @@ import { closeOutline, keyOutline } from "ionicons/icons";
         </ion-col>
       </ion-row>
   </ion-grid>
-  `,
-  /* 
-   * BIG TROUBLE WITHOUT THIS VIEWPROVIDER
-   * See Kara's talk: https://youtu.be/CD_t3m2WMM8?t=1826
-   * COMMENT OUT to see:
-   * - NgForm has no controls! Controls are detached from the form.
-   * - Form-level status values (touched, valid, etc.) no longer change
-   * - Controls still validate, update model, and update their statuses
-   */
-  viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
+  `
 })
 export class BkNotesComponent {
   private alertController = inject(AlertController);
@@ -75,8 +64,6 @@ export class BkNotesComponent {
   protected encryptable = input(true); // show a button to encrypt or decrypt the notes
 
   public changed = output<string>();
-
-  protected ionTextArea = viewChild<HTMLIonTextareaElement>('bkNotes');
   private password = '';
 
   constructor() {

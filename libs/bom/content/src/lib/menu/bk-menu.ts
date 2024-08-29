@@ -79,7 +79,7 @@ import { addCircleOutline, calendarOutline, contractOutline, documentOutline, do
                 <ion-icon slot="start" [name]="menuItem.icon" color="primary" />
                 <ion-label>{{ menuItem.label | translate | async }}</ion-label>
               </ion-item>
-            }
+            } 
           }
         }
       }

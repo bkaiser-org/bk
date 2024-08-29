@@ -1,59 +1,73 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, input, model } from '@angular/core';
-import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
-import { AddressFormModel } from '@bk/models';
+import { AfterViewInit, Component, input, output, viewChild } from '@angular/core';
 import { TranslatePipe } from '@bk/pipes';
 import { IonInput, IonItem } from '@ionic/angular/standalone';
 import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { BkCopyButtonComponent } from '../form/bk-copy-button';
 import { MaskitoDirective } from '@maskito/angular';
+import { bkTranslate, IBAN_LENGTH } from '@bk/util';
 
 @Component({
   selector: 'bk-iban',
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe, 
-    FormsModule, MaskitoDirective,
+    MaskitoDirective,
     IonItem, IonInput,
     BkCopyButtonComponent
   ],
   template: `
     <ion-item lines="none">
-      <ion-input #bkIban [(ngModel)]="vm().iban" name="iban" scControlWrapper
-        label="{{ label() | translate | async }}"
+      <ion-input #bkIban [name]="name()" [value]="value()" (ionInput)="onTextChange($event)" scControlWrapper
         labelPlacement="floating"
+        label="{{'@input.' + name() + '.label' | translate | async }}"
+        placeholder="{{'@input.' + name() + '.placeholder' | translate | async }}"
         inputMode="text"
         type="text"
         [counter]="true"
-        [maxlength]="26"
-        placeholder="{{ placeholder() | translate | async }}"
+        [maxlength]="maxLength()"
         autocomplete="off"
-        [clearInput]="true"
-        errorText="{{errorText() | translate | async }}"
-        helperText="{{helperText() | translate | async }}"
-        readonly="{{readOnly()}}"
+        [clearInput]="clearInput()"
+        [readonly]="readOnly()" 
         [maskito]="chIbanMask"
-        [maskitoElement]="maskPredicate" />
-      <bk-copy-button [value]="vm().iban" />
+        [maskitoElement]="maskPredicate"
+      />
+      @if (copyable()) {
+        <bk-copy-button [value]="ionInput().value" />
+      }
     </ion-item>
-  `,
-  /* 
-   * BIG TROUBLE WITHOUT THIS VIEWPROVIDER
-   * See Kara's talk: https://youtu.be/CD_t3m2WMM8?t=1826
-   * COMMENT OUT to see:
-   * - NgForm has no controls! Controls are detached from the form.
-   * - Form-level status values (touched, valid, etc.) no longer change
-   * - Controls still validate, update model, and update their statuses
-   */
-  viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
+  `
 })
-export class BkIbanComponent {
-  public vm = model.required<AddressFormModel>(); // mandatory view model
+export class BkIbanComponent implements AfterViewInit {
+  public value = input.required<string>(); // mandatory view model
+  public name = input('iban'); // name of the input field
   public readOnly = input(false); // if true, the input field is read-only
-  public label = input('@input.iban.label');
-  public placeholder = input('@input.iban.placeholder');
-  public errorText = input('@input.iban.error');
-  public helperText = input('@input.iban.helper');
+  public maxLength = input(IBAN_LENGTH); // max number of characters allowed
+  public clearInput = input(true); // show an icon to clear the input field
+  public copyable = input(true); // if true, a button to copy the value of the input field is shown
+
+  public showError = input(true);
+  public showHelper = input(true);
+
+  public ionInput = viewChild.required<IonInput>('bkIban');
+  public changed = output<string>();
+
+  ngAfterViewInit(): void {
+    if (this.showError() === true) {
+      this.ionInput().errorText = bkTranslate('@input.' + this.name() + '.error');
+    }
+    if (this.showHelper() === true) {
+      this.ionInput().helperText = bkTranslate('@input.' + this.name() + '.helper');
+    }
+  }
+
+   /**
+   * Signal the updated text value to the container element after each keystroke (onInput)
+   * and after leaving the edit field (onChange)
+   */
+   protected onTextChange(event: CustomEvent): void {
+    this.changed.emit(event.detail.value);
+  }
 
   readonly chIbanMask: MaskitoOptions = {
     mask: ['C', 'H', /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\w/, /\w/, /\w/, ' ', /\w/, /\w/, /\w/, /\w/, ' ', /\w/, /\w/, /\w/, /\w/, ' ', /\w/],

@@ -78,11 +78,11 @@ import { vestForms } from 'ngx-vest-forms';
 
         <ion-row>
           <ion-col size="12" size-md="6">                                               <!-- phone -->
-            <bk-phone [vm]="vm" [readOnly]="readOnly()" />
+            <bk-phone [value]="vm.phone!" [readOnly]="readOnly()" (changed)="updateField('phone', $event)" />
           </ion-col>
 
           <ion-col size="12" size-md="6">                                  <!-- email -->
-            <bk-email [vm]="vm" [readOnly]="readOnly()" />
+            <bk-email [value]="vm.email!" [readOnly]="readOnly()" (changed)="updateField('email', $event)" />
           </ion-col>
         </ion-row>
 

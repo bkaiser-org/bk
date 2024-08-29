@@ -57,14 +57,14 @@ import { vestForms } from 'ngx-vest-forms';
         @case (AC.Email) {
           <ion-row>
             <ion-col size="12">                                     <!-- email -->
-              <bk-email [vm]="vm" [readOnly]="readOnly()" />
+              <bk-email [value]="vm.email!" [readOnly]="readOnly()" (changed)="updateEmail($event)" />
             </ion-col>
           </ion-row>
         }
         @case (AC.Phone) {
           <ion-row>
             <ion-col size="12">                                      <!-- phone -->
-              <bk-phone [vm]="vm" [readOnly]="readOnly()" />
+              <bk-phone [value]="vm.phone!" [readOnly]="readOnly()" (changed)="updatePhone($event)" />
             </ion-col>
           </ion-row>
         }
@@ -96,7 +96,7 @@ import { vestForms } from 'ngx-vest-forms';
         @case (AC.BankAccount) {
           <ion-row>
             <ion-col size="12">                                                           <!-- iban -->
-              <bk-iban [vm]="vm" [readOnly]="false" (copySelected)="copyValue('iban')" />
+              <bk-iban [value]="vm.iban!" [readOnly]="readOnly()" (changed)="updateIban($event)" />
             </ion-col>
           </ion-row>
         }
@@ -213,6 +213,21 @@ export class AddressFormComponent extends AbstractFormComponent implements After
         this.updateField('city', String(data.name));
       }
     }
+  }
+
+  protected updateEmail($event: string): void {
+    this.updateField('addressValue', $event);
+    this.updateField('email', $event);
+  }
+
+  protected updatePhone($event: string): void {
+    this.updateField('addressValue', $event);
+    this.updateField('phone', $event);
+  }
+
+  protected updateIban($event: string): void {
+    this.updateField('addressValue', $event);
+    this.updateField('iban', $event);
   }
 
   protected onChannelChange($event: Event): void {

@@ -77,7 +77,6 @@ export function convertFormToMenuItem(vm: MenuItemFormModel): MenuItemModel {
   _menuItem.category = vm.category ?? MenuAction.Navigate;
   _menuItem.label = vm.label ?? '';
   _menuItem.icon = vm.icon ?? 'help-circle-outline';
-  const _properties = vm.data;
   _menuItem.data = vm.data ? vm.data : [];
   _menuItem.menuItems = vm.menuItems ?? [];
   const _roleNeeded = convertRoleEnumToName(vm.roleNeeded);

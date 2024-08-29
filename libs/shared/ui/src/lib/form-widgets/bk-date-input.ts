@@ -97,10 +97,10 @@ export class BkDateInputComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.showError() === true) {
-      this.ionInput().errorText = bkTranslate('@input.' + this.name() + '.error');
+      this.ionInput().errorText = bkTranslate(`@input.${this.name()}.error`);
     }
     if (this.showHelper() === true) {
-      this.ionInput().helperText = bkTranslate('@input.' + this.name() + '.helper');
+      this.ionInput().helperText = bkTranslate(`@input.${this.name()}.helper`);
     }
   }
 

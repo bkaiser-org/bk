@@ -1,57 +1,56 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, input, model } from '@angular/core';
-import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
-import { AddressFormModel, OrgNewFormModel, PersonNewFormModel } from '@bk/models';
+import { AfterViewInit, Component, input, output, viewChild } from '@angular/core';
 import { TranslatePipe } from '@bk/pipes';
 import { IonInput, IonItem } from '@ionic/angular/standalone';
 import { MaskitoDirective } from '@maskito/angular';
 import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { BkCopyButtonComponent } from '../form/bk-copy-button';
+import { bkTranslate, PHONE_LENGTH } from '@bk/util';
 
 @Component({
   selector: 'bk-phone',
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe,
-    FormsModule, MaskitoDirective,
+    MaskitoDirective,
     IonItem, IonInput,
     BkCopyButtonComponent
   ],
   template: `
   <ion-item lines="none">
-    <ion-input #input [(ngModel)]="vm().phone" name="phone"
-      label="{{ label() | translate | async }}"
+    <ion-input #bkPhone name="name()" [value]="value()" (ionInput)="onTextChange($event)"
       labelPlacement="floating"
+      label="{{'@input.' + name() + '.label' | translate | async }}"
+      placeholder="{{'@input.' + name() + '.placeholder' | translate | async }}"
       inputMode="tel"
       type="tel"
       [counter]="true"
-      [maxlength]="30"
-      placeholder="{{ placeholder() | translate | async }}"
+      [maxlength]="maxLength()"
       autocomplete="tel"
-      [clearInput]="true"
-      errorText="{{errorText() | translate | async }}"
-      readonly="{{readOnly()}}"
+      [clearInput]="clearInput()"
+      [readonly]="readOnly()" 
       [maskito]="chPhoneMask"
-      [maskitoElement]="maskPredicate" />
-    <bk-copy-button [value]="vm().phone" />
+      [maskitoElement]="maskPredicate"
+    />
+    @if (copyable()) {
+        <bk-copy-button [value]="ionInput().value" />
+      }
   </ion-item>
-  `,
-  /* 
-   * BIG TROUBLE WITHOUT THIS VIEWPROVIDER
-   * See Kara's talk: https://youtu.be/CD_t3m2WMM8?t=1826
-   * COMMENT OUT to see:
-   * - NgForm has no controls! Controls are detached from the form.
-   * - Form-level status values (touched, valid, etc.) no longer change
-   * - Controls still validate, update model, and update their statuses
-   */
-  viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
+  `
 })
-export class BkPhoneComponent {
-  public vm = model.required<OrgNewFormModel | PersonNewFormModel | AddressFormModel>(); // mandatory view model
+export class BkPhoneComponent implements AfterViewInit {
+  public value = input.required<string>(); // mandatory view model
+  public name = input('phone'); // name of the input field
   public readOnly = input(false); // if true, the input field is read-only
-  public label = input('@input.phone.label');
-  public placeholder = input('@input.phone.placeholder');
-  public errorText = input('@input.phone.error');
+  public maxLength = input(PHONE_LENGTH); // max number of characters allowed
+  public clearInput = input(true); // show an icon to clear the input field
+  public copyable = input(true); // if true, a button to copy the value of the input field is shown
+
+  public showError = input(false);
+  public showHelper = input(false);
+
+  public ionInput = viewChild.required<IonInput>('bkPhone');
+  public changed = output<string>();
 
   readonly usPhoneMask: MaskitoOptions = {
     mask: ['+', '1', ' ', '(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
@@ -70,4 +69,21 @@ export class BkPhoneComponent {
   export default maskitoPhoneOptionsGenerator({countryIsoCode: 'HU', metadata});
   we did not yet implement this, because we ran into problems with the imports and need to investigate a bit.
   */
+
+  ngAfterViewInit(): void {
+    if (this.showError() === true) {
+      this.ionInput().errorText = bkTranslate('@input.' + this.name() + '.error');
+    }
+    if (this.showHelper() === true) {
+      this.ionInput().helperText = bkTranslate('@input.' + this.name() + '.helper');
+    }
+  }
+
+  /**
+   * Signal the updated text value to the container element after each keystroke (onInput)
+   * and after leaving the edit field (onChange)
+   */
+    protected onTextChange(event: CustomEvent): void {
+      this.changed.emit(event.detail.value);
+    }
 }
