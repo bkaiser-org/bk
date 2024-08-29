@@ -12,8 +12,8 @@ export interface Image {  // identifies a single image or a specific image in an
   imageOverlay: string, // used for text overlays on the imgix image
   altText: string,     // aria text for the image,
   fill: boolean,       // if true, the image fills the whole container, default is true
-  width: number,       // the width of the image in pixels, default is 160
-  height: number,      // the height of the image in pixels, default is 90
+  width?: number,       // the width of the image in pixels, default is 160
+  height?: number,      // the height of the image in pixels, default is 90
   sizes: string,       // the sizes attribute for the img tag, default is '(max-width: 1240px) 50vw, 300px'
   hasPriority: boolean, // if true, the image is loaded first, default is true
   imgIxParams?: string,
