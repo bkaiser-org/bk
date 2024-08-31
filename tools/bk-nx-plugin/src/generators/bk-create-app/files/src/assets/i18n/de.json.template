@@ -1247,7 +1247,7 @@
       "profile": {
         "label": "Profil",
         "description": "Persönliche Informationen und Applikations-Einstellungen",
-        "intro": "Es können hier nicht alle deine Daten geändert werden, beispielsweise weil gewisse Daten für die Meldung an den Verband SRV benötigt werden. Bitte wende dich an den Administrator, wenn du weitere Aenderungswünsche hast."
+        "intro": "Hier kannst du deine Adressen anpassen. Bitte wende dich für weitere Aenderungen an "
       },
       "birthday": {
         "singular": "Geburtstag",
