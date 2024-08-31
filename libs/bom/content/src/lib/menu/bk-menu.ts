@@ -1,6 +1,5 @@
 import { Component, effect, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@bk/auth';
 import { AppNavigationService, isInSplitPane } from '@bk/util';
 import { selectMenuItem } from './menu.util';
 import { IonAccordion, IonAccordionGroup, IonIcon, IonItem, IonItemDivider, IonLabel, IonList, MenuController } from '@ionic/angular/standalone';
@@ -41,12 +40,6 @@ import { addCircleOutline, calendarOutline, contractOutline, documentOutline, do
               <ion-label>{{ menuItem.label | translate | async }}</ion-label>
             </ion-item>
           }
-          @case(MA.Logout) {
-            <ion-item button (click)="select(menuItem)">
-              <ion-icon slot="start" [name]="menuItem.icon" color="primary" />
-              <ion-label>{{ menuItem.label | translate | async }}</ion-label>
-            </ion-item>
-          }
           @case(MA.SubMenu) {
             <ion-accordion-group>
               <ion-accordion [value]="menuItem.name" toggle-icon-slot="start" >
@@ -73,21 +66,12 @@ import { addCircleOutline, calendarOutline, contractOutline, documentOutline, do
               }
             </ion-list>
           }
-          @case(MA.Login) {
-            @if(authService.isAuthenticated() === false) {
-              <ion-item button (click)="select(menuItem)">
-                <ion-icon slot="start" [name]="menuItem.icon" color="primary" />
-                <ion-label>{{ menuItem.label | translate | async }}</ion-label>
-              </ion-item>
-            } 
-          }
         }
       }
     } 
   `
 })
 export class BkMenuComponent {
-  public authService = inject(AuthService);
   public authorizationService = inject(AuthorizationService);
   public appNavigationService = inject(AppNavigationService);
   private menuItemService = inject(MenuItemService);
@@ -110,7 +94,7 @@ export class BkMenuComponent {
 
   public async select(menuItem: MenuItemModel): Promise<void> {
     this.appNavigationService.resetLinkHistory(menuItem.url);
-    await selectMenuItem(this.authService, this.router, menuItem);
+    await selectMenuItem(this.router, menuItem);
     if (!isInSplitPane()) this.menuController.close('main');
   }
 }

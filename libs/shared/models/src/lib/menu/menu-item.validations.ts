@@ -44,15 +44,17 @@ export const menuItemValidation = staticSuite((model: MenuItemModel, field?: str
     });
   });
 
-  // if MenuAction.Navigate|Browse|Logout -> url must be defined
-  omitWhen(model.category > MenuAction.Logout, () => {
-    test('menuItems', 'Nur SubMenus dürfen MenuItems enthalten', () => {
+  // if MenuAction.Navigate|Browse -> url must be defined
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  omitWhen(model.category! > MenuAction.Browse, () => {
+    test('menuItems', 'menuItemsEmptySubMenu', () => {
       enforce(model.menuItems).isEmpty();
     });
-  });
+  });  
+
 
   // if MenuAction.Navigate|Browse|SubMenu -> roleNeeded must be defined
-  omitWhen(model.category > MenuAction.SubMenu || model.category === MenuAction.Logout, () => {
+  omitWhen(model.category > MenuAction.SubMenu, () => {
     test('roleNeeded', 'Die Angabe der benötigten Rolle ist obligatorisch.', () => {
       enforce(model.roleNeeded).isNotUndefined();
     });

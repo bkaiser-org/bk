@@ -38,7 +38,7 @@ import { vestForms } from 'ngx-vest-forms';
         </ion-col>
       </ion-row>
 
-      @if(vm.category === MA.Navigate || vm.category === MA.Browse || vm.category === MA.Logout || vm.category === MA.Login) {
+      @if(vm.category === MA.Navigate || vm.category === MA.Browse) {
         <ion-row>
           <ion-col size="12" size-md="6">                                             <!-- icon -->
             <bk-text-input name="icon" [value]="vm.icon!" (changed)="updateField('icon', $event)" [readOnly]="readOnly()" [maxLength]="nameLength" [showHelper]=true [showError]=true />

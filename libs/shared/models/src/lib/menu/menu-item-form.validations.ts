@@ -36,17 +36,17 @@ export const menuItemFormValidation = staticSuite((model: MenuItemFormModel, fie
     });
   });
 
-  // if MenuAction.Navigate|Browse|Logout -> url must be defined
+  // if MenuAction.Navigate|Browse -> url must be defined
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  omitWhen(model.category! > MenuAction.Logout, () => {
+  omitWhen(model.category! > MenuAction.Browse, () => {
     test('menuItems', 'menuItemsEmptySubMenu', () => {
       enforce(model.menuItems).isEmpty();
     });
   });  
 
-  // if MenuAction.Navigate|Browse|SubMenu -> roleNeeded must be defined
+  // if MenuAction.Navigate|Browse -> roleNeeded must be defined
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  omitWhen(model.category! > MenuAction.SubMenu || model.category === MenuAction.Logout, () => {
+  omitWhen(model.category === MenuAction.Browse, () => {
     test('roleNeeded', 'menuRoleNeededMandatory', () => {
       enforce(model.roleNeeded).isNotUndefined();
     });

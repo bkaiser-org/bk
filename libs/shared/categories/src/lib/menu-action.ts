@@ -5,11 +5,9 @@ export type MenuActionCategory = Category;
 export enum MenuAction {
   Navigate,
   Browse,
-  Logout,
   SubMenu,
   Divider,
-  MainMenu,
-  Login
+  MainMenu
 }
 
 export const MenuActions: MenuActionCategory[] = [
@@ -26,13 +24,6 @@ export const MenuActions: MenuActionCategory[] = [
   name: 'browse',
   i18nBase: 'content.menuAction.browse',
   icon: 'earth-outline'
-},
-{
-  id: MenuAction.Logout,
-  abbreviation: 'LOGOUT',
-  name: 'logout',
-  i18nBase: 'content.menuAction.logout',
-  icon: 'log-out-outline'
 },
 {
   id: MenuAction.SubMenu,
@@ -54,12 +45,5 @@ export const MenuActions: MenuActionCategory[] = [
   name: '',
   i18nBase: 'content.menuAction.mainMenu',
   icon: 'menu-outline'
-},
-{
-  id: MenuAction.Login,
-  abbreviation: 'LOGIN',
-  name: 'login',
-  i18nBase: 'content.menuAction.login',
-  icon: 'log-in-outline'
 }
 ];

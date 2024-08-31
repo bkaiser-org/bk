@@ -118,18 +118,13 @@ export function getTarget(menuItem: MenuItemModel): string {
   }
 }
 
-export async function selectMenuItem(authService: AuthService, router: Router, menuItem: MenuItemModel): Promise<void> {
+export async function selectMenuItem(router: Router, menuItem: MenuItemModel): Promise<void> {
   switch (menuItem.category) {
     case MenuAction.Browse:
       await Browser.open({ url: menuItem.url, windowName: getTarget(menuItem) });
       break;
-    case MenuAction.Login:
     case MenuAction.Navigate:
       await navigateByUrl(router, menuItem.url, menuItem.data);
-      break;
-    case MenuAction.Logout:
-      await authService.logout(); // logs the user out and redirects to the welcome page
-      window.location.reload();
       break;
     default:
       die('MenuUtil.select: invalid MenuAction=' + menuItem.category);
