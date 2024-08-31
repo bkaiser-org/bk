@@ -489,7 +489,7 @@
     "dateOfBirth": {
       "label": "Geburtsdatum",
       "placeholder": "tt.mm.jjjj",
-      "helper": "Der Verein benötigt dein richtiges Geburtsdatum zB. für Statistiken oder Meldungen an den Verband SRV. In den Einstellungen kannst du die Sichtbarkeit deines Geburtsdatums für andere Mitglieder ausschalten.",
+      "helper": "Wir benötigen dein richtiges Geburtsdatum zB. für Statistiken oder externe Meldungen (AHV, Verband etc.). In den Einstellungen kannst du die Sichtbarkeit deines Geburtsdatums für andere Nutzende ausschalten.",
       "error": "Das Datumsformat ist nicht korrekt."
     },
     "dateOfDeath": {
@@ -565,6 +565,7 @@
     "email": {
       "label": "E-Mail",
       "placeholder": "ssss@ssssssss.sss",
+      "helper": "Eine gültige Email-Adresse mit folgendem Format: ssss@sssssss.sss",
       "error": "Bitte eine gültige Email Adresse eingeben."
     },
     "eventType": {
@@ -879,6 +880,7 @@
     "phone": {
       "label": "Telefon",
       "placeholder": "+41 nn nnn nnnn",
+      "helper": "Eine gültige, schweizerische Telefonnummer mit folgendem Format: +41 nn nnn nnnn",
       "error": "Die Telefonnummer muss in folgendem Format angegeben werden: +41 nn nnn nnnn."
     },
     "price": {
@@ -1246,7 +1248,7 @@
       "profile": {
         "label": "Profil",
         "description": "Persönliche Informationen und Applikations-Einstellungen",
-        "intro": "Es können hier nicht alle deine Daten geändert werden, beispielsweise weil gewisse Daten für die Meldung an den Verband SRV benötigt werden. Bitte wende dich an den Administrator, wenn du weitere Aenderungswünsche hast."
+        "intro": "Hier kannst du deine Adressen anpassen. Bitte wende dich für weitere Aenderungen an "
       },
       "birthday": {
         "singular": "Geburtstag",
