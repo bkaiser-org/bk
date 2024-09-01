@@ -3,7 +3,6 @@ import { die, getPropertyValue, navigateByUrl, warn } from '@bk/util';
 import { Browser } from '@capacitor/browser';
 import { MenuAction, MenuActions, RoleEnum, RoleEnums, getCategoryAbbreviation } from '@bk/categories';
 import { MenuItemFormModel, MenuItemModel, RoleName } from '@bk/models';
-import { AuthService } from '@bk/auth';
 
 export function newMenuItem(name: string, label: string, icon = 'help-circle-outline'): MenuItemModel {
   const _menuItem = new MenuItemModel();
@@ -60,7 +59,7 @@ export function convertMenuItemToForm(menuItem: MenuItemModel | undefined): Menu
     category: menuItem.category,
     label: menuItem.label,
     icon: menuItem.icon,
-    data: menuItem.data,
+    data: menuItem.data ?? [],
     menuItems: menuItem.menuItems ?? [],
     roleNeeded: convertRoleNameToEnum(menuItem.roleNeeded),
     url: menuItem.url,
@@ -77,7 +76,7 @@ export function convertFormToMenuItem(vm: MenuItemFormModel): MenuItemModel {
   _menuItem.category = vm.category ?? MenuAction.Navigate;
   _menuItem.label = vm.label ?? '';
   _menuItem.icon = vm.icon ?? 'help-circle-outline';
-  _menuItem.data = vm.data ? vm.data : [];
+  _menuItem.data = vm.data ?? [];
   _menuItem.menuItems = vm.menuItems ?? [];
   const _roleNeeded = convertRoleEnumToName(vm.roleNeeded);
   if (_roleNeeded) _menuItem.roleNeeded = _roleNeeded;

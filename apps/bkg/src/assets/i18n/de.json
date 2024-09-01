@@ -875,7 +875,8 @@
       "label": "Priorität"
     },
     "property": {
-      "label": "Routing-Parameter"
+      "label": "Routing-Parameter",
+      "empty": "Es sind keine Routing Parameter konfiguriert."
     },
     "phone": {
       "label": "Telefon",
@@ -924,7 +925,8 @@
     "route": {
       "label": "Route",
       "placeholder": "/route/to/page",
-      "helper": "Beim Click auf das Menu wird diese Url aufgerufen."
+      "helper": "Beim Click auf das Menu wird diese Url aufgerufen.",
+      "error": "Die Route ist obligatorisch und muss aus alphanumerischen Zeichen bestehen."
     },
     "sealevel": {
       "label": "Höhe über Meer",

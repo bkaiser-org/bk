@@ -51,19 +51,25 @@ import { closeCircleOutline } from "ionicons/icons";
         </ion-item>
 
         @if(propertyList(); as propertyList) {
-          <ion-list>
-            <!-- Casting $event to $any is a temporary fix for this bug https://github.com/ionic-team/ionic-framework/issues/24245 -->
-            <ion-reorder-group  [disabled]="false" (ionItemReorder)="reorder($any($event))">
-              @for(property of propertyList; track property.key) {
-                <ion-item>
-                  <ion-reorder slot="start" />
-                  <ion-label>{{ property.key }}</ion-label>
-                  <ion-label>{{ property.value }}</ion-label>
-                  <ion-icon name="close-circle-outline" (click)="remove(property.key)" slot="end" />
-                </ion-item>
-              }
-            </ion-reorder-group>
-          </ion-list>
+          @if(propertyList.length === 0) {
+            <ion-item lines="none">
+              <ion-label>{{'@input.property.empty' | translate | async}}</ion-label>
+            </ion-item>
+          } @else {
+            <ion-list>
+              <!-- Casting $event to $any is a temporary fix for this bug https://github.com/ionic-team/ionic-framework/issues/24245 -->
+              <ion-reorder-group  [disabled]="false" (ionItemReorder)="reorder($any($event))">
+                @for(property of propertyList; track property.key) {
+                  <ion-item>
+                    <ion-reorder slot="start" />
+                    <ion-label>{{ property.key }}</ion-label>
+                    <ion-label>{{ property.value }}</ion-label>
+                    <ion-icon name="close-circle-outline" (click)="remove(property.key)" slot="end" />
+                  </ion-item>
+                }
+              </ion-reorder-group>
+            </ion-list>
+          }
         }
       </ion-card-content>
     </ion-card>
