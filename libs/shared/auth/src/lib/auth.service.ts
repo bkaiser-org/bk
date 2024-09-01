@@ -1,11 +1,10 @@
 import { Injectable, computed, inject, signal } from "@angular/core";
-import { AUTH_EMULATOR_PORT, bkTranslate, die, navigateByUrl, showToast, warn, ConfigService } from "@bk/util";
-import { Auth, AuthError, User, browserLocalPersistence, connectAuthEmulator, createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail, setPersistence, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { AUTH, bkTranslate, die, navigateByUrl, showToast, warn, ConfigService } from "@bk/util";
+import { AuthError, User, browserLocalPersistence, createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, setPersistence, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { authState } from 'rxfire/auth';
 import { ToastController } from "@ionic/angular";
 import { Router } from "@angular/router";
-import { connect }  from 'ngxtension/connect';
-import { Observable } from "rxjs";
+import { tap } from "rxjs";
 
 /**
  * This provider centralizes the authentication functions
@@ -18,63 +17,59 @@ import { Observable } from "rxjs";
  * 12.8.2023/bk adding DataState and upgrading to AngularFire 7.6 with new API
  * 18.11.2023/bk rewriting to use rxfire
  * 21.11.2023/bk moved user related state into UserService and AuthorizationService
+ * 30.8.2024/bk replaced ngxtension/connect with redux-like pattern (see https://www.youtube.com/watch?v=rHQa4SpekaA )
  */
 
-interface AuthState {
-  firebaseUser: User | null;
+export type FirebaseUser = User | null | undefined;
+
+interface AuthenticationState {
+  firebaseUser: FirebaseUser;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private auth = inject(AUTH);
   private toastController = inject(ToastController);
   private router = inject(Router);
   private configService = inject(ConfigService);
 
-  private auth!: Auth;
-
-  // sources
-  private user$!: Observable<User | null>;
   private toastLength = this.configService.getConfigNumber('settings_toast_length');
   private loginUrl = this.configService.getConfigString('cms_login_url');
 
+  // sources
+  private user$ = authState(this.auth);
+
   // state
-  private state = signal<AuthState>({
-    firebaseUser: null
+  private state = signal<AuthenticationState>({
+    firebaseUser: undefined,
   });
 
   // selectors
   public currentFirebaseUser = computed(() => this.state().firebaseUser);
-  public isAuthenticated = computed(() => this.state().firebaseUser !== null);
+  public currentFirebaseUid = computed(() => this.currentFirebaseUser()?.uid ?? undefined);
+  public currentLoginEmail = computed(() => this.currentFirebaseUser()?.email ?? undefined);
+  public isAuthenticated = computed(() => this.currentFirebaseUser() ? true : false);
 
   /*-------------------------- reducers --------------------------------*/
-  // constructor of a service (= singleton) is called only once when loading the app, so we can subscribe to the authState here
   constructor() {
-    this.auth = this.initializeAuth();
-    this.user$ = authState(this.auth);
 
-    // reducer
-    // when the firebaseUser changes, update the state
-    connect(this.state)
-      .with(this.user$, (state, firebaseUser) => ({ ...state, firebaseUser: firebaseUser }));
+    // reducers
+    this.user$.pipe(
+      tap(firebaseUser => this.setFirebaseUser(firebaseUser)));
+    onAuthStateChanged(this.auth, (user) => {
+      this.setFirebaseUser(user);
+      console.log('AuthService: onAuthStateChanged: user: ', user);
+    });
   }
 
-  private initializeAuth(): Auth {
-    try {
-      const _auth = getAuth();
-      if (this.configService.useEmulators === true) {
-        connectAuthEmulator(_auth, `http://localhost:${AUTH_EMULATOR_PORT}`, {
-          disableWarnings: true,
-        });
-      } 
-      return _auth;  
-    }
-    catch(_ex) {
-      die('AuthService.initializeAuth: error: ' + JSON.stringify(_ex));
-    }
+  private setFirebaseUser(firebaseUser: User | null): void {
+    console.log('AuthService.setFirebaseUser: firebaseUser: ', firebaseUser);
+    this.state.update(_state => ({ ..._state, firebaseUser: firebaseUser }));
   }
 
+  /*-------------------------- login / logout / password reset --------------------------------*/
   /**
    * Login a returning user with already existing credentials.
    * @param loginEmail the uid (an email address)
@@ -119,18 +114,20 @@ export class AuthService {
     }
   }
 
-  public async logout(): Promise<void> {
+  public async logout(): Promise<boolean> {
     try {
       await signOut(this.auth);
       await showToast(this.toastController, '@auth.operation.logout.confirmation', this.toastLength);
-      await navigateByUrl(this.router, this.configService.getConfigString('cms_root_url'));
+      return Promise.resolve(true);
     } 
     catch (_ex) {
       console.error('AuthService.logout: error: ', _ex);
       await showToast(this.toastController, '@auth.operation.logout.error', this.toastLength);
+      return Promise.resolve(false);
     }
   }
 
+  /*-------------------------- helpers --------------------------------*/
   /**
    * Try to create a new Firebase account with the given email address.
    * On successful creation of the user account, this new user is signed in. That's why we update the user to the former current user.
@@ -175,7 +172,7 @@ export class AuthService {
    * Set the provided user as the new current user.
    * @param user 
    */
-  public async updateUser(user: User | null): Promise<void> {
+  public async updateUser(user: FirebaseUser): Promise<void> {
     if (user) {
       await this.auth.updateCurrentUser(user);
     }
