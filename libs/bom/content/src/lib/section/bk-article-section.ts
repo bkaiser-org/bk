@@ -5,7 +5,6 @@ import { BkImgComponent, BkSpinnerComponent } from '@bk/ui';
 import { ViewPosition } from '@bk/categories';
 import { BkEditorComponent } from './widgets/bk-editor';
 import { AsyncPipe } from '@angular/common';
-import { newImage } from './section.util';
 
 @Component({
   selector: 'bk-article-section',
@@ -32,9 +31,11 @@ import { newImage } from './section.util';
             @case(VP.Left) {
               <ion-grid>
                 <ion-row>
-                  <ion-col size="12" [sizeMd]="colSizeImage()">
-                    <bk-img [image]="image()" />
-                  </ion-col>
+                  @if(image(); as image) {
+                    <ion-col size="12" [sizeMd]="colSizeImage()">
+                      <bk-img [image]="image" />
+                    </ion-col>
+                  }
                   <ion-col size="12" [sizeMd]="colSizeText()">
                     <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
                   </ion-col>
@@ -47,19 +48,25 @@ import { newImage } from './section.util';
                   <ion-col size="12" [sizeMd]="colSizeText()">
                     <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
                   </ion-col>
-                  <ion-col size="12" [sizeMd]="colSizeImage()">
-                    <bk-img [image]="image()" />
-                  </ion-col>
+                  @if(image(); as image) {
+                    <ion-col size="12" [sizeMd]="colSizeImage()">
+                      <bk-img [image]="image" />
+                    </ion-col>
+                  }
                 </ion-row>
               </ion-grid>
             }
             @case(VP.Top) {
-              <bk-img [image]="image()" />
+              @if(image(); as image) {
+                <bk-img [image]="image" />
+              }
               <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
             }
             @case(VP.Bottom) {
               <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
-              <bk-img [image]="image()" />
+              @if(image(); as image) {
+                <bk-img [image]="image" />
+              }
             }
             @default {  <!-- VP.None -->
               <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
@@ -75,7 +82,7 @@ import { newImage } from './section.util';
 export class BkArticleSectionComponent {
   public section = input<SectionModel>();
   public readOnly = input(false);
-  protected image = computed(() => this.section()?.properties.image ?? newImage());
+  protected image = computed(() => this.section()?.properties.image);
   public contentChange = output<string>();
 
   public VP = ViewPosition;
@@ -87,6 +94,7 @@ export class BkArticleSectionComponent {
 
   // colSizeText
   protected colSizeText = computed(() => {
+    if (!this.image()) return 12;
     return (12 - (this.section()?.colSize ?? 6));
   });
 
