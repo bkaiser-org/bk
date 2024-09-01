@@ -1,5 +1,5 @@
 import { NgOptimizedImage, NgStyle, provideImgixLoader } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, viewChild } from '@angular/core';
 import { Image } from '@bk/models';
 import { ImgixUrlPipe } from '@bk/pipes';
 import { IonThumbnail, ModalController } from '@ionic/angular/standalone';
@@ -62,7 +62,7 @@ See <a href="https://sandbox.imgix.com/view?url=https://assets.imgix.net/~text?f
       IonThumbnail
     ],
     providers: [
-      provideImgixLoader('https://seeclub.imgix.net')
+      provideImgixLoader('https://bkaiser.imgix.net')
     ],
     styles: [`
       ion-thumbnail { margin: auto; height: 100px; width: 100px; padding: 10px; text-align: right; position: relative;}
@@ -72,7 +72,7 @@ See <a href="https://sandbox.imgix.com/view?url=https://assets.imgix.net/~text?f
       @if(image(); as image) {
         @if(isThumbnail() === true) {
           <ion-thumbnail [slot]="slot()" [ngStyle]="style()" (click)="showZoomedImage()">
-            <img [src]="'https://seeclub.imgix.net/' + (image | imgixUrl)" [alt]="image.altText" /> 
+            <img [src]="'https://bkaiser.imgix.net/' + (image | imgixUrl)" [alt]="image.altText" /> 
           </ion-thumbnail>
         }
         @else {
@@ -92,6 +92,8 @@ See <a href="https://sandbox.imgix.com/view?url=https://assets.imgix.net/~text?f
   export class BkImgComponent {
     private modalController = inject(ModalController);
     public image = input.required<Image>();
+    protected imageContainer = viewChild('.image-container', { read: ElementRef });
+
 
     // by default, image is 100% of screen width on devices under 768px wide, and 50% on bigger screens
     // alternatively when excluding the menu: calc(100vw - 128px)
@@ -105,10 +107,12 @@ See <a href="https://sandbox.imgix.com/view?url=https://assets.imgix.net/~text?f
     });
     protected slot = computed(() => this.image()?.slot ?? 'start');
     protected width = computed(() => {
-      return this.image()?.width ? this.image().width : 160;
+      const _width = this.image()?.width;
+      return !_width ? this.getValue('width', 'auto') : _width;
     });
     protected height = computed(() => {
-      return this.image()?.height ? this.image().height: 90;
+      const _height = this.image()?.height;
+      return !_height ? this.getValue('height', 'auto') : _height;
     });
 
     protected async showZoomedImage(): Promise<void> {
@@ -123,5 +127,13 @@ See <a href="https://sandbox.imgix.com/view?url=https://assets.imgix.net/~text?f
       });
       _modal.present();
       await _modal.onDidDismiss();
+    }
+
+    private getValue(key: string, defaultValue: string): string {
+      const _el = this.imageContainer();
+      if (_el) {
+        return _el.nativeElement[key] ?? defaultValue;
+      }
+      return defaultValue;
     }
   }
