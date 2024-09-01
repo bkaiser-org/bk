@@ -28,6 +28,8 @@ import { AsyncPipe } from '@angular/common';
 }
 
 .background-image {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
   position: absolute;
   top: 0;
   left: 0;

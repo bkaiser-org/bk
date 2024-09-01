@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { navigateByUrl, ConfigService, getImgixUrlWithAutoParams } from '@bk/util';
+import { AfterViewInit, Component, ElementRef, inject, viewChild } from '@angular/core';
+import { navigateByUrl, ConfigService } from '@bk/util';
 import { IonCol, IonContent, IonGrid, IonIcon, IonImg, IonLabel, IonRow } from '@ionic/angular/standalone';
 import { BkHeaderComponent, BkImgComponent } from '@bk/ui';
 import { TranslatePipe } from '@bk/pipes';
@@ -7,36 +7,42 @@ import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { addIcons } from "ionicons";
 import { informationCircleOutline } from "ionicons/icons";
+import { Image } from '@bk/models';
+import { newImage } from '@bk/content';
 
 @Component({
   selector: 'bk-page-not-found',
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe,
-    BkHeaderComponent, BkImgComponent,
+    BkHeaderComponent, BkImgComponent, BkImgComponent,
     IonContent, IonGrid, IonRow, IonCol, IonLabel, IonImg, IonIcon
   ],
   styles: [`
-     .notfound-container { 
-      display: flex; 
-      align-items: center;
+    .notfound-container {
+      display: flex;
       justify-content: center;
+      align-items: center;
+      width: 100%;
       height: 100%;
+      min-height: 700px;
     }
-
-    .background-image {
+    .notfound-image {
+      filter: blur(8px);
+      -webkit-filter: blur(8px);
       position: absolute;
+      padding: 0;
+      padding-top: 0;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: auto;
+      min-height: 700px;
       object-fit: cover;
       opacity: 0.7;
       z-index: 1;
     }
-
     .notfound-form {
-      background-color: rgba(255, 255, 255);
       padding: 20px;
       border-radius: 10px;
       width: 600px;
@@ -45,11 +51,18 @@ import { informationCircleOutline } from "ionicons/icons";
       text-align: center;
       z-index: 5;
     }
-
-    .title { text-align: center; font-size: 2rem; }
-    .subtitle { text-align: center; font-size: 1.2rem; }
-    .help { text-align: center; font-size: 1rem; }
-
+    .title {
+      text-align: center;
+      font-size: 2rem;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+    .help { 
+      text-align: center; 
+      font-size: 1rem;
+    }
     .logo, ion-button {
       max-width: 300px;
       text-align: center;
@@ -64,11 +77,11 @@ import { informationCircleOutline } from "ionicons/icons";
     <bk-header title="{{ '@cms.notfound.title' | translate | async }}" />
     <ion-content>
       <div class="notfound-container">
-        <img class="background-image" [src]="backgroundImageUrl" alt="Background" />
+        <bk-img class="notfound-image" [image]="backgroundImage" />
         <ion-grid class="notfound-form">
-        <ion-row>
+          <ion-row>
             <ion-col>
-              <ion-img class="logo" [src]="logoUrl" alt="{{ logoAlt }}" (click)="gotoHome()" />
+              <bk-img class="logo" [image]="logoImage" (click)="gotoHome()" />
             </ion-col>
           </ion-row>
           <ion-row>
@@ -94,22 +107,48 @@ import { informationCircleOutline } from "ionicons/icons";
     </ion-content>
   `
 })
-export class PageNotFoundComponent {
+export class PageNotFoundComponent implements AfterViewInit {
   private router = inject(Router);
   private configService = inject(ConfigService);
-
-  public baseImgixUrl = this.configService.getConfigString('cms_imgix_base_url');
-  public logoUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_logo_url'));
-  public backgroundImageUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_welcome_banner_url'));
-  public logoAlt = this.configService.getConfigString('tenant_name') + ' Logo';
-  public rootUrl = this.configService.getConfigString('cms_root_url');
+  public backgroundImage!: Image;
+  public logoImage!: Image;
+  protected contentElement = viewChild(BkImgComponent, { read: ElementRef });
 
   constructor() {
     addIcons({informationCircleOutline});
   }
 
+  ngAfterViewInit(): void {
+    this.backgroundImage = {
+      url: this.configService.getConfigString('cms_notfound_banner_url'),
+      imageLabel: '',
+      downloadUrl: '',
+      imageOverlay: '',
+      altText: this.configService.getConfigString('tenant_name') + ' background image',
+      fill: true,
+      sizes: '100vw',
+      hasPriority: true,
+      imgIxParams: '',
+      borderRadius: 4,
+      isZoomable: false,
+      zoomFactor: 2,
+      isThumbnail: false,
+      slot: 'start'
+    };    
+    console.log('Background Image:', this.backgroundImage);
+
+    this.logoImage = newImage();
+    this.logoImage.url = this.configService.getConfigString('cms_logo_url');
+    this.logoImage.hasPriority = false;
+    this.logoImage.isZoomable = false;
+    this.logoImage.isThumbnail = false;
+    this.logoImage.fill = true;
+    this.logoImage.altText = this.configService.getConfigString('tenant_name') + ' Logo';
+    this.logoImage.width = 100;
+    this.logoImage.height = 100;
+  }
+
   public async gotoHome(): Promise<void> {
-    console.log('Navigating to home page');
     await navigateByUrl(this.router, this.configService.getConfigString('cms_root_url'));
   }
 }

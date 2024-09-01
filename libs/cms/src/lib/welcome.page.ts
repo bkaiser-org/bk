@@ -27,6 +27,8 @@ import { informationCircleOutline } from "ionicons/icons";
 }
 
 .background-image {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
   position: absolute;
   top: 0;
   left: 0;
@@ -38,7 +40,6 @@ import { informationCircleOutline } from "ionicons/icons";
 }
 
 .welcome-form {
-  background-color: rgba(255, 255, 255);
   padding: 20px;
   border-radius: 10px;
   width: 600px;
@@ -74,7 +75,7 @@ import { informationCircleOutline } from "ionicons/icons";
 }
   `],
   template: `
-    <bk-header title="{{ '@auth.operation.login.title' | translate | async }}" [isRoot]="true" />
+    <bk-header title="{{ '@cms.welcome.header' | translate | async }}" [isRoot]="true" />
     <ion-content>
       <div class="welcome-container">
         <img class="background-image" [src]="backgroundImageUrl" alt="Background" />
