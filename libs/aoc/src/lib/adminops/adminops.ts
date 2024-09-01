@@ -3,7 +3,7 @@ import { Component, inject } from "@angular/core";
 import { DataService } from "@bk/base";
 import { GenderType, MembershipState, ModelValidationType, OrgKey, RelationshipType } from "@bk/categories";
 import { AgeByGenderStatistics, BkButtonComponent, BkHeaderComponent, BkCatComponent, CategoryByGenderStatistics, initializeAgeByGenderStatistics, initializeCategoryByGenderStatistics, updateAgeByGenderStats, updateCategoryByGenderStats } from "@bk/ui";
-import { CollectionNames, warn } from "@bk/util";
+import { CollectionNames, warn, FIRESTORE } from "@bk/util";
 import { BehaviorSubject, firstValueFrom, map, Observable } from "rxjs";
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonItem, IonRow, IonSelect, IonSelectOption } from "@ionic/angular/standalone";
 import { TranslatePipe } from "@bk/pipes";
@@ -11,7 +11,7 @@ import { AsyncPipe } from "@angular/common";
 import { CompetitionLevelModel, RelationshipModel, isCompetitionLevel, isMembership } from "@bk/models";
 import { CompetitionLevelStatistics, createCompetitionLevelFromScsMembership, initializeCLStatistics } from "@bk/competition-level";
 import { LogInfo, OpSignature, checkJuniorEntryFunction, fixFunction, getLogInfo, listIbanFunction, listOldJuniorsFunction, updateMembershipAttributes, updateMembershipPrices, validateFunction } from "./adminops.util";
-import { getFirestore, collection, getDocs, collectionGroup, QueryDocumentSnapshot } from "firebase/firestore";
+import { collection, getDocs, collectionGroup, QueryDocumentSnapshot } from "firebase/firestore";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -28,6 +28,7 @@ import { FormsModule } from "@angular/forms";
 })
 export class AdminOpsComponent {
   private dataService = inject(DataService);
+  private firestore = inject(FIRESTORE);
 
   public logInfo: LogInfo[] = [];
   private _logTitle = new BehaviorSubject<string>('');
@@ -65,8 +66,8 @@ export class AdminOpsComponent {
     let _counter = 0;
     this._logTitle.next(`Reading collection ${modelValidationType}`);
     const _snapshot =  (modelValidationType === ModelValidationType.Address || modelValidationType === ModelValidationType.Comment) ?
-      await getDocs(collectionGroup(getFirestore(), modelValidationType.toString())) :
-      await getDocs(collection(getFirestore(), modelValidationType.toString()));
+      await getDocs(collectionGroup(this.firestore, modelValidationType.toString())) :
+      await getDocs(collection(this.firestore, modelValidationType.toString()));
     const _collName = (modelValidationType === ModelValidationType.Address || modelValidationType === ModelValidationType.Comment) ? 'collectionGroup' : 'collection';
     this._logTitle.next(`${opLabel} ${_snapshot.size} items in ${_collName} ${modelValidationType}`);
     _snapshot.forEach((_doc) => {
@@ -112,10 +113,10 @@ export class AdminOpsComponent {
     let _document: QueryDocumentSnapshot;
     if (modelValidationType === ModelValidationType.Address || modelValidationType === ModelValidationType.Comment) {
       _collName = 'collectionGroup';
-      _document = (await getDocs(collectionGroup(getFirestore(), modelValidationType.toString()))).docs[0];
+      _document = (await getDocs(collectionGroup(this.firestore, modelValidationType.toString()))).docs[0];
     } else {
       _collName = 'collection';
-      _document = (await getDocs(collection(getFirestore(), modelValidationType.toString()))).docs[0];
+      _document = (await getDocs(collection(this.firestore, modelValidationType.toString()))).docs[0];
     }
     const _model = _document.data();
     if (modelValidationType === ModelValidationType.Address || modelValidationType === ModelValidationType.Comment) {
