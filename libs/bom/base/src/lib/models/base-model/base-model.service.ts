@@ -237,7 +237,7 @@ import { AuthorizationService } from "../../authorization/authorization.service"
 
   /*-------------------------- comments --------------------------------*/
   public async saveComment(collectionName: string, parentKey: string | undefined, comment: string): Promise<void> {
-    const _user = this.authorizationService.currentUser ?? die('BaseService.saveComment: inconsistent app state: there is no current user.');
+    const _user = this.authorizationService.currentUser() ?? die('BaseService.saveComment: inconsistent app state: there is no current user.');
     const _key = _user.bkey ?? die('BaseService.saveComment: inconsistent app state: current user has no key.');
     if (!parentKey) die('BaseService.saveComment: inconsistent app state: there is no parentKey.');
     const _comment = createComment(_key, _user.personName, comment, collectionName, parentKey);

@@ -32,7 +32,7 @@ export class CommentService {
       warn('CommentService.createComment: collectionName, parentKey and comment are mandatory.');
       return;
     }
-    const _user = this.authorizationService.currentUser ?? die('CommentService.createComment: inconsistent app state: there is no current user.');
+    const _user = this.authorizationService.currentUser() ?? die('CommentService.createComment: inconsistent app state: there is no current user.');
     const _commentModel = createComment(_user.personKey, _user.personName, comment, collectionName, parentKey);
     if (!_commentModel.creationDate) _commentModel.creationDate = getTodayStr(DateFormat.StoreDateTime);
     await this.dataService.createModel(`${collectionName}/${parentKey}/${CollectionNames.Comment}`, _commentModel);

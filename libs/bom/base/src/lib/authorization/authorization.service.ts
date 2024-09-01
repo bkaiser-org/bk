@@ -1,27 +1,81 @@
-import { effect, inject, Injectable } from '@angular/core';
-import { CollectionNames, die } from '@bk/util';
-import { RoleName, Roles, UserModel } from '@bk/models';
-import { AuthService } from '@bk/auth';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { AUTH, CollectionNames, die, warn } from '@bk/util';
+import { BaseModel, RoleName, Roles, UserModel } from '@bk/models';
 import { DataService } from '../models/data.service';
-import { firstValueFrom } from 'rxjs';
+import { Observable, of, switchMap, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { authState } from 'rxfire/auth';
+ 
+interface AuthorizationState {
+  currentUser: UserModel | undefined;
+  isLoading: boolean;
+  error: string | undefined;
+}
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthorizationService {
-  private authService = inject(AuthService);
+  private auth = inject(AUTH);
   private dataService = inject(DataService);
-  public currentUser: UserModel | undefined;
 
+  // sources
+  private user$ = authState(this.auth);
+
+  // state
+  private state = signal<AuthorizationState>({
+    currentUser: undefined,
+    isLoading: false,
+    error: undefined
+  });
+
+  // selectors
+  public currentUser = computed(() => this.state().currentUser);
+  public isLoading = computed(() => this.state().isLoading);
+  public error = computed(() => this.state().error);
+
+  /*-------------------------- reducers --------------------------------*/
   constructor() {
-    effect(async () => {
-      const _uid = this.authService.currentFirebaseUser()?.uid;
-      if (_uid) {
-        this.currentUser = await firstValueFrom(this.dataService.readModel(CollectionNames.User, _uid, false)) as UserModel;
-      }
-    });
+    this.user$.subscribe(firebaseUser => console.log('AuthorizationService: firebaseUid: ', firebaseUser?.uid));
+    this.user$.pipe(
+      tap(() => this.setLoadingIndicator(true)),
+      switchMap(firebaseUser => this.getUserByUid(firebaseUser?.uid)),
+      takeUntilDestroyed()
+    ).subscribe(_user => this.setCurrentUser(_user));
   }
 
+  private setLoadingIndicator(isLoading: boolean): void {
+    console.log('AuthorizationService.setLoadingIndicator: isLoading: ', isLoading);
+    this.state.update(() => ({ currentUser: undefined, isLoading: isLoading, error: undefined }));
+  }
+
+  private setCurrentUser(user: BaseModel | undefined): void {
+    console.log('AuthorizationService.setCurrentUser: user: ', user);
+    this.state.update(() => ({ currentUser: user as UserModel, isLoading: false, error: undefined }));
+  }
+
+  private setError(error: string | undefined): void {
+    console.log('AuthorizationService.setError: error: ', error);
+    this.state.update(() => ({ currentUser: undefined, isLoading: false, error: error }));
+  }
+
+  private resetState(): void {
+    this.state.update(() => ({ currentUser: undefined, isLoading: false, error: undefined }));
+  }
+
+  private getUserByUid(uid: string | undefined): Observable<BaseModel | undefined> {
+    console.log('AuthorizationService.getUserByUid: uid: ', uid);
+    try {
+      return this.dataService.readModel(CollectionNames.User, uid, false);
+    }
+    catch (_ex) {
+      warn('AuthorizationService.getUserByUid: error: ' + JSON.stringify(_ex));
+      this.setError(JSON.stringify(_ex));
+      return of(undefined);
+    }
+  }
+
+  /*-------------------------- access control --------------------------------*/
   public isAdmin(): boolean {
     return this.hasRole('admin');
   }
@@ -47,6 +101,7 @@ export class AuthorizationService {
       case 'eventAdmin': _roles = ['eventAdmin', 'admin']; break;
       case 'treasurer': _roles = ['treasurer', 'admin']; break;
       case 'admin':  _roles = ['admin']; break;
+      case 'public': _roles = ['public']; break; // only non-authenticated users
       default: die('AuthUtil.hasRole: unknown role claimed: ' + role);
     }
     return this.checkAuthorization(_roles);
@@ -59,9 +114,12 @@ export class AuthorizationService {
   * @returns true if at least one role matches allowed roles
   */
   public checkAuthorization(allowedRoles: RoleName[]): boolean {
-    if (!this.currentUser) return false;
+    const _currentUser = this.currentUser();
+    if (!_currentUser) {
+      return allowedRoles.includes('public');
+    }
     for (const role of allowedRoles) {
-      if (this.currentUser.roles[role as keyof Roles] === true) {
+      if (_currentUser.roles[role as keyof Roles] === true) {
         return true;
       }
     }

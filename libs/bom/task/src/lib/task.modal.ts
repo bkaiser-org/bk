@@ -35,7 +35,7 @@ export class TaskModalComponent{
   protected authorizationService = inject(AuthorizationService);
 
   public task = input.required<TaskModel>();
-  protected vm = computed(() => convertTaskToForm(this.task(), this.authorizationService.currentUser?.bkey));
+  protected vm = computed(() => convertTaskToForm(this.task(), this.authorizationService.currentUser()?.bkey));
   protected title = computed(() => getTaskTitle(this.task().bkey));
   protected formCanBeSaved = false;
   public currentForm: TaskFormModel | undefined;

@@ -38,7 +38,7 @@ import { ModelType } from '@bk/categories';
              <bk-addresses-accordion [parentKey]="vm.bkey!" [readOnly]="false" [parentType]="MT.Person"/>
           </ion-accordion-group>
 
-          @if(authorizationService.currentUser?.showDebugInfo === true) {
+          @if(authorizationService.currentUser()?.showDebugInfo === true) {
             <ion-item lines="none"><small>View Model (vm) on page level:</small></ion-item>
             <ion-item lines="none"><small><div [innerHTML]="vm | prettyjson"></div></small></ion-item>
           }
@@ -62,15 +62,15 @@ export class ProfilePageComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     // read the person data of the currently loggedin user
-    const _profilePerson$ = this.dataService.readModel(CollectionNames.Subject, this.authorizationService.currentUser?.personKey);
+    const _profilePerson$ = this.dataService.readModel(CollectionNames.Subject, this.authorizationService.currentUser()?.personKey);
     this.vm$ = _profilePerson$.pipe(map(_subject => this.convertToForm(_subject)));
   }
 
   private convertToForm(subject: BaseModel | undefined): ProfileFormModel {
     if (!subject) die('ProfilePage.convertToForm: subject is mandatory.');
-    if (isSubject(subject) && this.authorizationService.currentUser) {
+    if (isSubject(subject) && this.authorizationService.currentUser()) {
       this.profilePerson = subject; // save it for later use
-      return convertSubjectAndUserToProfileForm(subject, this.authorizationService.currentUser);  
+      return convertSubjectAndUserToProfileForm(subject, this.authorizationService.currentUser());  
     } else {
       die('ProfilePage.convertToForm: subject must be a SubjectModel and currentUser is mandatory.');
     }
@@ -87,7 +87,6 @@ export class ProfilePageComponent implements OnInit {
   public async onImageSelected(photo: Photo): Promise<void> {
     if (!this.profilePerson?.bkey) die('ProfilePage.onImageSelected: profilePerson with a key is mandatory.');
     await this.avatarService.uploadPhoto(photo, ModelType.Person, this.profilePerson?.bkey);
-    window.location.reload();
   }
 
   public async save(): Promise<void> {
@@ -101,7 +100,7 @@ export class ProfilePageComponent implements OnInit {
       error(undefined, 'ProfilePage.save: updating subject -> error = ' + JSON.stringify(_ex));
     }
     try {
-      await this.dataService.updateModel(CollectionNames.User, convertProfileFormToUser(this.authorizationService.currentUser, this.currentForm));
+      await this.dataService.updateModel(CollectionNames.User, convertProfileFormToUser(this.authorizationService.currentUser(), this.currentForm));
     }
     catch (_ex) {
       error(undefined, 'ProfilePage.save: updating user -> error = ' + JSON.stringify(_ex));

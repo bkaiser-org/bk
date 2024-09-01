@@ -60,8 +60,8 @@ use MenuController with this.menu.enable(true, menuId) to switch the menus
           </ion-header>
           <ion-content>
             <bk-menu menuName="main" />
-            @if (authorizationService.currentUser?.showDebugInfo === true) {
-            <bk-auth-info />
+            @if (authorizationService.currentUser()?.showDebugInfo === true) {
+              <bk-auth-info />
             }
           </ion-content>
         </ion-menu>
