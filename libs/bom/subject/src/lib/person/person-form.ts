@@ -60,6 +60,11 @@ import { vestForms } from 'ngx-vest-forms';
                 <bk-text-input name="ssn" [value]="vm.ssn!" (changed)="updateField('ssn', $event)" [maxLength]=16 [mask]="ssnMask" [showError]=true [showHelper]=true [copyable]=true [readOnly]="readOnly()" />                                        
               </ion-col>
             }
+            @if(authorizationService.isAdmin()) {
+              <ion-col size="12" size-md="6">                                 <!-- bexioId -->
+                <bk-text-input name="bexioId" [value]="vm.bexioId!" (changed)="updateField('bexioId', $event)" [maxLength]=6 [mask]="bexioMask" [showError]=true [readOnly]="readOnly()" />                                        
+              </ion-col>
+            }
           </ion-row>
     
           <!---------------------------------------------------
@@ -74,14 +79,9 @@ import { vestForms } from 'ngx-vest-forms';
           }
     
           @if(authorizationService.isAdmin()) {
-            <ion-row>                                                         <!-- bexio id -->
-              <ion-col size="12">
-                <bk-text-input name="bexioId" [value]="vm.bexioId!" (changed)="updateField('bexioId', $event)" [maxLength]=6 [mask]="bexioMask" [showError]=true [readOnly]="readOnly()" />                                        
-              </ion-col>
-            </ion-row>
             <ion-row>                                                       <!-- notes -->
               <ion-col>
-              <bk-notes [value]="vm.notes ?? ''" (changed)="updateField('notes', $event)" />
+               <bk-notes [value]="vm.notes ?? ''" (changed)="updateField('notes', $event)" />
               </ion-col>
             </ion-row>    
           }
