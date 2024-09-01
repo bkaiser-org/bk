@@ -2,8 +2,7 @@ import { Route } from '@angular/router';
 import {
   isAdminGuard,
   isAuthenticatedGuard,
-  isPrivilegedGuard,
-  logoutGuard,
+  isPrivilegedGuard
 } from '@bk/base';
 import {
   ContentPageComponent,
@@ -220,8 +219,7 @@ export const appRoutes: Route[] = [
       { path: 'login/:tenant', component: LoginPageComponent },
       { path: 'login', redirectTo: '/auth/login/bkg', pathMatch: 'full' },
       { path: 'pwdreset/:tenant', component: PasswordResetPageComponent },
-      { path: 'pwdreset', redirectTo: '/auth/pwdreset/bkg', pathMatch: 'full' },
-      { path: 'logout', canActivate: [logoutGuard], component: LoginPageComponent },
+      { path: 'pwdreset', redirectTo: '/auth/pwdreset/bkg', pathMatch: 'full' }
     ],
   },
   {

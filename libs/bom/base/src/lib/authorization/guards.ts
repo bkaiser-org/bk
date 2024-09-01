@@ -24,10 +24,3 @@ export const isAdminGuard = (): CanActivateFn => {
     return inject(AuthorizationService).isAdmin();
   }
 };
-
-export const logoutGuard = (): CanActivateFn => {
-  return () => {
-    inject(AuthService).logout();
-    return true;
-  }
-}
