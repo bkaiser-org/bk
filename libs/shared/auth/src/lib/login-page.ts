@@ -25,6 +25,8 @@ import { AuthService } from './auth.service';
 }
 
 .background-image {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
   position: absolute;
   top: 0;
   left: 0;
@@ -36,7 +38,6 @@ import { AuthService } from './auth.service';
 }
 
 .login-form {
-  background-color: white;
   padding: 20px;
   border-radius: 10px;
   width: 600px;
