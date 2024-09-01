@@ -23,21 +23,6 @@ export const appRoutes: Route[] = [
           import('@bk/cms').then((m) => m.BkWelcomePageComponent),
       },
       {
-        path: 'impressum',
-        loadComponent: () =>
-          import('@bk/cms').then((m) => m.ImpressumPageComponent),
-      },
-      {
-        path: 'privacy',
-        loadComponent: () =>
-          import('@bk/cms').then((m) => m.PrivacyPageComponent),
-      },
-      {
-        path: 'terms',
-        loadComponent: () =>
-          import('@bk/cms').then((m) => m.TermsPageComponent),
-      },
-      {
         path: 'notfound',
         loadComponent: () =>
           import('@bk/cms').then((m) => m.PageNotFoundComponent),
