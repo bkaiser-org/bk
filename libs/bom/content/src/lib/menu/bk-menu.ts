@@ -1,6 +1,6 @@
 import { Component, effect, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppNavigationService, isInSplitPane } from '@bk/util';
+import { AppNavigationService, isInSplitPane, navigateByUrl } from '@bk/util';
 import { selectMenuItem } from './menu.util';
 import { IonAccordion, IonAccordionGroup, IonIcon, IonItem, IonItemDivider, IonLabel, IonList, MenuController } from '@ionic/angular/standalone';
 import { AuthorizationService } from '@bk/base';
@@ -15,6 +15,7 @@ import { addIcons } from "ionicons";
 import { addCircleOutline, calendarOutline, contractOutline, documentOutline, documentTextOutline, enterOutline, eyeOffOutline, globeOutline, golfOutline,
     helpCircleOutline, homeOutline, idCardOutline, informationCircleOutline, keyOutline, logInOutline, logOutOutline,
     menuOutline, mapOutline, personCircleOutline, reorderFourOutline } from "ionicons/icons";
+import { AuthService } from '@bk/auth';
 
 @Component({
   selector: 'bk-menu',
@@ -72,6 +73,7 @@ import { addCircleOutline, calendarOutline, contractOutline, documentOutline, do
   `
 })
 export class BkMenuComponent {
+  public authService = inject(AuthService);
   public authorizationService = inject(AuthorizationService);
   public appNavigationService = inject(AppNavigationService);
   private menuItemService = inject(MenuItemService);
@@ -94,7 +96,12 @@ export class BkMenuComponent {
 
   public async select(menuItem: MenuItemModel): Promise<void> {
     this.appNavigationService.resetLinkHistory(menuItem.url);
-    await selectMenuItem(this.router, menuItem);
+    if (menuItem.url === '/auth/logout') {
+      await this.authService.logout();
+      await navigateByUrl(this.router, '/auth/login', menuItem.data);
+    } else {
+      await selectMenuItem(this.router, menuItem);
+    }
     if (!isInSplitPane()) this.menuController.close('main');
   }
 }
