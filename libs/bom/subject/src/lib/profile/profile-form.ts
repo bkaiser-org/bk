@@ -30,7 +30,8 @@ import { vestForms } from 'ngx-vest-forms';
       <ion-row>
         <ion-col>
           <ion-item lines="none">
-            {{'@subject.person.profile.intro' | translate | async }}
+            {{'@subject.person.profile.intro' | translate | async }} 
+            <a [href]="adminEmail">Website Admin</a>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -79,12 +80,14 @@ import { vestForms } from 'ngx-vest-forms';
 })
 export class ProfileFormComponent extends AbstractFormComponent implements AfterViewInit {
   private i18nService = inject(I18nService);
+
   public vm = model.required<ProfileFormModel>();
 
   protected readonly suite = profileFormValidations;
   protected readonly formValue = signal<ProfileFormModel>({});
   protected readonly shape = profileFormModelShape;
   protected readonly errors = signal<Record<string, string>>({ });
+  protected readonly adminEmail = `mailto:${this.configService.getConfigString('operator_email')}`;
 
   protected genderTypes = GenderTypes;
   protected ssnMask = chSsnMask;
