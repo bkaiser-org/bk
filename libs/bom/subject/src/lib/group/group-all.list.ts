@@ -163,6 +163,5 @@ export class GroupAllListComponent extends BaseModelListComponent implements OnI
   public async deleteSubject(slidingItem: IonItemSliding, subject: SubjectModel): Promise<void> {
     slidingItem.close();
     await this.baseService.deleteSubject(subject);
-    window.location.reload();
   }
 }

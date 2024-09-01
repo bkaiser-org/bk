@@ -128,7 +128,6 @@ export class EventAllListComponent extends BaseModelListComponent implements OnI
   public async deleteEvent(slidingItem: IonItemSliding, subject: EventModel): Promise<void> {
     slidingItem.close();
     await this.baseService.deleteEvent(subject);
-    window.location.reload();
   }
 
   public async editEvent(event?: EventModel): Promise<void> {

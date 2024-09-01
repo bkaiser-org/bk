@@ -145,6 +145,5 @@ export class BkSectionComponent implements OnInit {
   protected cancel(): void {
     this.newContent = '';
     this.showChangeConfirmation = false;
-    window.location.reload();
   }
 }

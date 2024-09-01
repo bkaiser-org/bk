@@ -106,7 +106,6 @@ export class PersonPageComponent {
   public async onImageSelected(photo: Photo): Promise<void> {
     if (!this.currentForm?.bkey) die('PersonPage.onImageSelected: currentForm with a key is mandatory.');
     await this.avatarService.uploadPhoto(photo, ModelType.Person, this.currentForm.bkey);
-    window.location.reload();
   }
 
   /**

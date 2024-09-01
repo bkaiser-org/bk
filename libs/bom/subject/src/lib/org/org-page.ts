@@ -106,7 +106,6 @@ export class OrgPageComponent {
     if (!this.currentForm?.bkey) die('OrgPage.onImageSelected: currentForm with a key is mandatory.');
     if (this.currentForm.modelType === undefined) die('OrgPage.onImageSelected:  modelType is mandatory.');
     await this.avatarService.uploadPhoto(photo, this.currentForm.modelType, this.currentForm.bkey);
-    window.location.reload();
   }
 
   public async save(): Promise<void> {

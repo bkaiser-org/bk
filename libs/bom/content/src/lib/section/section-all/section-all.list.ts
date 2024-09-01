@@ -168,6 +168,5 @@ export class SectionAllListComponent extends BaseModelListComponent implements O
   public async deleteSection(slidingItem: IonItemSliding, section: SectionModel): Promise<void> {
     slidingItem.close();
     await this.baseService.deleteSection(section);
-    window.location.reload();
   }
 }

@@ -136,7 +136,6 @@ export class PageAllListComponent extends BaseModelListComponent implements OnIn
   public async deletePage(slidingItem: IonItemSliding, page: PageModel): Promise<void> {
     slidingItem.close();
     await this.baseService.deletePage(page);
-    window.location.reload();
   }
 
   public async openPage(slidingItem?: IonItemSliding, key?: string): Promise<void> {

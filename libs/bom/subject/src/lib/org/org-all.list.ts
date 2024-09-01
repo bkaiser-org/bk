@@ -177,6 +177,5 @@ export class OrgAllListComponent extends BaseModelListComponent implements OnIni
   public async deleteSubject(slidingItem: IonItemSliding, subject: SubjectModel): Promise<void> {
     slidingItem.close();
     await this.baseService.deleteSubject(subject);
-    window.location.reload();
   }
 }

@@ -99,7 +99,6 @@ export class ResourcePageComponent {
   public async onImageSelected(photo: Photo): Promise<void> {
     if (!this.currentForm?.bkey) die('ResourcePage.onImageSelected: currentForm with a key is mandatory.');
     await this.avatarService.uploadPhoto(photo, ModelType.Resource, this.currentForm.bkey);
-    window.location.reload();
   }
 
   /**

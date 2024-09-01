@@ -110,6 +110,5 @@ export class BkSkiffReservationPageComponent implements OnInit {
     this.currentForm = this.vm;
     this.formStateOk = false;
     this.formCanBeSaved = this.formStateOk && this.isConfirmed;
-    window.location.reload();
   }
 }

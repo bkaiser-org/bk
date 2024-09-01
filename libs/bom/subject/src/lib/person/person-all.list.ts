@@ -176,7 +176,6 @@ export class PersonAllListComponent extends BaseModelListComponent implements On
   public async deleteSubject(slidingItem: IonItemSliding, subject: SubjectModel): Promise<void> {
     slidingItem.close();
     await this.baseService.deleteSubject(subject);
-    window.location.reload();
   }
 }
 
