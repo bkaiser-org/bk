@@ -10,7 +10,8 @@ export enum RoleEnum {
   MemberAdmin,
   EventAdmin,
   Treasurer,
-  Admin
+  Admin,
+  Public
 }
 
 
@@ -87,5 +88,12 @@ export const RoleEnums: RoleEnumCategory[] = [
   name: 'admin',
   i18nBase: 'auth.roles.admin',
   icon: 'person-circle-outline'
+},
+{
+  id: RoleEnum.Public,
+  abbreviation: 'PBL',
+  name: 'public',
+  i18nBase: 'auth.roles.public',
+  icon: 'lock-open-outline'
 }
 ]
