@@ -11,7 +11,6 @@
 //-----------------------------------------------
 // ports
 //-----------------------------------------------
-export const AUTH_EMULATOR_PORT = 9099;
 export const STORAGE_EMULATOR_PORT = 9199;
 // const FUNCTIONS_EMULATOR_PORT = 5001;
 // const PUBSUB_EMULATOR_PORT = 8085;
