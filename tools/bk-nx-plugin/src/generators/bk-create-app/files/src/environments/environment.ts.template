@@ -19,6 +19,12 @@ export const environment = {
     measurementId: '<%= fb_measurement_id %>',
     appcheckRecaptchaEnterpriseKey: "<%= fb_appcheck_key %>"
   },
+  store: {
+    projectId: "STORE_PROJECT_ID",
+    appId: "STORE_APP_ID",
+    apiKey: "STORE_API_KEY",
+    storageBucket: "STORE_PROJECT_ID.appspot.com"
+  },
   production: false,
   useEmulators: false,
   minimumConfigFetchInterval: 3600000,

@@ -5,16 +5,17 @@
     <title><%= fb_project_id %></title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="This is the website of <%= op_company %>, <%= admin_city %>, Switzerland.">
     <meta name="theme-color" content="#ffffff">
     <link rel="icon" href="<%= imgix_baseurl %>/tenant/<%= tenant_id %>/logo/favicon.svg">
     <link rel="mask-icon" href="<%= imgix_baseurl %>/tenant/<%= tenant_id %>/logo/mask-icon.svg" color="#000000">
     <link rel="apple-touch-icon" href="<%= imgix_baseurl %>/tenant/<%= tenant_id %>/logo/apple-touch-icon.png">
-    <link rel="manifest" href="manifest.json">
-
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="manifest" href="assets/manifest.json">
   </head>
   <body>
     <bk-root></bk-root>
+    <noscript>Please enable JavaScript to continue using this application.</noscript>
   </body>
 </html>

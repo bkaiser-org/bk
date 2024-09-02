@@ -11,10 +11,14 @@
   "description": "<%= tenant_id %>",
   "categories": ["productivity", "utilities", "photo"],
   "lang": "de",
-  "icons": [{
-      "src": "<%= imgix_baseurl %>/tenant/<%= tenant_id %>/logo/logo_square.svg",
-      "sizes": "48x48 72x72 96x96 128x128 144x144 152x152 192x192 256x256 384x384 512x512",
+  "icons": [
+    {
+      "src": "https://bkaiser.imgix.net/tenant/<%= tenant_id %>/logo/logo_square.svg", 
+      "sizes": "48x48 72x72 96x96 128x128 144x144 152x152 192x192 256x256 384x384 512x512", 
       "type": "image/svg+xml", 
       "purpose": "any" 
-  }],
+    }
+  ]
 }
+
+

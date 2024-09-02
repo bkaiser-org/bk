@@ -19,6 +19,12 @@ export const environment = {
     measurementId: '<%= fb_measurement_id %>',
     appcheckRecaptchaEnterpriseKey: "<%= fb_appcheck_key %>"
   },
+  store: {
+    projectId: "STORE_PROJECT_ID",
+    appId: "STORE_APP_ID",
+    apiKey: "STORE_API_KEY",
+    storageBucket: "STORE_PROJECT_ID.appspot.com"
+  },
   production: true,
   useEmulators: false,
   minimumConfigFetchInterval: 3600000,
@@ -29,7 +35,7 @@ export const environment = {
     "app_version": "<%= app_version %>",
     "cms_imgix_base_url": "<%= imgix_baseurl %>",
     "cms_login_url": "/auth/login/<%= tenant_id %>",
-    "cms_logo_url": "tenant/<%= tenant_id %>/logo/logo.svg",
+    "cms_logo_url": "tenant/<%= tenant_id %>/logo/logo_round.svg",
     "cms_welcome_banner_url":  "tenant/<%= tenant_id %>/app/welcome.jpg",
     "cms_notfound_banner_url": "tenant/<%= tenant_id %>/app/not-found.jpg",
     "cms_osilogo_url": "logo/general/osi.svg",

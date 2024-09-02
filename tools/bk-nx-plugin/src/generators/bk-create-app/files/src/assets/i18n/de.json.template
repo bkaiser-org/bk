@@ -490,7 +490,7 @@
     "dateOfBirth": {
       "label": "Geburtsdatum",
       "placeholder": "tt.mm.jjjj",
-      "helper": "Der Verein benötigt dein richtiges Geburtsdatum zB. für Statistiken oder Meldungen an den Verband SRV. In den Einstellungen kannst du die Sichtbarkeit deines Geburtsdatums für andere Mitglieder ausschalten.",
+      "helper": "Wir benötigen dein richtiges Geburtsdatum zB. für Statistiken oder externe Meldungen (AHV, Verband etc.). In den Einstellungen kannst du die Sichtbarkeit deines Geburtsdatums für andere Nutzende ausschalten.",
       "error": "Das Datumsformat ist nicht korrekt."
     },
     "dateOfDeath": {
@@ -566,6 +566,7 @@
     "email": {
       "label": "E-Mail",
       "placeholder": "ssss@ssssssss.sss",
+      "helper": "Eine gültige Email-Adresse mit folgendem Format: ssss@sssssss.sss",
       "error": "Bitte eine gültige Email Adresse eingeben."
     },
     "eventType": {
@@ -880,6 +881,7 @@
     "phone": {
       "label": "Telefon",
       "placeholder": "+41 nn nnn nnnn",
+      "helper": "Eine gültige, schweizerische Telefonnummer mit folgendem Format: +41 nn nnn nnnn",
       "error": "Die Telefonnummer muss in folgendem Format angegeben werden: +41 nn nnn nnnn."
     },
     "price": {
@@ -1932,63 +1934,10 @@
   },
   "cms": {
     "welcome": {
+      "header": "Willkommen !",
       "title": "bkaiser.org",
       "subTitle": "Open Source Software",
       "help": "Dies ist die Startseite. Klicke oben links aufs Menü und wähle eine Funktion."    
-    },
-    "boatinfo": {
-      "title": "Boots-Statistiken",
-      "graph": {
-        "pkm": {
-          "title": "nach Jahr gem. Logbuch",
-          "subtitle": "Personen-Kilometer",
-          "xLabel": "Jahr",
-          "yLabel": "km"
-        },
-        "bkm": {
-          "title": "nach Jahr gem. Logbuch",
-          "subtitle": "Boots-Kilometer",
-          "xLabel": "Jahr",
-          "yLabel": "km"
-        },
-        "boats": {
-          "title": "Anzahl Boote pro Jahr",
-          "subtitle": "Boote",
-          "xLabel": "Jahr",
-          "yLabel": "Anzahl"
-        }
-      }
-    },
-    "clubinfo": {
-      "title": "Club Informationen",
-      "official": {
-        "title": "Offizielles",
-        "name": "Vereinsname",
-        "bank": "Bank",
-        "account": "Bankkonto (IBAN)",
-        "insurance": "GVZ Grundstücknummer",
-        "founded": "Gründung"
-      },
-      "contact": {
-        "title": "Kontaktangaben",
-        "address": "Vereinsadresse (Post)",
-        "phone": "Telefon Bootshaus",
-        "web": "Website (URL)",
-        "email": "E-Mail"
-      },
-      "location": {
-        "title": "Ortsangaben",
-        "location": "Bootshaus Adresse",
-        "coordinates": "Koordinaten",
-        "latitude": "Breitengrad",
-        "longitude": "Längengrad",
-        "w3w": "what3words",
-        "street": "Strasse",
-        "ponton": "Ponton"
-      },
-      "presidents": {
-        "title": "Präsidium"
-      }
     },
     "help": {
       "title": "Hilfe und Anleitung",

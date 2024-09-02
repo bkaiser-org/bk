@@ -65,7 +65,8 @@
               "with": "./apps/<%= tenant_id %>/src/environments/environment.prod.ts"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "serviceWorker": "apps/<%= tenant_id %>/ngsw-config.json"
         },
         "development": {
           "optimization": false,
