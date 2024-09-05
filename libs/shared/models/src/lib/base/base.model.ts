@@ -37,7 +37,7 @@ export interface FieldDescription {
 export class BaseModel {
   public bkey? = '';
   public name= '';
-  public tenant = '';
+  public tenant: string[] = [];
   public category = CategoryType.Undefined as number;
   public url = '';
   public index = '';

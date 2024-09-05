@@ -20,7 +20,7 @@ export type MenuItemFormModel = DeepPartial<{
     url: string,
     notes: string,
     tags: string,
-    tenant: string
+    tenant: string[]
 }>;
 
 export const menuItemFormModelShape: DeepRequired<MenuItemFormModel> = {
@@ -35,5 +35,5 @@ export const menuItemFormModelShape: DeepRequired<MenuItemFormModel> = {
     url: '',
     notes: '',
     tags: '',
-    tenant: ''
+    tenant: []
 };

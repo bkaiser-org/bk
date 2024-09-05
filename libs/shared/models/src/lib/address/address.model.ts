@@ -23,7 +23,7 @@ export class AddressModel extends BaseModel {
     this.modelType = ModelType.Address;
     this.category = AddressChannel.Phone as number;
     const _remoteConfig = getRemoteConfig();
-    this.tenant = getValue(_remoteConfig, 'tenant_id').asString();
+    this.tenant = [getValue(_remoteConfig, 'tenant_id').asString()];
   }
 }
 

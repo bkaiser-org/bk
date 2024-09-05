@@ -78,7 +78,7 @@ export function searchByCategory(firestore: Firestore, collectionName: string, t
       { key: 'isTest', operator: '==', value: false },
       { key: 'isArchived', operator: '==', value: false },
       { key: categoryKey, operator: '==', value: categoryId },
-      { key: 'tenant', operator: '==', value: tenantId }
+      { key: 'tenant', operator: 'array-contains', value: tenantId }
     ], orderBy, sortOrder);
   }
 }
@@ -90,7 +90,7 @@ export function listAllModels(firestore: Firestore, collectionName: string, tena
   return searchData(firestore, collectionName, [
     { key: 'isTest', operator: '==', value: false },
     { key: 'isArchived', operator: '==', value: false },
-    { key: 'tenant', operator: '==', value: tenantId }
+    { key: 'tenant', operator: 'array-contains', value: tenantId }
   ], orderBy, sortOrder);
 }
 
@@ -107,7 +107,7 @@ export function listAllModelsByType(firestore: Firestore, tenantId: string, mode
   return searchData(firestore, getCollectionNameFromModelType(modelType), [
     { key: 'isTest', operator: '==', value: false },
     { key: 'isArchived', operator: '==', value: false },
-    { key: 'tenant', operator: '==', value: tenantId },
+    { key: 'tenant', operator: 'array-contains', value: tenantId },
     { key: 'modelType', operator: '==', value: modelType }
   ], orderBy, sortOrder);
 }
@@ -116,7 +116,7 @@ export function listModelsByTrue(firestore: Firestore, collectionName: string, t
   return searchData(firestore, collectionName, [
     { key: 'isTest', operator: '==', value: false },
     { key: 'isArchived', operator: '==', value: false },
-    { key: 'tenant', operator: '==', value: tenantId },
+    { key: 'tenant', operator: 'array-contains', value: tenantId },
     { key: searchKey, operator: '==', value: true }
   ], orderBy, sortOrder);
 }
@@ -125,7 +125,7 @@ export function listModelsBySingleQuery(firestore: Firestore, collectionName: st
   return searchData(firestore, collectionName, [
     { key: 'isTest', operator: '==', value: false },
     { key: 'isArchived', operator: '==', value: false },
-    { key: 'tenant', operator: '==', value: tenantId },
+    { key: 'tenant', operator: 'array-contains', value: tenantId },
     { key: searchKey, operator: operator, value: value }
   ], orderBy, sortOrder);
 }

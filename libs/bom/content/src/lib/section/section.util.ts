@@ -15,7 +15,7 @@ export function createSection(categoryId: number, tenantId: string): SectionMode
   _section.color = ColorIonic.Primary;
   _section.imagePosition = ViewPosition.Top;
   _section.url = '';
-  _section.tenant = tenantId;
+  _section.tenant = [tenantId];
   _section.roleNeeded = 'privileged';
   switch(categoryId) {
     case SectionType.Album:

@@ -18,6 +18,6 @@ export class MenuItemModel extends BaseModel {
     super();
     this.modelType = ModelType.MenuItem;
     const _remoteConfig = getRemoteConfig();
-    this.tenant = getValue(_remoteConfig, 'tenant_id').asString();
+    this.tenant = [getValue(_remoteConfig, 'tenant_id').asString()];
   }
 }

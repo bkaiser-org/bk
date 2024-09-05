@@ -47,7 +47,7 @@ export function newMenuItemFormModel(): MenuItemFormModel {
     notes: '',
     data: [],
     tags: '',
-    tenant: ''
+    tenant: []
   }
 }
 

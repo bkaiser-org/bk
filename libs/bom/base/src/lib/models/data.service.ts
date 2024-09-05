@@ -253,10 +253,10 @@ export abstract class DataService {
    * @returns an Observable of an array of selected models
    */
   public searchData(collectionName: string, dbQuery: DbQuery[], orderBy = 'name', sortOrder = 'asc', useSystemQuery = true): Observable<BaseModel[]> {
-    if (useSystemQuery) {
+    if (useSystemQuery && dbQuery.length === 0) {
       dbQuery.push({ key: 'isTest', operator: '==', value: false });
       dbQuery.push({ key: 'isArchived', operator: '==', value: false });
-      dbQuery.push({ key: 'tenant', operator: '==', value: this.tenantId })
+      dbQuery.push({ key: 'tenant', operator: 'array-contains', value: this.tenantId })
     }
     return searchData(this.firestore, collectionName, dbQuery, orderBy, sortOrder);  
   }

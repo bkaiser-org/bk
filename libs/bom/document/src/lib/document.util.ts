@@ -89,7 +89,6 @@ export function getDocumentSlug(modelType: ModelType, relationshipType?: Relatio
  * @param tenant the tenant of the model
  */
 export function getStoragePath(url: string | undefined, modelType: ModelType, tenant: string): string | undefined {
-  console.log('getStoragePath', url, modelType, tenant);
   if (!url || url.length === 0) return undefined;
   const _urlType = checkUrlType(url);
   if (_urlType === 'storage') return url;

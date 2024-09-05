@@ -37,7 +37,6 @@ import {
 import { provideServiceWorker } from '@angular/service-worker';
 
 const app = initializeApp(environment.app);
-const store = initializeApp(environment.store, "main");
 
 if (environment.production === false) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

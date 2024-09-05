@@ -32,7 +32,7 @@ export async function createModel(firestore: Firestore, collectionName: string, 
 
   // we delete the bkey from the model because we don't want to store it in the database (_ref.id is available instead)
   const _storedModel = structuredClone(model);
-  _storedModel.tenant = tenantId;   // ensure that the tenant is set
+  _storedModel.tenant = [tenantId];   // ensure that the tenant is set
   delete _storedModel.bkey;
 
   try {
