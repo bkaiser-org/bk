@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 import { addIcons } from "ionicons";
 import { addCircleOutline, calendarOutline, contractOutline, documentOutline, documentTextOutline, enterOutline, eyeOffOutline, globeOutline, golfOutline,
     helpCircleOutline, homeOutline, idCardOutline, informationCircleOutline, keyOutline, logInOutline, logOutOutline,
-    menuOutline, mapOutline, personCircleOutline, reorderFourOutline } from "ionicons/icons";
+    menuOutline, mapOutline, personCircleOutline, reorderFourOutline, warningOutline } from "ionicons/icons";
 import { AuthService } from '@bk/auth';
 
 @Component({
@@ -88,7 +88,7 @@ export class BkMenuComponent {
   constructor() {
     addIcons({addCircleOutline, calendarOutline, contractOutline, documentOutline, documentTextOutline, enterOutline, eyeOffOutline, globeOutline, golfOutline,
       helpCircleOutline, homeOutline, idCardOutline, informationCircleOutline, keyOutline, logInOutline, logOutOutline,
-      menuOutline, mapOutline, personCircleOutline, reorderFourOutline});
+      menuOutline, mapOutline, personCircleOutline, reorderFourOutline, warningOutline});
     effect(async () => {
       this.menuItem$ = this.menuItemService.readMenuItem(this.menuName());
     });
