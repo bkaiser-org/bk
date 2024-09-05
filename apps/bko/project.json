@@ -39,7 +39,7 @@
           "mime",
           "file-saver",
           "fast-deep-equal"
-        ], 
+        ],
         "scripts": [],
         "server": "apps/bko/src/main.server.ts",
         "prerender": false,
@@ -65,7 +65,8 @@
               "with": "./apps/bko/src/environments/environment.prod.ts"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "serviceWorker": "apps/bko/ngsw-config.json"
         },
         "development": {
           "optimization": false,

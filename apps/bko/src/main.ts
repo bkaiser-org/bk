@@ -11,5 +11,5 @@ if (environment.production) {
 }
 
 bootstrapApplication(AppComponent, appConfig).catch((err: unknown) =>
-  console.error(err),
+  console.error(err)
 );

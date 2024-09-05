@@ -8,7 +8,8 @@
       "login": "Anmelden",
       "logout": "Abmelden",
       "news": {
-        "title": "Neuigkeiten"
+        "title": "Neuigkeiten",
+        "bkoWebsite": "Website"
       },
       "gallery": {
         "personal": "Persönliches Album",
@@ -114,7 +115,6 @@
         "sportCategory": "Sportkategorien",
         "training": "Trainings-Infos",
         "regattas": "Regatten"
-
       },
       "misc": {
         "title": "Verschiedenes",
@@ -397,7 +397,7 @@
     "buttonWidth": {
       "label": "Button-Breite",
       "placeholder": "Breite in Pixel",
-      "helper": "Die Breite des Buttons in Pixel, z.B. 100, 200 etc.", 
+      "helper": "Die Breite des Buttons in Pixel, z.B. 100, 200 etc.",
       "error": "Die Breite des Buttons muss eine Ganzzahl aus lauter Ziffern sein plus px."
     },
     "buttonHeight": {
@@ -473,7 +473,7 @@
       "placeholder": "Neuen Kommentar hier eingeben und mit Zeilenschaltung abschliessen.",
       "authorId": "Autor ID",
       "authorName": "Autor",
-      "date": "Datum"  
+      "date": "Datum"
     },
     "currency": {
       "label": "Währung",
@@ -489,7 +489,7 @@
     "dateOfBirth": {
       "label": "Geburtsdatum",
       "placeholder": "tt.mm.jjjj",
-      "helper": "Der Verein benötigt dein richtiges Geburtsdatum zB. für Statistiken oder Meldungen an den Verband SRV. In den Einstellungen kannst du die Sichtbarkeit deines Geburtsdatums für andere Mitglieder ausschalten.",
+      "helper": "Wir benötigen dein richtiges Geburtsdatum zB. für Statistiken oder externe Meldungen (AHV, Verband etc.). In den Einstellungen kannst du die Sichtbarkeit deines Geburtsdatums für andere Nutzende ausschalten.",
       "error": "Das Datumsformat ist nicht korrekt."
     },
     "dateOfDeath": {
@@ -565,6 +565,7 @@
     "email": {
       "label": "E-Mail",
       "placeholder": "ssss@ssssssss.sss",
+      "helper": "Eine gültige Email-Adresse mit folgendem Format: ssss@sssssss.sss",
       "error": "Bitte eine gültige Email Adresse eingeben."
     },
     "eventType": {
@@ -690,7 +691,7 @@
     "keyNr": {
       "label": "Schlüssel Nr.",
       "placeholder": "nnnnn",
-      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."  
+      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."
     },
     "label": {
       "label": "Bezeichnung",
@@ -733,7 +734,7 @@
     "lockerNr": {
       "label": "Garderobe Nr.",
       "placeholder": "n[nn]",
-      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."  
+      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."
     },
     "lockerOwnership": {
       "label": "Mitglied/Club"
@@ -756,7 +757,7 @@
     "membershipId": {
       "label": "Mitgliedschafts ID",
       "placeholder": "nnnnn",
-      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."  
+      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."
     },
     "memberCategory": {
       "label": "Mitgliederkategorie"
@@ -879,12 +880,13 @@
     "phone": {
       "label": "Telefon",
       "placeholder": "+41 nn nnn nnnn",
+      "helper": "Eine gültige, schweizerische Telefonnummer mit folgendem Format: +41 nn nnn nnnn",
       "error": "Die Telefonnummer muss in folgendem Format angegeben werden: +41 nn nnn nnnn."
     },
     "price": {
       "label": "Preis",
       "placeholder": "Preis in CHF",
-      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."  
+      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."
     },
     "content": {
       "label": "HTML-Inhalt",
@@ -1014,7 +1016,7 @@
       "label": "Verwendungsname",
       "placeholder": "Bezeichnung der eigenen Verwendung",
       "helper": "Ein Name dafür, wie die Adresse verwendet wird, z.B. Oma, Mutter, Notfall."
-    },     
+    },
     "validFrom": {
       "label": "Gültig ab",
       "placeholder": "tt.mm.jjjj",
@@ -1153,14 +1155,14 @@
     "family": "Familie",
     "friend": "Freund",
     "important": "Wichtig",
-    "invalid" : "Ungültig",
-    "jole"  : "Jole",
+    "invalid": "Ungültig",
+    "jole": "Jole",
     "jstrainer": "J+S Leiter",
     "lattenberg": "Lattenberg Cup",
-    "liteboat"  : "Liteboat",
+    "liteboat": "Liteboat",
     "lost": "Verloren",
     "marketing": "Marketing",
-    "offering"  : "Angebot",
+    "offering": "Angebot",
     "pending": "Pendent",
     "planned": "Geplant",
     "private": "Privat",
@@ -1246,7 +1248,7 @@
       "profile": {
         "label": "Profil",
         "description": "Persönliche Informationen und Applikations-Einstellungen",
-        "intro": "Es können hier nicht alle deine Daten geändert werden, beispielsweise weil gewisse Daten für die Meldung an den Verband SRV benötigt werden. Bitte wende dich an den Administrator, wenn du weitere Aenderungswünsche hast."
+        "intro": "Hier kannst du deine Adressen anpassen. Bitte wende dich für weitere Aenderungen an "
       },
       "birthday": {
         "singular": "Geburtstag",
@@ -1484,7 +1486,7 @@
         "email": {
           "label": "E-Mail",
           "placeholder": "ssss@ssssssss.ss",
-          "description": "E-Mail Adresse"  
+          "description": "E-Mail Adresse"
         },
         "postal": {
           "label": "Briefpost",
@@ -1493,7 +1495,7 @@
           "placeholder": "Strassenname und Nr.",
           "zip": "PLZ",
           "city": "Ort",
-          "country": "Land"  
+          "country": "Land"
         },
         "address2": {
           "label": "Adresszusatz",
@@ -1502,32 +1504,32 @@
         "web": {
           "label": "Website",
           "placeholder": "z.B. https://www.bkaiser.org",
-          "description": "Web Adresse (URL)"  
+          "description": "Web Adresse (URL)"
         },
         "twitter": {
           "label": "Twitter",
           "placeholder": "z.B. @staefarowing",
-          "description": "Twitter ID"  
+          "description": "Twitter ID"
         },
         "linkedin": {
           "label": "LinkedIn",
           "placeholder": "z.b. https://linkedin.com/in/vorname-name-2345lkjl23",
-          "description": "LinkedIn URL"  
+          "description": "LinkedIn URL"
         },
         "facebook": {
           "label": "Facebook",
           "placeholder": "z.B: https://www.facebook.com/user123",
-          "description": "Facebook URL"  
+          "description": "Facebook URL"
         },
         "xing": {
           "label": "Xing",
           "placeholder": "https://www.xing.com/profile/vorname_name",
-          "description": "Xing URL"  
+          "description": "Xing URL"
         },
         "skype": {
           "label": "Skype",
           "placeholder": "z.B. hans34",
-          "description": "Skype ID"  
+          "description": "Skype ID"
         },
         "custom": {
           "label": "Eigene",
@@ -1542,12 +1544,12 @@
         "instagram": {
           "label": "Instagram",
           "placeholder": "z.B. https://www.instagram.com/user123",
-          "description": "Instagram URL"  
+          "description": "Instagram URL"
         },
         "signal": {
           "label": "Signal",
           "placeholder": "Name oder Tel Nr.",
-          "description": "Signal ID"  
+          "description": "Signal ID"
         },
         "wire": {
           "label": "Wire",
@@ -1601,7 +1603,7 @@
           "placeholder": "Name der eigenen Verwendung",
           "description": "Diese Adresse wird in einem speziellen Kontext verwendet und mit einem eigenen Namen bezeichnet."
         }
-      }    
+      }
     }
   },
   "application": {
@@ -1926,68 +1928,15 @@
           "houseKey": "Schlüssel auswählen",
           "rowingBoat": "Ruderboot auswählen"
         }
-      }  
+      }
     }
   },
   "cms": {
     "welcome": {
+      "header": "Willkommen !",
       "title": "bkaiser.org",
       "subTitle": "Open Source Software",
-      "help": "Dies ist die Startseite. Klicke oben links aufs Menü und wähle eine Funktion."    
-    },
-    "boatinfo": {
-      "title": "Boots-Statistiken",
-      "graph": {
-        "pkm": {
-          "title": "nach Jahr gem. Logbuch",
-          "subtitle": "Personen-Kilometer",
-          "xLabel": "Jahr",
-          "yLabel": "km"
-        },
-        "bkm": {
-          "title": "nach Jahr gem. Logbuch",
-          "subtitle": "Boots-Kilometer",
-          "xLabel": "Jahr",
-          "yLabel": "km"
-        },
-        "boats": {
-          "title": "Anzahl Boote pro Jahr",
-          "subtitle": "Boote",
-          "xLabel": "Jahr",
-          "yLabel": "Anzahl"
-        }
-      }
-    },
-    "clubinfo": {
-      "title": "Club Informationen",
-      "official": {
-        "title": "Offizielles",
-        "name": "Vereinsname",
-        "bank": "Bank",
-        "account": "Bankkonto (IBAN)",
-        "insurance": "GVZ Grundstücknummer",
-        "founded": "Gründung"
-      },
-      "contact": {
-        "title": "Kontaktangaben",
-        "address": "Vereinsadresse (Post)",
-        "phone": "Telefon Bootshaus",
-        "web": "Website (URL)",
-        "email": "E-Mail"
-      },
-      "location": {
-        "title": "Ortsangaben",
-        "location": "Bootshaus Adresse",
-        "coordinates": "Koordinaten",
-        "latitude": "Breitengrad",
-        "longitude": "Längengrad",
-        "w3w": "what3words",
-        "street": "Strasse",
-        "ponton": "Ponton"
-      },
-      "presidents": {
-        "title": "Präsidium"
-      }
+      "help": "Dies ist die Startseite. Klicke oben links aufs Menü und wähle eine Funktion."
     },
     "help": {
       "title": "Hilfe und Anleitung",
@@ -2004,93 +1953,93 @@
     "impressum": {
       "title": "Impressum",
       "operator": {
-          "title": "Betreiber",
-          "id": "UID",
-          "vat": "MwSt Nr."
+        "title": "Betreiber",
+        "id": "UID",
+        "vat": "MwSt Nr."
       },
       "editor": {
-          "title": "Redaktion und Inhalts-Bewirtschaftung",
-          "description": "Mitglieder der bkaiser.org"
+        "title": "Redaktion und Inhalts-Bewirtschaftung",
+        "description": "Mitglieder der bkaiser.org"
       },
       "coding": {
-          "title": "Programmierung"
+        "title": "Programmierung"
       },
       "photograph": {
-          "title": "Fotografen",
-          "description": "Mitglieder der bkaiser.org."
+        "title": "Fotografen",
+        "description": "Mitglieder der bkaiser.org."
       },
       "help": {
-          "title": "Hilfe-Videos"
+        "title": "Hilfe-Videos"
       },
       "copyright": {
-          "title": "Copyright",
-          "description": "siehe <a href='/public/terms'>Rechtliche Hinweise</a>"
+        "title": "Copyright",
+        "description": "siehe <a href='/public/terms'>Rechtliche Hinweise</a>"
       },
       "liability": {
-          "title": "Haftungsausschluss",
-          "description": "siehe <a href='/public/terms'>Rechtliche Hinweise</a>"
+        "title": "Haftungsausschluss",
+        "description": "siehe <a href='/public/terms'>Rechtliche Hinweise</a>"
       },
       "privacy": {
-          "title": "Datenschutz",
-          "description": "siehe <a href='/public/privacy'>Datenschutz</a>"
+        "title": "Datenschutz",
+        "description": "siehe <a href='/public/privacy'>Datenschutz</a>"
       }
     },
     "privacy": {
       "title": "Hilfe und Anleitung",
       "overview": {
-          "title": "Überblick",
-          "intro": "An dieser Stelle findest du Anleitungen zum Bedienen der Applikation:",
-          "app": {
-              "name": "Name:",
-              "version": "Version:"
-          }
+        "title": "Überblick",
+        "intro": "An dieser Stelle findest du Anleitungen zum Bedienen der Applikation:",
+        "app": {
+          "name": "Name:",
+          "version": "Version:"
+        }
       },
       "description": "Die Anleitungen bestehen aus kurzen Videosequenzen zu einem bestimmten Thema.<br />Bitte melde dich beim <a href='mailto:admin@bkaiser.ch'>Admin</a>, falls du Hilfe oder Anleitungen zu einem weiteren Thema benötigst."
     },
     "terms": {
       "title": "Rechtliche Hinweise",
       "content": {
-          "title": "Inhalt der Website",
-          "description": ""
+        "title": "Inhalt der Website",
+        "description": ""
       },
       "links": {
-          "title": "Verweise und Links",
-          "description": "Verweise und Links auf Webseiten Dritter liegen ausserhalb des Verantwortungsbereichs des Betreibers {{ operatorName }}. Es wird jegliche Verantwortung f&uuml;r derartige Webseiten abgelehnt. Der Zugriff und die Nutzung dieser Webseiten erfolgen auf eigene Gefahr der Nutzer. {{ operatorName }} bem&uuml;ht sich, die Links auf Webseiten Dritter aktuell zu halten. Es kann aber keine Garantie daf&uuml;r &uuml;bernommen werden, dass die Verweise immer funktionieren. Bitte melde fehlerhafte Links dem <a href='mailto:{{ operatorEmail }}'>Admin</a>."
+        "title": "Verweise und Links",
+        "description": "Verweise und Links auf Webseiten Dritter liegen ausserhalb des Verantwortungsbereichs des Betreibers {{ operatorName }}. Es wird jegliche Verantwortung f&uuml;r derartige Webseiten abgelehnt. Der Zugriff und die Nutzung dieser Webseiten erfolgen auf eigene Gefahr der Nutzer. {{ operatorName }} bem&uuml;ht sich, die Links auf Webseiten Dritter aktuell zu halten. Es kann aber keine Garantie daf&uuml;r &uuml;bernommen werden, dass die Verweise immer funktionieren. Bitte melde fehlerhafte Links dem <a href='mailto:{{ operatorEmail }}'>Admin</a>."
       },
       "ipr": {
-          "title": "Rechte an Geistigem Eigentum"
+        "title": "Rechte an Geistigem Eigentum"
       }
     },
     "memberinfo": {
       "title": "Mitgliederstatistiken",
       "graph": {
-          "memberhistory": {
-              "title": "Mitglieder-Entwicklung",
-              "subTitle": "pro Jahr gem. SRV-Meldung",
-              "xAxisLabel": "Jahr",
-              "yAxisLabel": "Mitgliederzahl",
-              "dataName1": "Aktive",
-              "dataName2": "Jugendliche",
-              "dataName3": "Total",
-              "xLabel": "Jahr",
-              "yLabel": "Mitgliederzahl"
-          }
+        "memberhistory": {
+          "title": "Mitglieder-Entwicklung",
+          "subTitle": "pro Jahr gem. SRV-Meldung",
+          "xAxisLabel": "Jahr",
+          "yAxisLabel": "Mitgliederzahl",
+          "dataName1": "Aktive",
+          "dataName2": "Jugendliche",
+          "dataName3": "Total",
+          "xLabel": "Jahr",
+          "yLabel": "Mitgliederzahl"
+        }
       },
       "age": {
-          "title": "Altersstruktur",
-          "subTitle": "Stand:",
-          "age": "Alter"
-      }, 
+        "title": "Altersstruktur",
+        "subTitle": "Stand:",
+        "age": "Alter"
+      },
       "location": {
-          "title": "Herkunft der Aktivmitglieder",
-          "subtitle": "Aktuelle Wohnorte, Stand 4.8.2022",
-          "subtitleCurrent": "Wohnorte, Stand 4.8.2022",
-          "location": "Ort"
+        "title": "Herkunft der Aktivmitglieder",
+        "subtitle": "Aktuelle Wohnorte, Stand 4.8.2022",
+        "subtitleCurrent": "Wohnorte, Stand 4.8.2022",
+        "location": "Ort"
       },
       "gender": {
-          "title": "Mitgliederstruktur nach Geschlecht",
-          "subTitle": "Stand:",
-          "category": "Kat."
+        "title": "Mitgliederstruktur nach Geschlecht",
+        "subTitle": "Stand:",
+        "category": "Kat."
       }
     },
     "notfound": {
@@ -2127,54 +2076,54 @@
     "weather": {
       "title": "Wetter",
       "overview": {
-          "title": "3-Tages Prognose"
+        "title": "3-Tages Prognose"
       },
       "sun": {
-          "title": "Sonne",
-          "sunrise": "Aufgang",
-          "sunset": "Untergang",
-          "desc": "Heutige Zeit des Sonnenaufgangs resp. Sonnenuntergangs in Stäfa auf Horizontebene."
+        "title": "Sonne",
+        "sunrise": "Aufgang",
+        "sunset": "Untergang",
+        "desc": "Heutige Zeit des Sonnenaufgangs resp. Sonnenuntergangs in Stäfa auf Horizontebene."
       },
       "wind": {
-          "title": "Wind",
-          "speed": "km/h",
-          "dir": "Richtung",
-          "desc": "Wind-Geschwindigkeit (km/h) und Wind-Richtung 10 m über Grund in Stäfa, heute um "
+        "title": "Wind",
+        "speed": "km/h",
+        "dir": "Richtung",
+        "desc": "Wind-Geschwindigkeit (km/h) und Wind-Richtung 10 m über Grund in Stäfa, heute um "
       },
       "temperature": {
-          "title": "Temperatur",
-          "felt": "Gefühlt",
-          "air": "Luft",
-          "water": "Wasser",
-          "desc": "Luft-Temperatur in Grad Celsius 2m über Grund in Stäfa, heute um "
+        "title": "Temperatur",
+        "felt": "Gefühlt",
+        "air": "Luft",
+        "water": "Wasser",
+        "desc": "Luft-Temperatur in Grad Celsius 2m über Grund in Stäfa, heute um "
       },
       "precipitation": {
-          "title": "Niederschlag",
-          "label": "P(Regen)",
-          "hour": "Letzte Stunde",
-          "clouds": "Bedeckung in %",
-          "day": "Letzter Tag",
-          "desc": "In der letzten Stunde (resp. Tag) gefallener Niederschlag in Millimeter (entspricht Liter pro Quadratmeter)."
+        "title": "Niederschlag",
+        "label": "P(Regen)",
+        "hour": "Letzte Stunde",
+        "clouds": "Bedeckung in %",
+        "day": "Letzter Tag",
+        "desc": "In der letzten Stunde (resp. Tag) gefallener Niederschlag in Millimeter (entspricht Liter pro Quadratmeter)."
       },
       "cloudyness": {
-          "title": "Bewölkung"
+        "title": "Bewölkung"
       },
       "humidity": {
-          "title": "Luftfeuchtigkeit",
-          "desc": "Luftfeuchtigkeit in %"
+        "title": "Luftfeuchtigkeit",
+        "desc": "Luftfeuchtigkeit in %"
       },
       "waterTemp": {
-          "title": "Wassertemperatur",
-          "desc": "Wassertemperatur Messstation Tiefenbrunnen",
-          "location": "Messstation Tiefenbrunnen"
+        "title": "Wassertemperatur",
+        "desc": "Wassertemperatur Messstation Tiefenbrunnen",
+        "location": "Messstation Tiefenbrunnen"
       },
       "airTemp": {
-          "title": "Lufttemperatur",
-          "desc": "Lufttemperatur Messstation Tiefenbrunnen"
+        "title": "Lufttemperatur",
+        "desc": "Lufttemperatur Messstation Tiefenbrunnen"
       },
       "footer": {
-          "title": "Quelle",
-          "desc": "Die Wetter-Informationen werden in Echtzeit über ein REST API von <a href='https://www.meteomatics.com/de/'>Meteomatics</a> geladen."
+        "title": "Quelle",
+        "desc": "Die Wetter-Informationen werden in Echtzeit über ein REST API von <a href='https://www.meteomatics.com/de/'>Meteomatics</a> geladen."
       }
     }
   },
@@ -2387,7 +2336,7 @@
         },
         "iframe": {
           "title": "Iframe"
-        }      
+        }
       },
       "field": {
         "name": "Name der Sektion",
@@ -2860,7 +2809,7 @@
         "free": {
           "label": "Gratis",
           "description": "Die Rechnung muss nicht bezahlt werden."
-        },  
+        },
         "billed": {
           "label": "Verrechnet",
           "description": "Die Rechnung wurde versendet."
@@ -2880,7 +2829,7 @@
         "cancelled": {
           "label": "Storniert",
           "description": "Die Rechnung wurde storniert."
-        }  
+        }
       },
       "operation": {
         "create": {
@@ -2972,7 +2921,7 @@
           "amount": "Betrag"
         }
       }
-      }
+    }
   },
   "location": {
     "singular": "Ort",
@@ -3034,7 +2983,7 @@
         "label": "Wettkampf-Kategorie ändern",
         "conf": "Wettkampf-Kategorie wurde geändert.",
         "error": "Wettkampf-Kategorie konnte nicht geändert werden."
-      },        
+      },
       "create": {
         "label": "Neue Wettkampf-Kategorie erstellen",
         "conf": "Wettkampf-Kategorie wurde erstellt.",
@@ -3198,7 +3147,7 @@
         "default": "Rohdaten",
         "srv": "SRV-Liste",
         "address": "Adressliste"
-      },  
+      },
       "view": {
         "label": "Mitgliedschaft anzeigen"
       },
@@ -3924,7 +3873,7 @@
         "label": "CSV",
         "description": "Comma separated values (CSV) files are plain text files, that save structured data in a tabular form."
       }
-    },  
+    },
     "fileTypeIcon": {
       "audio": {
         "label": "Audio",
@@ -4021,7 +3970,7 @@
       "org": {
         "label": "Organisation",
         "description": "Eine Organisation, wie z.B. AG, Verein, GmbH...",
-        "placeholder": "Name der Organisation" 
+        "placeholder": "Name der Organisation"
       },
       "boat": {
         "label": "Boot",
@@ -4056,7 +4005,7 @@
       "locker": {
         "label": "Garderobe",
         "description": "Garderoben-Schrank",
-        "placeholder": "Schranknummer" 
+        "placeholder": "Schranknummer"
       },
       "key": {
         "label": "Schlüssel",
@@ -4066,7 +4015,7 @@
       "location": {
         "label": "Ort",
         "description": "Ein mittels Koordinaten bestimmbarer Punkt auf der Erde.",
-        "placeholder": "Ortsname" 
+        "placeholder": "Ortsname"
       },
       "subject": {
         "label": "Subject",
@@ -4379,7 +4328,7 @@
         "boatHouse": {
           "title": "Bootshaus-Reservationen"
         },
-        "yearLabel" : "Jahr"
+        "yearLabel": "Jahr"
       },
       "page": {
         "all": {
@@ -4439,37 +4388,37 @@
     "description": "Wetterdaten",
     "overview": {
       "title": "Prognose"
-  },
-  "sun": {
+    },
+    "sun": {
       "title": "Sonne",
       "sunrise": "Aufgang",
       "sunset": "Untergang",
       "desc": "Heutige Zeit des Sonnenaufgangs resp. Sonnenuntergangs in Stäfa auf Horizontebene."
-  },
-  "wind": {
+    },
+    "wind": {
       "title": "Wind",
       "speed": "km/h",
       "dir": "Richtung",
       "desc": "Wind-Geschwindigkeit (km/h) und Wind-Richtung 10 m über Grund in Stäfa, heute um "
-  },
-  "temperature": {
+    },
+    "temperature": {
       "title": "Temperatur",
       "air": "Luft",
       "water": "Wasser",
       "felt": "Gefühlt",
       "desc": "Luft-Temperatur in Grad Celsius 2m über Grund in Stäfa, heute um "
-  },
-  "precipitation": {
+    },
+    "precipitation": {
       "title": "Niederschlag/Bewölkung",
       "hour": "Letzte Stunde",
       "day": "Letzter Tag",
       "clouds": "Bedeckung in %",
       "desc": "In der letzten Stunde gefallener Niederschlag in Millimeter (entspricht Liter pro Quadratmeter)."
-  },
-  "footer": {
+    },
+    "footer": {
       "title": "Quelle",
       "desc": "Die Wetter-Informationen werden in Echtzeit über ein REST API von <a href='https://openweathermap.org/'>Open Weather Map</a> geladen."
-  },
+    },
     "condition": {
       "title": "Wetterbedingungen",
       "description": "Wetterbedingungen",

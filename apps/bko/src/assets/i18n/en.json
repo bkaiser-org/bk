@@ -271,13 +271,13 @@
     "channelLabel": {
       "label": "Label of the channel",
       "placeholder": "e.g. Handy"
-    },     
+    },
     "comment": {
       "label": "Comment",
       "placeholder": "Insert your comment here and finish with a carriage return.",
       "authorId": "Author ID",
       "authorName": "Author",
-      "date": "Date"  
+      "date": "Date"
     },
     "count": {
       "label": "Count",
@@ -347,7 +347,7 @@
     "keyNr": {
       "label": "Key Nr.",
       "placeholder": "nnnnn",
-      "error": "This must be an integer number consisting of just digits."  
+      "error": "This must be an integer number consisting of just digits."
     },
     "lastName": {
       "label": "Lastname",
@@ -362,7 +362,7 @@
     "lockerNr": {
       "label": "Garderobe Nr.",
       "placeholder": "n[nn]",
-      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."  
+      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."
     },
     "lockerOwnership": {
       "label": "Mitglied/Club"
@@ -383,7 +383,7 @@
     "memberId": {
       "label": "Mitglied ID",
       "placeholder": "nnnnn",
-      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."  
+      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."
     },
     "name": {
       "label": "Name",
@@ -426,7 +426,7 @@
     "price": {
       "label": "Preis",
       "placeholder": "Preis in CHF",
-      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."  
+      "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."
     },
     "content": {
       "label": "HTML-Inhalt",
@@ -470,7 +470,7 @@
       "label": "Verwendungsname",
       "placeholder": "Bezeichnung der eigenen Verwendung",
       "helper": "Ein Name dafür, wie die Adresse verwendet wird, z.B. Oma, Mutter, Notfall."
-    },     
+    },
     "validFrom": {
       "label": "Gültig ab",
       "placeholder": "tt.mm.jjjj",
@@ -545,12 +545,12 @@
     "family": "Familie",
     "friend": "Freund",
     "important": "Wichtig",
-    "invalid" : "Ungültig",
-    "jole"  : "Jole",
+    "invalid": "Ungültig",
+    "jole": "Jole",
     "lattenberg": "Lattenberg Cup",
-    "liteboat"  : "Liteboat",
+    "liteboat": "Liteboat",
     "lost": "Verloren",
-    "offering"  : "Angebot",
+    "offering": "Angebot",
     "pending": "Pendent",
     "planned": "Geplant",
     "private": "Privat",
