@@ -22,7 +22,7 @@ export function newAvatarModel(tenantId: string, modelType: ModelType, key: stri
 
 export function getAvatarStoragePath(tenantId: string, modelType: ModelType, key: string, baseName: string, extension: string, relationshipType?: RelationshipType): string {
   const _slug = relationshipType ? getSlugFromRelationshipType(relationshipType) : getModelSlug(modelType);
-  return `${tenantId}/${_slug}/${key}/${AVATAR_DIR}/${baseName}.${extension}`;
+  return `tenant/${tenantId}/${_slug}/${key}/${AVATAR_DIR}/${baseName}.${extension}`;
 }
 
 export function getAvatarKey(avatar: AvatarModel): string {
