@@ -14,6 +14,7 @@ import { FlagBasedPreloadingStrategy } from './config/preloading-strategy';
 import { initializeApp } from 'firebase/app';
 import { environment } from '../environments/environment';
 import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "firebase/app-check";
+import { provideServiceWorker } from '@angular/service-worker';
 
 const app = initializeApp(environment.app);
 const store = initializeApp(environment.store, "main");
@@ -25,7 +26,7 @@ if (environment.production === false) {
 // Create a ReCaptchaEnterpriseProvider instance using the reCAPTCHA Enterprise
 // site key and pass it to initializeAppCheck().
 initializeAppCheck(app, {
-  provider: new ReCaptchaEnterpriseProvider(environment.firebase.appcheckRecaptchaEnterpriseKey),
+  provider: new ReCaptchaEnterpriseProvider(environment.app.appcheckRecaptchaEnterpriseKey),
   isTokenAutoRefreshEnabled: true // Set to true to allow auto-refresh.
 });
 

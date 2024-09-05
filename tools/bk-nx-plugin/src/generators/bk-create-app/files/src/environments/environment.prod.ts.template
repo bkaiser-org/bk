@@ -8,7 +8,7 @@
 // App-specific configuration can be stored in this environment file.
 
 export const environment = {
-  firebase: {
+  app: {
     apiKey: '<%= fb_api_key %>',
     authDomain: '<%= app_domain %>',
     databaseURL: 'https://<%= fb_project_id %>.firebaseio.com',
@@ -18,12 +18,6 @@ export const environment = {
     appId: '<%= fb_app_id %>',
     measurementId: '<%= fb_measurement_id %>',
     appcheckRecaptchaEnterpriseKey: "<%= fb_appcheck_key %>"
-  },
-  store: {
-    projectId: "STORE_PROJECT_ID",
-    appId: "STORE_APP_ID",
-    apiKey: "STORE_API_KEY",
-    storageBucket: "STORE_PROJECT_ID.appspot.com"
   },
   production: true,
   useEmulators: false,
