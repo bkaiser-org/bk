@@ -39,3 +39,4 @@ export * from './lib/config/constants';
 export * from './lib/config/app-tokens';
 export * from './lib/config/firestore';
 export * from './lib/config/auth';
+export * from './lib/config/storage';

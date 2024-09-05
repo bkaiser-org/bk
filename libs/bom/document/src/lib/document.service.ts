@@ -3,9 +3,9 @@ import { BaseService } from '@bk/base';
 import { DocumentType, ModelType, RelationshipType, getModelSlug } from '@bk/categories';
 import { Observable, of } from 'rxjs';
 import { BaseModel, DocumentModel, Image } from '@bk/models';
-import { CollectionNames, DateFormat, STORAGE_EMULATOR_PORT, convertDateFormatToString, die, dirname, error, fileSizeUnit, generateRandomString, getThumbnailUrl, getTodayStr, warn } from '@bk/util';
+import { CollectionNames, DateFormat, STORAGE, convertDateFormatToString, dirname, error, fileSizeUnit, generateRandomString, getThumbnailUrl, getTodayStr, warn } from '@bk/util';
 import { getDocumentIndex, getDocumentIndexInfo, getDocumentStoragePath } from './document.util';
-import { getStorage, ref, getDownloadURL, connectStorageEmulator, FirebaseStorage, getMetadata, listAll, FullMetadata } from "firebase/storage";
+import { ref, getDownloadURL, getMetadata, listAll, FullMetadata } from "firebase/storage";
 import { ModalController, Platform } from '@ionic/angular/standalone';
 import { UploadTaskComponent, readAsFile } from '@bk/ui';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
@@ -19,26 +19,7 @@ export class DocumentService extends BaseService {
   private modalController = inject(ModalController);
   private platform = inject(Platform);
 
-  private storage!: FirebaseStorage;
-
-  constructor() {
-    super();
-    this.storage = this.initializeStorage();
-  }
-
-
-  public initializeStorage() {
-    try {
-      const _storage = getStorage();
-      if (this.configService.useEmulators) {
-        connectStorageEmulator(_storage, 'localhost', STORAGE_EMULATOR_PORT);
-      }
-      return _storage;
-    }
-    catch(_ex) {
-      die('DocumentService.initializeStorage: error: ' + JSON.stringify(_ex));
-    }
-  }
+  private storage = inject(STORAGE);
 
   /*-------------------------- CRUD operations --------------------------------*/
   /**

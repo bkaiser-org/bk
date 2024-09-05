@@ -3,9 +3,11 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ToastController } from '@ionic/angular';
 import { error, showToast } from './alert.util';
 // import * as papa from 'papaparse'; // for csv conversions
-import { getStorage, ref, getDownloadURL, deleteObject } from "firebase/storage";
+import { ref, getDownloadURL, deleteObject } from "firebase/storage";
 import { Browser } from '@capacitor/browser';
 import { DateFormat, getTodayStr } from './date.util';
+import { Inject } from '@angular/core';
+import { STORAGE } from './config/storage';
 
 /**
    * Generate a download URL (that can be used in a href tag).
@@ -123,7 +125,7 @@ export function downloadFileAndStore(file: File) {
  */
   export async function downloadFileFromStorage(toastController: ToastController, path: string): Promise<string> {
     try {
-      const _storage = getStorage();
+      const _storage = Inject(STORAGE);
       return await getDownloadURL(ref(_storage, path));
     }
     catch(_ex) {
@@ -134,7 +136,7 @@ export function downloadFileAndStore(file: File) {
 
   export async function deleteFileFromStorage(toastController: ToastController, path: string): Promise<void> {
     try {
-      const _storage = getStorage();
+      const _storage = Inject(STORAGE);
       const _ref = ref(_storage, path);
       deleteObject(_ref);
       showToast(toastController, '@document.operation.delete.conf', 3000);

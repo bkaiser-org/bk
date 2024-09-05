@@ -2,7 +2,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Browser } from '@capacitor/browser';
 import { downloadToBrowser, exportXlsx, generateDownloadURI, downloadFileFromStorage } from './download.util';
 import * as XLSX from 'xlsx';
-import { getDownloadURL, ref, getStorage } from 'firebase/storage';
+import { getDownloadURL, ref } from 'firebase/storage';
 import { ToastController } from '@ionic/angular';
 
 jest.mock('@capacitor/browser');
@@ -89,7 +89,7 @@ describe('downloadFileFromStorage', () => {
 
   it('should call getDownloadURL with the correct path', async () => {
     await downloadFileFromStorage(toastController, path);
-    expect(ref).toHaveBeenCalledWith(getStorage(), path);
+    expect(ref).toHaveBeenCalledWith(Inject(STORAGE), path);
     expect(getDownloadURL).toHaveBeenCalledWith(expect.any(Object));
   });
 

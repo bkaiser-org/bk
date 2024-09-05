@@ -9,14 +9,6 @@
  */
 
 //-----------------------------------------------
-// ports
-//-----------------------------------------------
-export const STORAGE_EMULATOR_PORT = 9199;
-// const FUNCTIONS_EMULATOR_PORT = 5001;
-// const PUBSUB_EMULATOR_PORT = 8085;
-// const EMULATOR_UI_PORT = 4000;
-
-//-----------------------------------------------
 // form field patterns (for validators)
 //-----------------------------------------------
 export const SSN_PATTERN = '756[0-9]*';
