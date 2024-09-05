@@ -1,5 +1,4 @@
-import { Inject } from "@angular/core";
-import { InjectionToken } from "@angular/core";
+import { Inject, InjectionToken } from "@angular/core";
 import { connectAuthEmulator, getAuth } from "firebase/auth";
 import { ENV } from "./app-tokens";
 

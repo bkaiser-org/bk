@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { IonApp, IonContent, IonHeader, IonMenu, IonRouterOutlet, IonSplitPane, IonTitle, IonToolbar, Platform } from '@ionic/angular/standalone';
-import { TranslocoModule } from '@jsverse/transloco';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@bk/pipes';
 import { BkMenuComponent } from '@bk/content';
 import { AuthInfoComponent, AuthorizationService } from '@bk/base';
 import { AuthService } from '@bk/auth';
-import { ConfigService } from '@bk/util';
+import { ConfigService, getImgixUrlWithAutoParams } from '@bk/util';
 import { ModelType } from '@bk/categories';
 
 @Component({
@@ -93,7 +92,7 @@ import { ModelType } from '@bk/categories';
             </ion-header>
             <ion-content>
               <bk-menu menuName="main" />
-              @if (authorizationService.currentUser?.showDebugInfo === true) {
+              @if (authorizationService.currentUser()?.showDebugInfo === true) {
                 <bk-auth-info />
               }
             </ion-content>
