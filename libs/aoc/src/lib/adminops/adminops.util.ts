@@ -2,10 +2,11 @@
 import { DataService, listModelsBySingleQuery } from "@bk/base";
 import { AddressChannel, ModelType, ModelValidationType, OrgKey, RelationshipType, ScsMemberType, ScsMemberTypes, getCategoryAbbreviation, getMembershipPrice, getScsMembershipPrice } from "@bk/categories";
 import { AddressModel, BaseModel, RelationshipModel, SubjectModel, addressValidations, commentValidations, competitionLevelValidations, documentValidations, eventValidations, invoicePositionValidations, isAddress, isComment, isCompetitionLevel, isDocument, isEvent, isInvoicePosition, isLocation, isMembership, isPage, isRelationship, isResource, isSection, isSubject, isUser, locationValidations, pageValidations, relationshipValidations, resourceValidations, sectionValidations, subjectValidations, userValidations } from "@bk/models";
-import { CollectionNames, DateFormat, END_FUTURE_DATE_STR, compareDate, convertDateFormatToString, getAge, getEndOfYear, getFullPersonName, getTodayStr, getYear } from "@bk/util";
+import { CollectionNames, ConfigService, DateFormat, END_FUTURE_DATE_STR, compareDate, convertDateFormatToString, getAge, getEndOfYear, getFullPersonName, getTodayStr, getYear } from "@bk/util";
 import { updateMembershipAttributesPerOrg } from "@bk/membership";
 import { firstValueFrom, take } from "rxjs";
 import { deleteField, getFirestore } from "firebase/firestore";
+import { Inject } from "@angular/core";
 
 export interface LogInfo {
   id: string,
@@ -139,7 +140,8 @@ export const fixFunction = async (sig: OpSignature): Promise<void> => {
   export const listIbanFunction = async (sig: OpSignature): Promise<void> => {
   if (isSubject(sig.model)) {
     const _collName = CollectionNames.Subject + '/' + sig.model.bkey + '/' + CollectionNames.Address;
-    const _addresses = await firstValueFrom(listModelsBySingleQuery(getFirestore(), _collName, sig.model.tenant, 'category', AddressChannel.BankAccount, '==', 'name', 'asc')) as AddressModel[];
+    const _tenantId = Inject(ConfigService).getConfigString('tenant_id');
+    const _addresses = await firstValueFrom(listModelsBySingleQuery(getFirestore(), _collName, _tenantId, 'category', AddressChannel.BankAccount, '==', 'name', 'asc')) as AddressModel[];
     if (_addresses?.length > 0) {
       for (const element of _addresses) {
         console.log(sig.model.bkey, sig.model.firstName + ' ' + sig.model.name, element.name);
@@ -152,7 +154,7 @@ export const fixFunction = async (sig: OpSignature): Promise<void> => {
   export const listOldJuniorsFunction = async (sig: OpSignature): Promise<void> => {
   if (isMembership(sig.model)) {
     if (sig.model.objectKey === OrgKey.SCS && sig.model.subType === ScsMemberType.Junioren 
-        && sig.model.isArchived === false && sig.model.isTest === false && sig.model.tenant === 'scs'
+        && sig.model.isArchived === false && sig.model.isTest === false && sig.model.tenant.indexOf('scs') >= 0 
         && sig.model.relIsLast === true && compareDate(sig.model.validTo, getEndOfYear()+'') > 0)
     {
       // check for objectKey = OrgKey.SCS, subType = 4, isArchived = false, isTest = false
