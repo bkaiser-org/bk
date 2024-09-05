@@ -96,14 +96,13 @@ export class AvatarService {
 
     if (key) {
       const _avatar = newAvatarModel(this.configService.getConfigString('tenant_id'), modelType, key, _file.name)
-
       const _modal = await this.modalController.create({
         component: UploadTaskComponent,
         cssClass: 'upload-modal',
         componentProps: {
           file: _file,
           fullPath: _avatar.storagePath,
-          title: '@document.operation.upload.avatar'
+          title: '@document.operation.upload.avatar.title'
         }
       });
       _modal.present();
