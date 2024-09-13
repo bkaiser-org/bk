@@ -33,6 +33,7 @@ export class AuthorizationService {
   public currentUser = computed(() => this.state().currentUser);
   public isLoading = computed(() => this.state().isLoading);
   public error = computed(() => this.state().error);
+  public showDebugInfo = computed(() => this.currentUser() ? this.currentUser()?.showDebugInfo : false);
 
   /*-------------------------- reducers --------------------------------*/
   constructor() {
@@ -45,17 +46,23 @@ export class AuthorizationService {
   }
 
   private setLoadingIndicator(isLoading: boolean): void {
-    console.log('AuthorizationService.setLoadingIndicator: isLoading: ', isLoading);
+    if (this.showDebugInfo()) {
+      console.log('AuthorizationService.setLoadingIndicator: isLoading: ', isLoading);
+    }
     this.state.update(() => ({ currentUser: undefined, isLoading: isLoading, error: undefined }));
   }
 
   private setCurrentUser(user: BaseModel | undefined): void {
-    console.log('AuthorizationService.setCurrentUser: user: ', user);
+    if (this.showDebugInfo()) {
+      console.log('AuthorizationService.setCurrentUser: user: ', user);
+    }
     this.state.update(() => ({ currentUser: user as UserModel, isLoading: false, error: undefined }));
   }
 
   private setError(error: string | undefined): void {
-    console.log('AuthorizationService.setError: error: ', error);
+    if (this.showDebugInfo()) {
+      console.log('AuthorizationService.setError: error: ', error);
+    }
     this.state.update(() => ({ currentUser: undefined, isLoading: false, error: error }));
   }
 
@@ -64,7 +71,9 @@ export class AuthorizationService {
   }
 
   private getUserByUid(uid: string | undefined): Observable<BaseModel | undefined> {
-    console.log('AuthorizationService.getUserByUid: uid: ', uid);
+    if (this.showDebugInfo()) {
+      console.log('AuthorizationService.getUserByUid: uid: ', uid);
+    }
     try {
       return this.dataService.readModel(CollectionNames.User, uid, false);
     }

@@ -1,4 +1,4 @@
-import { ModelType } from '@bk/categories';
+import { ModelType, RelationshipType } from '@bk/categories';
 import { AdminRole } from '@bk/models';
 
 export function getModelAdmin(modelType: ModelType): AdminRole[] {
@@ -24,6 +24,14 @@ export function getModelAdmin(modelType: ModelType): AdminRole[] {
     case ModelType.Relnote:
     case ModelType.User:
     case ModelType.Relationship: 
+    default: return ['admin'];
+  }
+}
+
+export function getRelationshipAdmin(relType: RelationshipType): AdminRole[] {
+  switch(relType) {
+    case RelationshipType.Membership: return ['memberAdmin', 'admin'];
+    case RelationshipType.Ownership: return ['resourceAdmin', 'admin'];
     default: return ['admin'];
   }
 }

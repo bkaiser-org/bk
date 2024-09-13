@@ -58,6 +58,10 @@ import { map } from 'rxjs';
         <ion-col><small>{{ printRoles() }}</small></ion-col>
       </ion-row>
       <ion-row>
+        <ion-col><small>CurrentUser.tenant:</small></ion-col>
+        <ion-col><small>{{ authorizationService.currentUser()?.tenant }}</small></ion-col>
+      </ion-row>
+      <ion-row>
         <ion-col><small>isAdmin</small></ion-col>
         <ion-col><small>{{ authorizationService.isAdmin() }}</small></ion-col>
       </ion-row>
