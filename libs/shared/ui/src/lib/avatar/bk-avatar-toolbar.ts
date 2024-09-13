@@ -2,11 +2,12 @@ import { Component, effect, inject, input, output } from '@angular/core';
 import { IonAvatar, IonCol, IonGrid, IonIcon, IonImg, IonItem, IonRow, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
 import { Photo } from '@capacitor/camera';
 import { AvatarService } from './avatar.service';
-import { ImageViewModalComponent } from '../modals/image-view.modal';
 import { CategoryPlainNamePipe } from '@bk/pipes';
 import { ColorIonic, ColorsIonic } from '@bk/categories';
 import { addIcons } from "ionicons";
 import { camera } from "ionicons/icons";
+import { newImage } from '@bk/models';
+import { showZoomedImage } from '../ui.util';
 
 @Component({
   selector: 'bk-avatar-toolbar',
@@ -74,31 +75,11 @@ export class BkAvatarToolbarComponent {
   }
 
   protected async showZoomedImage(): Promise<void> {
-    const _size = 600;
     const _url = await this.avatarService.getAvatarUrl(this.key());
     if (_url) {
-      const _modal = await this.modalController.create({
-        component: ImageViewModalComponent,
-        componentProps: {
-          title: this.title(),
-          image: {
-            url: _url,
-            imageLabel: this.title(),
-            downloadUrl: '',
-            imageOverlay: '',
-            altText: this.alt(),
-            isThumbnail: false,
-            isZoomable: false,
-            hasPriority: true,
-            width: _size,
-            height: _size,
-            fill: true,
-            sizes: '(min-width: 768px) 50vw, 100vw',
-          }}
-        });
-      _modal.present();
-      await _modal.onDidDismiss();  
-    }
+      const _image = newImage('', _url, this.alt(), 600, 600, true, 0);
+      await showZoomedImage(this.modalController, this.title() ?? '', _image);
+    } 
   }
 
   private async uploadPhoto(): Promise<void> {

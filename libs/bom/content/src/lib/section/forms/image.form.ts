@@ -1,5 +1,5 @@
 import { Component, computed, inject, model, output } from '@angular/core';
-import { Image, SectionFormModel, SectionProperties } from '@bk/models';
+import { Image, SectionFormModel, SectionProperties, newImage } from '@bk/models';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonIcon, IonItem, IonLabel, IonRow, ToastController } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
@@ -7,7 +7,6 @@ import { deleteFileFromStorage } from '@bk/util';
 import { BkImgComponent, BkSpinnerComponent } from '@bk/ui';
 import { DocumentService } from '@bk/document';
 import { SectionService } from '../section.service';
-import { newImage } from '../section.util';
 import { addIcons } from "ionicons";
 import { addCircleOutline, closeCircleOutline } from "ionicons/icons";
 

@@ -7,8 +7,7 @@ import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { addIcons } from "ionicons";
 import { informationCircleOutline } from "ionicons/icons";
-import { Image } from '@bk/models';
-import { newImage } from '@bk/content';
+import { Image, newImage } from '@bk/models';
 
 @Component({
   selector: 'bk-page-not-found',

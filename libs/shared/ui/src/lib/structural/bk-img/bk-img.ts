@@ -3,7 +3,7 @@ import { Component, computed, ElementRef, inject, input, viewChild } from '@angu
 import { Image } from '@bk/models';
 import { ImgixUrlPipe } from '@bk/pipes';
 import { IonThumbnail, ModalController } from '@ionic/angular/standalone';
-import { ImageViewModalComponent } from '../../modals/image-view.modal';
+import { showZoomedImage } from '../../ui.util';
 
 /**
  * This image loading implementation is based on Angular's NgOptimizedImage together with Imgix CDN to provide optimized images.
@@ -90,7 +90,7 @@ See <a href="https://sandbox.imgix.com/view?url=https://assets.imgix.net/~text?f
     `
   })
   export class BkImgComponent {
-    private modalController = inject(ModalController);
+    private  modalController = inject(ModalController);
     public image = input.required<Image>();
     protected imageContainer = viewChild('.image-container', { read: ElementRef });
 
@@ -116,17 +116,7 @@ See <a href="https://sandbox.imgix.com/view?url=https://assets.imgix.net/~text?f
     });
 
     protected async showZoomedImage(): Promise<void> {
-      if (!this.image().isZoomable) return;
-      const _modal = await this.modalController.create({
-        component: ImageViewModalComponent,
-        cssClass: 'full-modal',
-        componentProps: {
-          title: '@content.type.article.zoomedImage',
-          image: this.image()
-        }
-      });
-      _modal.present();
-      await _modal.onDidDismiss();
+      await showZoomedImage(this.modalController, '@content.type.article.zoomedImage', this.image(), 'full-modal');
     }
 
     private getValue(key: string, defaultValue: string): string {

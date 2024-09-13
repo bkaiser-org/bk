@@ -24,6 +24,27 @@ export interface Image {  // identifies a single image or a specific image in an
   slot?: 'start' | 'end' | 'icon-only'; // default is 'start'
 }
 
+export function newImage(title = '', url = '', altText = '', width = 160, height = 90, isZoomable = true, borderRadius = 4): Image {
+  return {
+    url: url,
+    imageLabel: title,
+    downloadUrl: '',
+    imageOverlay: '',
+    altText: altText,
+    fill: true,
+    width: width,
+    height: height,
+    sizes: '(max-width: 786px) 50vw, 100vw',
+    hasPriority: true,
+    imgIxParams: '',
+    borderRadius: borderRadius,
+    isZoomable: isZoomable,
+    zoomFactor: 2,
+    isThumbnail: false,
+    slot: 'start'
+  }
+}
+
 // default configuration valid for all images in a image list
 export interface DefaultImageConfig {   
   imgIxParams?: string,
