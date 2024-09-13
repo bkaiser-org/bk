@@ -59,3 +59,11 @@ Thumbs.db
 nx.json
 
 .angular
+# Nx-Firebase
+.runtimeconfig.json
+**/.emulators/*
+**/.firebase/*
+database-debug.log
+firebase-debug.log
+firebase-export*
+.secret.local
