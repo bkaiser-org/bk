@@ -199,10 +199,7 @@ export class AddressFormComponent extends AbstractFormComponent implements After
   public async selectSwissCity(): Promise<void> {
     if (this.readOnly() === true) return;
     const _modal = await this.modalController.create({
-      component: SwissCitySelectComponent,
-      componentProps: {
-        vm: this.vm
-      }
+      component: SwissCitySelectComponent
     });
     _modal.present();
     const { data, role } = await _modal.onDidDismiss();
