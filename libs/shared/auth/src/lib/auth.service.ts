@@ -60,12 +60,10 @@ export class AuthService {
       tap(firebaseUser => this.setFirebaseUser(firebaseUser)));
     onAuthStateChanged(this.auth, (user) => {
       this.setFirebaseUser(user);
-      console.log('AuthService: onAuthStateChanged: user: ', user);
     });
   }
 
   private setFirebaseUser(firebaseUser: User | null): void {
-    console.log('AuthService.setFirebaseUser: firebaseUser: ', firebaseUser);
     this.state.update(_state => ({ ..._state, firebaseUser: firebaseUser }));
   }
 
