@@ -1,17 +1,17 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { CollectionNames, error } from '@bk/util';
 import { ModelType, RelationshipType } from '@bk/categories';
-import { AuthorizationService, BkCommentsAccordionComponent } from '@bk/base';
+import { AuthorizationService, BkCommentsAccordionComponent, getRelationshipAdmin } from '@bk/base';
 import { BkChangeConfirmationComponent, BkHeaderComponent, BkSpinnerComponent } from '@bk/ui';
 import { getFullRelationshipDescription, setRelationshipTitle } from '@bk/relationship';
 import { MembershipFormModel, RelationshipModel } from '@bk/models';
 import { MembershipFormComponent } from './membership-form';
 import { IonAccordionGroup, IonContent, IonItem, IonLabel, ModalController, ToastController } from '@ionic/angular/standalone';
-import { MembershipService } from './membership.service';
 import { convertFormToMembership, convertMembershipToForm } from './membership-form.util';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { BkDocumentsAccordionComponent } from '@bk/document';
+import { updateMembership } from './membership.util';
 
 @Component({
   selector: 'bk-membership-edit-modal',
@@ -47,13 +47,12 @@ import { BkDocumentsAccordionComponent } from '@bk/document';
 })
 export class MembershipEditModalComponent {
   private modalController = inject(ModalController);
-  private membershipService = inject(MembershipService);
   public authorizationService = inject(AuthorizationService);
   private toastController = inject(ToastController);
 
   public membership = input.required<RelationshipModel>();
   protected vm = computed(() => convertMembershipToForm(this.membership()));
-  protected title = computed(() => this.getMembershipEditTitle());
+  protected title = computed(() => this.getMembershipEditTitle(this.membership()));
   protected relationshipLabel = computed(() => getFullRelationshipDescription(this.membership()));
 
   protected formCanBeSaved = false;
@@ -63,9 +62,9 @@ export class MembershipEditModalComponent {
   public MT = ModelType;
   public RT = RelationshipType;
 
-  private getMembershipEditTitle(): string {
-    return setRelationshipTitle(this.membership(),
-      this.authorizationService.checkAuthorization(['resourceAdmin', 'admin']) === true ? 'update' : 'view');
+  private getMembershipEditTitle(membership: RelationshipModel): string {
+    return setRelationshipTitle(membership,
+      this.authorizationService.checkAuthorization(getRelationshipAdmin(RelationshipType.Membership)) === true ? 'update' : 'view');
   }
 
   public onDataChange(form: MembershipFormModel): void {
@@ -85,7 +84,7 @@ export class MembershipEditModalComponent {
       return this.modalController.dismiss(null, 'cancel');
     }
     const _membership = convertFormToMembership(this.membership(), this.currentForm, true);
-    await this.membershipService.updateMembership(_membership);
+    await updateMembership(_membership);
     return this.modalController.dismiss(_membership, 'confirm');
   }
 }
