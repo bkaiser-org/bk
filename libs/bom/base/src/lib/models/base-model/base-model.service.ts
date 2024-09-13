@@ -1,15 +1,15 @@
 import { Injectable, WritableSignal, computed, inject, signal } from "@angular/core";
 import { CategoryType, FilterType, ListTypes, ModelType } from "@bk/categories";
 import { EXPORT_FORMATS, ExportFormat, convertToTable } from "@bk/core";
-import { CollectionNames, ConfigService, SortCriteria, SortDirection, SortField, copyToClipboardWithConfirmation, die, exportXlsx, generateRandomString, getYear, isSortFieldString, navigateByUrl, resetSortCriteria } from "@bk/util";
+import { ConfigService, SortCriteria, SortDirection, SortField, copyToClipboardWithConfirmation, exportXlsx, generateRandomString, getYear, isSortFieldString, navigateByUrl, resetSortCriteria } from "@bk/util";
 import { Subject } from "rxjs";
 import { Params, Router } from "@angular/router";
 import { ToastController } from "@ionic/angular";
-import { BaseModel, FieldDescription } from "@bk/models";
+import { BaseModel, DataState, FieldDescription } from "@bk/models";
 import { DataService } from "../data.service";
 import { decrementIndex, getIndexByKey, getKeyByIndex, incrementIndex } from "../search.util";
 import { filterModelsByCategory, filterModelsBySearchTerm, filterModelsByTag, filterModelsByYear, sortModels } from "./base-model.util";
-import { createComment } from "../../comment/comment.util";
+import { saveComment } from "../../comment/comment.util";
 import { connect }  from 'ngxtension/connect';
 import { AuthorizationService } from "../../authorization/authorization.service";
 
@@ -36,19 +36,6 @@ import { AuthorizationService } from "../../authorization/authorization.service"
  * Then the rest of the application can react to these state changes using the selectors.
  */
 
-  export interface DataState {
-    listType: number,
-    groupedItems: BaseModel[],
-    filteredItems: BaseModel[],
-    searchTerm: string,
-    selectedYear: number,
-    selectedCategory: number,
-    selectedTag: string,
-    currentSortCriteria: SortCriteria,
-    error: string,
-    status: "success" | "error" | "loading",
-    currentKey: string
-  }
 
   @Injectable({
     providedIn: 'root'
@@ -237,11 +224,7 @@ import { AuthorizationService } from "../../authorization/authorization.service"
 
   /*-------------------------- comments --------------------------------*/
   public async saveComment(collectionName: string, parentKey: string | undefined, comment: string): Promise<void> {
-    const _user = this.authorizationService.currentUser() ?? die('BaseService.saveComment: inconsistent app state: there is no current user.');
-    const _key = _user.bkey ?? die('BaseService.saveComment: inconsistent app state: current user has no key.');
-    if (!parentKey) die('BaseService.saveComment: inconsistent app state: there is no parentKey.');
-    const _comment = createComment(_key, _user.personName, comment, collectionName, parentKey);
-    await this.dataService.createModel(`${collectionName}/${parentKey}/${CollectionNames.Comment}`, _comment);
+    await saveComment(this.dataService, this.authorizationService.currentUser(), collectionName, parentKey, comment);
   }
 
   /*-------------------------- search index --------------------------------*/

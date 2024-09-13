@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormModel, OrgNewFormModel } from '@bk/models';
+import { OrgNewFormModel } from '@bk/models';
 import { BkChangeConfirmationComponent, BkHeaderComponent, BkSpinnerComponent } from '@bk/ui';
 import { OrgNewFormComponent } from './org-new-form';
 import { IonContent } from '@ionic/angular/standalone';
@@ -44,7 +44,7 @@ export class OrgNewPageComponent implements OnInit {
     this.vm = getOrgNewFormModel();
   }
 
-  public onDataChange(form: FormModel): void {
+  public onDataChange(form: OrgNewFormModel): void {
     this.currentForm = form as OrgNewFormModel;
   }
 

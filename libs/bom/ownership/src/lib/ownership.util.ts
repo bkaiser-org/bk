@@ -1,6 +1,8 @@
+import { Inject } from '@angular/core';
+import { DataService } from '@bk/base';
 import { CategoryType, ModelType, OrgKey, RelationshipState, RelationshipType, ResourceType } from '@bk/categories';
 import { RelationshipModel, ResourceModel, SubjectModel } from '@bk/models';
-import { DateFormat, END_FUTURE_DATE_STR, SCS_KEY_DEPOSIT, SCS_LOCKER_FEE, SCS_SKIFF_INSURANCE, SCS_SKIFF_STORAGE, die, getTodayStr } from '@bk/util';
+import { CollectionNames, DateFormat, END_FUTURE_DATE_STR, SCS_KEY_DEPOSIT, SCS_LOCKER_FEE, SCS_SKIFF_INSURANCE, SCS_SKIFF_STORAGE, die, getTodayStr } from '@bk/util';
 
 export function getOwnershipPrice(modelType: ModelType, resourceType: ResourceType, ownerKey: string): number {
   if (modelType === ModelType.Boat) return ownerKey === OrgKey.SCS ? 0 : SCS_SKIFF_STORAGE + SCS_SKIFF_INSURANCE;
@@ -15,6 +17,17 @@ export function getOwnershipPrice(modelType: ModelType, resourceType: ResourceTy
     case ResourceType.Undefined:
     default: return 0;
   }
+}
+
+/**
+ * Update an existing ownership with new values.
+ * @param ownership the ownership to update
+ */
+export async function updateOwnership(ownership: RelationshipModel): Promise<void> {
+  if (ownership.validTo?.length === 0) {
+    ownership.validTo = END_FUTURE_DATE_STR;
+  }  
+  await Inject(DataService).updateModel(CollectionNames.Ownership, ownership, `@ownership.operation.update`);
 }
 
 export function newResourceOwnership(resource: ResourceModel, owner: SubjectModel, validFrom = getTodayStr(DateFormat.StoreDate)): RelationshipModel {

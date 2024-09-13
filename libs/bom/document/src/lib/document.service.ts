@@ -3,13 +3,10 @@ import { BaseService } from '@bk/base';
 import { DocumentType, ModelType, RelationshipType, getModelSlug } from '@bk/categories';
 import { Observable, of } from 'rxjs';
 import { BaseModel, DocumentModel, Image } from '@bk/models';
-import { CollectionNames, DateFormat, STORAGE, convertDateFormatToString, dirname, error, fileSizeUnit, generateRandomString, getThumbnailUrl, getTodayStr, warn } from '@bk/util';
+import { CollectionNames, DateFormat, STORAGE, convertDateFormatToString, dirname, error, fileSizeUnit, generateRandomString, getThumbnailUrl, getTodayStr } from '@bk/util';
 import { getDocumentIndex, getDocumentIndexInfo, getDocumentStoragePath } from './document.util';
 import { ref, getDownloadURL, getMetadata, listAll, FullMetadata } from "firebase/storage";
-import { ModalController, Platform } from '@ionic/angular/standalone';
-import { UploadTaskComponent, readAsFile } from '@bk/ui';
-import { FilePicker } from '@capawesome/capacitor-file-picker';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { ModalController } from '@ionic/angular/standalone';
 import { ImageSelectModalComponent } from './image-select.modal';
 
 @Injectable({
@@ -17,7 +14,6 @@ import { ImageSelectModalComponent } from './image-select.modal';
 })
 export class DocumentService extends BaseService {
   private modalController = inject(ModalController);
-  private platform = inject(Platform);
 
   private storage = inject(STORAGE);
 
@@ -107,6 +103,24 @@ export class DocumentService extends BaseService {
     return _docs;
   }
 
+  /*-------------------------- UPLOAD -------------------------------*/
+  public async pickAndUploadImage(key: string): Promise<Image | undefined> {
+    const _modal = await this.modalController.create({
+      component: ImageSelectModalComponent,
+      cssClass: 'wide-modal',
+      componentProps: {
+        key: key
+      }
+    });
+    _modal.present();
+
+    const { data, role } = await _modal.onWillDismiss();
+    if(role === 'confirm') {
+      return data as Image;
+    }
+    return undefined;
+  }
+
   /*-------------------------- SEARCH -------------------------------*/
   public getSearchIndex(item: BaseModel): string {
     return getDocumentIndex(item);
@@ -115,99 +129,6 @@ export class DocumentService extends BaseService {
   public getSearchIndexInfo(): string {
     return getDocumentIndexInfo();
   }
-
-  /*-------------------------- UPLOAD --------------------------------*/
-  /**
-   * Shows as a file dialog and lets the user choose file from the local file system.
-   * @param mimeTypes a list of mime types to filter the file dialog (e.g. ['image/png', 'image/jpg', 'application/pdf'])
-   * @returns the selected file or undefined if the file dialog was cancelled
-   */
-  public async pickFile(mimeTypes: string[]): Promise<File | undefined> {
-    const _result = await FilePicker.pickFiles({
-      types: mimeTypes
-    });
-    if (_result.files.length !== 1) {
-      warn('DocumentService.pickFile: expected 1 file, got ' + _result.files.length);
-      return undefined;
-    }
-    const _blob = _result.files[0].blob;
-    if (!_blob) {
-      warn('DocumentService.pickFile: blob is mandatory.');
-      return undefined;
-    }
-    const _file = new File([_blob], _result.files[0].name, {
-      type: _result.files[0].mimeType
-    });
-    return _file;
-  }
-
-  /**
-   * Select a photo from the camera or the photo library.
-   * @returns the image taken or selected
-   */
-  public async pickPhoto(): Promise<File | undefined> {
-    const _photo = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.Uri,
-      source: this.platform.is('mobile') ? CameraSource.Prompt : CameraSource.Photos 
-    });
-    return await readAsFile(_photo, this.platform);
-  }
-
-  /**
-   * Uploads a file to the storage location and shows a progress bar.
-   * @param file the document to upload
-   * @param storageLocation an URL to the storage location, i.e. the folder where the file should be stored
-   * @returns the full path of the uploaded file or undefined if the upload was cancelled
-   */
-    public async uploadFile(file: File, storageLocation: string): Promise<string | undefined> {
-      const _modal = await this.modalController.create({
-        component: UploadTaskComponent,
-        cssClass: 'upload-modal',
-        componentProps: {
-          file: file,
-          fullPath: storageLocation + '/' + file.name,
-          title: '@document.operation.upload.single.title'
-        }
-      });
-      _modal.present();
-  
-      const { role } = await _modal.onWillDismiss();
-      return ( role === 'confirm') ? storageLocation + '/' + file.name : undefined;
-    }
-
-    /**
-     * Uploads a file to a specific model.
-     * @param file the file to upload
-     * @param modelType the type of the model to which the file belongs
-     * @param key the key of the model to which the file belongs
-     * @returns the full path of the uploaded file or undefined if the upload was cancelled
-     */
-    public async uploadFileToModel(file: File, modelType: ModelType, key: string): Promise<string | undefined> {
-      if (key) {
-        const _storageLocation = getDocumentStoragePath(this.configService.getConfigString('tenant_id'), modelType, key);
-        return _storageLocation ? await this.uploadFile(file, _storageLocation) : undefined;
-      }
-      return undefined;
-    }
-
-    public async pickAndUploadImage(key: string): Promise<Image | undefined> {
-      const _modal = await this.modalController.create({
-        component: ImageSelectModalComponent,
-        cssClass: 'wide-modal',
-        componentProps: {
-          key: key
-        }
-      });
-      _modal.present();
-  
-      const { data, role } = await _modal.onWillDismiss();
-      if(role === 'confirm') {
-        return data as Image;
-      }
-      return undefined;
-    }
   
   /*-------------------------- CONVERSION --------------------------------*/
   /**

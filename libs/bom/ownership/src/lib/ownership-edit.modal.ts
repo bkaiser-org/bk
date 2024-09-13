@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { CollectionNames } from '@bk/util';
 import { ModelType, RelationshipType } from '@bk/categories';
-import { AuthorizationService, BkCommentsAccordionComponent, getModelAdmin } from '@bk/base';
+import { AuthorizationService, BkCommentsAccordionComponent, DataService, getRelationshipAdmin, saveComment } from '@bk/base';
 import { BkChangeConfirmationComponent, BkHeaderComponent, BkSpinnerComponent } from '@bk/ui';
 import { getFullRelationshipDescription, setRelationshipTitle } from '@bk/relationship';
 import { OwnershipFormModel, RelationshipModel } from '@bk/models';
@@ -9,9 +9,9 @@ import { IonAccordionGroup, IonContent, IonItem, IonLabel, ModalController } fro
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { OwnershipFormComponent } from './ownership-form';
-import { OwnershipService } from './ownership.service';
 import { convertFormToOwnership, convertOwnershipToForm } from './ownership-form.util';
 import { BkDocumentsAccordionComponent } from '@bk/document';
+import { updateOwnership } from './ownership.util';
 
 @Component({
   selector: 'bk-ownership-edit-modal',
@@ -49,8 +49,8 @@ import { BkDocumentsAccordionComponent } from '@bk/document';
 })
 export class OwnershipEditModalComponent {
   private modalController = inject(ModalController);
-  private ownershipService = inject(OwnershipService);
   public authorizationService = inject(AuthorizationService);
+  private dataService = inject(DataService);
 
   public ownership = input.required<RelationshipModel>();
   protected vm = computed(() => convertOwnershipToForm(this.ownership())); // current view model for editing
@@ -65,7 +65,7 @@ export class OwnershipEditModalComponent {
 
   private getOwnershipEditTitle(ownership: RelationshipModel): string {
     return setRelationshipTitle(ownership,
-      this.authorizationService.checkAuthorization(getModelAdmin(ModelType.Relationship)) === true ? 'update' : 'view');
+      this.authorizationService.checkAuthorization(getRelationshipAdmin(RelationshipType.Ownership)) === true ? 'update' : 'view');
   }
 
   public onDataChange(form: OwnershipFormModel): void {
@@ -81,10 +81,10 @@ export class OwnershipEditModalComponent {
 
     // check whether an exitDate was inserted (end Membership)
     if (this.ownership().validTo !== this.currentForm?.validTo) {
-      this.ownershipService.saveComment(CollectionNames.Ownership, this.ownership().bkey, '@comment.message.ownership.deleted');
+      saveComment(this.dataService, this.authorizationService.currentUser(), CollectionNames.Ownership, this.ownership().bkey, '@comment.message.ownership.deleted');
     }
     _ownership = convertFormToOwnership(this.ownership(), this.currentForm);
-    await this.ownershipService.updateOwnership(_ownership);
+    await updateOwnership(_ownership);
     return this.modalController.dismiss(_ownership, 'confirm');
   }
 }

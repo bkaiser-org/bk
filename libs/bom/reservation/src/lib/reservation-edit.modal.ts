@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { CollectionNames, confirm } from '@bk/util';
 import { ModelType, RelationshipType } from '@bk/categories';
-import { AuthorizationService, BkCommentsAccordionComponent } from '@bk/base';
+import { AuthorizationService, BkCommentsAccordionComponent, DataService, saveComment } from '@bk/base';
 import { BkChangeConfirmationComponent, BkHeaderComponent, BkSpinnerComponent } from '@bk/ui';
 import { getFullRelationshipDescription, setRelationshipTitle } from '@bk/relationship';
 import { RelationshipModel, ReservationFormModel } from '@bk/models';
@@ -9,7 +9,6 @@ import { AlertController, IonAccordionGroup, IonContent, IonItem, IonLabel, Moda
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { ReservationFormComponent } from './reservation-form';
-import { ReservationService } from './reservation.service';
 import { convertFormToReservation, convertReservationToForm } from './reservation-form.util';
 import { BkDocumentsAccordionComponent } from '@bk/document';
 
@@ -47,7 +46,7 @@ import { BkDocumentsAccordionComponent } from '@bk/document';
 })
 export class ReservationEditModalComponent {
   private modalController = inject(ModalController);
-  private reservationService = inject(ReservationService);
+  private dataService = inject(DataService);
   public authorizationService = inject(AuthorizationService);
   private alertController = inject(AlertController);
 
@@ -77,10 +76,11 @@ export class ReservationEditModalComponent {
     const _reservation = convertFormToReservation(this.reservation(), this.currentForm);
     let _key = _reservation.bkey;
     if (_reservation.bkey && _reservation.bkey.length > 0) {  // update
-      await this.reservationService.updateReservation(_reservation);
+      await this.dataService.updateModel(CollectionNames.Reservation, _reservation, '@reservation.operation.update');
+
     } else {  // create                             // create
-      _key = await this.reservationService.saveNewReservation(_reservation);
-      await this.reservationService.saveComment(CollectionNames.Reservation, _key, '@comment.operation.initial.conf');
+      _key = await this.dataService.createModel(CollectionNames.Reservation, _reservation, '@reservation.operation.create');
+      await saveComment(this.dataService, this.authorizationService.currentUser(), CollectionNames.Reservation, _key, '@comment.operation.initial.conf');
       confirm(this.alertController, '@event.type.reservation.bh.confirmation', false);  
     }
 

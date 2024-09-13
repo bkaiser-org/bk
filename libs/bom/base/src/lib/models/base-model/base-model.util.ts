@@ -2,10 +2,9 @@ import { ActionType, AddressChannels, ApplicationTypes, BoatTypes, Category, Cat
 import { die, confirmAction, warn, nameMatches, getProperty, bkTranslate, SortCriteria, SortDirection, sortAscending, sortDescending, convertDateFormat, DateFormat, numberMatches, tagMatches } from '@bk/util';
 import { Observable, of } from 'rxjs';
 import { ToastController } from '@ionic/angular';
-import { BaseModel, AddressModel, RelationshipModel, ResourceModel, SubjectModel, EventModel, DocumentModel, isBoat, isRelationship, isSubject, isDocument, isEvent, isResource, isBaseModel } from '@bk/models';
+import { BaseModel, AddressModel, RelationshipModel, ResourceModel, SubjectModel, EventModel, DocumentModel, isBoat, isRelationship, isSubject, isDocument, isEvent, isResource, isBaseModel, DataState } from '@bk/models';
 import { collection, deleteDoc, doc, Firestore, setDoc, updateDoc } from 'firebase/firestore';
 import { docData } from 'rxfire/firestore';
-import { DataState } from './base-model.service';
 
 /*----------------------- CRUD ----------------------------------------------*/
 

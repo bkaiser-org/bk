@@ -3,7 +3,7 @@ import { ListType } from '@bk/categories';
 import { Observable, firstValueFrom, of } from 'rxjs';
 import { CollectionNames, DateFormat, convertDateFormatToString, getTodayStr, warn } from '@bk/util';
 import { BaseService, BkModelSelectComponent } from '@bk/base';
-import { newResourceOwnership } from './ownership.util';
+import { newResourceOwnership, updateOwnership } from './ownership.util';
 import { BaseModel, RelationshipModel, ResourceModel, SubjectModel, isResource, isSubject } from '@bk/models';
 import { getRelationshipIndex, getRelationshipIndexInfo } from '@bk/relationship';
 import { BkDateSelectModalComponent, BkLabelSelectModalComponent } from '@bk/ui';
@@ -53,14 +53,6 @@ export class OwnershipService extends BaseService {
   }
 
   /**
-   * Update an existing ownership with new values.
-   * @param ownership the ownership to update
-   */
-  public async updateOwnership(ownership: RelationshipModel): Promise<void> {
-    await this.dataService.updateModel(CollectionNames.Ownership, ownership, `@ownership.operation.update`);
-  }
-
-  /**
    * End an existing Ownership.
    * We do not archive ownerships as we want to make them visible in the lists.
    * Therefore, we end an ownership by setting its validTo date.
@@ -70,7 +62,7 @@ export class OwnershipService extends BaseService {
     const _date = await this.selectDate();
     if (!_date) return;
     ownership.validTo = convertDateFormatToString(_date, DateFormat.IsoDate, DateFormat.StoreDate);
-    await this.updateOwnership(ownership);
+    await updateOwnership(ownership);
     await this.saveComment(CollectionNames.Ownership, ownership.bkey, '@comment.message.ownership.deleted');   
   }
 

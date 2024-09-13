@@ -7,7 +7,7 @@ import { IonAccordion, IonButton, IonIcon, IonItem, IonItemOption, IonItemOption
 import { AsyncPipe } from '@angular/common';
 import { ModelType, RelationshipType } from '@bk/categories';
 import { DocumentService } from './document.service';
-import { getDocumentStoragePath } from './document.util';
+import { getDocumentStoragePath, pickFile, uploadFile } from './document.util';
 import { Browser } from '@capacitor/browser';
 import { ConfigService } from '@bk/util';
 import { addIcons } from "ionicons";
@@ -94,7 +94,7 @@ export class BkDocumentsAccordionComponent implements OnInit {
    */
   public async uploadFile(): Promise<void> {
     // show a file dialog to select the file to upload
-    const _file = await this.documentService.pickFile([
+    const _file = await pickFile([
       'image/png', 
       'image/jpg', 
       'application/pdf', 
@@ -109,7 +109,7 @@ export class BkDocumentsAccordionComponent implements OnInit {
       // upload the file to the storage
       const _path = this.path();
       if (_path) {
-        await this.documentService.uploadFile(_file, _path);
+        await uploadFile(_file, _path);
       }
     }
   }

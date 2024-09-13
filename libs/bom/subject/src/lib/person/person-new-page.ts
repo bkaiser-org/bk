@@ -1,6 +1,6 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { OrgKey } from '@bk/categories';
-import { FormModel, PersonNewFormModel } from '@bk/models';
+import { PersonNewFormModel } from '@bk/models';
 import { BkChangeConfirmationComponent, BkHeaderComponent, BkSpinnerComponent } from '@bk/ui';
 import { PersonNewFormComponent } from './person-new-form';
 import { IonContent } from '@ionic/angular/standalone';
@@ -44,8 +44,8 @@ export class PersonNewPageComponent {
   protected formCanBeSaved = false;
   public currentForm: PersonNewFormModel | undefined;
 
-  public onDataChange(form: FormModel): void {
-    this.currentForm = form as PersonNewFormModel;
+  public onDataChange(form: PersonNewFormModel): void {
+    this.currentForm = form;
   }
 
   public onFormStateChange(formCanBeSaved: boolean): void {

@@ -1,5 +1,3 @@
-import { ex } from '@fullcalendar/core/internal-common';
-
 // address
 export * from './lib/address/address-form.model';
 export * from './lib/address/address-form.validations';
@@ -17,6 +15,7 @@ export * from './lib/base/base.model';
 export * from './lib/base/bk-form.model';
 export * from './lib/base/base.validations';
 export * from './lib/models.util';
+export * from './lib/base/data.state';
 
 // comment
 export * from './lib/comment/comment.model';

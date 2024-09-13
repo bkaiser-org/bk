@@ -1,5 +1,5 @@
-import { DateFormat, getTodayStr } from "@bk/util";
-import { CommentModel } from "@bk/models";
+import { CollectionNames, DateFormat, die, getTodayStr } from "@bk/util";
+import { CommentModel, UserModel } from "@bk/models";
 
 /* ---------------------- Model  -------------------------------*/
  /**
@@ -20,5 +20,11 @@ export function createComment(authorKey: string, authorName: string, commentStr:
   return _comment;
 }
 
-
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function saveComment(dataService: any, currentUser: UserModel | undefined, collectionName: string, parentKey: string | undefined, comment: string): Promise<void> {
+  if (!currentUser) die('comment.util.saveComment: inconsistent app state: there is no current user.');
+  const _key = currentUser.bkey ?? die('comment.util.saveComment: inconsistent app state: current user has no key.');
+  if (!parentKey) die('comment.util.saveComment: inconsistent app state: there is no parentKey.');
+  const _comment = createComment(_key, currentUser.personName, comment, collectionName, parentKey);
+  await dataService.createModel(`${collectionName}/${parentKey}/${CollectionNames.Comment}`, _comment);
+}

@@ -1,8 +1,9 @@
 import { RelationshipModel, SubjectModel } from '@bk/models';
 import { getMembershipPrice, getRelationshipIndex } from '@bk/relationship';
 import { MemberType, MemberTypes, ModelType, ModelValidationType, OrgKey, OrgType, RelationshipType, ScsMemberType, ScsMemberTypes, getCategoryAbbreviation, getMembershipState, getOrgNameAbbreviation } from '@bk/categories';
-import { DateFormat, END_FUTURE_DATE_STR, convertDateFormatToString, die, getTodayStr } from '@bk/util';
+import { CollectionNames, DateFormat, END_FUTURE_DATE_STR, convertDateFormatToString, die, getTodayStr } from '@bk/util';
 import { DataService } from '@bk/base';
+import { Inject } from '@angular/core';
 
 export function getMembershipAccordionValues(membership: RelationshipModel | undefined): string[] {
   if (!membership) die('MembershipUtil.getMembershipAccordionValues: membership is mandatory.');
@@ -149,6 +150,18 @@ export function newMembershipFromSubject(subject: SubjectModel, org: SubjectMode
   _membership.relIsLast = true;
   _membership.relLog = getRelLogEntry(_membership.objectKey, _membership.priority, '', _membership.validFrom, _membership.subType);
   return _membership;
+}
+
+/**
+ * Update an existing membership with new values.
+ * @param membership the membership to update
+ */
+export async function updateMembership(membership: RelationshipModel): Promise<void> {
+  if (membership.validTo?.length === 0) {
+    membership.validTo = END_FUTURE_DATE_STR;
+  }
+  await Inject(DataService).updateModel(CollectionNames.Membership, membership, `@membership.operation.update`);
+
 }
 
 export async function updateMembershipAttributesPerOrg(relationships: RelationshipModel[], orgKey: string, dataService: DataService) {

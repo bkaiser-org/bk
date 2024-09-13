@@ -1,30 +1,4 @@
 import { CategoryType } from '@bk/categories';
-import { OrgNewFormModel } from '../org/org-new.model';
-import { PersonNewFormModel } from '../person/person-new.model';
-import { ResourceNewFormModel } from '../resource/resource-new.model';
-import { AddressFormModel } from '../address/address-form.model';
-import { SectionFormModel } from '../section/section-form.model';
-import { OrgFormModel } from '../org/org-form.model';
-import { PersonFormModel } from '../person/person-form.model';
-import { ResourceFormModel } from '../resource/resource-form.model';
-import { MembershipFormModel } from '../membership/membership-form.model';
-import { SectionModel } from '../section/section.model';
-import { AddressModel } from '../address/address.model';
-import { RelationshipModel } from '../relationship/relationship.model';
-import { CommentModel } from '../comment/comment.model';
-import { ResourceModel } from '../resource/resource.model';
-import { InvoicePositionModel } from '../invoice-position/invoice-position.model';
-import { DocumentModel } from '../document/document.model';
-import { CompetitionLevelModel } from '../competition-level/competition-level.model';
-import { EventModel } from '../event/event.model';
-import { LocationModel } from '../location/location.model';
-import { PageModel } from '../page/page.model';
-
-export type NewFormModel = OrgNewFormModel | PersonNewFormModel | ResourceNewFormModel | AddressFormModel | SectionFormModel;
-export type FormModel = OrgFormModel | PersonFormModel | ResourceFormModel | MembershipFormModel;
-export type Model = SectionModel | AddressModel | RelationshipModel | CommentModel | ResourceModel | PageModel | 
-EventModel | LocationModel |
-InvoicePositionModel | DocumentModel | CompetitionLevelModel;
 
 export interface FieldDescription {
   name: string;

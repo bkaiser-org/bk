@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ResourceType } from '@bk/categories';
-import { FormModel, ResourceNewFormModel } from '@bk/models';
+import { ResourceNewFormModel } from '@bk/models';
 import { ResourceNewFormComponent } from './resource-new-form';
 import { IonContent } from '@ionic/angular/standalone';
 import { BkChangeConfirmationComponent, BkHeaderComponent, BkSpinnerComponent } from '@bk/ui';
@@ -45,7 +45,7 @@ export class ResourceNewPageComponent implements OnInit {
     this.vm = getResourceNewFormModel(this.resourceService.modelType(), this.resourceService.type() as ResourceType);
   }
 
-  public onDataChange(form: FormModel): void {
+  public onDataChange(form: ResourceNewFormModel): void {
     this.currentForm = form as ResourceNewFormModel;
   }
 

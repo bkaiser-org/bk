@@ -7,7 +7,7 @@ import { EXPORT_FORMATS, ExportFormat } from '@bk/core';
 import { CollectionNames, DateFormat, END_FUTURE_DATE_STR, addDuration, bkTranslate, convertDateFormatToString, die, exportXlsx, generateRandomString, getEndOfYear, getExportFileName, getStartOfYear, getTodayStr, warn } from '@bk/util';
 import { Observable, combineLatest, firstValueFrom, map, of } from 'rxjs';
 import { BaseModel, MembershipSubjectModel, RelationshipModel, SubjectModel, isMembership, isOrg, isSubject } from '@bk/models';
-import { convertToSrvDataRow, getMembershipCategoryChangeComment, getRelLogEntry, getSrvHeaderRow, newMembershipFromSubject } from './membership.util';
+import { convertToSrvDataRow, getMembershipCategoryChangeComment, getRelLogEntry, getSrvHeaderRow, newMembershipFromSubject, updateMembership } from './membership.util';
 import { MembershipEditModalComponent } from './membership-edit.modal';
 import { BkCategorySelectModalComponent, BkDateSelectModalComponent, BkLabelSelectModalComponent, MembershipCategoryChangeModalComponent } from '@bk/ui';
 import { ModalController } from '@ionic/angular/standalone';
@@ -55,18 +55,6 @@ import { ModalController } from '@ionic/angular/standalone';
   }
 
   /**
-   * Update an existing membership with new values.
-   * @param membership the membership to update
-   */
-  public async updateMembership(membership: RelationshipModel): Promise<void> {
-    if (membership.validTo?.length === 0) {
-      membership.validTo = END_FUTURE_DATE_STR;
-    }
-    await this.dataService.updateModel(CollectionNames.Membership, membership, `@membership.operation.update`);
-
-  }
-
-  /**
    * Ask user for the end date of an existing membership and end it.
    * We do not archive memberships as we want to make them visible for entries & exits.
    * Therefore, we end an membership by setting its validTo date.
@@ -87,7 +75,7 @@ import { ModalController } from '@ionic/angular/standalone';
     if (membership.validTo.startsWith('9999') && dateOfExit && dateOfExit.length === 8) {
       membership.validTo = dateOfExit;
       membership.relIsLast = true;
-      await this.updateMembership(membership);
+      await updateMembership(membership);
       await this.saveComment(CollectionNames.Membership, membership.bkey, '@comment.message.membership.deleted');
     }
   }
@@ -239,7 +227,7 @@ import { ModalController } from '@ionic/angular/standalone';
     if (typeof(newMembershipType) !== 'number') die('MembershipService.saveMembershipCategoryChange: newMembershipType must be of type number.');
     oldMembership.relIsLast = false;
     oldMembership.validTo = addDuration(newValidFrom, { days: -1});
-    await this.updateMembership(oldMembership);
+    await updateMembership(oldMembership);
 
     // add a comment about the category change to the current membership
     const _comment = getMembershipCategoryChangeComment(oldMembership.objectKey, oldMembership.subType, newMembershipType);

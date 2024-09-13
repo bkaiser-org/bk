@@ -1,5 +1,5 @@
 import { ColorIonic, ModelType, SectionType, SectionTypes, ViewPosition } from "@bk/categories";
-import { Avatar, Button, Icon, DefaultImageConfig, Image, SectionModel, ModelInfo } from "@bk/models";
+import { Avatar, Button, Icon, DefaultImageConfig, SectionModel, ModelInfo } from "@bk/models";
 import { NameDisplay, bkTranslate } from "@bk/util";
 
 /**
@@ -96,25 +96,3 @@ export function newDefaultImageConfig(): DefaultImageConfig {
     slot: 'start'
   }
 }
-
-export function newImage(): Image {
-  return {
-    url: '',
-    imageLabel: '',
-    downloadUrl: '',
-    imageOverlay: '',
-    altText: '',
-    fill: true,
-    width: 160,
-    height: 90,
-    sizes: '(max-width: 786px) 50vw, 100vw',
-    hasPriority: true,
-    imgIxParams: '',
-    borderRadius: 4,
-    isZoomable: true,
-    zoomFactor: 2,
-    isThumbnail: false,
-    slot: 'start'
-  }
-}
-

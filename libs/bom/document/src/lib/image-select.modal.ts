@@ -6,9 +6,9 @@ import { Image } from '@bk/models';
 import { ModelType } from '@bk/categories';
 import { getImgixUrlWithAutoParams } from '@bk/util';
 import { BkHeaderComponent, BkTextInputComponent } from '@bk/ui';
-import { DocumentService } from './document.service';
 import { addIcons } from "ionicons";
 import { camera } from "ionicons/icons";
+import { pickPhoto, uploadFileToModel } from './document.util';
 
 /**
  * This modal requests a user to select an image file and provide some metadata about the image.
@@ -38,7 +38,6 @@ import { camera } from "ionicons/icons";
   `
 })
 export class ImageSelectModalComponent {
-  private documentService = inject(DocumentService);
   private modelController = inject(ModalController);
 
   public key = input.required<string>();     // usually the key of a section
@@ -64,11 +63,11 @@ export class ImageSelectModalComponent {
 
   // select a photo from the camera or the photo library
   protected async pickImage() {
-    const _file = await this.documentService.pickPhoto();
+    const _file = await pickPhoto();
     const _key = this.key();
     if (_file && _key) {
       // upload the file to the storage
-      const _path = await this.documentService.uploadFileToModel(_file, this.modelType(), _key);
+      const _path = await uploadFileToModel(_file, this.modelType(), _key);
       if (_path) {
         this.imageDesc.url = _path;
         this.imageDesc.downloadUrl = getImgixUrlWithAutoParams(_path);
