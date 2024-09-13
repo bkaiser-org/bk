@@ -1,4 +1,4 @@
-import { Component, inject, model, viewChild } from '@angular/core';
+import { Component, inject, model, OnInit, viewChild } from '@angular/core';
 import { AddressFormModel, OrgNewFormModel, PersonNewFormModel } from '@bk/models';
 import { IonCol, IonContent, IonGrid, IonRow, IonSearchbar, ModalController } from '@ionic/angular/standalone';
 import { Observable } from 'rxjs';
@@ -40,14 +40,16 @@ import { TranslatePipe } from '@bk/pipes';
       </ion-content>
   `
 })
-export class SwissCitySelectComponent {
+export class SwissCitySelectComponent implements OnInit {
   private swissCityService = inject(SwissCityService);
   private modalController = inject(ModalController);
 
-  public vm = model.required<OrgNewFormModel | PersonNewFormModel | AddressFormModel>(); // current view model for editing
   protected zipField = viewChild<IonSearchbar>('zipField');
   public swissCities$!: Observable<SwissCity[]>;   // result of the zipcode search
 
+  ngOnInit(): void {
+    this.swissCities$ = this.swissCityService.loadSwissCities();
+  }
   ionViewDidEnter(): void {
     this.zipField()?.setFocus();
   }
@@ -68,16 +70,7 @@ export class SwissCitySelectComponent {
     }
   }
 
-  private updateAddressFields(city: SwissCity | undefined): void {
-    if (this.vm() && city) {
-      this.vm().zipCode = (city.zipCode + '');
-      this.vm().countryCode = city.countryCode;
-      this.vm().city = city.name;  
-    }
-  }
-
   public async select(city: SwissCity | undefined): Promise<boolean> {
-    this.updateAddressFields(city);
     return await this.modalController.dismiss(city, 'confirm');
   }
 

@@ -1,16 +1,20 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SwissCity } from './swiss-cites.util';
-import { collection, query, where } from 'firebase/firestore';
-import { CollectionNames, getNextString } from '@bk/util';
+import { collection, orderBy, query, where } from 'firebase/firestore';
+import { CollectionNames, getNextString, FIRESTORE } from '@bk/util';
 import { collectionData } from 'rxfire/firestore';
-import { FIRESTORE } from '@bk/util';
 
 @Injectable({
     providedIn: 'root'
   })
 export class SwissCityService {
   private firestore = inject(FIRESTORE);
+
+  public loadSwissCities(): Observable<SwissCity[]> {
+    const _queryRef = query(collection(this.firestore, CollectionNames.SwissCities), orderBy('zipCode', 'asc'));    
+    return collectionData(_queryRef) as Observable<SwissCity[]>;
+  }
 
   public filterCitiesByZipCode(searchTerm: number): Observable<SwissCity[]> {
       const _queryRef = query(collection(this.firestore, CollectionNames.SwissCities), 
