@@ -30,8 +30,8 @@ import { vestForms } from 'ngx-vest-forms';
       <ion-row>
         <ion-col>
           <ion-item lines="none">
-            {{'@subject.person.profile.intro' | translate | async }} 
-            <a [href]="adminEmail">Website Admin</a>
+            {{'@subject.person.profile.intro' | translate | async }} &nbsp;
+            <a [href]="adminEmail"> Website Admin</a>.
           </ion-item>
         </ion-col>
       </ion-row>
