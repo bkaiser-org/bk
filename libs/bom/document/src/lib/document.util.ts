@@ -1,7 +1,12 @@
+import { Inject } from '@angular/core';
 import { addIndexElement } from '@bk/base';
 import { DocumentTypes, ModelType, RelationshipType, getCategoryAbbreviation, getModelSlug, getSlugFromRelationshipType } from '@bk/categories';
 import { BaseModel, DOCUMENT_DIR, DocumentModel, isDocument } from '@bk/models';
-import { checkUrlType, warn } from '@bk/util';
+import { readAsFile, UploadTaskComponent } from '@bk/ui';
+import { checkUrlType, ConfigService, warn } from '@bk/util';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { FilePicker } from '@capawesome/capacitor-file-picker';
+import { ModalController, Platform } from '@ionic/angular/standalone';
 
 /* ---------------------- Index operations -------------------------*/
 /**
@@ -27,6 +32,84 @@ export function getDocumentIndex(document: BaseModel): string {
 export function getDocumentIndexInfo(): string {
   return 'n:name c:documentTypeAbbreviation e:extension, d:directory';
 }
+
+/*-------------------------- UPLOAD --------------------------------*/
+/**
+ * Shows as a file dialog and lets the user choose file from the local file system.
+ * @param mimeTypes a list of mime types to filter the file dialog (e.g. ['image/png', 'image/jpg', 'application/pdf'])
+ * @returns the selected file or undefined if the file dialog was cancelled
+ */
+export async function pickFile(mimeTypes: string[]): Promise<File | undefined> {
+  const _result = await Inject(FilePicker).pickFiles({
+    types: mimeTypes
+  });
+  if (_result.files.length !== 1) {
+    warn('document.util.pickFile: expected 1 file, got ' + _result.files.length);
+    return undefined;
+  }
+  const _blob = _result.files[0].blob;
+  if (!_blob) {
+    warn('document.util.pickFile: blob is mandatory.');
+    return undefined;
+  }
+  const _file = new File([_blob], _result.files[0].name, {
+    type: _result.files[0].mimeType
+  });
+  return _file;
+}
+
+/**
+ * Uploads a file to the storage location and shows a progress bar.
+ * @param file the document to upload
+ * @param storageLocation an URL to the storage location, i.e. the folder where the file should be stored
+ * @returns the full path of the uploaded file or undefined if the upload was cancelled
+ */
+export async function uploadFile(file: File, storageLocation: string): Promise<string | undefined> {
+  const _modal = await Inject(ModalController).create({
+    component: UploadTaskComponent,
+    cssClass: 'upload-modal',
+    componentProps: {
+      file: file,
+      fullPath: storageLocation + '/' + file.name,
+      title: '@document.operation.upload.single.title'
+    }
+  });
+  _modal.present();
+
+  const { role } = await _modal.onWillDismiss();
+  return ( role === 'confirm') ? storageLocation + '/' + file.name : undefined;
+}
+
+/**
+ * Uploads a file to a specific model.
+ * @param file the file to upload
+ * @param modelType the type of the model to which the file belongs
+ * @param key the key of the model to which the file belongs
+ * @returns the full path of the uploaded file or undefined if the upload was cancelled
+ */
+export async function uploadFileToModel(file: File, modelType: ModelType, key: string): Promise<string | undefined> {
+  if (key) {
+    const _storageLocation = getDocumentStoragePath(Inject(ConfigService).getConfigString('tenant_id'), modelType, key);
+    return _storageLocation ? await uploadFile(file, _storageLocation) : undefined;
+  }
+  return undefined;
+}
+
+/* ---------------------- Camera -------------------------*/
+  /**
+   * Select a photo from the camera or the photo library.
+   * @returns the image taken or selected
+   */
+  export async function pickPhoto(): Promise<File | undefined> {
+    const _platform = Inject(Platform);
+    const _photo = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source: _platform.is('mobile') ? CameraSource.Prompt : CameraSource.Photos 
+    });
+    return await readAsFile(_photo, _platform);
+  }
 
 /* ---------------------- Helpers -------------------------*/
 /**
