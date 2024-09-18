@@ -36,7 +36,7 @@ import {
 } from 'firebase/app-check';
 import { provideServiceWorker } from '@angular/service-worker';
 
-const app = initializeApp(environment.app);
+const app = initializeApp(environment.firebase);
 
 if (environment.production === false) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,7 +46,7 @@ if (environment.production === false) {
 // site key and pass it to initializeAppCheck().
 initializeAppCheck(app, {
   provider: new ReCaptchaEnterpriseProvider(
-    environment.app.appcheckRecaptchaEnterpriseKey
+    environment.firebase.appcheckRecaptchaEnterpriseKey
   ),
   isTokenAutoRefreshEnabled: true, // Set to true to allow auto-refresh.
 });

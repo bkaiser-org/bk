@@ -3,7 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component, OnDestroy, OnInit, inject, input } f
 import { TranslatePipe } from '@bk/pipes';
 import { IonContent, IonImg } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '../structural/bk-header';
-import { SCS_LATITUDE, SCS_LONGITUDE, die, ConfigService} from '@bk/util';
+import { SCS_LATITUDE, SCS_LONGITUDE, die, ENV} from '@bk/util';
 import { GoogleMap, MapType } from '@capacitor/google-maps';
 
 export interface GeoCoordinates {
@@ -35,7 +35,7 @@ export interface GeoCoordinates {
   `
 })
 export class MapViewModalComponent implements OnInit, OnDestroy {
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
 
   public coordinates = input<GeoCoordinates[]>([]);
   public title = input('@menu.main.info.map');
@@ -61,7 +61,7 @@ export class MapViewModalComponent implements OnInit, OnDestroy {
     this.map = await GoogleMap.create({
       id: 'bk-map',               // Unique identifier for this map instance
       element: _mapRef, 
-      apiKey: this.configService.getConfigString('gmap_key'), // Google Maps API Key
+      apiKey: this.env.services.gmapKey, // Google Maps API Key
       config: {
         center: this.initialPosition(),
         zoom: this.zoom(), 

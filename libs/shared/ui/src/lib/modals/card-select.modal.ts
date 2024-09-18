@@ -4,7 +4,7 @@ import { TranslatePipe } from '@bk/pipes';
 import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonImg, IonItem, IonLabel, IonRow, ModalController } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '../structural/bk-header';
 import { Category } from '@bk/categories';
-import { ConfigService } from '@bk/util';
+import { ENV } from '@bk/util';
 
 @Component({
   selector: 'bk-card-select-modal',
@@ -45,13 +45,12 @@ import { ConfigService } from '@bk/util';
 })
 export class BkCardSelectModalComponent {
   private modalController = inject(ModalController);
-  protected configService = inject(ConfigService);
+  protected env = inject(ENV);
 
-  public baseImgixUrl = this.configService.getConfigString('cms_imgix_base_url');
 
   public categories = input.required<Category[]>();
   public slug = input.required<string>();
-  protected path = computed(() => this.baseImgixUrl + '/logo/' + this.slug() + '/');
+  protected path = computed(() => `${this.env.app.imgixBaseUrl}/logo/${this.slug()}/`);
   
   public async select(index: number): Promise<boolean> {
     return await this.modalController.dismiss(index, 'confirm');

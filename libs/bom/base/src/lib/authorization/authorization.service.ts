@@ -37,7 +37,6 @@ export class AuthorizationService {
 
   /*-------------------------- reducers --------------------------------*/
   constructor() {
-    this.user$.subscribe(firebaseUser => console.log('AuthorizationService: firebaseUid: ', firebaseUser?.uid));
     this.user$.pipe(
       tap(() => this.setLoadingIndicator(true)),
       switchMap(firebaseUser => this.getUserByUid(firebaseUser?.uid)),

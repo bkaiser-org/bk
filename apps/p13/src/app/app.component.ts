@@ -15,7 +15,7 @@ import { TranslatePipe } from '@bk/pipes';
 import { BkMenuComponent } from '@bk/content';
 import { AuthInfoComponent, AuthorizationService } from '@bk/base';
 import { AuthService } from '@bk/auth';
-import { ConfigService, getImgixUrlWithAutoParams } from '@bk/util';
+import { ENV, getImgixUrlWithAutoParams } from '@bk/util';
 import { ModelType } from '@bk/categories';
 
 @Component({
@@ -114,7 +114,7 @@ import { ModelType } from '@bk/categories';
             </ion-toolbar>
           </ion-header>
           <ion-content>
-            <bk-menu menuName="main" />
+            <bk-menu [menuName]="mainMenuName" />
             @if (authorizationService.currentUser()?.showDebugInfo === true) {
             <bk-auth-info />
             }
@@ -141,17 +141,10 @@ export class AppComponent {
   protected authorizationService = inject(AuthorizationService);
   protected authService = inject(AuthService);
   private platform = inject(Platform);
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
+  protected mainMenuName = 'main_' + this.env.auth.tenantId;
 
-  public appVersion = this.configService.getConfigString('app_version');
-  public baseImgixUrl =
-    this.configService.getConfigString('cms_imgix_base_url');
-  public logoUrl =
-    this.baseImgixUrl +
-    '/' +
-    getImgixUrlWithAutoParams(
-      this.configService.getConfigString('cms_logo_url')
-    );
+  public logoUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.logoUrl)}`;
   public MT = ModelType;
 
   constructor() {
@@ -160,8 +153,6 @@ export class AppComponent {
 
   private async initializeApp(): Promise<void> {
     await this.platform.ready();
-    console.log(
-      'app.component.initializeApp(): platforms=' + this.platform.platforms()
-    );
+    console.log('app.component.initializeApp(): platforms=' + this.platform.platforms());
   }
 }

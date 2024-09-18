@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ImgixUrlPipe, TranslatePipe } from '@bk/pipes';
 import { BkHeaderComponent } from '@bk/ui';
 import { AuthService } from '@bk/auth';
-import { ConfigService, getImgixUrlWithAutoParams, navigateByUrl } from '@bk/util';
+import { ENV, getImgixUrlWithAutoParams, navigateByUrl } from '@bk/util';
 import { addIcons } from "ionicons";
 import { informationCircleOutline } from "ionicons/icons";
 
@@ -119,24 +119,21 @@ import { informationCircleOutline } from "ionicons/icons";
 export class BkWelcomePageComponent {
   private router = inject(Router);
   public authService = inject(AuthService);
-  protected configService = inject(ConfigService);
+  protected env = inject(ENV);
 
-  public baseImgixUrl = this.configService.getConfigString('cms_imgix_base_url');
-  public logoUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_logo_url'));
-  public backgroundImageUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_welcome_banner_url'));
-  public logoAlt = this.configService.getConfigString('tenant_name') + ' Logo';
-  public rootUrl = this.configService.getConfigString('cms_root_url');
-  public loginUrl = this.configService.getConfigString('cms_login_url');
+  public logoUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.logoUrl)}`;
+  public backgroundImageUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.welcomeBannerUrl)}`;
+  public logoAlt = `${this.env.auth.tenantId} Logo`;
 
   constructor() {
     addIcons({informationCircleOutline});
   }
 
   public async gotoHome(): Promise<void> {
-    await navigateByUrl(this.router, this.configService.getConfigString('cms_root_url'));
+    await navigateByUrl(this.router, this.env.app.rootUrl);
   }
 
   public async login(): Promise<void> {
-    await navigateByUrl(this.router, this.loginUrl);
+    await navigateByUrl(this.router, this.env.auth.loginUrl);
   }
 }

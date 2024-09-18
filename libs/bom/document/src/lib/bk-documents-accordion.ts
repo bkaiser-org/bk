@@ -9,7 +9,7 @@ import { ModelType, RelationshipType } from '@bk/categories';
 import { DocumentService } from './document.service';
 import { getDocumentStoragePath, pickFile, uploadFile } from './document.util';
 import { Browser } from '@capacitor/browser';
-import { ConfigService } from '@bk/util';
+import { ENV } from '@bk/util';
 import { addIcons } from "ionicons";
 import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
 import { from, Observable } from 'rxjs';
@@ -69,16 +69,15 @@ export class BkDocumentsAccordionComponent implements OnInit {
   public dataService = inject(DataService);
   public documentService = inject(DocumentService);
   public authorizationService = inject(AuthorizationService);
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
 
   public modelType = input.required<ModelType>();
   public parentKey = input.required<string>();
   public relationshipType = input<RelationshipType>();
   public color = input('primary');
   public title = input('@document.plural');
-  private tenant = this.configService.getConfigString('tenant_id');
   protected isAllowed = computed(() => this.authorizationService.checkAuthorization(getModelAdmin(this.modelType())));
-  protected path = computed(() => getDocumentStoragePath(this.tenant, this.modelType(), this.parentKey(), this.relationshipType()));
+  protected path = computed(() => getDocumentStoragePath(this.env.auth.tenantId, this.modelType(), this.parentKey(), this.relationshipType()));
   public documents$: Observable<DocumentModel[]> | undefined;
 
   constructor() {

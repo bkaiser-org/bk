@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, Component, inject, input, output, viewChild } from '@angular/core';
 import { TranslatePipe } from '@bk/pipes';
-import { AutoComplete, bkTranslate, ConfigService, copyToClipboard, InputMode, INT_LENGTH, showToast } from '@bk/util';
+import { AutoComplete, bkTranslate, ENV, copyToClipboard, InputMode, INT_LENGTH, showToast } from '@bk/util';
 import { ToastController } from '@ionic/angular';
 import { IonIcon, IonInput, IonItem } from '@ionic/angular/standalone';
 import { addIcons } from "ionicons";
@@ -36,7 +36,7 @@ import { copyOutline } from "ionicons/icons";
 })
 export class BkNumberInputComponent implements AfterViewInit {
   private toastController = inject(ToastController);
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
 
   public value = input.required<number>(); // mandatory view model
   public name = input.required<string>(); // mandatory name of the input field
@@ -77,6 +77,6 @@ export class BkNumberInputComponent implements AfterViewInit {
     public copyValue(): void {
       const _value = this.ionInput().value ? this.ionInput().value : '';
       copyToClipboard(_value ?? '');
-      showToast(this.toastController, '@general.operation.copy.conf', this.configService.getConfigNumber('settings_toast_length'));
+      showToast(this.toastController, '@general.operation.copy.conf', this.env.settingsDefaults.toastLength);
     }
 }

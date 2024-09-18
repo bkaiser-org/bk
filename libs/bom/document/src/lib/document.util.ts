@@ -1,9 +1,9 @@
-import { Inject } from '@angular/core';
+import { inject, Inject } from '@angular/core';
 import { addIndexElement } from '@bk/base';
 import { DocumentTypes, ModelType, RelationshipType, getCategoryAbbreviation, getModelSlug, getSlugFromRelationshipType } from '@bk/categories';
 import { BaseModel, DOCUMENT_DIR, DocumentModel, isDocument } from '@bk/models';
 import { readAsFile, UploadTaskComponent } from '@bk/ui';
-import { checkUrlType, ConfigService, warn } from '@bk/util';
+import { checkUrlType, ENV, warn } from '@bk/util';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { ModalController, Platform } from '@ionic/angular/standalone';
@@ -88,8 +88,9 @@ export async function uploadFile(file: File, storageLocation: string): Promise<s
  * @returns the full path of the uploaded file or undefined if the upload was cancelled
  */
 export async function uploadFileToModel(file: File, modelType: ModelType, key: string): Promise<string | undefined> {
+  const _env = inject(ENV);
   if (key) {
-    const _storageLocation = getDocumentStoragePath(Inject(ConfigService).getConfigString('tenant_id'), modelType, key);
+    const _storageLocation = getDocumentStoragePath(_env.auth.tenantId, modelType, key);
     return _storageLocation ? await uploadFile(file, _storageLocation) : undefined;
   }
   return undefined;

@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component, OnDestroy, OnInit, computed, inject,
 import { SectionModel } from '@bk/models';
 import { IonCard, IonCardContent } from '@ionic/angular/standalone';
 import { ViewPosition } from '@bk/categories';
-import { SCS_LATITUDE, SCS_LONGITUDE, die, ConfigService } from '@bk/util';
+import { SCS_LATITUDE, SCS_LONGITUDE, die, ENV } from '@bk/util';
 import { GoogleMap, MapType } from '@capacitor/google-maps';
 
 @Component({
@@ -32,7 +32,7 @@ import { GoogleMap, MapType } from '@capacitor/google-maps';
   `
 })
 export class BkMapSectionComponent implements OnInit, OnDestroy {
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
 
   // MapSection stores the map data in the url field in this format:  "latitude/longitude/zoom" (3 numbers separated by commas)
   public section = input.required<SectionModel>();
@@ -78,7 +78,7 @@ async loadMap() {
   this.map = await GoogleMap.create({
     id: 'bk-map',               // Unique identifier for this map instance
     element: _mapRef, 
-    apiKey: this.configService.getConfigString('gmap_key'), // Google Maps API Key
+    apiKey: this.env.services.gmapKey, // Google Maps API Key
     config: {
       center: { lat: this.latitude(), lng: this.longitude() },
       zoom: this.zoom(), 

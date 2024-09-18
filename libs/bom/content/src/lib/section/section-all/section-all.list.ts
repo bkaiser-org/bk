@@ -149,7 +149,7 @@ export class SectionAllListComponent extends BaseModelListComponent implements O
     _modal.present();
     const { data, role } = await _modal.onWillDismiss();
     if (role === 'confirm') { // data = selected Category
-      const _section = createSection(data, this.configService.getConfigString('tenant_id'));
+      const _section = createSection(data, this.env.auth.tenantId);
       const _sectionKey = await this.baseService.createSection(_section);
       if (_sectionKey) {
         this.editSection(undefined, _sectionKey);

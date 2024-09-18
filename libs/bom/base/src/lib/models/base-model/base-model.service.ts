@@ -1,7 +1,7 @@
 import { Injectable, WritableSignal, computed, inject, signal } from "@angular/core";
 import { CategoryType, FilterType, ListTypes, ModelType } from "@bk/categories";
 import { EXPORT_FORMATS, ExportFormat, convertToTable } from "@bk/core";
-import { ConfigService, SortCriteria, SortDirection, SortField, copyToClipboardWithConfirmation, exportXlsx, generateRandomString, getYear, isSortFieldString, navigateByUrl, resetSortCriteria } from "@bk/util";
+import { ENV, SortCriteria, SortDirection, SortField, copyToClipboardWithConfirmation, exportXlsx, generateRandomString, getYear, isSortFieldString, navigateByUrl, resetSortCriteria } from "@bk/util";
 import { Subject } from "rxjs";
 import { Params, Router } from "@angular/router";
 import { ToastController } from "@ionic/angular";
@@ -45,7 +45,7 @@ import { AuthorizationService } from "../../authorization/authorization.service"
     protected authorizationService = inject(AuthorizationService);
     protected toastController = inject(ToastController);
     protected dataService = inject(DataService);
-    protected configService = inject(ConfigService);
+    protected env = inject(ENV);
 
     /*-------------------------- state --------------------------------*/
     protected state: WritableSignal<DataState> = signal(this.getResetState());
@@ -238,7 +238,7 @@ import { AuthorizationService } from "../../authorization/authorization.service"
 
   /*-------------------------- other --------------------------------*/
   public async copy(data: string | number, confirmation?: string): Promise<void> {
-    await copyToClipboardWithConfirmation(this.toastController, this.configService.getConfigNumber('settings_toast_length'), data, confirmation);
+    await copyToClipboardWithConfirmation(this.toastController, this.env.settingsDefaults.toastLength, data, confirmation);
   }
 
 }

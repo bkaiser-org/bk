@@ -14,7 +14,6 @@ import { ImageSelectModalComponent } from './image-select.modal';
 })
 export class DocumentService extends BaseService {
   private modalController = inject(ModalController);
-
   private storage = inject(STORAGE);
 
   /*-------------------------- CRUD operations --------------------------------*/
@@ -77,7 +76,7 @@ export class DocumentService extends BaseService {
   }
 
   public listDocuments(modelType: ModelType, key: string, relationshipType?: RelationshipType): Observable<DocumentModel[]> {
-    const _dir = getDocumentStoragePath(this.configService.getConfigString('tenant_id'), modelType, key, relationshipType);
+    const _dir = getDocumentStoragePath(this.env.auth.tenantId, modelType, key, relationshipType);
     return _dir ? this.listDocumentsFromDirectory(_dir) : of([]);
   }
 
@@ -87,7 +86,7 @@ export class DocumentService extends BaseService {
 
   public async listDocumentsFromStorageDirectory(modelType: ModelType, key: string, relationshipType?: RelationshipType): Promise<DocumentModel[]> {
     const _docs: DocumentModel[] = [];
-    const _path = getDocumentStoragePath(this.configService.getConfigString('tenant_id'), modelType, key, relationshipType);
+    const _path = getDocumentStoragePath(this.env.auth.tenantId, modelType, key, relationshipType);
     const _ref = ref(this.storage, _path);
     try {
       const _items = await listAll(_ref);
@@ -147,9 +146,7 @@ export class DocumentService extends BaseService {
 
     _doc.url = await getDownloadURL(ref(this.storage, fullPath));
     // _doc.url = getImgixUrl(fullPath, undefined);
-    _doc.thumbUrl = getThumbnailUrl(fullPath, 
-      this.configService.getConfigNumber('cms_thumbnail_width'),
-      this.configService.getConfigNumber('cms_thumbnail_height'));
+    _doc.thumbUrl = getThumbnailUrl(fullPath, this.env.thumbnail.width, this.env.thumbnail.height);
     _doc.dateOfDocCreation = getTodayStr();
     _doc.dateOfDocLastUpdate = getTodayStr();
     _doc.dir = dirname(fullPath);
@@ -172,9 +169,7 @@ export class DocumentService extends BaseService {
     _doc.category = DocumentType.InternalFile;
     _doc.url = await getDownloadURL(ref(this.storage, metadata.fullPath));
     //_doc.url = getImgixUrl(metadata.fullPath, undefined);
-    _doc.thumbUrl = getThumbnailUrl(metadata.fullPath, 
-      this.configService.getConfigNumber('cms_thumbnail_width'),
-      this.configService.getConfigNumber('cms_thumbnail_height'));
+    _doc.thumbUrl = getThumbnailUrl(metadata.fullPath, this.env.thumbnail.width, this.env.thumbnail.height);
     _doc.dateOfDocCreation = convertDateFormatToString(metadata.timeCreated.substring(0, 10), DateFormat.IsoDate, DateFormat.StoreDate);
     _doc.dateOfDocLastUpdate = convertDateFormatToString(metadata.updated.substring(0, 10), DateFormat.IsoDate, DateFormat.StoreDate);
     _doc.dir = dirname(metadata.fullPath);

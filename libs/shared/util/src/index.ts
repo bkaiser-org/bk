@@ -34,9 +34,8 @@ export * from './lib/provideTransloco';
 export * from './lib/app-navigation.service';
 
 // config
-export * from './lib/config/config.service';
 export * from './lib/config/constants';
-export * from './lib/config/app-tokens';
+export * from './lib/config/env';
 export * from './lib/config/firestore';
 export * from './lib/config/auth';
 export * from './lib/config/storage';

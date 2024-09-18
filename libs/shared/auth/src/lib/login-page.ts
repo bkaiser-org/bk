@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { getImgixUrlWithAutoParams, navigateByUrl, ConfigService } from '@bk/util';
+import { getImgixUrlWithAutoParams, navigateByUrl, ENV } from '@bk/util';
 import { FormsModule } from '@angular/forms';
 import { IonButton, IonCol, IonContent, IonGrid, IonImg, IonInput, IonItem, IonLabel, IonNote, IonRow } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '@bk/ui';
@@ -144,11 +144,10 @@ ion-input, ion-textarea {
 export class LoginPageComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
 
-  public baseImgixUrl = this.configService.getConfigString('cms_imgix_base_url');
-  public logoUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_logo_url'));
-  public backgroundImageUrl = this.baseImgixUrl + '/' + getImgixUrlWithAutoParams(this.configService.getConfigString('cms_welcome_banner_url'));
+  public logoUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.logoUrl)}`;
+  public backgroundImageUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.welcomeBannerUrl)}`;
   public email = '';
   public password = '';
   protected isContentLoaded = false;
@@ -158,11 +157,11 @@ export class LoginPageComponent {
   }
   
   public async resetPassword(): Promise<void> {
-    await navigateByUrl(this.router, this.configService.getConfigString('cms_password_reset_url'));
+    await navigateByUrl(this.router, this.env.auth.passwordResetUrl);
   }
 
   public async gotoHome(): Promise<void> {
-    await navigateByUrl(this.router, this.configService.getConfigString('cms_root_url'));
+    await navigateByUrl(this.router, this.env.app.rootUrl);
   }
 
   /**

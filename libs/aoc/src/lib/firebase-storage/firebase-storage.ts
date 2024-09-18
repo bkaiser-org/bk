@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { DocumentService } from "@bk/document";
 import { TranslatePipe } from "@bk/pipes";
 import { BkButtonComponent, BkHeaderComponent } from "@bk/ui";
-import { ConfigService, copyToClipboard, showToast } from "@bk/util";
+import { ENV, copyToClipboard, showToast } from "@bk/util";
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCheckbox, IonCol, IonContent, IonGrid, IonIcon, IonRow, ToastController } from "@ionic/angular/standalone";
 import { addIcons } from "ionicons";
 import { closeOutline, copyOutline } from "ionicons/icons";
@@ -90,7 +90,7 @@ import { closeOutline, copyOutline } from "ionicons/icons";
 export class FirebaseStorageComponent {
   private toastController = inject(ToastController);
   private documentService = inject(DocumentService);
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
 
   constructor() {
     addIcons({closeOutline, copyOutline});
@@ -114,7 +114,7 @@ export class FirebaseStorageComponent {
 
   protected copy() {
     copyToClipboard(this.path);
-    showToast(this.toastController, '@general.operation.copy.conf', this.configService.getConfigNumber('settings_toast_length'));  
+    showToast(this.toastController, '@general.operation.copy.conf', this.env.settingsDefaults.toastLength);  
   }
 
   protected clear() {

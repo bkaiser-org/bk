@@ -3,7 +3,7 @@ import { Component, inject, input } from '@angular/core';
 import { TranslatePipe } from '@bk/pipes';
 import { DatetimeChangeEventDetail, IonContent, IonDatetime, ModalController } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '../structural/bk-header';
-import { ConfigService } from '@bk/util';
+import { ENV } from '@bk/util';
 
 @Component({
   selector: 'bk-time-select-modal',
@@ -18,7 +18,7 @@ import { ConfigService } from '@bk/util';
       <ion-content class="ion-padding">
         <ion-datetime 
             [value]="time()"
-            [locale]="configService.getConfigString('i18n_locale')"
+            [locale]="locale"
             presentation="time"
             [showDefaultButtons]="true"
             doneText="{{'@general.operation.change.ok' | translate | async}}"
@@ -29,10 +29,11 @@ import { ConfigService } from '@bk/util';
 })
 export class BkTimeSelectModalComponent {
   private modalController = inject(ModalController);
-  protected configService = inject(ConfigService);
+  protected env = inject(ENV);
 
   public time = input.required<string>();
   public title = input('@general.operation.select.time');
+  protected locale = this.env.i18n.locale;
 
   /**
    * 

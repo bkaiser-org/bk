@@ -1,7 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { AvatarModel } from "@bk/models";
 import { doc, setDoc } from "firebase/firestore";
-import { CollectionNames, FIRESTORE, error, getAvatarUrl, ConfigService, isImage, isPdf } from "@bk/util";
+import { CollectionNames, FIRESTORE, error, getAvatarUrl, ENV, isImage, isPdf } from "@bk/util";
 import { docData } from "rxfire/firestore";
 import { Observable, firstValueFrom, of } from "rxjs";
 import { getAvatarKey, getLogoUrlByModel, newAvatarModel, readAsFile } from "./avatar.util";
@@ -22,7 +22,7 @@ export class AvatarService {
   private modalController = inject(ModalController);
   private platform = inject(Platform);
   private firestore = inject(FIRESTORE);
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
 
   public photos: UserPhoto[] = [];
 
@@ -80,14 +80,13 @@ export class AvatarService {
 
   // this.returns an absolute imgix url (with the imgix base url). this is suitable for the img elements.
   // if no Avatar information is found, it returns the default logo for the modelType.
-  public async getAbsoluteAvatarUrl(key: string, size = this.configService.getConfigNumber('cms_thumbnail_width')): Promise<string> {
-    const _baseImgixUrl = this.configService.getConfigString('cms_imgix_base_url');
+  public async getAbsoluteAvatarUrl(key: string, size = this.env.thumbnail.width): Promise<string> {
     const _avatar = await firstValueFrom(this.readAvatar(key));
     if (!_avatar) {
       const _modelType = parseInt(key.split('.')[0]);
-      return _baseImgixUrl + '/' + getLogoUrlByModel(_modelType);
+      return `${this.env.app.imgixBaseUrl}/${getLogoUrlByModel(_modelType)}`;
     } else {
-      return _baseImgixUrl + '/' + getAvatarUrl(_avatar.storagePath, size);
+      return `${this.env.app.imgixBaseUrl}/${getAvatarUrl(_avatar.storagePath, size)}`;
     }
   }
 
@@ -95,7 +94,7 @@ export class AvatarService {
     const _file = await readAsFile(photo, this.platform);
 
     if (key) {
-      const _avatar = newAvatarModel(this.configService.getConfigString('tenant_id'), modelType, key, _file.name)
+      const _avatar = newAvatarModel(this.env.auth.tenantId, modelType, key, _file.name)
       const _modal = await this.modalController.create({
         component: UploadTaskComponent,
         cssClass: 'upload-modal',

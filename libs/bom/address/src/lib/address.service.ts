@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { Observable, map, of } from "rxjs";
-import { CollectionNames, bkTranslate, die, error, warn, ConfigService } from "@bk/util";
+import { CollectionNames, bkTranslate, die, error, warn, ENV } from "@bk/util";
 import { AddressChannel, AddressUsage, ModelType, getModelSlug } from "@bk/categories";
 import { AddressModel, EZS_DIR } from "@bk/models";
 import { copyAddress, createPostalAddress, getAddressIndex, getStringifiedPostalAddress, useAddress } from "./address.util";
@@ -20,7 +20,7 @@ export class AddressService {
   private modalController = inject(ModalController);
   private toastController = inject(ToastController);
   private platform = inject(Platform);
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
 
   public modelType = ModelType.Address;
   public groupedItems$ = of([]);
@@ -148,7 +148,7 @@ export class AddressService {
   }
 
   public async showAddress(address: AddressModel): Promise<void> {
-    const _addressStr = getStringifiedPostalAddress(address, this.configService.getConfigString('i18n_user_language'));
+    const _addressStr = getStringifiedPostalAddress(address, this.env.i18n.userLanguage);
     if (!_addressStr) return;
     const _coordinates = await this.geocodeService.geocodeAddress(_addressStr);
     if (!_coordinates) return;
@@ -196,11 +196,7 @@ export class AddressService {
    * @param address 
    */
   public async copyAddress(address: AddressModel): Promise<void> {
-      await copyAddress(
-        this.toastController, 
-        this.configService.getConfigNumber('settings_toast_length'), 
-        address,
-        this.configService.getConfigString('i18n_user_language'));
+      await copyAddress(this.toastController, this.env.settingsDefaults.toastLength, address, this.env.i18n.userLanguage);
   }
 
   /**
@@ -291,6 +287,6 @@ export class AddressService {
    * @returns 
    */
   private getDocumentStoragePath(parentKey: string, parentType: ModelType): string {
-    return `${this.configService.getConfigString('tenant_id')}/${getModelSlug(parentType)}/${parentKey}/${EZS_DIR}`;
+    return `${this.env.auth.tenantId}/${getModelSlug(parentType)}/${parentKey}/${EZS_DIR}`;
   }
 }

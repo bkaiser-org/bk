@@ -1,10 +1,10 @@
 import { Injectable, computed, inject, signal } from "@angular/core";
-import { AUTH, bkTranslate, die, navigateByUrl, showToast, warn, ConfigService } from "@bk/util";
-import { AuthError, User, browserLocalPersistence, createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, setPersistence, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { authState } from 'rxfire/auth';
+import { AUTH, bkTranslate, die, navigateByUrl, showToast, warn, ENV, generateRandomString } from "@bk/util";
+import { AuthError, User, browserLocalPersistence, createUserWithEmailAndPassword, sendPasswordResetEmail, setPersistence, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { ToastController } from "@ionic/angular";
 import { Router } from "@angular/router";
-import { tap } from "rxjs";
+import { authState } from "rxfire/auth";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 /**
  * This provider centralizes the authentication functions
@@ -33,13 +33,10 @@ export class AuthService {
   private auth = inject(AUTH);
   private toastController = inject(ToastController);
   private router = inject(Router);
-  private configService = inject(ConfigService);
-
-  private toastLength = this.configService.getConfigNumber('settings_toast_length');
-  private loginUrl = this.configService.getConfigString('cms_login_url');
+  private env = inject(ENV);
 
   // sources
-  private user$ = authState(this.auth);
+ private user$ = authState(this.auth);
 
   // state
   private state = signal<AuthenticationState>({
@@ -50,17 +47,15 @@ export class AuthService {
   public currentFirebaseUser = computed(() => this.state().firebaseUser);
   public currentFirebaseUid = computed(() => this.currentFirebaseUser()?.uid ?? undefined);
   public currentLoginEmail = computed(() => this.currentFirebaseUser()?.email ?? undefined);
-  public isAuthenticated = computed(() => this.currentFirebaseUser() ? true : false);
+  public isAuthenticated = computed(() => !!this.currentFirebaseUser());
 
   /*-------------------------- reducers --------------------------------*/
   constructor() {
 
     // reducers
     this.user$.pipe(
-      tap(firebaseUser => this.setFirebaseUser(firebaseUser)));
-    onAuthStateChanged(this.auth, (user) => {
-      this.setFirebaseUser(user);
-    });
+      takeUntilDestroyed())
+      .subscribe(firebaseUser => this.setFirebaseUser(firebaseUser));
   }
 
   private setFirebaseUser(firebaseUser: User | null): void {
@@ -73,7 +68,7 @@ export class AuthService {
    * @param loginEmail the uid (an email address)
    * @param passwort the user password
    */
-  public async login(loginEmail: string, password: string, url = this.configService.getConfigString('cms_root_url')): Promise<void> {
+  public async login(loginEmail: string, password: string, url = this.env.app.rootUrl): Promise<void> {
     try {
       if (!loginEmail || loginEmail.length === 0 || !password || password.length === 0) die('AuthService.login: email and password are mandatory.');
       /*  browserLocalPersistence indicates that the state will be persisted even when the browser window is closed. 
@@ -84,13 +79,13 @@ export class AuthService {
       */
       await setPersistence(this.auth, browserLocalPersistence);
       await signInWithEmailAndPassword(this.auth, loginEmail, password);
-      showToast(this.toastController, '@auth.operation.login.confirmation', this.toastLength);
+      showToast(this.toastController, '@auth.operation.login.confirmation', this.env.settingsDefaults.toastLength);
       await navigateByUrl(this.router, url);  
     } 
     catch(_ex) {
       console.error('AuthService.login: error: ', _ex);
-      await showToast(this.toastController, '@auth.operation.login.error', this.toastLength);
-      await navigateByUrl(this.router, this.loginUrl)
+      await showToast(this.toastController, '@auth.operation.login.error', this.env.settingsDefaults.toastLength);
+      await navigateByUrl(this.router, this.env.auth.loginUrl)
     }
   }
 
@@ -102,25 +97,25 @@ export class AuthService {
     try {
       if (!email || email.length === 0) die('AuthService.resetPassword: email is mandatory.');
       await sendPasswordResetEmail(this.auth, email);
-      await showToast(this.toastController, bkTranslate('@auth.operation.pwdreset.confirmation') + email, this.toastLength);
-      await navigateByUrl(this.router, this.loginUrl)
+      await showToast(this.toastController, bkTranslate('@auth.operation.pwdreset.confirmation') + email, this.env.settingsDefaults.toastLength);
+      await navigateByUrl(this.router, this.env.auth.loginUrl)
     } 
     catch (_ex) {
       console.error('AuthService.resetPassword: error: ', _ex);
-      await showToast(this.toastController, '@auth.operation.pwdreset.error', this.toastLength);
-      await navigateByUrl(this.router, this.loginUrl)
+      await showToast(this.toastController, '@auth.operation.pwdreset.error', this.env.settingsDefaults.toastLength);
+      await navigateByUrl(this.router, this.env.auth.loginUrl)
     }
   }
 
   public async logout(): Promise<boolean> {
     try {
       await signOut(this.auth);
-      await showToast(this.toastController, '@auth.operation.logout.confirmation', this.toastLength);
+      await showToast(this.toastController, '@auth.operation.logout.confirmation', this.env.settingsDefaults.toastLength);
       return Promise.resolve(true);
     } 
     catch (_ex) {
       console.error('AuthService.logout: error: ', _ex);
-      await showToast(this.toastController, '@auth.operation.logout.error', this.toastLength);
+      await showToast(this.toastController, '@auth.operation.logout.error', this.env.settingsDefaults.toastLength);
       return Promise.resolve(false);
     }
   }
@@ -136,8 +131,8 @@ export class AuthService {
     // save the current user
     const _currentUser = this.currentFirebaseUser();
     try {
-      const _fbuser = await createUserWithEmailAndPassword(this.auth, email, this.configService.getInitialPassword());
-      await showToast(this.toastController, '@auth.operation.create.confirmation', this.toastLength);
+      const _fbuser = await createUserWithEmailAndPassword(this.auth, email, generateRandomString(12));
+      await showToast(this.toastController, '@auth.operation.create.confirmation', this.env.settingsDefaults.toastLength);
       await this.updateUser(_currentUser); // reset the logged-in user
       return _fbuser.user.uid;
     } catch (_ex) {
@@ -146,7 +141,7 @@ export class AuthService {
       switch (_error.code) {
         case 'auth/email-already-in-use':
           warn(`Email address ${email} already in use.`);
-          _uid = this.getFirebaseUid(email, this.configService.getInitialPassword());
+          _uid = this.getFirebaseUid(email, generateRandomString(12));
           break;
         case 'auth/invalid-email':
           warn(`Email address ${email} is invalid.`);

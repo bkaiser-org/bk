@@ -2,7 +2,7 @@ import { DestroyRef, Component, inject } from "@angular/core";
 import { AuthorizationService } from "../../authorization/authorization.service";
 import { BaseService } from "./base-model.service";
 import { Category, CategoryType, FilterType, ListType, ListTypes, ModelType, getModelSlug } from "@bk/categories";
-import { AppNavigationService, ConfigService, NameDisplay, SortDirection, SortField, copyToClipboardWithConfirmation, getYear } from "@bk/util";
+import { AppNavigationService, ENV, NameDisplay, SortDirection, SortField, copyToClipboardWithConfirmation, getYear } from "@bk/util";
 import { DataService } from "../data.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Subscription } from "rxjs";
@@ -17,7 +17,7 @@ export abstract class BaseModelListComponent {
   protected dataService = inject(DataService);
   protected destroyRef = inject(DestroyRef); // takeUntilDestroyed must be used inside an injection context.
   protected appNavigationService = inject(AppNavigationService);
-  protected configService = inject(ConfigService);
+  protected env = inject(ENV);
   protected toastController = inject(ToastController);
 
   protected abstract baseService: BaseService;
@@ -77,6 +77,6 @@ export abstract class BaseModelListComponent {
   }
 
   public async copy(data: string | number, confirmation?: string): Promise<void> {
-    await copyToClipboardWithConfirmation(this.toastController, this.configService.getConfigNumber('settings_toast_length'), data, confirmation);
+    await copyToClipboardWithConfirmation(this.toastController, this.env.settingsDefaults.toastLength, data, confirmation);
   }
 }

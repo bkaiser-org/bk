@@ -87,7 +87,7 @@ export class ProfileFormComponent extends AbstractFormComponent implements After
   protected readonly formValue = signal<ProfileFormModel>({});
   protected readonly shape = profileFormModelShape;
   protected readonly errors = signal<Record<string, string>>({ });
-  protected readonly adminEmail = `mailto:${this.configService.getConfigString('operator_email')}`;
+  protected readonly adminEmail = `mailto:${this.env.operator.email}`;
 
   protected genderTypes = GenderTypes;
   protected ssnMask = chSsnMask;

@@ -213,6 +213,6 @@ export class SectionFormComponent extends AbstractFormComponent implements After
 
   public copy(): void {
     copyToClipboard(this.vm().bkey);
-    showToast(this.toastController, '@general.operation.copy.conf', this.configService.getConfigNumber('settings_toast_length'));  
+    showToast(this.toastController, '@general.operation.copy.conf', this.env.settingsDefaults.toastLength);  
   }
 }

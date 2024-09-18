@@ -1,16 +1,14 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
-import { ConfigService, getThumbnailUrl } from '@bk/util';
+import { ENV, getThumbnailUrl } from '@bk/util';
 
 @Pipe({
   name: 'logo',
   standalone: true
 })
 export class LogoPipe implements PipeTransform {
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
 
   transform(url: string): string {
-    return getThumbnailUrl(url, 
-      this.configService.getConfigNumber('cms_logo_width'), 
-      this.configService.getConfigNumber('cms_logo_height'));
+    return getThumbnailUrl(url, this.env.thumbnail.width, this.env.thumbnail.height);
   }
 }

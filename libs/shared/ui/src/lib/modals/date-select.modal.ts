@@ -3,7 +3,7 @@ import { Component, inject, input } from '@angular/core';
 import { TranslatePipe } from '@bk/pipes';
 import { DatetimeChangeEventDetail, IonContent, IonDatetime, ModalController } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '../structural/bk-header';
-import { ConfigService } from '@bk/util';
+import { ENV } from '@bk/util';
 
 @Component({
   selector: 'bk-date-select-modal',
@@ -19,7 +19,7 @@ import { ConfigService } from '@bk/util';
         <ion-datetime 
             min="1900-01-01" max="2025-12-31"
             [value]="isoDate()"
-            [locale]="configService.getConfigString('i18n_locale')"
+            [locale]="locale"
             [firstDayOfWeek]="1"
             presentation="date"
             [showDefaultButtons]="true"
@@ -31,7 +31,7 @@ import { ConfigService } from '@bk/util';
 })
 export class BkDateSelectModalComponent {
   private modalController = inject(ModalController);
-  protected configService = inject(ConfigService);
+  protected env = inject(ENV);
 
   // tbd: switching to input signals leads to error: not a function
   // see: https://github.com/ionic-team/ionic-framework/issues/28876
@@ -39,6 +39,7 @@ export class BkDateSelectModalComponent {
   // should be fixed with Ionic 8.1.1 or 8.2 and is backwards-incompatible:  useSetInputAPI: true,
   public isoDate = input.required<string>();
   public header = input('@general.operation.select.date');
+  protected locale = this.env.i18n.locale;
 
   /**
    * 

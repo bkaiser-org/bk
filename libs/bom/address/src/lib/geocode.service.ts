@@ -6,7 +6,7 @@ import { stringifyAddress } from './address.util';
 import { firstValueFrom } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { error } from '@bk/util';
-import { ConfigService } from '@bk/util';
+import { ENV } from '@bk/util';
 
 export interface GeoCoordinates {
   lat: number;
@@ -18,7 +18,7 @@ export interface GeoCoordinates {
 })
 export class GeocodingService {
   private toastController = inject(ToastController);
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
   private apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
 
   constructor(private http: HttpClient) {}
@@ -38,7 +38,7 @@ export class GeocodingService {
       _addressStr = stringifyAddress(address);
     }
 
-    const params = { address: _addressStr, key: this.configService.getConfigString('gmap_key') }; 
+    const params = { address: _addressStr, key: this.env.services.gmapKey }; 
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const _result = await firstValueFrom(this.http.get<any>(this.apiUrl, { params: params }));

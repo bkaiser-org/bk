@@ -1,7 +1,7 @@
 import { inject, Component, signal, output, ModelSignal, input } from '@angular/core';
 import { BkFormModel, SectionProperties } from '@bk/models';
 import { AuthorizationService } from '../authorization/authorization.service';
-import { AppNavigationService, ConfigService, copyToClipboard, showToast } from '@bk/util';
+import { AppNavigationService, ENV, copyToClipboard, showToast } from '@bk/util';
 import { ToastController } from '@ionic/angular';
 import { StaticSuite } from 'vest';
 import { Category } from '@bk/categories';
@@ -14,7 +14,7 @@ export abstract class AbstractFormComponent {
   public authorizationService = inject(AuthorizationService);
   protected appNavigationService = inject(AppNavigationService);
   protected toastController = inject(ToastController);
-  protected configService = inject(ConfigService);
+  protected env = inject(ENV);
 
   public changedData = output<BkFormModel>();
   public changedFormState = output<boolean>();
@@ -97,6 +97,6 @@ export abstract class AbstractFormComponent {
   protected copyValue(fieldName: keyof BkFormModel): void {
     if (fieldName === 'sectionProperties' || fieldName=== 'relationshipProperties') return;
     copyToClipboard(this.vm()?.[fieldName] ?? '');
-    showToast(this.toastController, '@general.operation.copy.conf', this.configService.getConfigNumber('settings_toast_length'));
+    showToast(this.toastController, '@general.operation.copy.conf', this.env.settingsDefaults.toastLength);
   }
 }

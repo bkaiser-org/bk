@@ -5,7 +5,7 @@ import { Observable, firstValueFrom } from "rxjs";
 import { ActionType, DbQuery, QueryValueType } from "@bk/categories";
 import { createModel, createObject, deleteModel, deleteObject, readModel, readObject, updateModel, updateObject, updateOrCreateModel } from "./base-model/base-model.util";
 import { listAllFromCollectionGroup, listAllModels, listAllObjects, listModelsBySingleQuery, searchData } from "./search.util";
-import { bkTranslate, ConfigService, die, FIRESTORE } from "@bk/util";
+import { bkTranslate, ENV, die, FIRESTORE } from "@bk/util";
 import { query, collection } from "firebase/firestore";
 import { collectionData } from "rxfire/firestore";
 
@@ -17,9 +17,7 @@ export abstract class DataService {
   private firestore = inject(FIRESTORE);
   private toastController = inject(ToastController);
   private alertController = inject(AlertController);
-  private configService = inject(ConfigService);
-
-  private tenantId = this.configService.getConfigString('tenant_id');
+  private env = inject(ENV);
 
   /**
    * Save a model as a new Firestore document into the database.
@@ -31,7 +29,7 @@ export abstract class DataService {
    * @returns the key of the saved model
    */
   public async createModel(collectionName: string, model: BaseModel, i18nPrefix?: string): Promise<string> {
-    return createModel(this.firestore, collectionName, model, this.tenantId, i18nPrefix, this.toastController);
+    return createModel(this.firestore, collectionName, model, this.env.auth.tenantId, i18nPrefix, this.toastController);
   }
 
   /**
@@ -121,7 +119,7 @@ export abstract class DataService {
    * @returns the key of the updated model
    */
   public async updateOrCreateModel(collectionName: string, model: BaseModel, action: ActionType, i18nPrefix?: string): Promise<string> {
-    return updateOrCreateModel(this.firestore, collectionName, model, action, this.tenantId, i18nPrefix, this.toastController);
+    return updateOrCreateModel(this.firestore, collectionName, model, action, this.env.auth.tenantId, i18nPrefix, this.toastController);
   }
 
   /**
@@ -196,7 +194,7 @@ export abstract class DataService {
    * @returns 
    */
   public listAllModels(collectionName: string, orderBy = 'name', sortOrder = 'asc'): Observable<BaseModel[]> {
-      return listAllModels(this.firestore, collectionName, this.tenantId, orderBy, sortOrder);
+      return listAllModels(this.firestore, collectionName, this.env.auth.tenantId, orderBy, sortOrder);
   }
 
   /**
@@ -231,7 +229,7 @@ export abstract class DataService {
    * @returns an Observable of an array of selected models
    */
   public listModelsBySingleQuery(collectionName: string, searchKey: string, value: QueryValueType, operator = '==', orderBy = 'name', sortOrder = 'asc'): Observable<BaseModel[]> {
-      return listModelsBySingleQuery(this.firestore, collectionName, this.tenantId, searchKey, value, operator, orderBy, sortOrder);
+      return listModelsBySingleQuery(this.firestore, collectionName, this.env.auth.tenantId, searchKey, value, operator, orderBy, sortOrder);
   }
 
   /**
@@ -256,7 +254,7 @@ export abstract class DataService {
     if (useSystemQuery === true) {
       dbQuery.push({ key: 'isTest', operator: '==', value: false });
       dbQuery.push({ key: 'isArchived', operator: '==', value: false });
-      dbQuery.push({ key: 'tenant', operator: 'array-contains', value: this.tenantId })
+      dbQuery.push({ key: 'tenant', operator: 'array-contains', value: this.env.auth.tenantId })
     }
     return searchData(this.firestore, collectionName, dbQuery, orderBy, sortOrder);  
   }

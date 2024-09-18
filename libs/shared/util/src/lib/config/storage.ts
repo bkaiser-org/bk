@@ -1,5 +1,5 @@
 import { Inject, InjectionToken } from "@angular/core";
-import { ENV } from "./app-tokens";
+import { BkEnvironment, ENV } from "./env";
 import { connectStorageEmulator, FirebaseStorage, getStorage, ref, uploadBytesResumable, UploadTask } from "firebase/storage";
 import { getApp } from "firebase/app";
 import { die } from "../log.util";
@@ -31,7 +31,7 @@ export function getBkStorage(): FirebaseStorage {
     const _storage = getStorage(_firebaseApp, 'gs://bkaiser-org.appspot.com');
     console.log('shared/util/storage.getBkStorage(): ', _storage);
   
-    const _env = Inject(ENV);
+    const _env = Inject(ENV) as BkEnvironment;
     if (_env.useEmulators) {
       connectStorageEmulator(_storage, 'localhost', STORAGE_EMULATOR_PORT);
     }
@@ -41,3 +41,16 @@ export function getBkStorage(): FirebaseStorage {
     die('shared/util/storage.getBkStorage(): ERROR: ' + JSON.stringify(_ex));
   }
 }
+
+/**
+ * see explanation of multi-bucket setup here:
+ * https://stackoverflow.com/questions/68340724/how-do-i-create-additional-buckets-in-firebase-cloud-storage-emulator/77936073#77936073
+ * This URL has more details on the configuration:
+
+https://firebase.google.com/docs/cli/targets#set-up-deploy-target-storage-database
+
+This documentation page also has information on how to handle multiple buckets with the sdk:
+
+https://firebase.google.com/docs/storage/web/start#use_multiple_storage_buckets
+
+*/

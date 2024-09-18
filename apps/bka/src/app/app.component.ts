@@ -16,7 +16,6 @@ import { TranslatePipe } from '@bk/pipes';
 import { BkMenuComponent } from '@bk/content';
 import { AuthInfoComponent, AuthorizationService } from '@bk/base';
 import { AuthService } from '@bk/auth';
-import { ConfigService } from '@bk/util';
 import { ModelType } from '@bk/categories';
 
 // register swiper's custom elements globally (should only be done once)
@@ -74,9 +73,7 @@ export class AppComponent {
   protected authorizationService = inject(AuthorizationService);
   protected authService = inject(AuthService);
   private platform = inject(Platform);
-  private configService = inject(ConfigService);
 
-  public appVersion = this.configService.getConfigString('app_version');
   public MT = ModelType;
 
   constructor() {

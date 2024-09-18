@@ -1,14 +1,17 @@
 // Do not check this file into the git repository. It contains sensitive information that should not be public.
-// 
+//
 // `ng build` for production replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `../project.json`.
 // Sensitive information should be stored in environment variables using the Firebase config.
-// This information is accessible via ConfigService/Firebase Remote Config.
+// BkEnvironment contains app-specific configuration and is accessible via inject(ENV) in the app.
 // General configuration (i.e. configuration that is not app-specific) can be stored in utils/constants.ts.
-// App-specific configuration can be stored in this environment file.
 
-export const environment = {
-  app: {
+import { BkEnvironment } from "@bk/util";
+
+export const environment: BkEnvironment = {
+  production: false,
+  useEmulators: false,
+  firebase: {
     apiKey: '<%= fb_api_key %>',
     authDomain: '<%= app_domain %>',
     databaseURL: 'https://<%= fb_project_id %>.firebaseio.com',
@@ -17,61 +20,70 @@ export const environment = {
     messagingSenderId: '<%= fb_messaging_sender_id %>',
     appId: '<%= fb_app_id %>',
     measurementId: '<%= fb_measurement_id %>',
-    appcheckRecaptchaEnterpriseKey: "<%= fb_appcheck_key %>"
+    appcheckRecaptchaEnterpriseKey: '<%= fb_appcheck_key %>'
   },
-  production: false,
-  useEmulators: false,
-  minimumConfigFetchInterval: 3600000,
-  remote_config_defaults: {
-    "app_domain": "<%= app_domain %>",
-    "app_name": "<%= fb_project_id %>",
-    "app_releaseDate": "<%= app_reldate %>",
-    "app_version": "<%= app_version %>",
-    "cms_imgix_base_url": "<%= imgix_baseurl %>",
-    "cms_login_url": "/auth/login/<%= tenant_id %>",
-    "cms_logo_url": "tenant/<%= tenant_id %>/logo/logo_round.svg",
-    "cms_welcome_banner_url":  "tenant/<%= tenant_id %>/app/welcome.jpg",
-    "cms_notfound_banner_url": "tenant/<%= tenant_id %>/app/not-found.jpg",
-    "cms_osilogo_url": "logo/general/osi.svg",
-    "cms_password_reset_url": "/auth/pwdreset/<%= tenant_id %>",
-    "cms_root_url": "/public/welcome",
-    "cms_thumbnail_width": 200,
-    "cms_thumbnail_height": 300,
-    "dpo_email": "<%= admin_email %>",
-    "dpo_name": "<%= admin_first_name %> <%= admin_last_name %>",
-    "git_issue_url": "https://github.com/<%= git_org %>/<%= git_repo %>/issues/new",
-    "git_name": "<%= git_repo %>",
-    "git_org": "<%= git_org %>",
-    "gmap_key": "<%= gmap_key %>",
-    "i18n_available_langs": "[\"en\",\"de\",\"fr\",\"es\",\"it\"]",
-    "i18n_default_language": "de",
-    "i18n_fallback_language": "de",
-    "i18n_folder_url": "assets/i18n/",
-    "i18n_locale": "de-ch",
-    "i18n_log_missing_keys": "true",
-    "i18n_user_language": "de",
-    "i18n_use_fallback_translation": "true",
-    "operator_city": "<%= admin_city %>",
-    "operator_email": "<%= admin_email %>",
-    "operator_name": "<%= admin_first_name %> <%= admin_last_name %>",
-    "operator_street": "<%= admin_street %>",
-    "operator_web": "<%= admin_web_url %>",
-    "operator_zipcode": "<%= admin_zipcode %>",
-    "settings_avatar_usage": "3",
-    "settings_gravatar_email": "",
-    "settings_invoice_delivery": "1",
-    "settings_max_year": 2050,
-    "settings_min_year": 1850,
-    "settings_name_display": "0",
-    "settings_news_delivery": "2",
-    "settings_person_sort_criteria": "1",
-    "settings_show_archived_data": "false",
-    "settings_show_debug_info": "false",
-    "settings_show_test_data": "false",
-    "settings_toast_length": "3000",
-    "settings_use_faceid": "false",
-    "settings_use_touchid": "false",
-    "tenant_id": "<%= tenant_id %>",
-    "tenant_name": "<%= fb_project_id %>",
+  app: {
+    domain: '<%= app_domain %>',
+    imgixBaseUrl: '<%= imgix_baseurl %>',
+    rootUrl: '/public/welcome',
+    logoUrl: 'tenant/<%= tenant_id %>/logo/logo_round.svg',
+    welcomeBannerUrl:  'tenant/<%= tenant_id %>/app/welcome.jpg',
+    notfoundBannerUrl: 'tenant/<%= tenant_id %>/app/not-found.jpg',
+    osilogoUrl: 'logo/general/osi.svg'
+  },
+  auth: {
+    tenantId: '<%= tenant_id %>',
+    loginUrl: '/auth/login/<%= tenant_id %>',
+    passwordResetUrl: '/auth/pwdreset/<%= tenant_id %>'
+  },
+  thumbnail: {
+    width: 200,
+    height: 300
+  },
+  dpo: {
+    email: '<%= admin_email %>',
+    name: '<%= admin_first_name %> <%= admin_last_name %>'
+  },
+  git: {
+    repo: '<%= git_repo %>',
+    org: '<%= git_org %>',
+    issueUrl: 'https://github.com/<%= git_org %>/<%= git_repo %>/issues/new'
+  },
+  services: {
+    gmap_key: '<%= gmap_key %>'
+  },
+  i18n: {
+    availableLangs: '[\"en\",\"de\",\"fr\",\"es\",\"it\"]',
+    defaultLanguage: 'de',
+    fallbackLanguage": 'de',
+    folderUrl: 'assets/i18n/',
+    locale: 'de-ch',
+    logMissingKeys: true,
+    userLanguage: 'de',
+    useFallbackTranslation: true
+  },
+  operator: {
+    name: '<%= admin_first_name %> <%= admin_last_name %>',
+    street: '<%= admin_street %>',
+    zipcode: '<%= admin_zipcode %>',
+    city: '<%= admin_city %>',
+    email: '<%= admin_email %>',
+    web: '<%= admin_web_url %>'
+  },
+  settingsDefaults: {
+    avatarUsage: 3,
+    gravatarEmail: "",
+    invoiceDelivery: 1,
+    maxYear: 2050,
+    minYear: 1850,
+    nameDisplay: 0,
+    newsDelivery: 2,
+    personSortCriteria: 1,
+    showArchivedData: false,
+    showDebugInfo: false,
+    showTestData: false,
+    toastLength: 3000,
+    useFaceId: false,
+    useTouchId: false
   }
-}
+};

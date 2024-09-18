@@ -85,7 +85,7 @@ export class PageService extends BaseService {
     _modal.present();
     const { data, role } = await _modal.onWillDismiss();
     if (role === 'confirm') { // data = selected Category
-      const _section = createSection(data, this.configService.getConfigString('tenant_id'));
+      const _section = createSection(data, this.env.auth.tenantId);
       const _sectionKey = await this.sectionService.createSection(_section);
       if (_sectionKey) {
         page.sections.push(_sectionKey);

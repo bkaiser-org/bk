@@ -1,6 +1,6 @@
-import { Inject, InjectionToken } from "@angular/core";
+import { inject, InjectionToken } from "@angular/core";
 import { connectAuthEmulator, getAuth } from "firebase/auth";
-import { ENV } from "./app-tokens";
+import { BkEnvironment, ENV } from "./env";
 
 export const AUTH_EMULATOR_PORT = 9099;
 
@@ -8,8 +8,9 @@ export const AUTH = new InjectionToken('Firebase auth', {
   providedIn: 'root',
   factory: () => {
     const auth = getAuth();
-    const _env = Inject(ENV);
-
+    const _env = inject(ENV) as BkEnvironment;
+    
+    // set the emulator
     if (_env.useEmulators) {
       connectAuthEmulator(auth, `http://localhost:${AUTH_EMULATOR_PORT}`, {
         disableWarnings: true,

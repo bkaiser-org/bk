@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { TranslatePipe } from '@bk/pipes';
-import { ConfigService, copyToClipboard, showToast } from '@bk/util';
+import { ENV, copyToClipboard, showToast } from '@bk/util';
 import { IonButton, IonIcon, ToastController } from '@ionic/angular/standalone';
 import { addIcons } from "ionicons";
 import { copyOutline } from "ionicons/icons";
@@ -26,7 +26,7 @@ import { copyOutline } from "ionicons/icons";
 })
 export class BkCopyButtonComponent {
   private toastController = inject(ToastController);
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
 
   public value = input.required<string | number | null | undefined>(); // data to copy
   public label = input(''); // optional label for the button
@@ -39,7 +39,7 @@ export class BkCopyButtonComponent {
     const _value = this.value();
     if (_value !== undefined && _value !== null) {
       copyToClipboard(_value);
-      showToast(this.toastController, '@general.operation.copy.conf', this.configService.getConfigNumber('settings_toast_length'));  
+      showToast(this.toastController, '@general.operation.copy.conf', this.env.settingsDefaults.toastLength);  
     }
   }
 }
