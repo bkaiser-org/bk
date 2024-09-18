@@ -20,7 +20,13 @@ import { closeOutline } from "ionicons/icons";
   ],
   styles: [`
   ::ng-deep {
-    .NgxEditor { border: none !important; padding: 0;}
+    .NgxEditor { 
+      border: none !important; padding: 0;
+      @media (prefers-color-scheme: dark) {
+        background-color: #333 !important;
+        color: #fff !important;
+      }
+    }
   }
   `],
   template: `
