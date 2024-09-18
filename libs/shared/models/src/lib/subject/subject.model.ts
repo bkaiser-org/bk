@@ -1,5 +1,5 @@
 import { GenderType, ModelType, OrgType } from '@bk/categories';
-import { BASE_FIELDS, BaseModel, FieldDescription } from '../base/base.model';
+import { BaseModel } from '../base/base.model';
 
 export class SubjectModel extends BaseModel {
     public firstName = '';
@@ -21,20 +21,6 @@ export class SubjectModel extends BaseModel {
         this.modelType = ModelType.Subject;
     }
 }
-
-export const SUBJECT_FIELDS: FieldDescription[] = [
-  { name: 'firstName',     label: 'firstName',   value: true },
-  { name: 'taxId',           label: 'taxid',     value: false },
-  { name: 'dateOfBirth',   label: 'dateOfBirth',   value: true },
-  { name: 'dateOfDeath',   label: 'dateOfDeath',   value: false },
-  { name: 'fav_email', label: 'email', value: true },
-  { name: 'fav_phone', label: 'phone', value: false },
-  { name: 'fav_street', label: 'street', value: true },
-  { name: 'fav_zip', label: 'zip', value: true },
-  { name: 'fav_city', label: 'city', value: true },
-  { name: 'fav_country', label: 'country', value: true },
-];
-export const ALL_SUBJECT_FIELDS = BASE_FIELDS.concat(SUBJECT_FIELDS);
 
 export interface MemberInfo {
   orgId: string | undefined,

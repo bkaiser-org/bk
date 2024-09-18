@@ -1,8 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ALL_RELATIONSHIP_FIELDS, RelationshipModel } from '@bk/models';
+import { RelationshipModel } from '@bk/models';
 import { BoatTypes, FilterType, ListType, RelationshipStates } from '@bk/categories';
-import { BoatTags, CollectionNames, bkTranslate } from '@bk/util';
-import { export2excel } from '@bk/core';
+import { BoatTags, CollectionNames } from '@bk/util';
 import { AvatarPipe, BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
 import { CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
@@ -148,7 +147,8 @@ export class OwnershipScsBoatsListComponent extends BaseModelListComponent imple
 
   public async onSelectedIndex(index: number): Promise<void> {
     // export the data in the format selected by the user
-    if (index === 0) await export2excel(this.baseService.filteredItems(), ALL_RELATIONSHIP_FIELDS, bkTranslate('@ownership.plural'));
+    //if (index === 0) await export2excel(this.baseService.filteredItems(), ALL_RELATIONSHIP_FIELDS, bkTranslate('@ownership.plural'));
+    console.log('export is not implemented yet');
   }
 
   public editOwnership(slidingItem: IonItemSliding, ownership: RelationshipModel): void {

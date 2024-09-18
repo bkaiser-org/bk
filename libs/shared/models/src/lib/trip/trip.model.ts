@@ -1,5 +1,5 @@
 import { ModelType } from '@bk/categories';
-import { BASE_FIELDS, BaseModel, FieldDescription } from '../base/base.model';
+import { BaseModel } from '../base/base.model';
 
 export class TripModel extends BaseModel {
     // name: a meaningful name for the trip
@@ -19,12 +19,3 @@ export class TripModel extends BaseModel {
     }
 }
 
-export const TRIP_FIELDS: FieldDescription[] = [
-  { name: 'startDateTime',   label: 'startDateTime',   value: true },
-  { name: 'endDateTime',     label: 'endDateTime',   value: true },
-  { name: 'resourceKey',     label: 'resourceKey',   value: true },
-  { name: 'locations',     label: 'locations',   value: true },
-  { name: 'persons',     label: 'persons',   value: true },
-
-];
-export const ALL_TRIP_FIELDS = BASE_FIELDS.concat(TRIP_FIELDS);

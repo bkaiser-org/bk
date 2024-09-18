@@ -1,5 +1,5 @@
 import { Importance, ModelType, Priority } from '@bk/categories';
-import { BASE_FIELDS, BaseModel, FieldDescription } from '../base/base.model';
+import { BaseModel } from '../base/base.model';
 
 export class TaskModel extends BaseModel {
     // name: a meaningful name for the task
@@ -18,12 +18,3 @@ export class TaskModel extends BaseModel {
         this.modelType = ModelType.Task;
     }
 }
-
-export const TASK_FIELDS: FieldDescription[] = [
-  { name: 'assignee',   label: 'assignee',   value: true },
-  { name: 'dueDate',     label: 'dueDate',   value: true },
-  { name: 'priority',     label: 'priority',   value: true },
-  { name: 'importance',     label: 'importance',   value: true },
-
-];
-export const ALL_TASK_FIELDS = BASE_FIELDS.concat(TASK_FIELDS);

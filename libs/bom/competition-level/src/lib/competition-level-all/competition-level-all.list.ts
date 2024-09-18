@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ALL_COMPETITION_LEVEL_FIELDS, CompetitionLevelModel } from '@bk/models';
+import { CompetitionLevelModel } from '@bk/models';
 import { CompetitionLevels, ListType } from '@bk/categories';
 import { BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSpinnerComponent } from '@bk/ui';
-import { CollectionNames, bkTranslate } from '@bk/util';
+import { CollectionNames } from '@bk/util';
 import { CategoryAbbreviationPipe, FullNamePipe, IsSortedPipe, PrettyDatePipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { BkCompetitionLevelTableComponent } from '../bk-competition-level-table';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
@@ -125,6 +125,7 @@ export class CompetitionLevelAllListComponent extends BaseModelListComponent imp
   }
 
   public export(): void {
-    this.baseService.export2excel(bkTranslate(`@competitionLevel.plural`), ALL_COMPETITION_LEVEL_FIELDS);
+    //this.baseService.export2excel(bkTranslate(`@competitionLevel.plural`), ALL_COMPETITION_LEVEL_FIELDS);
+    console.log('Exporting competition levels is not yet implemented.');
   }
 }

@@ -1,5 +1,5 @@
 import { ModelType } from '@bk/categories';
-import { BASE_FIELDS, BaseModel, FieldDescription } from '../base/base.model';
+import { BaseModel } from '../base/base.model';
 
 export class LocationModel extends BaseModel {
     // url: google
@@ -18,11 +18,3 @@ export class LocationModel extends BaseModel {
         this.modelType = ModelType.Location;
     }
 }
-
-export const LOCATION_FIELDS: FieldDescription[] = [
-  { name: 'latitude',     label: 'latitude',   value: true },
-  { name: 'longitude',     label: 'longitude',   value: true },
-  { name: 'placeId',     label: 'placeId',   value: true },
-  { name: 'what3words',     label: 'what3words',   value: true },
-];
-export const ALL_LOCATION_FIELDS = BASE_FIELDS.concat(LOCATION_FIELDS);

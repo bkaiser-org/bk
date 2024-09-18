@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CollectionNames, InvoicePositionTags, bkTranslate } from '@bk/util';
 import { CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { BkAvatarLabelComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
-import { ALL_INVOICE_POSITION_FIELDS, InvoicePositionModel } from '@bk/models';
+import { InvoicePositionModel } from '@bk/models';
 import { BaseModelListComponent } from '@bk/base';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
@@ -134,7 +134,8 @@ export class InvoicePositionAllListComponent extends BaseModelListComponent impl
   }
 
   public async export(): Promise<void> {
-    await this.baseService.export2excel(bkTranslate('@finance.invoicePosition.plural'), ALL_INVOICE_POSITION_FIELDS);
+   // await this.baseService.export2excel(bkTranslate('@finance.invoicePosition.plural'), ALL_INVOICE_POSITION_FIELDS);
+   console.log('export is not yet implemented');
   }
 }
 

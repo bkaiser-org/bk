@@ -1,5 +1,5 @@
 import { ModelType } from '@bk/categories';
-import { BASE_FIELDS, BaseModel, FieldDescription } from '../base/base.model';
+import { BaseModel } from '../base/base.model';
 
 export class PageModel extends BaseModel {
     // title = name
@@ -10,8 +10,3 @@ export class PageModel extends BaseModel {
         this.modelType = ModelType.Page;
     }
 }
-
-export const PAGE_FIELDS: FieldDescription[] = [
-  { name: 'sections',     label: 'sections',   value: true },
-];
-export const ALL_PAGE_FIELDS = BASE_FIELDS.concat(PAGE_FIELDS);

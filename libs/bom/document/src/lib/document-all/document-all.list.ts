@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ALL_DOCUMENT_FIELDS, DocumentModel } from '@bk/models';
+import { DocumentModel } from '@bk/models';
 import { DocumentTypes, ListType } from '@bk/categories';
 import { CollectionNames, DocumentTags, bkTranslate } from '@bk/util';
 import { Browser } from '@capacitor/browser';
@@ -142,7 +142,8 @@ export class DocumentAllListComponent extends BaseModelListComponent implements 
   }
 
   public async export(): Promise<void> {
-    await this.baseService.export2excel(bkTranslate('@document.plural'), ALL_DOCUMENT_FIELDS);
+    //await this.baseService.export2excel(bkTranslate('@document.plural'), ALL_DOCUMENT_FIELDS);
+    console.log('export ist not yet implemented');
   }
 }
 

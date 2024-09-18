@@ -1,5 +1,5 @@
 import { ModelType } from '@bk/categories';
-import { BaseModel, BASE_FIELDS, FieldDescription } from '../base/base.model';
+import { BaseModel } from '../base/base.model';
 
 export class CommentModel extends BaseModel {
     // name = authorName
@@ -17,11 +17,3 @@ export class CommentModel extends BaseModel {
         this.modelType = ModelType.Comment;
     }
 }
-
-export const COMMENT_FIELDS: FieldDescription[] = [
-    { name: 'authorKey', label: 'authorKey', value: true },
-    { name: 'creationDate', label: 'creationDate', value: true },
-    { name: 'parentKey', label: 'parentKey', value: true },
-    { name: 'parentCollection', label: 'parentCollection', value: true }
-];
-export const ALL_COMMENT_FIELDS = BASE_FIELDS.concat(COMMENT_FIELDS);

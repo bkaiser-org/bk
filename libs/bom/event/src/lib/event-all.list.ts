@@ -7,7 +7,7 @@ import { BaseModelListComponent } from '@bk/base';
 import { AsyncPipe } from '@angular/common';
 import { ListType } from '@bk/categories';
 import { EventAllService } from './event-all.service';
-import { ALL_EVENT_FIELDS, EventModel } from '@bk/models';
+import { EventModel } from '@bk/models';
 import { EventDurationPipe } from './event-duration.pipe';
 import { addIcons } from "ionicons";
 import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trash } from "ionicons/icons";
@@ -122,7 +122,8 @@ export class EventAllListComponent extends BaseModelListComponent implements OnI
   }
 
   public async export(): Promise<void> {
-    await this.baseService.export2excel(bkTranslate(this.baseService.title()), ALL_EVENT_FIELDS);
+    //await this.baseService.export2excel(bkTranslate(this.baseService.title()), ALL_EVENT_FIELDS);
+    console.log('export ist not yet implemented');  
   }
 
   public async deleteEvent(slidingItem: IonItemSliding, subject: EventModel): Promise<void> {

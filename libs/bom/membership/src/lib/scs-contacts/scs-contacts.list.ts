@@ -1,11 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FilterType, ListType, ListTypes, getOrgId } from '@bk/categories';
 import { CollectionNames, MembershipTags, bkTranslate, die, uniqueElements } from '@bk/util';
-import { export2excel } from '@bk/core';
 import { BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
 import { FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
-import { ALL_RELATIONSHIP_FIELDS, MembershipSubjectModel, RelationshipModel, SubjectModel } from '@bk/models';
+import { MembershipSubjectModel, RelationshipModel, SubjectModel } from '@bk/models';
 import { IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -212,7 +211,7 @@ export class MembershipScsContactsListComponent extends BaseModelListComponent i
   public async onSelectedIndex(index: number): Promise<void> {
     this.isProcessing = true;
     // export the data in the format selected by the user
-    if (index === 0) await export2excel(this.baseService.filteredItems(), ALL_RELATIONSHIP_FIELDS, bkTranslate('@membership.plural'));
+    //if (index === 0) await export2excel(this.baseService.filteredItems(), ALL_RELATIONSHIP_FIELDS, bkTranslate('@membership.plural'));
     if (index === 1) await this.baseService.exportSrvList(bkTranslate('@membership.operation.select.srv'));
     if (index === 2) await this.baseService.exportAddressList(bkTranslate('@membership.operation.select.address'));
     this.isProcessing = false;

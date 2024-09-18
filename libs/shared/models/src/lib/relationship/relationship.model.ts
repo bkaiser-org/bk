@@ -1,5 +1,5 @@
 import { CategoryType, ModelType } from '@bk/categories';
-import { BASE_FIELDS, BaseModel, FieldDescription } from '../base/base.model';
+import { BaseModel } from '../base/base.model';
 import { END_FUTURE_DATE_STR } from '@bk/util';
 import { SubjectModel } from '../subject/subject.model';
 
@@ -60,26 +60,3 @@ export class RelationshipModel extends BaseModel {
       this.modelType = ModelType.Relationship;
     }
 }
-
-export const RELATIONSHIP_FIELDS: FieldDescription[] = [
-    { name: 'subjectKey',   label: 'subjectKey',  value: true },
-    { name: 'subjectName',  label: 'subjectName', value: true },
-    { name: 'subjectName2',  label: 'subjectName2', value: true },
-    { name: 'subjectType',  label: 'subjectType', value: true },
-    { name: 'subjectCategory',  label: 'subjectCategory', value: true },
-    { name: 'objectKey',    label: 'objectKey',   value: true },
-    { name: 'objectName',   label: 'objectName',  value: true },
-    { name: 'objectName2',   label: 'objectName2',  value: true },
-    { name: 'objectUrl',    label: 'objectUrl',   value: true },
-    { name: 'objectType',   label: 'objectType',  value: true },
-    { name: 'objectCategory',   label: 'objectCategory',  value: true },
-    { name: 'price',        label: 'price',       value: true },
-    { name: 'validFrom',    label: 'validFrom',   value: true },
-    { name: 'validTo',      label: 'validTo',     value: true },
-    { name: 'count',        label: 'count',       value: true },
-    { name: 'priority',     label: 'priority',    value: true },
-    { name: 'state',        label: 'state',       value: true },
-    { name: 'subType',        label: 'subType',       value: true }
-  ];
-  export const ALL_RELATIONSHIP_FIELDS = BASE_FIELDS.concat(RELATIONSHIP_FIELDS);
-

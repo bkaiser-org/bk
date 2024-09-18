@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BoatTypes, ListType } from '@bk/categories';
 import { BoatTags, CollectionNames, bkTranslate } from '@bk/util';
-import { ALL_RESOURCE_FIELDS, ResourceModel } from '@bk/models';
+import { ResourceModel } from '@bk/models';
 import { BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
 import { CategoryNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { ResourceLogoPipe } from '../resource-logo.pipe';
@@ -132,7 +132,8 @@ export class ResourceRowingBoatsListComponent extends BaseModelListComponent imp
   }
 
   public async export(): Promise<void> {
-    await this.baseService.export2excel(bkTranslate('@resource.plural'), ALL_RESOURCE_FIELDS);
+    // await this.baseService.export2excel(bkTranslate('@resource.plural'), ALL_RESOURCE_FIELDS);
+    console.log('export is not implemented yet');
   }
 }
 

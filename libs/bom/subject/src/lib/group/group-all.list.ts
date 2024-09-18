@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CollectionNames, GroupTags, bkPrompt, bkTranslate } from '@bk/util';
+import { CollectionNames, GroupTags, bkPrompt } from '@bk/util';
 import { AvatarPipe, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
-import { ALL_SUBJECT_FIELDS, SubjectModel } from '@bk/models';
+import { SubjectModel } from '@bk/models';
 import { FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar ,IonPopover ,IonList, AlertController, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonImg } from '@ionic/angular/standalone';
 import { BaseModelListComponent } from '@bk/base';
@@ -140,7 +140,8 @@ export class GroupAllListComponent extends BaseModelListComponent implements OnI
   }
 
   public async export(): Promise<void> {
-    await this.baseService.export2excel(bkTranslate(this.baseService.title()), ALL_SUBJECT_FIELDS);
+    // await this.baseService.export2excel(bkTranslate(this.baseService.title()), ALL_SUBJECT_FIELDS);
+    console.log('export is not implemented yet');
   }
 
   public async copyEmailAddresses(): Promise<void> {

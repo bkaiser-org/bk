@@ -1,5 +1,5 @@
 import { AddressChannel, AddressUsage, ModelType } from '@bk/categories';
-import { BASE_FIELDS, BaseModel, FieldDescription } from '../base/base.model';
+import { BaseModel } from '../base/base.model';
 import { getRemoteConfig, getValue } from 'firebase/remote-config';
 
 export class AddressModel extends BaseModel {
@@ -26,17 +26,3 @@ export class AddressModel extends BaseModel {
     this.tenant = [getValue(_remoteConfig, 'tenant_id').asString()];
   }
 }
-
-export const ADDRESS_FIELDS: FieldDescription[] = [
-  { name: 'addressUsage', label: '@input.addressUsage.label', value: true },
-  { name: 'addressUsageLabel', label: '@input.addressUsageLabel.label', value: true },
-  { name: 'addressChannelLabel', label: '@input.addressChannelLabel.label', value: true },
-  { name: 'addressValue2', label: '@input.addressValue2.label', value: true },
-  { name: 'zipCode', label: '@input.zipCode.label', value: true },
-  { name: 'city', label: '@input.city.lable', value: true },
-  { name: 'countryCode', label: '@input.countryCode.label', value: true },
-  { name: 'isFavorite', label: '@input.isFavorite.label', value: false },
-  { name: 'isValidated', label: '@input.isValidated.label', value: false },
-  { name: 'isCc', label: '@input.isCc.label', value: false }
-];
-export const ALL_ADDRESS_FIELDS = BASE_FIELDS.concat(ADDRESS_FIELDS);
