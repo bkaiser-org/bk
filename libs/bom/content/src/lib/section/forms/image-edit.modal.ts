@@ -5,6 +5,7 @@ import { IonButton, IonCol, IonContent, IonGrid, IonIcon, IonImg, IonItem, IonLa
 import { Image } from '@bk/models';
 import { die } from '@bk/util';
 import { BkHeaderComponent, BkImgComponent, BkTextInputComponent } from '@bk/ui';
+import { ImageAction } from '@bk/categories';
 
 /**
  * This modal requests a user to select an image file and provide some metadata about the image.
@@ -55,7 +56,7 @@ import { BkHeaderComponent, BkImgComponent, BkTextInputComponent } from '@bk/ui'
               </ion-col>
               <ion-col size="9">
                 <ion-item lines="none">
-                  <ion-label>{{ image.downloadUrl}}</ion-label>
+                  <ion-label>{{ image.actionUrl}}</ion-label>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -97,7 +98,7 @@ export class ImageEditModalComponent {
   }
 
   patchImage(image: Image): Image {
-    image.isZoomable = false;
+    image.imageAction = ImageAction.None;
     image.isThumbnail = false;
     image.fill = true;
     image.width = 900;
@@ -109,7 +110,7 @@ export class ImageEditModalComponent {
   private checkCanSave(): boolean {
     return this.image().url.length > 0 && 
       this.image().imageLabel.length > 0 &&
-      this.image().downloadUrl.length > 0 &&
+      this.image().actionUrl.length > 0 &&
       this.image().altText.length > 0;
   }
 

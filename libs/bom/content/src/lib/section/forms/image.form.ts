@@ -1,5 +1,5 @@
 import { Component, computed, inject, model, output } from '@angular/core';
-import { Image, SectionFormModel, SectionProperties, newImage } from '@bk/models';
+import { Image, newImage, SectionFormModel, SectionProperties } from '@bk/models';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonIcon, IonItem, IonLabel, IonRow, ToastController } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
@@ -9,6 +9,7 @@ import { DocumentService } from '@bk/document';
 import { SectionService } from '../section.service';
 import { addIcons } from "ionicons";
 import { addCircleOutline, closeCircleOutline } from "ionicons/icons";
+import { ImageAction } from '@bk/categories';
 
 /**
  * This form lets a user pick an image and define its properties.
@@ -86,7 +87,7 @@ export class SingleImageFormComponent {
     image.height = 80;
     image.fill = false;
     image.isThumbnail = true;
-    image.isZoomable = false;
+    image.imageAction = ImageAction.None;
     return image;
   }
 
@@ -100,7 +101,7 @@ export class SingleImageFormComponent {
   protected removeImage(image: Image) {
     deleteFileFromStorage(this.toastController, image.url);
     image.url = '';
-    image.downloadUrl = '';
+    image.actionUrl = '';
     this.saveAndNotify(image);
   }
 

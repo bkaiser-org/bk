@@ -9,6 +9,7 @@ import { SectionService } from '../section.service';
 import { DocumentService } from '@bk/document';
 import { addIcons } from "ionicons";
 import { addCircleOutline } from "ionicons/icons";
+import { ImageAction } from '@bk/categories';
 
 /**
  * This form lets a user compose a list of images.
@@ -104,7 +105,7 @@ export class BkImageListFormComponent {
     image.height = 80;
     image.fill = false;
     image.isThumbnail = true;
-    image.isZoomable = false;
+    image.imageAction = ImageAction.None;
     return image;
   }
 

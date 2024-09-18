@@ -1,61 +1,79 @@
-import { ColorIonic, ModelType } from '@bk/categories';
+import { ColorIonic, ImageAction, ModelType } from '@bk/categories';
 import { BaseModel } from '../base/base.model';
 import { GuiColumn } from '@generic-ui/ngx-grid';
 import { NameDisplay } from '@bk/util';
 import { RoleName } from '../role/roles';
 
+export type Slot = 'start' | 'end' | 'icon-only' | 'none';
+export type AlbumStyle = 'grid' | 'pinterest' | 'imgix'; // maybe also list and avatarList ?
+
 // the configuration of a single image
 export interface Image {  // identifies a single image or a specific image in an image list
-  url: string,          // the url of the image, a relative path to the file in Firebase storage; this is used as a basis to construct the imgix url
   imageLabel: string,        // a short title to identify the image (this is shown in lists)
-  downloadUrl: string,  // the Firebase storage download url
-  imageOverlay: string, // used for text overlays on the imgix image
+  url: string,          // the url of the image, a relative path to the file in Firebase storage; this is used as a basis to construct the imgix url
+  actionUrl: string,    // the url used with the action
   altText: string,     // aria text for the image,
+  imageOverlay: string, // used for text overlays on the imgix image
   fill: boolean,       // if true, the image fills the whole container, default is true
+  hasPriority: boolean, // if true, the image is loaded first, default is true
+  imgIxParams?: string,
   width?: number,       // the width of the image in pixels, default is 160
   height?: number,      // the height of the image in pixels, default is 90
   sizes: string,       // the sizes attribute for the img tag, default is '(max-width: 1240px) 50vw, 300px'
-  hasPriority: boolean, // if true, the image is loaded first, default is true
-  imgIxParams?: string,
-  borderRadius?: number,
-  isZoomable?: boolean, // if true, images can be zoomed in, default: false
-  zoomFactor?: number, // default: 2
-  isThumbnail?: boolean, // if true, images are displayed as a thumbnail, default: false
-  slot?: 'start' | 'end' | 'icon-only'; // default is 'start'
+  borderRadius: number,
+  imageAction: ImageAction, // defines the action to start when clicking on an image, default is ImageAction.None
+  zoomFactor: number, // default: 2
+  isThumbnail: boolean, // if true, images are displayed as a thumbnail, default: false
+  slot: Slot    // default is none
 }
 
-export function newImage(title = '', url = '', altText = '', width = 160, height = 90, isZoomable = true, borderRadius = 4): Image {
+export function newImage(title = '', url = '', actionUrl = '', altText = '', defaultImageConfig = newDefaultImageConfig()): Image {
   return {
-    url: url,
     imageLabel: title,
-    downloadUrl: '',
-    imageOverlay: '',
+    url: url,
+    actionUrl: actionUrl,
     altText: altText,
+    imageOverlay: '',  
     fill: true,
-    width: width,
-    height: height,
-    sizes: '(max-width: 786px) 50vw, 100vw',
-    hasPriority: true,
-    imgIxParams: '',
-    borderRadius: borderRadius,
-    isZoomable: isZoomable,
-    zoomFactor: 2,
-    isThumbnail: false,
-    slot: 'start'
+    hasPriority: false,
+    imgIxParams: defaultImageConfig.imgIxParams,
+    width: defaultImageConfig.width,
+    height: defaultImageConfig.height,
+    sizes: defaultImageConfig.sizes,
+    borderRadius: defaultImageConfig.borderRadius,
+    imageAction: defaultImageConfig.imageAction,
+    zoomFactor: defaultImageConfig.zoomFactor,
+    isThumbnail: defaultImageConfig.isThumbnail,
+    slot: defaultImageConfig.slot
   }
 }
 
 // default configuration valid for all images in a image list
 export interface DefaultImageConfig {   
-  imgIxParams?: string,
-  width?: number,
-  height?: number,
-  albumStyle?: 'grid' | 'pinterest' | 'imgix', // default is 'grid
-  borderRadius?: number,
-  isZoomable?: boolean, // if true, images can be zoomed in, default: true
-  zoomFactor?: number, // default: 2
-  isThumbnail?: boolean, // if true, images are displayed as a thumbnail, default: false
-  slot?: 'start' | 'end' | 'icon-only'; // default is 'start'
+  imgIxParams: string,
+  width: number,
+  height: number,
+  sizes: string,
+  borderRadius: number, 
+  imageAction: ImageAction, 
+  zoomFactor: number, 
+  isThumbnail: boolean, 
+  slot: Slot; 
+}
+
+
+export function newDefaultImageConfig(): DefaultImageConfig {
+  return {
+    imgIxParams: '',
+    width: 160,
+    height: 90,
+    sizes: '(max-width: 786px) 50vw, 100vw',
+    borderRadius: 4,
+    imageAction: ImageAction.None,
+    zoomFactor: 2,
+    isThumbnail: false,
+    slot: 'none'
+  }
 }
 
 // the configuration of a button
@@ -72,7 +90,7 @@ export interface Button {
 export interface Icon {
   name?: string, // either ion-icon name (e.g. download-outline, contains -) or FileTypeIcon (e.g. pdf) that resolves into assets/filetypes/file-pdf-light.svg
   size?: string,
-  slot?: 'start' | 'end' | 'icon-only'; // default is 'start'
+  slot?: Slot; // default is 'start'
 }
 
 // the configuration of an avatar representing a person
@@ -125,12 +143,19 @@ export interface Accordion {
   readonly: boolean, // if true, the accordion is readonly, default is false
 }
 
+export interface Album {
+  directory: string, // the directory in Firebase storage (relative path)
+  albumStyle: AlbumStyle, // the style of the album
+  defaultImageConfig: DefaultImageConfig, // the configuration of the images
+}
+
 export interface SectionProperties {
   imageList?: Image[],  // list of images, e.g. Album, Slider, Gallery
   defaultImageConfig?: DefaultImageConfig,  // configures the layout and style of the images
   image?: Image,      // single image, e.g. Hero
   logo?: Image,       // logo image
   avatar?: Avatar,
+  album?: Album,
   personList?: Person[],
   modelInfo?: ModelInfo,
   table?: Table,

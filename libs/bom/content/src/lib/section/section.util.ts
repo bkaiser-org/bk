@@ -1,5 +1,5 @@
 import { ColorIonic, ModelType, SectionType, SectionTypes, ViewPosition } from "@bk/categories";
-import { Avatar, Button, Icon, DefaultImageConfig, SectionModel, ModelInfo } from "@bk/models";
+import { Avatar, Button, Icon, SectionModel, ModelInfo } from "@bk/models";
 import { NameDisplay, bkTranslate } from "@bk/util";
 
 /**
@@ -80,19 +80,5 @@ export function newAvatar(): Avatar {
     altText: 'avatar',
     title: '',
     linkedSection: ''
-  }
-}
-
-export function newDefaultImageConfig(): DefaultImageConfig {
-  return {
-    imgIxParams: '',
-    width: 160,
-    height: 90,
-    albumStyle: 'grid',
-    borderRadius: 4,
-    isZoomable: true,
-    zoomFactor: 2,
-    isThumbnail: false,
-    slot: 'start'
   }
 }

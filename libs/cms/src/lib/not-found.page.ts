@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, inject, viewChild } from '@angular/core';
-import { navigateByUrl, ConfigService } from '@bk/util';
+import { navigateByUrl, ENV } from '@bk/util';
 import { IonCol, IonContent, IonGrid, IonIcon, IonImg, IonLabel, IonRow } from '@ionic/angular/standalone';
 import { BkHeaderComponent, BkImgComponent } from '@bk/ui';
 import { TranslatePipe } from '@bk/pipes';
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { addIcons } from "ionicons";
 import { informationCircleOutline } from "ionicons/icons";
 import { Image, newImage } from '@bk/models';
+import { ImageAction } from '@bk/categories';
 
 @Component({
   selector: 'bk-page-not-found',
@@ -108,7 +109,7 @@ import { Image, newImage } from '@bk/models';
 })
 export class PageNotFoundComponent implements AfterViewInit {
   private router = inject(Router);
-  private configService = inject(ConfigService);
+  private env = inject(ENV);
   public backgroundImage!: Image;
   public logoImage!: Image;
   protected contentElement = viewChild(BkImgComponent, { read: ElementRef });
@@ -119,17 +120,17 @@ export class PageNotFoundComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.backgroundImage = {
-      url: this.configService.getConfigString('cms_notfound_banner_url'),
       imageLabel: '',
-      downloadUrl: '',
+      url: this.env.app.notfoundBannerUrl,
+      actionUrl: '',
+      altText: this.env.auth.tenantId + ' background image',
       imageOverlay: '',
-      altText: this.configService.getConfigString('tenant_name') + ' background image',
       fill: true,
       sizes: '100vw',
       hasPriority: true,
       imgIxParams: '',
       borderRadius: 4,
-      isZoomable: false,
+      imageAction: ImageAction.Zoom,
       zoomFactor: 2,
       isThumbnail: false,
       slot: 'start'
@@ -137,17 +138,17 @@ export class PageNotFoundComponent implements AfterViewInit {
     console.log('Background Image:', this.backgroundImage);
 
     this.logoImage = newImage();
-    this.logoImage.url = this.configService.getConfigString('cms_logo_url');
+    this.logoImage.url = this.env.app.logoUrl;
     this.logoImage.hasPriority = false;
-    this.logoImage.isZoomable = false;
+    this.logoImage.imageAction = ImageAction.Zoom;
     this.logoImage.isThumbnail = false;
     this.logoImage.fill = true;
-    this.logoImage.altText = this.configService.getConfigString('tenant_name') + ' Logo';
+    this.logoImage.altText = this.env.auth.tenantId + ' Logo';
     this.logoImage.width = 100;
     this.logoImage.height = 100;
   }
 
   public async gotoHome(): Promise<void> {
-    await navigateByUrl(this.router, this.configService.getConfigString('cms_root_url'));
+    await navigateByUrl(this.router, this.env.app.rootUrl);
   }
 }

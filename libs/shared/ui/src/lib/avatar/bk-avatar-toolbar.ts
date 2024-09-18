@@ -3,11 +3,11 @@ import { IonAvatar, IonCol, IonGrid, IonIcon, IonImg, IonItem, IonRow, IonTitle,
 import { Photo } from '@capacitor/camera';
 import { AvatarService } from './avatar.service';
 import { CategoryPlainNamePipe } from '@bk/pipes';
-import { ColorIonic, ColorsIonic } from '@bk/categories';
+import { ColorIonic, ColorsIonic, ImageAction } from '@bk/categories';
 import { addIcons } from "ionicons";
 import { camera } from "ionicons/icons";
-import { newImage } from '@bk/models';
 import { showZoomedImage } from '../ui.util';
+import { newImage } from '@bk/models';
 
 @Component({
   selector: 'bk-avatar-toolbar',
@@ -77,7 +77,8 @@ export class BkAvatarToolbarComponent {
   protected async showZoomedImage(): Promise<void> {
     const _url = await this.avatarService.getAvatarUrl(this.key());
     if (_url) {
-      const _image = newImage('', _url, this.alt(), 600, 600, true, 0);
+      const _image = newImage('@content.type.article.zoomedImage', _url, _url);
+      _image.imageAction = ImageAction.Zoom;
       await showZoomedImage(this.modalController, this.title() ?? '', _image);
     } 
   }

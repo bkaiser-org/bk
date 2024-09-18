@@ -61,13 +61,13 @@ import { AsyncPipe } from '@angular/common';
          <swiper-container class="gallery-top" space-between="10" loop="true" navigation="true" 
           controller-control=".gallery-thumbs" thumbs-swiper=".gallery-thumbs">
           @for(image of imageList; track image.url) {
-            <swiper-slide [style]="'background-image:url(' + image.downloadUrl + ')'" />
+            <swiper-slide [style]="'background-image:url(' + image.actionUrl + ')'" />
           }
         </swiper-container>
         <swiper-container class="gallery-thumbs" space-between="10" slides-per-view="4" loop="true" free-mode="true" 
           controller-control=".gallery-top" watch-slides-visibility="true" watch-slides-progress="true" slide-to-clicked-slide="true">
           @for(image of imageList; track image.url) {
-            <swiper-slide [style]="'background-image:url(' + image.downloadUrl + ')'" />
+            <swiper-slide [style]="'background-image:url(' + image.actionUrl + ')'" />
           }
         </swiper-container>
       } @else {
@@ -82,6 +82,6 @@ export class BkGallerySectionComponent {
   public section = input<SectionModel>();
 
   public show(image: Image): void {
-    downloadToBrowser(image.downloadUrl);
+    downloadToBrowser(image.actionUrl);
   }
 }

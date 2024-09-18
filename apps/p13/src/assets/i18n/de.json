@@ -3940,6 +3940,32 @@
         "description": "Compressed file(s), e.g. zip, tar, gz"
       }
     },
+    "imageAction": {
+      "download": {
+        "label": "Download",
+        "description": "Bild herunterladen"
+      },
+      "zoom": {
+        "label": "Zoom",
+        "description": "Grössere Darstellung des Bildes"
+      },
+      "openslider": {
+        "label": "Open Slider",
+        "description": "Bild in einer Gallery anzeigen"
+      },
+      "opendirectory": {
+        "label": "Open Directory",
+        "description": "Den Ordner öffnen"
+      },
+      "followlink": {
+        "label": "Follow Link",
+        "description": "Dem Link folgen"
+      },
+      "none": {
+        "label": "None",
+        "description": "Keine Aktion"
+      }
+    },
     "importance": {
       "label": "Wichtigkeit",
       "low": {

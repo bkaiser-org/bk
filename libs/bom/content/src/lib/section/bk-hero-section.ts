@@ -5,6 +5,7 @@ import { BkImgComponent, BkSpinnerComponent } from '@bk/ui';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { die } from '@bk/util';
+import { ImageAction } from '@bk/categories';
 
 @Component({
   selector: 'bk-hero-section',
@@ -90,7 +91,7 @@ export class BkHeroSectionComponent {
     const _imageList = this.section()?.properties.imageList ?? [];
     if (_imageList.length !== 2) die('BkHeroSection.heroImage: Hero section must have 2 images');
     _imageList[0].hasPriority = true;
-    _imageList[0].isZoomable = false;
+    _imageList[0].imageAction = ImageAction.None;
     _imageList[0].isThumbnail = false;
     _imageList[0].fill = true;
     _imageList[0].altText = 'hero image';
@@ -100,7 +101,7 @@ export class BkHeroSectionComponent {
     const _imageList = this.section()?.properties.imageList ?? [];
     if (_imageList.length !== 2) die('BkHeroSection.logoImage: Hero section must have 2 images');
     _imageList[1].hasPriority = false;
-    _imageList[1].isZoomable = false;
+    _imageList[1].imageAction = ImageAction.None;
     _imageList[1].isThumbnail = false;
     _imageList[1].fill = true;
     _imageList[1].altText = 'logo image';
