@@ -5,6 +5,7 @@ export * from './lib/category.util';
 export * from './lib/action-type';
 export * from './lib/address-channel';
 export * from './lib/address-usage';
+export * from './lib/album-style';
 export * from './lib/application-type';
 export * from './lib/avatar-usage';
 export * from './lib/boat-type';

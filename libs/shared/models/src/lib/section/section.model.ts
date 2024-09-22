@@ -1,11 +1,10 @@
-import { ColorIonic, ImageAction, ModelType } from '@bk/categories';
+import { AlbumStyle, ColorIonic, ImageAction, ModelType } from '@bk/categories';
 import { BaseModel } from '../base/base.model';
 import { GuiColumn } from '@generic-ui/ngx-grid';
 import { NameDisplay } from '@bk/util';
 import { RoleName } from '../role/roles';
 
 export type Slot = 'start' | 'end' | 'icon-only' | 'none';
-export type AlbumStyle = 'grid' | 'pinterest' | 'imgix'; // maybe also list and avatarList ?
 
 // the configuration of a single image
 export interface Image {  // identifies a single image or a specific image in an image list

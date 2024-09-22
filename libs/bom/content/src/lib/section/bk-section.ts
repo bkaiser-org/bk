@@ -51,7 +51,9 @@ import { BkAccordionSectionComponent } from './bk-accordion-section';
       @if (authorizationService.hasRole(section.roleNeeded)) {
         @switch (section.category) {
           @case(ST.Album) {                                   <!-- 0: Album -->
-            <bk-album-section [section]="section" />
+            @if(section.properties.album; as album) {
+              <bk-album-section [initialDirectory]="album.directory" [initialAlbumStyle]="album.albumStyle" />
+            }                                 
           }
           @case(ST.Article) {                                 <!-- 1: Article -->
             <bk-article-section [section]="section" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />

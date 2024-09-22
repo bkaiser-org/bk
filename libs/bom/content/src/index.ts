@@ -11,6 +11,7 @@ export * from './lib/menu/bk-menu';
 export * from './lib/page/content.page';
 export * from './lib/page/page.service';
 export * from './lib/page/page-all/page-all.list';
+export * from './lib/page/page-title.pipe';
 
 // page-all
 export * from './lib/page/page-all/page-all.service';
@@ -36,6 +37,8 @@ export * from './lib/section/section.page';
 export * from './lib/section/section.service';
 export * from './lib/section/section.util';
 export * from './lib/section/bk-model-section';
+
+export * from './lib/section/album/album.service';
 
 // forms
 export * from './lib/section/forms/section.form';

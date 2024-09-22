@@ -71,13 +71,13 @@ See <a href="https://sandbox.imgix.com/view?url=https://assets.imgix.net/~text?f
     template: `
       @if(image(); as image) {
         @if(isThumbnail() === true) {
-          <ion-thumbnail [slot]="slot()" [ngStyle]="style()" (click)="showZoomedImage()">
+          <ion-thumbnail [slot]="slot()" [ngStyle]="style()" (click)="onImageClicked()">
             <img [src]="'https://bkaiser.imgix.net/' + (image | imgixUrl)" [alt]="image.altText" /> 
           </ion-thumbnail>
         }
         @else {
           <div class="image-container">
-            <img [ngSrc]="(image | imgixUrl)" [alt]="image.altText" [sizes]="sizes()" (click)="showZoomedImage()"
+            <img [ngSrc]="(image | imgixUrl)" [alt]="image.altText" [sizes]="sizes()"
               [attr.priority]="image.hasPriority ? '' : null"
               [attr.fill]="image.fill ? '' : null"
               width="{{width()}}" 
@@ -115,15 +115,18 @@ See <a href="https://sandbox.imgix.com/view?url=https://assets.imgix.net/~text?f
       return !_height ? this.getValue('height', 'auto') : _height;
     });
 
-    protected async showZoomedImage(): Promise<void> {
+    protected async onImageClicked(): Promise<void> {
       await showZoomedImage(this.modalController, '@content.type.article.zoomedImage', this.image(), 'full-modal');
     }
 
     private getValue(key: string, defaultValue: string): string {
       const _el = this.imageContainer();
       if (_el) {
-        return _el.nativeElement[key] ?? defaultValue;
+        const _value = _el.nativeElement[key] ?? defaultValue;
+        console.log(`BkImgComponent.getValue -> element found: ${key} -> value: ${_value}`);
+        return _value;
       }
+      console.log(`BkImgComponent.getValue -> element not found: ${key} -> using default value: ${defaultValue}`);
       return defaultValue;
     }
   }
