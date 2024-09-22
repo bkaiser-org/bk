@@ -1,14 +1,12 @@
 import { Component, computed, inject, model, output } from '@angular/core';
 import { Image, SectionFormModel, SectionProperties } from '@bk/models';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonIcon, IonItem, IonLabel, IonList, IonReorder, IonReorderGroup, IonRow, ItemReorderEventDetail, ToastController } from '@ionic/angular/standalone';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { arrayMove, deleteFileFromStorage } from '@bk/util';
 import { BkImgComponent, BkSpinnerComponent } from '@bk/ui';
 import { SectionService } from '../section.service';
 import { DocumentService } from '@bk/document';
-import { addIcons } from "ionicons";
-import { addCircleOutline } from "ionicons/icons";
 import { ImageAction } from '@bk/categories';
 
 /**
@@ -22,7 +20,7 @@ import { ImageAction } from '@bk/categories';
   selector: 'bk-image-list-form',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     IonRow, IonCol, IonButton, IonIcon, IonList, IonItem, IonLabel,
     IonReorderGroup, IonReorder, IonCard, IonCardHeader, IonCardTitle, IonCardContent,
     BkSpinnerComponent, BkImgComponent
@@ -38,7 +36,7 @@ import { ImageAction } from '@bk/categories';
             <ion-card-content>
               <ion-item lines="none">
                 <ion-button (click)="addImage()" fill="clear">
-                  <ion-icon slot="start" name="add-circle-outline" />
+                  <ion-icon slot="start" src="{{'add-circle-outline' | svgIcon }}" />
                   {{ '@content.section.operation.addImage.label' | translate | async }}
                 </ion-button>
               </ion-item>
@@ -51,7 +49,7 @@ import { ImageAction } from '@bk/categories';
                             <ion-reorder slot="start" />
                             <bk-img [image]="patchImage(image)" (click)="editImage(image, i)" />
                             <ion-label (click)="editImage(image, i)">{{image.imageLabel}}</ion-label>
-                            <ion-icon name="close-circle-outline" slot="end" (click)="removeImage(image)" />
+                            <ion-icon src="{{'close-circle-outline' | svgIcon }}" slot="end" (click)="removeImage(image)" />
                           </ion-item>
                       }
                     </ion-reorder-group>
@@ -81,10 +79,6 @@ export class BkImageListFormComponent {
   protected imageList = computed(() => this.vm().properties?.imageList ?? []);
 
   public changedProperties = output<SectionProperties>();
-
-  constructor() {
-    addIcons({addCircleOutline});
-  }
 
   // call modal with input form to select an image and add metadata
   protected async addImage() {

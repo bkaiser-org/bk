@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AddressUsageNamePipe, ChannelIconPipe, FavoriteColorPipe, FavoriteIconPipe, FormatAddressPipe, PrettyjsonPipe, TranslatePipe } from '@bk/pipes';
+import { AddressUsageNamePipe, ChannelIconPipe, FavoriteColorPipe, FavoriteIconPipe, FormatAddressPipe, PrettyjsonPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AddressModel, isAddress } from '@bk/models';
 import { AddressService } from './address.service';
 import { IonAccordion, IonButton, IonCol, IonGrid, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonRow, ModalController } from '@ionic/angular/standalone';
@@ -9,11 +9,6 @@ import { BkSpinnerComponent } from '@bk/ui';
 import { AddressEditModalComponent } from './address-edit-modal';
 import { createPostalAddress } from './address.util';
 import { AddressUsage, ModelType } from '@bk/categories';
-import { addIcons } from "ionicons";
-import { addCircleOutline, logoClosedCaptioning, shieldCheckmarkOutline, star, starOutline, callOutline, atOutline, globeOutline,
-  logoTwitter, logoLinkedin, logoFacebook, logoXing, logoSkype, logoReddit, mailOpenOutline, logoInstagram, chatbubbleOutline, 
-  chatboxEllipsesOutline, logoGithub, cashOutline, trash, copyOutline, createOutline, qrCodeOutline
- } from "ionicons/icons";
 
 @Component({
   selector: 'bk-addresses-accordion',
@@ -21,7 +16,7 @@ import { addCircleOutline, logoClosedCaptioning, shieldCheckmarkOutline, star, s
   imports: [ 
     TranslatePipe, AsyncPipe, PrettyjsonPipe,
     BkSpinnerComponent,
-    FavoriteColorPipe, FavoriteIconPipe, ChannelIconPipe, AddressUsageNamePipe, FormatAddressPipe,
+    FavoriteColorPipe, FavoriteIconPipe, ChannelIconPipe, AddressUsageNamePipe, FormatAddressPipe, SvgIconPipe,
     IonAccordion, IonItem, IonLabel, IonButton, IonIcon, IonGrid, IonRow, IonCol, 
     IonItemSliding, IonItemOptions, IonItemOption, IonList
   ],
@@ -36,7 +31,7 @@ import { addCircleOutline, logoClosedCaptioning, shieldCheckmarkOutline, star, s
         <ion-label>{{ label() | translate | async }}</ion-label>
         @if(readOnly() === false) {
           <ion-button fill="outline" slot="end" (click)="editAddress()">
-            <ion-icon color="secondary" slot="icon-only" name="add-circle-outline" />
+            <ion-icon color="secondary" slot="icon-only" src="{{ 'add-circle-outline' | svgIcon }}" />
           </ion-button>
         }
     </ion-item>
@@ -52,14 +47,14 @@ import { addCircleOutline, logoClosedCaptioning, shieldCheckmarkOutline, star, s
               <ion-item-sliding #slidingItem>
                 <ion-item (click)="addressService.useAddress(address)">
                   <ion-label>
-                    <ion-icon name="{{ address.isFavorite | favoriteIcon }}" color="{{ address.isFavorite | favoriteColor }}" />
+                    <ion-icon src="{{ address.isFavorite | favoriteIcon }}" color="{{ address.isFavorite | favoriteColor }}" />
                     @if(address.isCc) {
-                      <ion-icon name="logo-closed-captioning" />
+                      <ion-icon src="{{ 'logo-closed-captioning' | svgIcon }}" />
                     }
                     @if(address.isValidated) {
-                      <ion-icon name="shield-checkmark-outline" />
+                      <ion-icon src="{{ 'shield-checkmark-outline' | svgIcon }}" />
                     }
-                    <ion-icon [name]="address.category | channelIcon" />
+                    <ion-icon [src]="address.category | channelIcon" />
                     <span class="ion-hide-md-down"> {{ address.addressUsage | addressUsageName:address.addressUsageLabel }}</span>
                   </ion-label>
                   <ion-label>
@@ -68,10 +63,10 @@ import { addCircleOutline, logoClosedCaptioning, shieldCheckmarkOutline, star, s
                 </ion-item>
                 @if(readOnly() === false) {
                   <ion-item-options side="end">
-                    <ion-item-option color="danger" (click)="deleteAddress(slidingItem, address)"><ion-icon slot="icon-only" name="trash" /></ion-item-option>
-                    <ion-item-option color="light" (click)="copyAddress(slidingItem, address)"><ion-icon slot="icon-only" name="copy-outline" /></ion-item-option>
-                    <ion-item-option color="primary" (click)="editAddress(slidingItem, address)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
-                    <ion-item-option color="light" (click)="uploadEzs(slidingItem, address)"><ion-icon slot="icon-only" name="qr-code-outline" /></ion-item-option>
+                    <ion-item-option color="danger" (click)="deleteAddress(slidingItem, address)"><ion-icon slot="icon-only" src="{{'trash' | svgIcon }}" /></ion-item-option>
+                    <ion-item-option color="light" (click)="copyAddress(slidingItem, address)"><ion-icon slot="icon-only" src="{{'copy-outline' | svgIcon }}" /></ion-item-option>
+                    <ion-item-option color="primary" (click)="editAddress(slidingItem, address)"><ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" /></ion-item-option>
+                    <ion-item-option color="light" (click)="uploadEzs(slidingItem, address)"><ion-icon slot="icon-only" src="{{'qr-code-outline' | svgIcon }}" /></ion-item-option>
                   </ion-item-options>
                 }
               </ion-item-sliding>
@@ -103,12 +98,6 @@ export class BkAddressesAccordionComponent implements OnInit {
 
   ngOnInit() {
     this.addresses$ = this.addressService.listAddresses(this.parentKey());
-  }
-
-  constructor() {
-    addIcons({addCircleOutline, logoClosedCaptioning, shieldCheckmarkOutline, star, starOutline, callOutline, atOutline, globeOutline,
-      logoTwitter, logoLinkedin, logoFacebook, logoXing, logoSkype, logoReddit, mailOpenOutline, logoInstagram, chatbubbleOutline, 
-      chatboxEllipsesOutline, logoGithub, cashOutline, trash, copyOutline, createOutline, qrCodeOutline});
   }
 
   public async toggleFavoriteAddress(address: AddressModel): Promise<void> {

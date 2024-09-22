@@ -2,20 +2,18 @@ import { Component, OnInit, inject } from '@angular/core';
 import { PageModel } from '@bk/models';
 import { CollectionNames, bkPrompt } from '@bk/util';
 import { BkCatComponent, BkSearchbarComponent, BkSpinnerComponent } from '@bk/ui';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AlertController, IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar   } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { ListType, ModelType } from '@bk/categories';
 import { BaseModelListComponent } from '@bk/base';
 import { PageAllService } from './page-all.service';
-import { addIcons } from "ionicons";
-import { addCircleOutline, createOutline, trash } from "ionicons/icons";
 
 @Component({
   selector: 'bk-page-all-list',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, 
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     BkSearchbarComponent, BkCatComponent, BkSpinnerComponent,
     IonToolbar, IonButton, IonIcon, IonLabel, IonHeader, IonButtons, 
     IonTitle, IonMenuButton, IonContent, IonItem, IonBackdrop,
@@ -30,7 +28,9 @@ import { addCircleOutline, createOutline, trash } from "ionicons/icons";
       <ion-title>{{ '@content.page.plural' | translate | async }}</ion-title>
       <ion-buttons slot="end">
         @if(authorizationService.isPrivilegedOr('contentAdmin')) {
-          <ion-button (click)="addPage()"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+          <ion-button (click)="addPage()">
+            <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
+          </ion-button>
         }
       </ion-buttons>
     </ion-toolbar>
@@ -89,8 +89,12 @@ import { addCircleOutline, createOutline, trash } from "ionicons/icons";
             <ion-label>{{ page.sections.length }}</ion-label>
           </ion-item>
           <ion-item-options side="end">
-            <ion-item-option color="danger" (click)="deletePage(slidingItem, page)"><ion-icon slot="icon-only" name="trash" /></ion-item-option>
-            <ion-item-option color="primary" (click)="openPage(slidingItem, page.bkey)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+            <ion-item-option color="danger" (click)="deletePage(slidingItem, page)">
+              <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
+            </ion-item-option>
+            <ion-item-option color="primary" (click)="openPage(slidingItem, page.bkey)">
+              <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />
+            </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       }
@@ -108,11 +112,6 @@ export class PageAllListComponent extends BaseModelListComponent implements OnIn
   protected collectionName = CollectionNames.Page;
   protected listRoute = '/page/all';
   private alertController = inject(AlertController);
-
-  constructor() {
-    super();
-    addIcons({ addCircleOutline, createOutline, trash});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

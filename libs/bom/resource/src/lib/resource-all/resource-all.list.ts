@@ -3,21 +3,19 @@ import { BoatTypes, ListType } from '@bk/categories';
 import { CollectionNames, ResourceTags } from '@bk/util';
 import { ResourceModel } from '@bk/models';
 import { BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
-import { CategoryNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { CategoryNamePipe, IsSortedPipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { ResourceLogoPipe } from '../resource-logo.pipe';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { BaseModelListComponent } from '@bk/base';
 import { ResourceAllService } from './resource-all.service';
-import { addIcons } from "ionicons";
-import { addCircleOutline, boatOutline, carOutline, downloadOutline, femaleOutline, hammerOutline, helpCircleOutline, homeOutline, keyOutline, maleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-resource-all-list',
   standalone: true,
   imports: [
     BkAvatarLabelComponent, BkSearchbarComponent, BkSpinnerComponent, BkSingleTagComponent, BkCatComponent,
-    TranslatePipe, IsSortedPipe, SortDirectionPipe, CategoryNamePipe, ResourceLogoPipe, AsyncPipe, 
+    TranslatePipe, IsSortedPipe, SortDirectionPipe, CategoryNamePipe, ResourceLogoPipe, AsyncPipe, SvgIconPipe,
     IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonMenuButton,
     IonGrid, IonRow, IonCol, IonIcon, IonItem, IonLabel, IonContent
   ],
@@ -29,12 +27,12 @@ import { addCircleOutline, boatOutline, carOutline, downloadOutline, femaleOutli
     <ion-buttons slot="end">
       @if(authorizationService.hasRole('resourceAdmin')) {
         <ion-button (click)="add()">
-          <ion-icon slot="icon-only" name="add-circle-outline" />
+          <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
         </ion-button>
       }
       @if(authorizationService.isPrivilegedOr('resourceAdmin')) {
         <ion-button (click)="export()">
-          <ion-icon slot="icon-only" name="download-outline" />
+          <ion-icon slot="icon-only" src="{{'download-outline' | svgIcon }}" />
         </ion-button>
       }
     </ion-buttons>
@@ -66,7 +64,7 @@ import { addCircleOutline, boatOutline, carOutline, downloadOutline, femaleOutli
   @if(getResources(); as resources) {
     @for(resource of resources; track resource.bkey) {
       <ion-item class="ion-text-wrap" (click)="edit(resource.bkey!)">
-        <ion-icon name="{{ resource?.category! | resourceLogo }}" slot="start" />
+        <ion-icon src="{{ resource?.category! | resourceLogo }}" slot="start" />
         <ion-label>{{ resource?.name }}</ion-label>
         <ion-label>{{ resource?.currentValue }}</ion-label>
         <ion-label>{{ resource?.description }}</ion-label>
@@ -86,11 +84,6 @@ export class ResourceAllListComponent extends BaseModelListComponent implements 
   protected collectionName = CollectionNames.Resource;
   protected listRoute = '/resource/all';
   protected resourceTags = ResourceTags;
-
-  constructor() {
-    super();
-    addIcons({addCircleOutline, boatOutline, carOutline, downloadOutline, femaleOutline, hammerOutline, helpCircleOutline, homeOutline, keyOutline, maleOutline});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

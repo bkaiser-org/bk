@@ -7,12 +7,13 @@ import { die, getImgixUrl, getSizedImgixParamsByExtension, getThumbnailUrl } fro
   standalone: true
 })
 export class ImgixUrlPipe implements PipeTransform {
-
-  transform(image: Image): string {
+  transform(image: Image, baseUrl?: string): string {
+    const _baseUrl = baseUrl ? baseUrl + '/' : '';
     if (image.isThumbnail === true) {
-      return getThumbnailUrl(image.url, 200, 200);
+      return getThumbnailUrl(_baseUrl + image.url, 200, 200);
     }
-    return getImgixUrlFromImage(image);
+    console.log('ImgixUrlPipe.transform -> url: ', _baseUrl + getImgixUrlFromImage(image));
+    return _baseUrl + getImgixUrlFromImage(image);
   }
 }
 

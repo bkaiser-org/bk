@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CollectionNames, EventTags, bkTranslate } from '@bk/util';
+import { CollectionNames, EventTags } from '@bk/util';
 import { AvatarPipe, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
-import { FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { FullNamePipe, IsSortedPipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar ,IonPopover ,IonList, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonImg } from '@ionic/angular/standalone';
 import { BaseModelListComponent } from '@bk/base';
 import { AsyncPipe } from '@angular/common';
@@ -9,14 +9,12 @@ import { ListType } from '@bk/categories';
 import { EventAllService } from './event-all.service';
 import { EventModel } from '@bk/models';
 import { EventDurationPipe } from './event-duration.pipe';
-import { addIcons } from "ionicons";
-import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trash } from "ionicons/icons";
 
 @Component({
     selector: 'bk-event-all-list',
     standalone: true,
     imports: [
-      TranslatePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, AvatarPipe, EventDurationPipe,
+      TranslatePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, AvatarPipe, EventDurationPipe, SvgIconPipe,
       BkSearchbarComponent, BkSpinnerComponent, BkSingleTagComponent, BkCatComponent,
       IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonIcon, IonItemSliding,
       IonGrid, IonRow, IonCol, IonLabel, IonContent, IonItem, IonList, IonPopover,
@@ -29,13 +27,17 @@ import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline, tr
       <ion-title>{{ baseService.filteredItems().length }} {{ baseService.title() | translate | async }}</ion-title>
       <ion-buttons slot="end">
         @if(authorizationService.isPrivilegedOr('eventAdmin')) {
-          <ion-button (click)="editEvent()" id="tooltip-add"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+          <ion-button (click)="editEvent()" id="tooltip-add">
+            <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
+          </ion-button>
           <ion-popover trigger="tooltip-add" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.add' + baseService.slug() | translate | async}}</ion-content>
             </ng-template>
           </ion-popover>
-          <ion-button (click)="export()" id="tooltip-export"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
+          <ion-button (click)="export()" id="tooltip-export">
+            <ion-icon slot="icon-only" src="{{'download-outline' | svgIcon }}" />
+          </ion-button>
           <ion-popover trigger="tooltip-export" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.export' + baseService.slug() | translate | async}}</ion-content>
@@ -65,7 +67,7 @@ import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline, tr
           <ion-col size="12" size-md="6">
             <ion-button (click)="baseService.sort(SF.Name)" fill="clear">
               @if(baseService.currentSortCriteria() | isSorted:SF.Name) {
-                <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+                <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
               }
             <ion-label color="light"><strong>{{ '@event.list.header.name' | translate | async }}</strong></ion-label>
             </ion-button>
@@ -89,7 +91,9 @@ import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline, tr
             </ion-item>
             @if(authorizationService.isPrivilegedOr('eventAdmin')) {
               <ion-item-options side="end">
-                <ion-item-option color="danger" (click)="deleteEvent(slidingItem, event)"><ion-icon slot="icon-only" name="trash" /></ion-item-option>
+                <ion-item-option color="danger" (click)="deleteEvent(slidingItem, event)">
+                  <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
+                </ion-item-option>
               </ion-item-options>
             }
           </ion-item-sliding>
@@ -107,11 +111,6 @@ export class EventAllListComponent extends BaseModelListComponent implements OnI
   protected collectionName = CollectionNames.Event;
   protected listRoute = '/event/all';
   protected eventTags = EventTags;
-
-  constructor() {
-    super();
-    addIcons({addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trash});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

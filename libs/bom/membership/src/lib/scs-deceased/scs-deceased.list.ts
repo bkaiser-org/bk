@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FilterType, ListType, ListTypes } from '@bk/categories';
 import { CollectionNames, MembershipTags, die, uniqueElements } from '@bk/util';
 import { BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
-import { DurationPipe, FullNamePipe, IsSortedPipe, MemberCategoriesPipe, MemberHeaderPipe, PrettyDatePipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { DurationPipe, FullNamePipe, IsSortedPipe, MemberCategoriesPipe, MemberHeaderPipe, PrettyDatePipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { MembershipSubjectModel, RelationshipModel, SubjectModel } from '@bk/models';
 import { IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
@@ -10,8 +10,6 @@ import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, combineLatest, map, switchMap } from 'rxjs';
 import { ScsDeceasedService } from './scs-deceased.service';
-import { addIcons } from "ionicons";
-import { arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-membership-scs-deceased-list',
@@ -35,7 +33,7 @@ import { arrowUpOutline, arrowDownOutline } from "ionicons/icons";
   standalone: true,
   imports: [
     TranslatePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, MemberHeaderPipe,
-    DurationPipe, MemberCategoriesPipe, PrettyDatePipe,
+    DurationPipe, MemberCategoriesPipe, PrettyDatePipe, SvgIconPipe,
     BkYearSelectComponent, BkSingleTagComponent,
     BkAvatarLabelComponent, BkSpinnerComponent, BkSearchbarComponent, BkCatComponent, IonBackdrop,
     IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonIcon,
@@ -66,7 +64,7 @@ import { arrowUpOutline, arrowDownOutline } from "ionicons/icons";
           <ion-col size="9" size-md="6">
             <ion-button (click)="baseService.sort(SF.Name)" fill="clear">
               @if(baseService.currentSortCriteria() | isSorted:SF.Name) {
-                <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+                <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
               }
               <ion-label color="light"><strong>{{ '@membership.list.header.name' | translate | async }}</strong></ion-label>  
             </ion-button>    
@@ -74,7 +72,7 @@ import { arrowUpOutline, arrowDownOutline } from "ionicons/icons";
           <ion-col size="3" class="ion-hide-md-down">
           <ion-button (click)="baseService.sort(SF.ValidFrom)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.ValidFrom) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ '@membership.list.header.entryExit' | translate | async }}</strong></ion-label>  
           </ion-button>    
@@ -82,7 +80,7 @@ import { arrowUpOutline, arrowDownOutline } from "ionicons/icons";
         <ion-col size="3">
           <ion-button (click)="baseService.sort(SF.DateOfDeath)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.DateOfDeath) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ baseService.listType()! | memberHeader | translate | async }}</strong></ion-label>
           </ion-button>    
@@ -133,11 +131,6 @@ export class MembershipScsDeceasedListComponent extends BaseModelListComponent i
   protected listType = ListType.MemberScsDeceased;
   protected collectionName = CollectionNames.Membership;
   protected listRoute = '/membership/scsDeceased';
-
-  constructor() {
-    super();
-    addIcons({arrowUpOutline, arrowDownOutline});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { SectionModel } from '@bk/models';
 import { CollectionNames, navigateByUrl } from '@bk/util';
 import { BkCardSelectModalComponent, BkCatComponent, BkSearchbarComponent, BkSpinnerComponent } from '@bk/ui';
-import { CategoryNamePipe, TranslatePipe } from '@bk/pipes';
+import { CategoryNamePipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar, ModalController   } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { ListType, SectionTypes } from '@bk/categories';
@@ -10,14 +10,12 @@ import { BaseModelListComponent } from '@bk/base';
 import { SectionAllService } from './section-all.service';
 import { createSection } from '../section.util';
 import { Router } from '@angular/router';
-import { addIcons } from "ionicons";
-import { addCircleOutline, createOutline, trash } from "ionicons/icons";
 
 @Component({
   selector: 'bk-section-all-list',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, CategoryNamePipe,
+    TranslatePipe, AsyncPipe, CategoryNamePipe, SvgIconPipe,
     BkSearchbarComponent, BkCatComponent, BkSpinnerComponent,
     IonToolbar, IonButton, IonIcon, IonLabel, IonHeader, IonButtons, 
     IonTitle, IonMenuButton, IonContent, IonItem, IonBackdrop,
@@ -33,7 +31,7 @@ import { addCircleOutline, createOutline, trash } from "ionicons/icons";
       <ion-buttons slot="end">
         @if(authorizationService.isPrivilegedOr('contentAdmin')) {
           <ion-button (click)="addSection()">
-            <ion-icon slot="icon-only" name="add-circle-outline" />
+            <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
           </ion-button>
         }
       </ion-buttons>
@@ -99,10 +97,10 @@ import { addCircleOutline, createOutline, trash } from "ionicons/icons";
           </ion-item>
           <ion-item-options side="end">
             <ion-item-option color="danger" (click)="deleteSection(slidingItem, section)">
-              <ion-icon slot="icon-only" name="trash" />
+              <ion-icon slot="icon-only" src="{{'trash' | svgIcon }}" />
             </ion-item-option>
             <ion-item-option color="primary" (click)="editSection(slidingItem, section.bkey)">
-              <ion-icon slot="icon-only" name="create-outline" />
+              <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />
             </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
@@ -123,11 +121,6 @@ export class SectionAllListComponent extends BaseModelListComponent implements O
   protected listRoute = '/section/all';
   protected modalController = inject(ModalController);
   protected sectionTypes = SectionTypes;
-
-  constructor() {
-    super();
-    addIcons({addCircleOutline, createOutline, trash});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

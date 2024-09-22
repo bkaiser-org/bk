@@ -3,20 +3,18 @@ import { CompetitionLevelModel } from '@bk/models';
 import { CompetitionLevels, ListType } from '@bk/categories';
 import { BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSpinnerComponent } from '@bk/ui';
 import { CollectionNames } from '@bk/util';
-import { CategoryAbbreviationPipe, FullNamePipe, IsSortedPipe, PrettyDatePipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { CategoryAbbreviationPipe, FullNamePipe, IsSortedPipe, PrettyDatePipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BkCompetitionLevelTableComponent } from '../bk-competition-level-table';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { BaseModelListComponent } from '@bk/base';
 import { AsyncPipe } from '@angular/common';
 import { CompetitionLevelAllService } from './competition-level-all.service';
-import { addIcons } from "ionicons";
-import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-competition-level-all-list',
   standalone: true,
   imports: [ 
-    TranslatePipe, AsyncPipe, PrettyDatePipe,
+    TranslatePipe, AsyncPipe, PrettyDatePipe, SvgIconPipe,
     BkAvatarLabelComponent, BkSpinnerComponent, BkSearchbarComponent, 
     BkCompetitionLevelTableComponent, BkCatComponent,
     FullNamePipe, CategoryAbbreviationPipe, IsSortedPipe, SortDirectionPipe,
@@ -30,7 +28,7 @@ import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icon
     <ion-buttons slot="end">
       @if(authorizationService.isPrivilegedOr('memberAdmin')) {
         <ion-button (click)="export()">
-          <ion-icon slot="icon-only" name="download-outline" />
+          <ion-icon slot="icon-only" src="{{'download-outline' | svgIcon }}" />
         </ion-button>
       }
     </ion-buttons>
@@ -54,7 +52,7 @@ import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icon
         <ion-col size="6">
           <ion-button (click)="baseService.sort(SF.Name)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.Name) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ '@competitionLevel.list.header.name' | translate | async }}</strong></ion-label>
           </ion-button>
@@ -62,7 +60,7 @@ import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icon
         <ion-col size="6" size-md="3">
           <ion-button (click)="baseService.sort(SF.Category)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.Category) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ '@competitionLevel.list.header.competitionLevel' | translate | async }}</strong></ion-label>
           </ion-button>
@@ -70,7 +68,7 @@ import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icon
         <ion-col size-md="3" class="ion-hide-md-down">
           <ion-button (click)="baseService.sort(SF.DateOfBirth)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.DateOfBirth) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ '@competitionLevel.list.header.birthDate' | translate | async }}</strong></ion-label>
           </ion-button>
@@ -110,11 +108,6 @@ export class CompetitionLevelAllListComponent extends BaseModelListComponent imp
   protected listType = ListType.CompetitionLevelAll;
   protected collectionName = CollectionNames.CompetitionLevel;
   protected listRoute = '/competitionLevel/all';
-
-  constructor() {
-    super();
-    addIcons({downloadOutline, arrowUpOutline, arrowDownOutline});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

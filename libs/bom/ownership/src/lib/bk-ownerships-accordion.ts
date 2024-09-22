@@ -2,21 +2,19 @@ import { Component, computed, inject, input } from '@angular/core';
 import { ModelType, ResourceTypes } from '@bk/categories';
 import { RelationshipModel } from '@bk/models';
 import { AvatarPipe, BkSpinnerComponent } from '@bk/ui';
-import { CategoryNamePipe, DurationPipe, TranslatePipe } from '@bk/pipes';
+import { CategoryNamePipe, DurationPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { IonAccordion, IonAvatar, IonButton, IonButtons, IonIcon, IonImg, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList } from '@ionic/angular/standalone';
 import { OwnershipService } from './ownership.service';
 import { AuthorizationService } from '@bk/base';
 import { AsyncPipe } from '@angular/common';
 import { navigateByUrl } from '@bk/util';
 import { Router } from '@angular/router';
-import { addIcons } from "ionicons";
-import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
 
 @Component({
     selector: 'bk-ownerships-accordion',
     standalone: true,
     imports: [
-      TranslatePipe, CategoryNamePipe, AvatarPipe, AsyncPipe, DurationPipe,
+      TranslatePipe, CategoryNamePipe, AvatarPipe, AsyncPipe, DurationPipe, SvgIconPipe,
       BkSpinnerComponent,
       IonAccordion, IonItem, IonLabel, IonList, IonButtons, IonButton, IonIcon,
       IonAvatar, IonImg, IonItemSliding, IonItemOptions, IonItemOption
@@ -27,7 +25,7 @@ import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
         <ion-label>{{ '@ownership.plural' | translate | async }}</ion-label>
         @if(authorizationService.hasRole('resourceAdmin')) {
         <ion-button fill="outline" (click)="addOwnership()">
-          <ion-icon color="secondary" slot="icon-only" name="add-circle-outline" />
+          <ion-icon color="secondary" slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
         </ion-button>
       }
       </ion-item>
@@ -58,8 +56,12 @@ import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
                   </ion-item>
                   @if(authorizationService.hasRole('resourceAdmin')) {
                     <ion-item-options side="end">
-                      <ion-item-option color="danger" (click)="endOwnership(slidingItem, ownership)"><ion-icon slot="icon-only" name="trash-outline" /></ion-item-option>
-                      <ion-item-option color="primary" (click)="editOwnership(slidingItem, ownership)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+                      <ion-item-option color="danger" (click)="endOwnership(slidingItem, ownership)">
+                        <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
+                      </ion-item-option>
+                      <ion-item-option color="primary" (click)="editOwnership(slidingItem, ownership)">
+                        <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />
+                      </ion-item-option>
                     </ion-item-options>
                   }
                 </ion-item-sliding>
@@ -83,10 +85,6 @@ export class BkOwnershipsComponent {
 
   public RT = ResourceTypes;
   public MT = ModelType;
-
-  constructor() {
-    addIcons({addCircleOutline, createOutline, trashOutline});
-  }
 
   public async addOwnership(): Promise<void> {
     await this.ownershipService.createNewOwnershipFromSubject(this.subjectKey());

@@ -1,20 +1,18 @@
 import { Component, input } from '@angular/core';
 import { IonButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
 import { ColorIonic, ColorsIonic } from '@bk/categories';
-import { CategoryPlainNamePipe } from '@bk/pipes';
-import { addIcons } from "ionicons";
-import { checkmarkCircleOutline, helpOutline } from "ionicons/icons";
+import { CategoryPlainNamePipe, SvgIconPipe } from '@bk/pipes';
 
 @Component({
   selector: 'bk-button',
   standalone: true,
   imports: [
-    CategoryPlainNamePipe,
+    CategoryPlainNamePipe, SvgIconPipe,
     IonButton, IonIcon, IonLabel
   ],
   template: `
   <ion-button [expand]="expand()" [fill]="fill()" [size]="size()" [color]="color() | categoryPlainName:colorsIonic" [disabled]="disabled()">
-    <ion-icon [name]="iconName()" [size]="size()" [slot]="slot()" [style.color]="iconColor" />
+    <ion-icon src="{{iconName() | svgIcon}}" [size]="size()" [slot]="slot()" [style.color]="iconColor" />
       @if (label() && label().length > 0) {
         <ion-label>{{ label() }}</ion-label>
       }
@@ -33,8 +31,4 @@ export class BkButtonComponent {
 
   protected iconColor = 'white';
   protected colorsIonic = ColorsIonic;
-
-  constructor() {
-    addIcons({checkmarkCircleOutline, helpOutline});
-  }
 }

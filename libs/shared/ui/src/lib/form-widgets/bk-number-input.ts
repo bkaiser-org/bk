@@ -1,17 +1,15 @@
 import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, Component, inject, input, output, viewChild } from '@angular/core';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AutoComplete, bkTranslate, ENV, copyToClipboard, InputMode, INT_LENGTH, showToast } from '@bk/util';
 import { ToastController } from '@ionic/angular';
 import { IonIcon, IonInput, IonItem } from '@ionic/angular/standalone';
-import { addIcons } from "ionicons";
-import { copyOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-number-input',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, 
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     IonItem, IonInput, IonIcon
   ],
   template: `
@@ -29,7 +27,7 @@ import { copyOutline } from "ionicons/icons";
     [readonly]="readOnly()"
   />
   @if (copyable()) {
-    <ion-icon slot="end" name="copy-outline" (click)="copyValue()" />
+    <ion-icon slot="end" src="{{'copy-outline' | svgIcon }}" (click)="copyValue()" />
   }
 </ion-item>
   `
@@ -53,10 +51,6 @@ export class BkNumberInputComponent implements AfterViewInit {
 
   public changed = output<number>();
   public ionInput = viewChild.required<IonInput>('bkNumberInput');
-
-  constructor() {
-    addIcons({copyOutline});
-  }
 
   ngAfterViewInit(): void {
     if (this.showError() === true) {

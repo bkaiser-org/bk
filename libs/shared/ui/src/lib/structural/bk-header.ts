@@ -2,16 +2,14 @@ import { Component, inject, input } from '@angular/core';
 import { AppNavigationService } from '@bk/util';
 import { IonButton, IonButtons, IonHeader, IonIcon, IonMenuButton, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
 import { BkSearchbarComponent } from './bk-searchbar/bk-searchbar';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
-import { addIcons } from "ionicons";
-import { closeCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-header',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonIcon, IonButton,
     BkSearchbarComponent
   ],
@@ -25,7 +23,7 @@ import { closeCircleOutline } from "ionicons/icons";
         @if(isRoot() === false) {
           <ion-buttons slot="end">
             <ion-button (click)="back()">
-              <ion-icon slot="icon-only" name="close-circle-outline" />
+              <ion-icon slot="icon-only" src="{{'close-circle-outline' | svgIcon }}" />
             </ion-button>
           </ion-buttons>
         }
@@ -51,10 +49,6 @@ export class BkHeaderComponent {
   public isRoot = input(false);
   public isSearchable = input(false);
   public placeholder = input('@general.operation.search.placeholder');
-
-  constructor() {
-    addIcons({closeCircleOutline});
-  }
 
   public back(): void {
     if (this.isModal()) {

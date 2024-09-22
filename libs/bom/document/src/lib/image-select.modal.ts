@@ -1,13 +1,11 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { IonButton, IonContent, IonIcon, IonImg, ModalController } from '@ionic/angular/standalone';
 import { Image, newImage } from '@bk/models';
 import { ModelType } from '@bk/categories';
 import { getImgixUrlWithAutoParams } from '@bk/util';
 import { BkHeaderComponent, BkTextInputComponent } from '@bk/ui';
-import { addIcons } from "ionicons";
-import { camera } from "ionicons/icons";
 import { pickPhoto, uploadFileToModel } from './document.util';
 
 /**
@@ -17,7 +15,7 @@ import { pickPhoto, uploadFileToModel } from './document.util';
   selector: 'bk-image-select-modal',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     BkHeaderComponent, BkTextInputComponent,
     IonContent, IonImg, IonButton, IonIcon
   ],
@@ -25,7 +23,7 @@ import { pickPhoto, uploadFileToModel } from './document.util';
       <bk-header title="{{ '@content.section.operation.selectImage.title' | translate | async }}" [isModal]="true" />
       <ion-content>
         <ion-button (click)="pickImage()">
-          <ion-icon slot="start" name="camera" />
+          <ion-icon slot="start" src="{{'camera' | svgIcon }}" />
           {{ '@content.section.operation.selectImage.upload' | translate | async }}
         </ion-button>
         <bk-text-input name="imageLabel" value="" (changed)="updateField('imageLabel', $event)" [showHelper]=true />
@@ -46,10 +44,6 @@ export class ImageSelectModalComponent {
   protected image = newImage();
   // maybe we need to set sizes: '(max-width: 1240px) 50vw, 300px'
   protected canSave = false;
-
-  constructor() {
-    addIcons({camera});
-  }
 
   // select a photo from the camera or the photo library
   protected async pickImage() {

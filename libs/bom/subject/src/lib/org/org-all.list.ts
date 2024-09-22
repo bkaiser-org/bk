@@ -2,20 +2,18 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CollectionNames, OrgTags } from '@bk/util';
 import { AvatarPipe, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
 import { SubjectModel } from '@bk/models';
-import { FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { FullNamePipe, IsSortedPipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar ,IonPopover ,IonList, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonImg } from '@ionic/angular/standalone';
 import { BaseModelListComponent } from '@bk/base';
 import { AsyncPipe } from '@angular/common';
 import { ListType } from '@bk/categories';
 import { OrgAllService } from './org-all.service';
-import { addIcons } from "ionicons";
-import { addCircleOutline, atOutline, callOutline, copyOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trash } from "ionicons/icons";
 
 @Component({
     selector: 'bk-org-all-list',
     standalone: true,
     imports: [
-      TranslatePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, AvatarPipe,
+      TranslatePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, AvatarPipe, SvgIconPipe,
       BkSearchbarComponent, BkSpinnerComponent, BkSingleTagComponent, BkCatComponent,
       IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonIcon, IonItemSliding,
       IonGrid, IonRow, IonCol, IonLabel, IonContent, IonItem, IonList, IonPopover,
@@ -29,7 +27,7 @@ import { addCircleOutline, atOutline, callOutline, copyOutline, downloadOutline,
       <ion-buttons slot="end">
         @if(authorizationService.hasRole('memberAdmin')) {
           <ion-button (click)="copyEmailAddresses()" id="tooltip-copy">
-            <ion-icon slot="icon-only" name="copy-outline" />
+            <ion-icon slot="icon-only" src="{{'copy-outline' | svgIcon }}" />
           </ion-button>
           <ion-popover trigger="tooltip-copy" triggerAction="context-menu">
             <ng-template>
@@ -37,7 +35,7 @@ import { addCircleOutline, atOutline, callOutline, copyOutline, downloadOutline,
             </ng-template>
           </ion-popover>
           <ion-button (click)="add()" id="tooltip-add">
-            <ion-icon slot="icon-only" name="add-circle-outline" />
+            <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
           </ion-button>
           <ion-popover trigger="tooltip-add" triggerAction="context-menu">
             <ng-template>
@@ -47,7 +45,7 @@ import { addCircleOutline, atOutline, callOutline, copyOutline, downloadOutline,
         }
         @if(authorizationService.isPrivilegedOr('memberAdmin')) {
           <ion-button (click)="export()" id="tooltip-export">
-            <ion-icon slot="icon-only" name="download-outline" />
+            <ion-icon slot="icon-only" src="{{'download-outline' | svgIcon }}" />
           </ion-button>
           <ion-popover trigger="tooltip-export" triggerAction="context-menu">
             <ng-template>
@@ -78,7 +76,7 @@ import { addCircleOutline, atOutline, callOutline, copyOutline, downloadOutline,
           <ion-col size="8" size-md="5">
             <ion-button (click)="baseService.sort(SF.Name)" fill="clear">
               @if(baseService.currentSortCriteria() | isSorted:SF.Name) {
-                <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+                <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
               }
             <ion-label color="light"><strong>{{ '@subject.list.header.name' | translate | async }}</strong></ion-label>
             </ion-button>
@@ -109,7 +107,7 @@ import { addCircleOutline, atOutline, callOutline, copyOutline, downloadOutline,
               <ion-label>
                 @if(subject.fav_phone) {
                   <a href="tel:{{subject.fav_phone}}" style="text-decoration:none;">
-                    <ion-icon name="call-outline" slot="start" class="ion-hide-md-up" />
+                    <ion-icon src="{{'call-outline' | svgIcon }}" slot="start" class="ion-hide-md-up" />
                     <span class="ion-hide-md-down">{{subject.fav_phone }}</span>
                   </a>
                 }
@@ -117,7 +115,7 @@ import { addCircleOutline, atOutline, callOutline, copyOutline, downloadOutline,
               <ion-label>
                 @if(subject?.fav_email) {
                   <a href="mailto:{{subject.fav_email}}" style="text-decoration:none;">
-                    <ion-icon name="at-outline" slot="icon-only" class="ion-hide-md-up"/>
+                    <ion-icon src="{{'at-outline' | svgIcon }}" slot="icon-only" class="ion-hide-md-up"/>
                     <span class="ion-hide-md-down">{{subject.fav_email }}</span>
                   </a>
                 }
@@ -126,7 +124,7 @@ import { addCircleOutline, atOutline, callOutline, copyOutline, downloadOutline,
             @if(authorizationService.hasRole('memberAdmin')) {
               <ion-item-options side="end">
                 <ion-item-option color="danger" (click)="deleteSubject(slidingItem, subject)">
-                  <ion-icon slot="icon-only" name="trash" />
+                  <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
                 </ion-item-option>
               </ion-item-options>
             }
@@ -145,11 +143,6 @@ export class OrgAllListComponent extends BaseModelListComponent implements OnIni
   protected collectionName = CollectionNames.Org;
   protected listRoute = '/org/all';
   protected orgTags = OrgTags;
-
-  constructor() {
-    super();
-    addIcons({addCircleOutline, atOutline, callOutline, copyOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trash});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

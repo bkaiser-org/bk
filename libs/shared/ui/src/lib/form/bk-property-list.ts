@@ -1,20 +1,18 @@
 
 import { Component, input, model, output } from '@angular/core';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonInput, IonItem, IonLabel, IonList, IonListHeader, IonReorder, IonReorderGroup, ItemReorderEventDetail } from '@ionic/angular/standalone';
 import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import { BaseProperty, arrayMove, getIndexOfKey } from '@bk/util';
 import { FormsModule } from '@angular/forms';
 import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { MaskitoDirective } from '@maskito/angular';
-import { addIcons } from "ionicons";
-import { closeCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-property-list',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, KeyValuePipe,
+    TranslatePipe, AsyncPipe, KeyValuePipe, SvgIconPipe,
     FormsModule, MaskitoDirective,
     IonList, IonListHeader, IonItem, IonButton,
     IonLabel, IonInput, IonIcon,
@@ -64,7 +62,7 @@ import { closeCircleOutline } from "ionicons/icons";
                     <ion-reorder slot="start" />
                     <ion-label>{{ property.key }}</ion-label>
                     <ion-label>{{ property.value }}</ion-label>
-                    <ion-icon name="close-circle-outline" (click)="remove(property.key)" slot="end" />
+                    <ion-icon src="{{'close-circle-outline' | svgIcon }}" (click)="remove(property.key)" slot="end" />
                   </ion-item>
                 }
               </ion-reorder-group>
@@ -81,10 +79,6 @@ export class BkPropertyListComponent {
   public propertiesChanged = output<void>();
   
   protected newProperty: BaseProperty = { key: '', value: '' };
-
-  constructor() {
-    addIcons({closeCircleOutline});
-  }
 
   protected isDisabled() {
     return this.newProperty['key'] === '' || this.newProperty['value'] === '';

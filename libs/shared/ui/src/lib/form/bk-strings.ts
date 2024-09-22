@@ -1,19 +1,17 @@
 import { Component, input, model, output } from '@angular/core';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonInput, IonItem, IonLabel, IonList, IonListHeader, IonReorder, IonReorderGroup, ItemReorderEventDetail } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { arrayMove } from '@bk/util';
 import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { FormsModule } from '@angular/forms';
 import { MaskitoDirective } from '@maskito/angular';
-import { addIcons } from "ionicons";
-import { closeCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-strings',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     FormsModule, MaskitoDirective,
     IonList, IonListHeader, IonItem,
     IonLabel, IonInput, IonIcon,
@@ -47,7 +45,7 @@ import { closeCircleOutline } from "ionicons/icons";
                 <ion-item>
                   <ion-reorder slot="start" />
                   <ion-label>{{ word }}</ion-label>
-                  <ion-icon name="close-circle-outline" (click)="removeWord(word)" slot="end" />
+                  <ion-icon src="{{'close-circle-outline' | svgIcon }}" (click)="removeWord(word)" slot="end" />
                 </ion-item>
               }
             </ion-reorder-group>
@@ -62,23 +60,19 @@ export class BkStringsComponent {
   public title = input('@input.strings.label');
   public addLabel = input('@input.strings.addString');
   public newString = '';
-  public stringsChanged = output<void>();
-
-  constructor() {
-    addIcons({closeCircleOutline});
-  }
+  public stringsChanged = output<string[]>();
 
   public save(): void {
     if (this.newString && this.newString.length > 0) {
       this.strings().push(this.newString);
       this.newString = '';
-      this.stringsChanged.emit();
+      this.stringsChanged.emit(this.strings());
     }
   }
 
   public removeWord(word: string): void {
     this.strings().splice(this.strings().indexOf(word), 1);
-    this.stringsChanged.emit();
+    this.stringsChanged.emit(this.strings());
   }
 
   reorder(ev: CustomEvent<ItemReorderEventDetail>) {
@@ -90,7 +84,7 @@ export class BkStringsComponent {
     // where the gesture ended. This method can also be called directly
     // by the reorder group
     ev.detail.complete();
-    this.stringsChanged.emit();
+    this.stringsChanged.emit(this.strings());
   }
 
   readonly wordMask: MaskitoOptions = {

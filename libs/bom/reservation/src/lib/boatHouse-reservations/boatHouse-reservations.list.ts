@@ -3,14 +3,11 @@ import { RelationshipModel } from '@bk/models';
 import { FilterType, ListType, ReservationStates } from '@bk/categories';
 import { CollectionNames, ReservationTags } from '@bk/util';
 import { AvatarPipe, BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
-import { CategoryIconPipe, FullNamePipe, IsSortedPipe, PrettyDatePipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { CategoryIconPipe, FullNamePipe, IsSortedPipe, PrettyDatePipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar ,IonBackdrop, IonItemSliding, IonItemOptions, IonItemOption, IonImg, IonAvatar } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { BoatHouseKey, BoatHouseReservationsService } from './boatHouse-reservations.service';
-import { addIcons } from "ionicons";
-import { addCircleOutline, arrowUpOutline, arrowDownOutline, bulbOutline, checkmarkOutline, closeOutline, createOutline, 
-  downloadOutline, helpOutline, trashOutline, thumbsDownOutline, thumbsUpOutline } from "ionicons/icons";
 
   @Component({
     selector: 'bk-boathouse-reservation-list',
@@ -42,7 +39,7 @@ import { addCircleOutline, arrowUpOutline, arrowDownOutline, bulbOutline, checkm
   imports: [ 
     BkSearchbarComponent, BkSpinnerComponent, BkYearSelectComponent,
     BkSingleTagComponent, BkCatComponent, BkAvatarLabelComponent,
-    TranslatePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, 
+    TranslatePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, SvgIconPipe,
     PrettyDatePipe, AvatarPipe, CategoryIconPipe,
     IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton,
     IonGrid, IonRow, IonCol, IonIcon, IonLabel, IonContent, IonItem, IonBackdrop,
@@ -56,10 +53,10 @@ import { addCircleOutline, arrowUpOutline, arrowDownOutline, bulbOutline, checkm
     <ion-buttons slot="end">
       @if(authorizationService.hasRole('resourceAdmin')) {
         <ion-button (click)="export()" id="tooltip-export">
-          <ion-icon slot="icon-only" name="download-outline" />
+          <ion-icon slot="icon-only" src="{{'download-outline' | svgIcon }}" />
         </ion-button>
         <ion-button (click)="addReservation()">
-          <ion-icon slot="icon-only" name="add-circle-outline" />
+          <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
         </ion-button>
       }
     </ion-buttons>
@@ -94,7 +91,7 @@ import { addCircleOutline, arrowUpOutline, arrowDownOutline, bulbOutline, checkm
             <ion-col size="4" class="ion-hide-md-down">
               <ion-button (click)="baseService.sort(SF.SubjectName)" fill="clear">
                 @if(baseService.currentSortCriteria() | isSorted:SF.SubjectName) {
-                  <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+                  <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
                 }
                 <ion-label color="light"><strong>{{ '@reservation.list.header.name' | translate | async }}</strong></ion-label>
               </ion-button>
@@ -102,7 +99,7 @@ import { addCircleOutline, arrowUpOutline, arrowDownOutline, bulbOutline, checkm
             <ion-col size="5" size-md="3">
               <ion-button (click)="baseService.sort(SF.ValidFrom)" fill="clear">
                 @if(baseService.currentSortCriteria() | isSorted:SF.ObjectName) {
-                  <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+                  <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
                 }
                 <ion-label color="light"><strong>{{ '@reservation.list.header.validFrom' | translate | async }}</strong></ion-label>
               </ion-button>
@@ -137,14 +134,14 @@ import { addCircleOutline, arrowUpOutline, arrowDownOutline, bulbOutline, checkm
             </ion-label>
             <ion-label  (click)="editReservation(_reservation)">{{ _reservation.validFrom | prettyDate }}</ion-label>
             <ion-label (click)="editReservation(_reservation)">{{ _reservation.name }}</ion-label>
-            <ion-icon size="small" name="{{ _reservation.state | categoryIcon:RS }}" slot="end" (click)="editReservation(_reservation)" />
+            <ion-icon size="small" src="{{ _reservation.state | categoryIcon:RS }}" slot="end" (click)="editReservation(_reservation)" />
           </ion-item>
           <ion-item-options side="end">
             <ion-item-option color="danger" (click)="endReservation(_reservation, slidingItem)">
-              <ion-icon slot="icon-only" name="trash-outline" />
+              <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
             </ion-item-option>
             <ion-item-option color="primary" (click)="editReservation(_reservation, slidingItem)">
-              <ion-icon slot="icon-only" name="create-outline" />
+              <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />
             </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
@@ -167,12 +164,6 @@ export class BoatHouseReservationListComponent extends BaseModelListComponent im
   protected listType = ListType.ReservationBoatHouse;
   protected collectionName = CollectionNames.Reservation;
   protected listRoute = '/reservation/boathouse';
-
-  constructor() {
-    super();
-    addIcons({addCircleOutline, arrowUpOutline, arrowDownOutline, bulbOutline, checkmarkOutline, closeOutline, createOutline, 
-      downloadOutline, helpOutline, trashOutline, thumbsDownOutline, thumbsUpOutline});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

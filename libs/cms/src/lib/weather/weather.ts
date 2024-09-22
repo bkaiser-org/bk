@@ -1,12 +1,10 @@
 import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
-import { PrettyDatePipe, RoundFloatPipe, TranslatePipe, WeatherIconPipe } from '@bk/pipes';
+import { PrettyDatePipe, RoundFloatPipe, SvgIconPipe, TranslatePipe, WeatherIconPipe } from '@bk/pipes';
 import { BkHeaderComponent } from '@bk/ui';
 import { convertOpenWeatherData, DateFormat, getTodayStr, getYear, MeteoData, OpenWeatherData } from '@bk/util';
 import { IonBadge, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonIcon, IonItem, IonLabel, IonRow } from '@ionic/angular/standalone';
-import { addIcons } from "ionicons";
-import { sunnyOutline, shuffleOutline, thermometerOutline, rainyOutline } from "ionicons/icons";
 
 @Component({
     selector: 'bk-weather',
@@ -14,7 +12,7 @@ import { sunnyOutline, shuffleOutline, thermometerOutline, rainyOutline } from "
     imports: [
       HttpClientModule, 
       BkHeaderComponent, 
-      TranslatePipe, PrettyDatePipe, RoundFloatPipe, WeatherIconPipe, DecimalPipe, AsyncPipe,
+      TranslatePipe, PrettyDatePipe, RoundFloatPipe, WeatherIconPipe, DecimalPipe, AsyncPipe, SvgIconPipe,
       IonContent, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardContent,
       IonIcon, IonItem, IonBadge, IonLabel 
     ],
@@ -26,10 +24,6 @@ export class WeatherPageComponent implements OnInit {
     public meteoData: MeteoData | undefined;
     public currentTime: string | undefined;
     public todayDate: string | undefined;
-
-    constructor() {
-      addIcons({sunnyOutline, shuffleOutline, thermometerOutline, rainyOutline});
-    }
   
     ngOnInit() {
         this.getOpenWeatherData();

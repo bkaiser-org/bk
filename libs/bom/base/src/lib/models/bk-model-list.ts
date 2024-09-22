@@ -2,20 +2,18 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject, model } from '@angular/core';
 import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
 import { SectionFormModel, SubjectModel, isPerson } from '@bk/models';
-import { FullNamePipe, TranslatePipe } from '@bk/pipes';
+import { FullNamePipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AlertController, IonAvatar, IonButton, IonIcon, IonImg, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, ModalController } from '@ionic/angular/standalone';
 import { ListType, ModelType } from '@bk/categories';
 import { bkPrompt } from '@bk/util';
 import { AvatarPipe, BkSpinnerComponent } from '@bk/ui';
 import { BkModelSelectComponent } from '../model-select.modal/model-select.modal';
-import { addIcons } from "ionicons";
-import { addCircleOutline, trashOutline, createOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-model-list',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, AvatarPipe, FullNamePipe,
+    TranslatePipe, AsyncPipe, AvatarPipe, FullNamePipe, SvgIconPipe,
     FormsModule, 
     IonItemSliding, IonList, IonLabel, IonButton, IonAvatar, IonImg,
     IonItemOptions, IonItemOption, IonIcon, IonItem,
@@ -26,7 +24,7 @@ import { addCircleOutline, trashOutline, createOutline } from "ionicons/icons";
   `],
   template: `
   <ion-button (click)="addPerson()" fill="clear">
-    <ion-icon slot="icon-only" name="add-circle-outline" />{{ '@subject.person.operation.add.label' | translate | async }}
+    <ion-icon slot="icon-only" src="{{ 'add-circle-outline' | svgIcon }}" />{{ '@subject.person.operation.add.label' | translate | async }}
   </ion-button>
   @if(vm().properties; as properties) {
     <ion-list>
@@ -39,8 +37,8 @@ import { addCircleOutline, trashOutline, createOutline } from "ionicons/icons";
             <ion-label>{{subject.firstName | fullName:subject.lastName}} ({{subject.label}})</ion-label>
           </ion-item>
           <ion-item-options side="end">
-            <ion-item-option color="danger" (click)="removePerson(slidingItem, i)"><ion-icon slot="icon-only" name="trash-outline" /></ion-item-option>
-            <ion-item-option color="light" (click)="editPerson(slidingItem, i)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+            <ion-item-option color="danger" (click)="removePerson(slidingItem, i)"><ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" /></ion-item-option>
+            <ion-item-option color="light" (click)="editPerson(slidingItem, i)"><ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" /></ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       }
@@ -67,10 +65,6 @@ export class BkModelListComponent {
   public vm = model.required<SectionFormModel>(); // mandatory view model
 
   public MT = ModelType;
-
-  constructor() {
-    addIcons({addCircleOutline, trashOutline, createOutline});
-  }
 
   public async addPerson(): Promise<void> {
     const _properties = this.vm().properties

@@ -7,7 +7,7 @@ import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonLabel, IonMen
 import { BkGallerySectionComponent } from './bk-gallery-section';
 import { BkPeopleListSectionComponent } from './bk-people-list-section';
 import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BkAlbumSectionComponent } from './bk-album-section';
 import { BkModelSectionComponent } from './bk-model-section';
 import { BkMapSectionComponent } from './bk-map-section';
@@ -19,14 +19,12 @@ import { BkIframeSectionComponent } from './bk-iframe-section';
 import { BkListSectionComponent } from './bk-list-section';
 import { BkTableSectionComponent } from './bk-table-section';
 import { BkAccordionSectionComponent } from './bk-accordion-section';
-import { addIcons } from "ionicons";
-import { closeOutline } from "ionicons/icons";
 
 @Component( {
   selector: 'bk-preview-modal',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     BkArticleSectionComponent, BkSwiperSectionComponent, BkGallerySectionComponent, 
     forwardRef(() => BkPeopleListSectionComponent),
     BkAlbumSectionComponent, BkModelSectionComponent, BkMapSectionComponent, BkVideoSectionComponent, 
@@ -42,7 +40,7 @@ import { closeOutline } from "ionicons/icons";
         <ion-title>{{ title() }}</ion-title>
         <ion-buttons slot="end">
           <ion-button (click)="close()">
-            <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+            <ion-icon slot="icon-only" src="{{'close-outline' | svgIcon }}" />
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -51,7 +49,9 @@ import { closeOutline } from "ionicons/icons";
       @if(section(); as section) {
         @switch (section.category) {
           @case(ST.Album) {                                   <!-- 0: Album -->
-            <bk-album-section [section]="section" />
+            @if(section.properties.album; as album) {
+              <bk-album-section [initialDirectory]="album.directory" [initialAlbumStyle]="album.albumStyle" />
+            }                                 
           }
           @case(ST.Article) {                                 <!-- 1: Article -->
             <bk-article-section [section]="section" [readOnly]="true"  />
@@ -111,10 +111,6 @@ export class PreviewModalComponent {
   public title = input('Preview');
 
   public ST = SectionType;
-
-  constructor() {
-    addIcons({closeOutline });
-  }
 
   public close(): void {
     this.modalController.dismiss(null, 'cancel');

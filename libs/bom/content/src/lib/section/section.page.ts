@@ -6,20 +6,18 @@ import { BkChangeConfirmationComponent, BkHeaderComponent, BkSpinnerComponent } 
 import { IonAccordionGroup, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { Observable, firstValueFrom, map, of } from 'rxjs';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { SectionService } from './section.service';
 import { SectionFormModel, SectionModel } from '@bk/models';
 import { convertFormToSection, convertSectionToForm } from './forms/section.form.util';
 import { PreviewModalComponent } from './preview.modal';
 import { SectionFormComponent } from './forms/section.form';
-import { addIcons } from "ionicons";
-import { closeCircleOutline, eyeOutline } from "ionicons/icons";
 
 @Component({
     selector: 'bk-section-page',
     standalone: true,
     imports: [
-      TranslatePipe, AsyncPipe,
+      TranslatePipe, AsyncPipe, SvgIconPipe,
       BkChangeConfirmationComponent,
       BkSpinnerComponent, SectionFormComponent, BkHeaderComponent,
       IonContent, IonAccordionGroup, IonHeader, IonToolbar, 
@@ -32,10 +30,10 @@ import { closeCircleOutline, eyeOutline } from "ionicons/icons";
             <ion-title>{{ '@content.section.operation.update.label' | translate | async }}</ion-title>
             <ion-buttons slot="end">
               <ion-button (click)="previewSection()">
-                <ion-icon slot="icon-only" name="eye-outline" />
+                <ion-icon slot="icon-only" src="{{'eye-outline' | svgIcon }}" />
               </ion-button>
               <ion-button color="light" (click)="cancel()">
-                <ion-icon slot="icon-only" name="close-circle-outline" />
+                <ion-icon slot="icon-only" src="{{'close-circle-outline' | svgIcon }}" />
               </ion-button>
             </ion-buttons>
           </ion-toolbar>
@@ -71,10 +69,6 @@ export class SectionPageComponent implements OnInit {
   protected formCanBeSaved = false;
   public currentForm: SectionFormModel | undefined;
   public MT = ModelType;
-
-  constructor() {
-    addIcons({closeCircleOutline, eyeOutline});
-  }
 
   ngOnInit(): void {
     const _sectionKey = this.id();

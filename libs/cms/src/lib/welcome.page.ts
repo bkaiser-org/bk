@@ -2,18 +2,16 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { IonButton, IonGrid, IonCol, IonContent, IonIcon, IonImg, IonLabel, IonRow } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
-import { ImgixUrlPipe, TranslatePipe } from '@bk/pipes';
+import { ImgixUrlPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BkHeaderComponent } from '@bk/ui';
 import { AuthService } from '@bk/auth';
 import { ENV, getImgixUrlWithAutoParams, navigateByUrl } from '@bk/util';
-import { addIcons } from "ionicons";
-import { informationCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-welcome-page',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, ImgixUrlPipe,
+    TranslatePipe, AsyncPipe, ImgixUrlPipe, SvgIconPipe,
     IonContent, IonButton, IonIcon, IonImg, IonLabel,
     IonGrid, IonRow, IonCol,
     BkHeaderComponent
@@ -106,7 +104,7 @@ import { informationCircleOutline } from "ionicons/icons";
           <ion-row class="ion-hide-md-down">
             <ion-col color="light">
               <ion-label class="help">
-                <ion-icon name="information-circle-outline" slot="start" />
+                <ion-icon src="{{'information-circle-outline' | svgIcon }}" slot="start" />
                 {{ '@cms.welcome.help' | translate | async }}
               </ion-label>
             </ion-col>
@@ -124,10 +122,6 @@ export class BkWelcomePageComponent {
   public logoUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.logoUrl)}`;
   public backgroundImageUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.welcomeBannerUrl)}`;
   public logoAlt = `${this.env.auth.tenantId} Logo`;
-
-  constructor() {
-    addIcons({informationCircleOutline});
-  }
 
   public async gotoHome(): Promise<void> {
     await navigateByUrl(this.router, this.env.app.rootUrl);

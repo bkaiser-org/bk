@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CollectionNames, InvoicePositionTags, bkTranslate } from '@bk/util';
-import { CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { CollectionNames, InvoicePositionTags } from '@bk/util';
+import { CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BkAvatarLabelComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
 import { InvoicePositionModel } from '@bk/models';
 import { BaseModelListComponent } from '@bk/base';
@@ -8,15 +8,13 @@ import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon,
 import { AsyncPipe } from '@angular/common';
 import { InvoicePositionTypes, ListType } from '@bk/categories';
 import { InvoicePositionAllService } from './invoice-position-all.service';
-import { addIcons } from "ionicons";
-import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-invoice-position-all-list',
   standalone: true,
   imports: [
     BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkAvatarLabelComponent,
-    FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe, AsyncPipe, CategoryNamePipe,
+    FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe, AsyncPipe, CategoryNamePipe, SvgIconPipe,
     IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonIcon, IonMenuButton,
     IonGrid, IonRow, IonCol, IonLabel, IonContent, IonItem
   ],
@@ -28,12 +26,12 @@ import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } f
       <ion-buttons slot="end">
         @if(authorizationService.hasRole('treasurer')) {
           <ion-button (click)="add()">
-            <ion-icon slot="icon-only" name="add-circle-outline" />
+            <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
           </ion-button>
         }
         @if(authorizationService.isPrivilegedOr('treasurer')) {
           <ion-button (click)="export()">
-            <ion-icon slot="icon-only" name="download-outline" />
+            <ion-icon slot="icon-only" src="{{'download-outline' | svgIcon }}" />
           </ion-button>
         }
       </ion-buttons>
@@ -56,7 +54,7 @@ import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } f
           <ion-col size="6">
             <ion-button (click)="baseService.sort(SF.Name)" fill="clear">
               @if(baseService.currentSortCriteria() | isSorted:SF.Name) {
-                <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+                <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
               }
               <ion-label color="light"><strong>{{ '@finance.invoicePosition.list.header.name' | translate | async }}</strong></ion-label>
             </ion-button>
@@ -64,7 +62,7 @@ import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } f
           <ion-col size="3">
             <ion-button (click)="baseService.sort(SF.Year)" fill="clear">
               @if(baseService.currentSortCriteria() | isSorted:SF.Year) {
-                <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+                <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
               }
               <ion-label color="light"><strong>{{'@finance.invoicePosition.list.header.year' | translate | async }}</strong></ion-label>
             </ion-button>
@@ -72,7 +70,7 @@ import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } f
           <ion-col size="3">
             <ion-button (click)="baseService.sort(SF.Amount)" fill="clear">
               @if(baseService.currentSortCriteria() | isSorted:SF.Amount) {
-                <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+                <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
               }
               <ion-label color="light"><strong>{{'@finance.invoicePosition.list.header.amount' | translate | async }}</strong></ion-label>
             </ion-button>
@@ -119,11 +117,6 @@ export class InvoicePositionAllListComponent extends BaseModelListComponent impl
   protected listRoute = '/invoicePosition/all';
   protected invoicePositionTags = InvoicePositionTags;
   protected invoicePositionTypes = InvoicePositionTypes;
-
-  constructor() {
-    super();
-    addIcons({addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

@@ -3,18 +3,16 @@ import { Component, computed, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColorIonic, ColorsIonic } from '@bk/categories';
 import { SectionModel } from '@bk/models';
-import { CategoryPlainNamePipe, FileTypeIconPipe } from '@bk/pipes';
+import { CategoryPlainNamePipe, FileTypeIconPipe, SvgIconPipe } from '@bk/pipes';
 import { downloadToBrowser, navigateByUrl } from '@bk/util';
 import { IonButton, IonIcon } from '@ionic/angular/standalone';
 import { newButton, newIcon } from '../section.util';
-import { addIcons } from "ionicons";
-import { closeOutline, copyOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-button-widget',
   standalone: true,
   imports: [
-    CategoryPlainNamePipe, FileTypeIconPipe,
+    CategoryPlainNamePipe, FileTypeIconPipe, SvgIconPipe,
     NgStyle,
     IonButton, IonIcon
   ],
@@ -28,11 +26,11 @@ import { closeOutline, copyOutline } from "ionicons/icons";
         shape="{{button().shape}}"
         fill="{{button().fill}}"
         color="{{button().color | categoryPlainName:colorsIonic}}">
-        @if(iconName() && iconName().length > 0; as iconName) {
+        @if(iconName(); as iconName) {
           @if(isCallAction()) {                                 <!-- ion-icon -->
-            <ion-icon [ngStyle]="iconStyle()" name="{{iconName}}" slot="{{icon().slot}}" />
+            <ion-icon [ngStyle]="iconStyle()" src="{{iconName | svgIcon}}" slot="{{icon().slot}}" />
           }
-          @else {                                       <!-- svg -->       
+          @else {                                       <!-- fileType svg icon -->       
             <ion-icon [ngStyle]="iconStyle()" src="{{ (icon().name ?? '') | fileTypeIcon}}" slot="{{icon().slot}}" />
           }
         }
@@ -70,11 +68,6 @@ export class ButtonWidgetComponent {
       'color': this.button().color ?? ColorIonic.Primary
     };
   });
-
-  constructor() {
-    // todo: add icons as defined in the sections collection; properties buttonInfo.iconName
-    addIcons({});
-  }
 
   protected action(): void {
     const _url = this.section()?.url;

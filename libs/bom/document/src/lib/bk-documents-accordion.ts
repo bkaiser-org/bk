@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { DocumentModel } from '@bk/models';
 import { BkSpinnerComponent } from '@bk/ui';
-import { FileLogoPipe, FileSizePipe, PrettyDatePipe, TranslatePipe } from '@bk/pipes';
+import { FileLogoPipe, FileSizePipe, PrettyDatePipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AuthorizationService, DataService, getModelAdmin } from '@bk/base';
 import { IonAccordion, IonButton, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
@@ -10,15 +10,13 @@ import { DocumentService } from './document.service';
 import { getDocumentStoragePath, pickFile, uploadFile } from './document.util';
 import { Browser } from '@capacitor/browser';
 import { ENV } from '@bk/util';
-import { addIcons } from "ionicons";
-import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
 import { from, Observable } from 'rxjs';
 
 @Component({
   selector: 'bk-documents-accordion',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, FileLogoPipe, PrettyDatePipe, FileSizePipe,
+    TranslatePipe, AsyncPipe, FileLogoPipe, PrettyDatePipe, FileSizePipe, SvgIconPipe,
     BkSpinnerComponent,
     IonItem, IonLabel, IonButton, IonIcon, IonList,
     IonItemSliding, IonItemOptions, IonItemOption, IonAccordion
@@ -29,7 +27,7 @@ import { from, Observable } from 'rxjs';
       <ion-label>{{ title() | translate | async }}</ion-label>
       @if(isAllowed()) {
         <ion-button fill="outline" (click)="uploadFile()">
-          <ion-icon color="secondary" slot="icon-only" name="add-circle-outline" />
+          <ion-icon color="secondary" slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
         </ion-button>
       }
     </ion-item>
@@ -50,8 +48,8 @@ import { from, Observable } from 'rxjs';
                 </ion-item>
                 @if(isAllowed()) {
                   <ion-item-options side="end">
-                    <ion-item-option color="danger" (click)="removeDocument(slidingItem, document)"><ion-icon slot="icon-only" name="trash-outline" /></ion-item-option>
-                    <ion-item-option color="primary" (click)="editDocument(slidingItem, document)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+                    <ion-item-option color="danger" (click)="removeDocument(slidingItem, document)"><ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" /></ion-item-option>
+                    <ion-item-option color="primary" (click)="editDocument(slidingItem, document)"><ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" /></ion-item-option>
                   </ion-item-options>
                 }
               </ion-item-sliding>
@@ -79,10 +77,6 @@ export class BkDocumentsAccordionComponent implements OnInit {
   protected isAllowed = computed(() => this.authorizationService.checkAuthorization(getModelAdmin(this.modelType())));
   protected path = computed(() => getDocumentStoragePath(this.env.auth.tenantId, this.modelType(), this.parentKey(), this.relationshipType()));
   public documents$: Observable<DocumentModel[]> | undefined;
-
-  constructor() {
-    addIcons({addCircleOutline, createOutline, trashOutline});
-  }
 
   ngOnInit() {
     this.documents$ = from(this.documentService.listDocumentsFromStorageDirectory(this.modelType(), this.parentKey(), this.relationshipType()));

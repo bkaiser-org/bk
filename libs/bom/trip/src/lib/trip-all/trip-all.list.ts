@@ -2,21 +2,19 @@ import { Component, OnInit, inject } from '@angular/core';
 import { TripModel, isTrip } from '@bk/models';
 import { CollectionNames } from '@bk/util';
 import { BkSearchbarComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
-import { CategoryNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { CategoryNamePipe, IsSortedPipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar, ModalController   } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { BaseModelListComponent } from '@bk/base';
 import { ListType } from '@bk/categories';
 import { TripAllService } from './trip-all.service';
 import { TripModalComponent } from '../trip.modal';
-import { addIcons } from "ionicons";
-import { addCircleOutline, createOutline, trash } from "ionicons/icons";
 
 @Component({
   selector: 'bk-trip-all-list',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, CategoryNamePipe, IsSortedPipe, SortDirectionPipe,
+    TranslatePipe, AsyncPipe, CategoryNamePipe, IsSortedPipe, SortDirectionPipe, SvgIconPipe,
     BkSearchbarComponent, BkYearSelectComponent, BkSpinnerComponent,
     IonToolbar, IonButton, IonIcon, IonLabel, IonHeader, IonButtons, 
     IonTitle, IonMenuButton, IonContent, IonItem, IonBackdrop,
@@ -32,7 +30,7 @@ import { addCircleOutline, createOutline, trash } from "ionicons/icons";
       <ion-buttons slot="end">
         @if(authorizationService.isPrivilegedOr('admin')) {
           <ion-button (click)="editTrip()">
-            <ion-icon slot="icon-only" name="add-circle-outline" />
+            <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
           </ion-button>
         }
       </ion-buttons>
@@ -98,10 +96,10 @@ import { addCircleOutline, createOutline, trash } from "ionicons/icons";
           </ion-item>
           <ion-item-options side="end">
             <ion-item-option color="danger" (click)="deleteTrip(slidingItem, trip)">
-              <ion-icon slot="icon-only" name="trash" />
+              <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
             </ion-item-option>
             <ion-item-option color="primary" (click)="editTrip(slidingItem, trip)">
-              <ion-icon slot="icon-only" name="create-outline" />
+              <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />
             </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
@@ -120,11 +118,6 @@ export class TripAllListComponent extends BaseModelListComponent implements OnIn
   protected collectionName = CollectionNames.Trip;
   protected listRoute = '/trip/all';
   protected modalController = inject(ModalController);
-
-  constructor() {
-    super();
-    addIcons({addCircleOutline, createOutline, trash});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

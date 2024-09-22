@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, inject, input } from '@angular/core';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { IonContent, IonIcon, IonInput, IonItem, IonLabel, ModalController } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '../structural/bk-header';
 import { Category, CategoryConfig, MemberTypes, OrgKey, ScsMemberTypes } from '@bk/categories';
@@ -10,14 +10,12 @@ import { FormsModule } from '@angular/forms';
 import { BkDateSelectModalComponent } from './date-select.modal';
 import { BkChangeConfirmationComponent } from '../form/bk-change-confirmation';
 import { RelationshipModel } from '@bk/models';
-import { addIcons } from "ionicons";
-import { listOutline, calendarOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-membership-category-change-modal',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, FormsModule,
+    TranslatePipe, AsyncPipe, FormsModule, SvgIconPipe,
     BkHeaderComponent, BkCatComponent, BkChangeConfirmationComponent,
     IonContent, IonInput, IonItem, IonIcon, IonLabel
   ],
@@ -30,11 +28,11 @@ import { listOutline, calendarOutline } from "ionicons/icons";
       <ion-item lines="none">
         <ion-label>{{membership().subjectName2}} {{membership().subjectName}}</ion-label>
       </ion-item>
-      <ion-icon name="list-outline" slot="start" />
+      <ion-icon src="{{'list-outline' | svgIcon }}" slot="start" />
       <bk-cat [config]="config!" [readOnly]="false" (ionChange)="onCategoryChange($event)" />
 
       <ion-item lines="none">
-        <ion-icon name="calendar-outline" slot="start" (click)="selectDate()" />
+        <ion-icon src="{{'calendar-outline' | svgIcon }}" slot="start" (click)="selectDate()" />
 
         <ion-input name="dateOfChange" [ngModel]="isoDate"
           label="{{ label() | translate | async }}"
@@ -66,10 +64,6 @@ export class MembershipCategoryChangeModalComponent implements OnInit {
   protected isoDate = '';
   protected selectedCategoryId: number | undefined;
   
-  constructor() {
-    addIcons({listOutline, calendarOutline});
-  }
-
   ngOnInit(): void {
     this.config = this.membership().objectKey === OrgKey.SCS ? {
       label: '@categories.listType.member.scs.all.categoryLabel',

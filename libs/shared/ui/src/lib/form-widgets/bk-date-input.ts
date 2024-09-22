@@ -2,15 +2,13 @@
 import { AfterViewInit, Component, computed, inject, input, model, output, viewChild } from '@angular/core';
 import { IonIcon, IonInput, IonItem, ModalController } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { MaskitoDirective } from '@maskito/angular';
 import { maskitoDateOptionsGenerator } from '@maskito/kit';
 import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { bkTranslate, convertDateFormatToString, DATE_LENGTH, DateFormat, getTodayStr, InputMode } from '@bk/util';
 import { BkDateSelectModalComponent } from '../modals/date-select.modal';
 import { vestFormsViewProviders } from 'ngx-vest-forms';
-import { addIcons } from "ionicons";
-import { calendarOutline } from "ionicons/icons";
 
  // tbd: solve this based on the locale. Currently, we only support the swiss locale.
  export const chAnyDate = maskitoDateOptionsGenerator({
@@ -36,14 +34,14 @@ export const chFutureDate = maskitoDateOptionsGenerator({
   selector: 'bk-date-input',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     MaskitoDirective,
     IonItem, IonIcon, IonInput
   ],
   viewProviders: [vestFormsViewProviders],
   template: `
   <ion-item lines="none">
-    <ion-icon  name="calendar-outline" slot="start" (click)="selectDate()" />
+    <ion-icon  src="{{'calendar-outline' | svgIcon }}" slot="start" (click)="selectDate()" />
     <ion-input #bkDateInput [name]="name()" [value]="viewDate()" (ionChange)="dateChangedInField($event)"
       labelPlacement="floating"
       label="{{'@input.' + name() + '.label' | translate | async }}"
@@ -85,10 +83,6 @@ export class BkDateInputComponent implements AfterViewInit {
 
   public changed = output<string>();
   public ionInput = viewChild.required<IonInput>('bkDateInput');
-
-  constructor() {
-    addIcons({calendarOutline});
-  }
 
   protected updateDate(storeDate: string) {
     this.storeDate.update(() => storeDate);

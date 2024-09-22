@@ -36,6 +36,7 @@ export * from './lib/safe.pipe';
 export * from './lib/sort-direction.pipe';
 export * from './lib/sort.pipe';
 export * from './lib/stripHtml.pipe';
+export * from './lib/svgIcon.pipe';
 export * from './lib/translate.pipe';
 export * from './lib/weather-icon.pipe';
 export * from './lib/year-format.pipe';

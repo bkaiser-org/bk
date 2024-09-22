@@ -1,22 +1,20 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { DocumentModel } from '@bk/models';
 import { DocumentTypes, ListType } from '@bk/categories';
-import { CollectionNames, DocumentTags, bkTranslate } from '@bk/util';
+import { CollectionNames, DocumentTags } from '@bk/util';
 import { Browser } from '@capacitor/browser';
 import { BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
-import { CategoryAbbreviationPipe, FileLogoPipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { CategoryAbbreviationPipe, FileLogoPipe, IsSortedPipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonProgressBar, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { DocumentAllService } from './document-all.service';
-import { addIcons } from "ionicons";
-import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-document-all-list',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, 
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     BkSearchbarComponent, BkSingleTagComponent, BkCatComponent, BkSpinnerComponent,
     FileLogoPipe, CategoryAbbreviationPipe, IsSortedPipe, SortDirectionPipe,
     IonToolbar, IonGrid, IonRow, IonCol, IonButton, IonIcon, IonLabel, IonHeader, IonButtons, 
@@ -30,7 +28,7 @@ import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icon
     <ion-buttons slot="end">
       @if(authorizationService.isPrivilegedOr('contentAdmin')) {
         <ion-button (click)="export()">
-          <ion-icon slot="icon-only" name="download-outline" />
+          <ion-icon slot="icon-only" src="{{'download-outline' | svgIcon }}" />
         </ion-button>
       }
     </ion-buttons>
@@ -56,7 +54,7 @@ import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icon
         <ion-col size="12" size-sm="8">
           <ion-button (click)="baseService.sort(SF.Name)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.Name) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ '@document.list.header.name' | translate | async }}</strong></ion-label>
           </ion-button>
@@ -64,7 +62,7 @@ import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icon
         <ion-col size="2" class="ion-hide-sm-down">
           <ion-button (click)="baseService.sort(SF.Category)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.Category) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ '@document.list.header.type' | translate | async }}</strong></ion-label>
           </ion-button>
@@ -72,7 +70,7 @@ import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icon
         <ion-col size="2" class="ion-hide-sm-down">
           <ion-button (click)="baseService.sort(SF.Extension)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.Extension) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ '@document.list.header.extension' | translate | async }}</strong></ion-label>
           </ion-button>
@@ -89,7 +87,7 @@ import { downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icon
         <ion-row (click)="showDocument(doc.url)">
           <ion-col size="12" size-sm="8">
             <ion-item lines="none">
-              <ion-icon src="{{ doc.extension | fileLogo }}"></ion-icon>&nbsp;
+              <ion-icon src="{{ doc.extension | fileLogo }}" />&nbsp;
               <ion-label>{{ doc.name }}</ion-label>
             </ion-item>
           </ion-col>
@@ -123,11 +121,6 @@ export class DocumentAllListComponent extends BaseModelListComponent implements 
   protected listType = ListType.DocumentAll;
   protected collectionName = CollectionNames.Document;
   protected listRoute = '/document/all';
-
-  constructor() {
-    super();
-    addIcons({downloadOutline, arrowUpOutline, arrowDownOutline});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

@@ -1,16 +1,14 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonModal, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '../structural/bk-header';
-import { addIcons } from "ionicons";
-import { listOutline, listCircleOutline, menuOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-label-select',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     BkHeaderComponent,
     IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonContent, IonItem, IonLabel
   ],
@@ -20,7 +18,7 @@ import { listOutline, listCircleOutline, menuOutline } from "ionicons/icons";
         @for (label of labels(); track label; let i = $index) {
           <ion-item lines="none" (click)="select(i)">
             @if(icons.length > 0) {
-              <ion-icon [name]="icons()[i]" slot="start" />
+              <ion-icon src="{{icons()[i] | svgIcon}}" slot="start" />
             }
             <ion-label>{{ label | translate | async }}</ion-label>
           </ion-item>
@@ -34,10 +32,6 @@ export class BkLabelSelectModalComponent {
   public labels = input<string[]>([]);
   public icons = input<string[]>([]);
   public title = input('');
-
-  constructor() {
-    addIcons({listOutline, listCircleOutline, menuOutline});
-  }
 
   public async select(index: number): Promise<boolean> {
     return await this.modalController.dismiss(index, 'confirm');

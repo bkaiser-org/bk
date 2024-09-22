@@ -1,17 +1,15 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, input, model, output } from '@angular/core';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { bkTranslate, decrypt, DESCRIPTION_LENGTH, encrypt } from '@bk/util';
 import { AlertController, IonCol, IonGrid, IonIcon, IonItem, IonRow, IonTextarea } from '@ionic/angular/standalone';
 import { BkCopyButtonComponent } from '../form/bk-copy-button';
-import { addIcons } from "ionicons";
-import { closeOutline, keyOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-notes',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     IonGrid, IonRow, IonCol, IonTextarea, IonItem, IonIcon,
     BkCopyButtonComponent
   ],
@@ -37,13 +35,13 @@ import { closeOutline, keyOutline } from "ionicons/icons";
       <ion-row>
         <ion-col size="12">
           @if (clearable()) {
-            <ion-icon name="close-outline" (click)="clearValue()" />
+            <ion-icon src="{{'close-outline' | svgIcon }}" (click)="clearValue()" />
           }
           @if (copyable()) {
             <bk-copy-button [value]="value()" />
           }
           @if (encryptable()) {
-            <ion-icon name="key-outline" (click)="dencrypt()" />
+            <ion-icon src="{{'key-outline' | svgIcon }}" (click)="dencrypt()" />
           }
         </ion-col>
       </ion-row>
@@ -65,10 +63,6 @@ export class BkNotesComponent {
 
   public changed = output<string>();
   private password = '';
-
-  constructor() {
-    addIcons({closeOutline, keyOutline});
-  }
 
   public clearValue(): void {
     this.value.update(() => '');

@@ -1,17 +1,15 @@
 import { Component, effect, inject, input, output } from '@angular/core';
 import { getNonSelectedTags, string2stringArray } from '@bk/util';
 import { IonButton, IonButtons, IonChip, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonModal, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { BkTagSelectModalComponent } from '../modals/tag-select.modal';
-import { addIcons } from "ionicons";
-import { pricetagOutline, closeCircleOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-tags',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, 
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     BkTagSelectModalComponent,
     IonItem, IonLabel, IonIcon, IonChip, IonButton,
     IonModal, IonContent,
@@ -30,14 +28,14 @@ import { pricetagOutline, closeCircleOutline } from "ionicons/icons";
         </div>
       } @else {
         <ion-button fill="clear" (click)="addTag()">
-          <ion-icon slot="start" name="pricetag-outline" />
+          <ion-icon slot="start" src="{{'pricetag-outline' | svgIcon }}" />
           <ion-label class="ion-hide-sm-down">Tags</ion-label>
         </ion-button>
         <div  class="ion-text-wrap">
           @for (tag of selectedTags; track tag) {
             <ion-chip color="primary">
               <ion-button fill="clear" (click)="removeTag(tag)">
-                <ion-icon name="close-circle-outline" slot="start" [style.color]="'primary'" />
+                <ion-icon src="{{'close-circle-outline' | svgIcon }}" slot="start" [style.color]="'primary'" />
                 <ion-label>{{ '@tag.' + tag | translate | async }}</ion-label>
               </ion-button>
             </ion-chip>
@@ -57,7 +55,6 @@ export class BkTagsComponent {
   public changedTags = output<string>(); // event to notify the parent component about changes
 
   constructor() {
-    addIcons({pricetagOutline, closeCircleOutline});
     effect(() => {
       this.selectedTags = string2stringArray(this.storedTags());
       this.nonSelectedTags = getNonSelectedTags(string2stringArray(this.allTags()), this.selectedTags);

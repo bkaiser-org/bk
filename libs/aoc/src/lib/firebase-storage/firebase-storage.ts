@@ -2,12 +2,10 @@ import { AsyncPipe } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { DocumentService } from "@bk/document";
-import { TranslatePipe } from "@bk/pipes";
+import { SvgIconPipe, TranslatePipe } from "@bk/pipes";
 import { BkButtonComponent, BkHeaderComponent } from "@bk/ui";
 import { ENV, copyToClipboard, showToast } from "@bk/util";
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCheckbox, IonCol, IonContent, IonGrid, IonIcon, IonRow, ToastController } from "@ionic/angular/standalone";
-import { addIcons } from "ionicons";
-import { closeOutline, copyOutline } from "ionicons/icons";
 
 @Component({
     selector: 'bk-firebase-storage',
@@ -16,7 +14,7 @@ import { closeOutline, copyOutline } from "ionicons/icons";
       input { width: 100%;}
     `],
     imports: [
-      TranslatePipe, AsyncPipe,
+      TranslatePipe, AsyncPipe, SvgIconPipe,
       FormsModule, 
       BkButtonComponent, BkHeaderComponent,
       IonContent, IonCard, IonCardHeader, IonCardContent, IonCardTitle, 
@@ -37,10 +35,10 @@ import { closeOutline, copyOutline } from "ionicons/icons";
           <ion-row>
             <ion-col size="10"><input type="text" [(ngModel)]="path" /></ion-col>
             <ion-col size="1">
-              <ion-icon name="copy-outline" (click)="copy()" />
+              <ion-icon src="{{ 'copy-outline' | svgIcon }}" (click)="copy()" />
             </ion-col>
             <ion-col size="1">
-              <ion-icon name="close-outline" (click)="clear()" />
+              <ion-icon src="{{ 'close-outline' | svgIcon }}" (click)="clear()" />
             </ion-col>
           </ion-row>
           <ion-row>
@@ -68,10 +66,10 @@ import { closeOutline, copyOutline } from "ionicons/icons";
           <ion-row>
             <ion-col size="10"><input type="text" [(ngModel)]="path" /></ion-col>
             <ion-col size="1">
-              <ion-icon name="copy-outline" (click)="copy()" />
+              <ion-icon src="{{ 'copy-outline' | svgIcon }}" (click)="copy()" />
             </ion-col>
             <ion-col size="1">
-              <ion-icon name="close-outline" (click)="clear()" />
+              <ion-icon src="{{ 'close-outline' | svgIcon }}" (click)="clear()" />
             </ion-col>
           </ion-row>
           <ion-row>
@@ -91,10 +89,6 @@ export class FirebaseStorageComponent {
   private toastController = inject(ToastController);
   private documentService = inject(DocumentService);
   private env = inject(ENV);
-
-  constructor() {
-    addIcons({closeOutline, copyOutline});
-  }
 
   public path = '';
   protected size = 0;

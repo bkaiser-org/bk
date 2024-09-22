@@ -2,26 +2,24 @@
 import { Component, inject, input, output } from '@angular/core';
 import { IonIcon, IonInput, IonItem, ModalController } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { maskitoTimeOptionsGenerator } from '@maskito/kit';
 import { MaskitoElementPredicate } from '@maskito/core';
 import { BkTimeSelectModalComponent } from '../modals/time-select.modal';
 import { getCurrentTime, InputMode } from '@bk/util';
 import { MaskitoDirective } from '@maskito/angular';
-import { addIcons } from "ionicons";
-import { calendarOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-time-input',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     MaskitoDirective,
     IonItem, IonIcon, IonInput
   ],
   template: `
   <ion-item lines="none">
-    <ion-icon  name="calendar-outline" slot="start" (click)="selectTime()" />
+    <ion-icon  src="{{'calendar-outline' | svgIcon }}" slot="start" (click)="selectTime()" />
     <ion-input #bkTimeInput [name]="name()" [value]="value()"
       (ionChange)="timeChangedInField($event)"
       labelPlacement="floating"
@@ -48,10 +46,6 @@ export class BkTimeInputComponent {
   public inputMode = input<InputMode>('text'); // A hint to the browser for which keyboard to display.
   
   public changed = output<string>();
-
-  constructor() {
-    addIcons({calendarOutline});
-  }
 
   /**
    * Update the date with the date changed in the input field (ViewDate format).

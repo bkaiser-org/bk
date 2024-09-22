@@ -1,19 +1,17 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, input, model, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BkCopyButtonComponent } from '@bk/ui';
 import { IonButton, IonIcon, IonItem } from '@ionic/angular/standalone';
 import { Editor, NgxEditorModule } from 'ngx-editor';
 import { BkEditorToolbar } from './bk-editor-toolbar';
-import { addIcons } from "ionicons";
-import { closeOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-editor',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     NgxEditorModule, FormsModule,
     IonItem, IonIcon, IonButton,
     BkCopyButtonComponent
@@ -38,7 +36,7 @@ import { closeOutline } from "ionicons/icons";
           <ion-item lines="none">
             @if (clearable()) {
               <ion-button fill="clear" (click)="updateContent('<p></p>')">
-                <ion-icon slot="start" name="close-outline" />
+                <ion-icon slot="start" src="{{'close-outline' | svgIcon }}" />
                 {{ '@general.operation.deleteContent' | translate | async }}
               </ion-button>
             }
@@ -64,10 +62,6 @@ export class BkEditorComponent implements OnInit, OnDestroy {
 
   public editor: Editor | undefined;
   protected toolbar = BkEditorToolbar;
-
-  constructor() {
-    addIcons({closeOutline});
-  }
 
   ngOnInit() {
     this.editor = new Editor({

@@ -2,14 +2,12 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FilterType, ListType, getOrgId } from '@bk/categories';
 import { CollectionNames, MembershipTags, bkTranslate } from '@bk/util';
 import { AvatarPipe, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
-import { DurationPipe, FullNamePipe, IsSortedPipe, MemberCategoriesPipe, MemberHeaderPipe, MemberValuePipe, SortDirectionPipe, TranslatePipe, YearFormatPipe } from '@bk/pipes';
+import { DurationPipe, FullNamePipe, IsSortedPipe, MemberCategoriesPipe, MemberHeaderPipe, MemberValuePipe, SortDirectionPipe, SvgIconPipe, TranslatePipe, YearFormatPipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { RelationshipModel } from '@bk/models';
 import { IonAvatar, IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonMenuButton, IonPopover, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { SrvAllService } from './srv-all.service';
-import { addIcons } from "ionicons";
-import { addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-membership-srv-all-list',
@@ -33,7 +31,7 @@ import { addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpO
   standalone: true,
   imports: [
     TranslatePipe, FullNamePipe, MemberValuePipe, YearFormatPipe, IsSortedPipe, SortDirectionPipe, MemberHeaderPipe, AsyncPipe,  AvatarPipe,
-    MemberCategoriesPipe, DurationPipe,
+    MemberCategoriesPipe, DurationPipe, SvgIconPipe,
     BkYearSelectComponent, BkSingleTagComponent,
     BkSpinnerComponent, BkSearchbarComponent, BkCatComponent, IonBackdrop,
     IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonIcon,
@@ -47,13 +45,17 @@ import { addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpO
     <ion-title>{{ (baseService.filteredItems()).length }} {{ baseService.title() | translate | async }}</ion-title>
     <ion-buttons slot="end">
       @if(authorizationService.hasRole('memberAdmin')) {
-        <ion-button (click)="copyEmailAddresses()" id="tooltip-copy"><ion-icon slot="icon-only" name="copy-outline" /></ion-button>
+        <ion-button (click)="copyEmailAddresses()" id="tooltip-copy">
+          <ion-icon slot="icon-only" src="{{'copy-outline' | svgIcon }}" />
+        </ion-button>
         <ion-popover trigger="tooltip-copy" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.copyEmail' | translate | async}}</ion-content>
             </ng-template>
           </ion-popover>
-        <ion-button (click)="addMembership()" id="tooltip-add"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+        <ion-button (click)="addMembership()" id="tooltip-add">
+          <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
+        </ion-button>
         <ion-popover trigger="tooltip-add" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.add' + baseService.slug() | translate | async}}</ion-content>
@@ -61,7 +63,9 @@ import { addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpO
         </ion-popover>
       }
       @if(authorizationService.isPrivilegedOr('memberAdmin')) {
-        <ion-button (click)="export()" id="tooltip-export"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
+        <ion-button (click)="export()" id="tooltip-export">
+          <ion-icon slot="icon-only" src="{{'download-outline' | svgIcon }}" />
+        </ion-button>
         <ion-popover trigger="tooltip-export" triggerAction="context-menu">
             <ng-template>
               <ion-content class="ion-padding">{{ '@tooltips.export' + baseService.slug() | translate | async}}</ion-content>
@@ -93,7 +97,7 @@ import { addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpO
         <ion-col size="9" size-md="6">
           <ion-button (click)="baseService.sort(SF.Name)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.Name) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ '@membership.list.header.name' | translate | async }}</strong></ion-label>  
           </ion-button>    
@@ -101,7 +105,7 @@ import { addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpO
         <ion-col size="3" class="ion-hide-md-down">
           <ion-button (click)="baseService.sort(SF.ValidFrom)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.ValidFrom) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ '@membership.list.header.entryExit' | translate | async }}</strong></ion-label>  
           </ion-button>    
@@ -109,7 +113,7 @@ import { addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpO
         <ion-col size="3">
           <ion-button (click)="baseService.sort(SF.SubType)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.SubType) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ baseService.listType()! | memberHeader | translate | async }}</strong></ion-label>
           </ion-button>    
@@ -132,8 +136,12 @@ import { addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpO
           </ion-item>
           @if(authorizationService.hasRole('memberAdmin')) {
             <ion-item-options side="end">
-              <ion-item-option color="danger" (click)="endMembership(slidingItem, membership)"><ion-icon slot="icon-only" name="trash-outline" /></ion-item-option>
-              <ion-item-option color="primary" (click)="editMembership(slidingItem, membership)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+              <ion-item-option color="danger" (click)="endMembership(slidingItem, membership)">
+                <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
+              </ion-item-option>
+              <ion-item-option color="primary" (click)="editMembership(slidingItem, membership)">
+                <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />
+              </ion-item-option>
             </ion-item-options>
           }
         </ion-item-sliding>
@@ -160,11 +168,6 @@ export class MembershipSrvAllListComponent extends BaseModelListComponent implem
   protected listType = ListType.MemberSrvAll;
   protected collectionName = CollectionNames.Membership;
   protected listRoute = '/membership/srvAll';
-
-  constructor() {
-    super();
-    addIcons({addCircleOutline, copyOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

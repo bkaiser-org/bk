@@ -4,7 +4,7 @@ import { ModelInfo, SectionFormModel, sectionFormModelShape, sectionFormValidati
 import { AbstractFormComponent, BkModelListComponent } from '@bk/base';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonGrid, IonIcon, IonItem, IonLabel, IonRow, IonToolbar } from '@ionic/angular/standalone';
 import { ModelType, RoleEnum, RoleEnums, SectionType, SectionTypes, ViewPositions } from '@bk/categories';
-import { CategoryNamePipe, TranslatePipe } from '@bk/pipes';
+import { CategoryNamePipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { SectionTags, copyToClipboard, showToast } from '@bk/util';
 import { BkEditorComponent } from '../widgets/bk-editor';
@@ -20,14 +20,12 @@ import { vestForms } from 'ngx-vest-forms';
 import { BkImageConfigFormComponent } from './default-image-config.form';
 import { BkImageListFormComponent } from "./image-list.form";
 import { SingleImageFormComponent } from "./image.form";
-import { addIcons } from "ionicons";
-import { copyOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-section-form',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, CategoryNamePipe, vestForms,
+    TranslatePipe, AsyncPipe, CategoryNamePipe, vestForms, SvgIconPipe,
     BkTagsComponent, BkNotesComponent, BkSpinnerComponent, BkModelInfoComponent, BkTextInputComponent,
     BkButtonSectionFormComponent, BkCatInputComponent, BkImageConfigFormComponent, SingleImageFormComponent,
     BkModelListComponent, BkEditorComponent, BkIframeSectionFormComponent, BkImageListFormComponent,
@@ -62,7 +60,7 @@ import { copyOutline } from "ionicons/icons";
               @if(authorizationService.isAdmin()) {
                 <ion-item lines="none">
                   <ion-label>{{ 'Section Key: '}} {{ vm.bkey }}</ion-label>
-                  &nbsp;<ion-icon name="copy-outline" (click)="copy()" />
+                  &nbsp;<ion-icon src="{{'copy-outline' | svgIcon }}" (click)="copy()" />
                 </ion-item>
               }
               <bk-text-input name="name" [value]="vm.name ?? ''" (changed)="updateField('name', $event)" [showHelper]=true />
@@ -170,11 +168,6 @@ export class SectionFormComponent extends AbstractFormComponent implements After
   protected toolbar = BkEditorToolbar;
   protected role = RoleEnum;
   protected roles = RoleEnums;
-
-  constructor() {
-    super();
-    addIcons({copyOutline});
-  }
 
   ngAfterViewInit() {
     this.resetForm();

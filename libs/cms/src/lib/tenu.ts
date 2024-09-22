@@ -1,9 +1,7 @@
 import { AsyncPipe } from "@angular/common";
 import { Component } from "@angular/core";
-import { TranslatePipe } from "@bk/pipes";
+import { SvgIconPipe, TranslatePipe } from "@bk/pipes";
 import { IonBadge, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar } from "@ionic/angular/standalone";
-import { addIcons } from "ionicons";
-import { cartOutline } from "ionicons/icons";
 
 enum Tenu {
   Cap,
@@ -21,7 +19,7 @@ enum Tenu {
   selector: 'bk-tenu',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, 
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     IonHeader, IonToolbar, IonButtons, IonTitle, IonMenuButton, IonBadge, IonButton, IonIcon,
     IonContent, IonGrid, IonRow, IonCol, IonLabel,
     IonCard, IonCardHeader, IonCardTitle, IonCardContent
@@ -34,7 +32,7 @@ enum Tenu {
       <ion-buttons slot="end">
         <ion-badge>2</ion-badge>
         <ion-button color="light" (click)="showCart()">
-          <ion-icon slot="icon-only" name="cart-outline" />
+          <ion-icon slot="icon-only" src="{{'cart-outline' | svgIcon }}" />
         </ion-button>
       </ion-buttons>
   </ion-toolbar>
@@ -219,10 +217,6 @@ ion-card{
 })
 export class TenuComponent {
   public TENU = Tenu;
-
-  constructor() {
-    addIcons({cartOutline});
-  }
 
   public add(tenu: Tenu): void {
     console.log('adding ' + tenu);

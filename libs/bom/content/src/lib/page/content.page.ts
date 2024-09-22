@@ -3,22 +3,20 @@ import { arrayMove, die, AppNavigationService, navigateByUrl } from '@bk/util';
 import { firstValueFrom, Observable } from 'rxjs';
 import { PageModel } from '@bk/models';
 import { BkSpinnerComponent } from '@bk/ui';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BkSectionComponent } from '../section/bk-section';
 import { PageService } from './page.service';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonMenuButton, IonReorder, IonReorderGroup, IonRow, IonTitle, IonToolbar, ItemReorderEventDetail } from '@ionic/angular/standalone';
 import { AuthorizationService } from '@bk/base';
 import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { addIcons } from "ionicons";
-import { addCircleOutline, camera, createOutline, reorderFourOutline, syncCircleOutline, toggle, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-content-page',
   standalone: true,
   imports: [
     BkSpinnerComponent, BkSectionComponent, 
-    TranslatePipe, TranslatePipe, AsyncPipe,
+    TranslatePipe, TranslatePipe, AsyncPipe, SvgIconPipe,
     IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonTitle, IonMenuButton,
     IonContent, IonGrid, IonRow, IonCol, IonList, IonItemSliding, IonItem, IonItemOptions, IonItemOption,
     IonReorderGroup, IonReorder, IonLabel
@@ -31,21 +29,21 @@ import { addCircleOutline, camera, createOutline, reorderFourOutline, syncCircle
     <ion-header>
       <ion-toolbar color="secondary" id="bkheader">
         <ion-buttons slot="start"><ion-menu-button /></ion-buttons>      
-        <ion-title>{{ page?.name | translate | async }}</ion-title>
+        <ion-title>{{ page.name | translate | async }}</ion-title>
         @if(authorizationService.hasRole('contentAdmin')) {
           <ion-buttons slot="end">
           <ion-button (click)="toggleEditMode()">
-            <ion-icon slot="icon-only" name="toggle" />
+            <ion-icon slot="icon-only" src="{{'toggle' | svgIcon }}" />
           </ion-button>
 
           <ion-button (click)="toggleReordering()">
-            <ion-icon slot="icon-only" name="sync-circle-outline" />
+            <ion-icon slot="icon-only" src="{{'sync-circle-outline' | svgIcon }}" />
           </ion-button>
           <ion-button (click)="pageService.selectSection(page)">
-            <ion-icon slot="icon-only" name="reorder-four-outline" />
+            <ion-icon slot="icon-only" src="{{'reorder-four-outline' | svgIcon }}" />
           </ion-button>
           <ion-button (click)="pageService.addSection(page)">
-            <ion-icon slot="icon-only" name="add-circle-outline" />
+            <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
           </ion-button>
         </ion-buttons>
         }
@@ -59,7 +57,7 @@ import { addCircleOutline, camera, createOutline, reorderFourOutline, syncCircle
           </ion-item>
           <ion-item lines="none">
             <ion-button (click)="pageService.addSection(page)">
-              <ion-icon slot="start" name="add-circle-outline" />
+              <ion-icon slot="start" src="{{'add-circle-outline' | svgIcon }}" />
               {{ '@content.section.operation.add.label' | translate | async }}
             </ion-button>
           </ion-item>
@@ -82,10 +80,10 @@ import { addCircleOutline, camera, createOutline, reorderFourOutline, syncCircle
                     <bk-section [sectionKey]="sectionKey" [readOnly]="!isEditMode" />
                   </ion-item>
                   <ion-item-options side="end">
-                    <ion-item-option color="danger" (click)="deleteSection(slidingList, page, sectionKey)"><ion-icon slot="icon-only" name="trash-outline" /></ion-item-option>
-                    <!-- <ion-item-option color="light" (click)="uploadImage(slidingList, sectionKey)"><ion-icon slot="icon-only" name="camera" /></ion-item-option> -->
-                    <!-- <ion-item-option color="light" (click)="uploadDocument(slidingList, sectionKey)"><ion-icon slot="icon-only" name="document" /></ion-item-option> -->
-                    <ion-item-option color="success" (click)="editSection(slidingList, sectionKey)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+                    <ion-item-option color="danger" (click)="deleteSection(slidingList, page, sectionKey)"><ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" /></ion-item-option>
+                    <!-- <ion-item-option color="light" (click)="uploadImage(slidingList, sectionKey)"><ion-icon slot="icon-only" src="{{'camera' | svgIcon }}" /></ion-item-option> -->
+                    <!-- <ion-item-option color="light" (click)="uploadDocument(slidingList, sectionKey)"><ion-icon slot="icon-only" src="{{'document' | svgIcon }}" /></ion-item-option> -->
+                    <ion-item-option color="success" (click)="editSection(slidingList, sectionKey)"><ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" /></ion-item-option>
                   </ion-item-options>
                 </ion-item-sliding>
               }
@@ -131,10 +129,6 @@ export class ContentPageComponent implements OnInit {
   public isArchivedVisible = false;
   public isEditMode = false;
   public doReorder = false;
-
-  constructor() {
-    addIcons({addCircleOutline, camera, createOutline, reorderFourOutline, syncCircleOutline, toggle, trashOutline });
-  }
 
   ngOnInit(): void {
     this.activatedRoute.fragment.subscribe((fragment: string | null) => {

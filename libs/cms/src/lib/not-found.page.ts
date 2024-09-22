@@ -2,11 +2,9 @@ import { AfterViewInit, Component, ElementRef, inject, viewChild } from '@angula
 import { navigateByUrl, ENV } from '@bk/util';
 import { IonCol, IonContent, IonGrid, IonIcon, IonImg, IonLabel, IonRow } from '@ionic/angular/standalone';
 import { BkHeaderComponent, BkImgComponent } from '@bk/ui';
-import { TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { addIcons } from "ionicons";
-import { informationCircleOutline } from "ionicons/icons";
 import { Image, newImage } from '@bk/models';
 import { ImageAction } from '@bk/categories';
 
@@ -14,7 +12,7 @@ import { ImageAction } from '@bk/categories';
   selector: 'bk-page-not-found',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     BkHeaderComponent, BkImgComponent, BkImgComponent,
     IonContent, IonGrid, IonRow, IonCol, IonLabel, IonImg, IonIcon
   ],
@@ -97,7 +95,7 @@ import { ImageAction } from '@bk/categories';
           <ion-row class="ion-hide-md-down">
             <ion-col color="light">
               <ion-label class="help">
-                <ion-icon name="information-circle-outline" slot="start" />
+                <ion-icon src="{{'information-circle-outline' | svgIcon }}" slot="start" />
                 {{ '@cms.notfound.help' | translate | async }}
               </ion-label>
             </ion-col>
@@ -113,10 +111,6 @@ export class PageNotFoundComponent implements AfterViewInit {
   public backgroundImage!: Image;
   public logoImage!: Image;
   protected contentElement = viewChild(BkImgComponent, { read: ElementRef });
-
-  constructor() {
-    addIcons({informationCircleOutline});
-  }
 
   ngAfterViewInit(): void {
     this.backgroundImage = {

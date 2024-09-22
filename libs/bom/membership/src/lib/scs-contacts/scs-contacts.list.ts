@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FilterType, ListType, ListTypes, getOrgId } from '@bk/categories';
 import { CollectionNames, MembershipTags, bkTranslate, die, uniqueElements } from '@bk/util';
 import { BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
-import { FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { FullNamePipe, IsSortedPipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { MembershipSubjectModel, RelationshipModel, SubjectModel } from '@bk/models';
 import { IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
@@ -11,8 +11,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, combineLatest, map, switchMap } from 'rxjs';
 import { Browser } from '@capacitor/browser';
 import { ScsContactsService } from './scs-contacts.service';
-import { addIcons } from "ionicons";
-import { atOutline, addCircleOutline, callOutline, copyOutline, downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-membership-scs-contacts-list',
@@ -35,7 +33,7 @@ import { atOutline, addCircleOutline, callOutline, copyOutline, downloadOutline,
 `,
   standalone: true,
   imports: [
-    TranslatePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, 
+    TranslatePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, SvgIconPipe,
     BkYearSelectComponent, BkSingleTagComponent,
     BkAvatarLabelComponent, BkSpinnerComponent, BkSearchbarComponent, BkCatComponent, IonBackdrop,
     IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonIcon,
@@ -48,11 +46,17 @@ import { atOutline, addCircleOutline, callOutline, copyOutline, downloadOutline,
     <ion-title>{{ (baseService.filteredItems()).length }} {{ baseService.title() | translate | async }}</ion-title>
     <ion-buttons slot="end">
       @if(authorizationService.hasRole('memberAdmin')) {
-        <ion-button (click)="copyEmailAddresses()"><ion-icon slot="icon-only" name="copy-outline" /></ion-button>
-        <ion-button (click)="addMembership()"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>  
+        <ion-button (click)="copyEmailAddresses()">
+          <ion-icon slot="icon-only" src="{{'copy-outline' | svgIcon }}" />
+        </ion-button>
+        <ion-button (click)="addMembership()">
+          <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
+        </ion-button>  
       }
       @if(authorizationService.isPrivilegedOr('memberAdmin')) {
-        <ion-button (click)="export()"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
+        <ion-button (click)="export()">
+          <ion-icon slot="icon-only" src="{{'download-outline' | svgIcon }}" />
+        </ion-button>
       }
     </ion-buttons>
   </ion-toolbar>
@@ -84,7 +88,7 @@ import { atOutline, addCircleOutline, callOutline, copyOutline, downloadOutline,
           <ion-col size="8" size-md="5">
             <ion-button (click)="baseService.sort(SF.Name)" fill="clear">
               @if(baseService.currentSortCriteria() | isSorted:SF.Name) {
-                <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+                <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
               }
               <ion-label color="light"><strong>{{ '@membership.list.header.name' | translate | async }}</strong></ion-label>  
             </ion-button>    
@@ -114,7 +118,7 @@ import { atOutline, addCircleOutline, callOutline, copyOutline, downloadOutline,
             <ion-col size="2" size-md="3">
               @if(membership.subjectPhone) {
                 <ion-item lines="none" (click)="usePhone(membership.subjectPhone)">
-                  <ion-icon name="call-outline" slot="start" class="ion-hide-md-up"></ion-icon>
+                  <ion-icon src="{{'call-outline' | svgIcon }}" slot="start" class="ion-hide-md-up" />
                   <span class="ion-hide-md-down">{{membership.subjectPhone }}</span>
                 </ion-item>  
               }
@@ -122,7 +126,7 @@ import { atOutline, addCircleOutline, callOutline, copyOutline, downloadOutline,
             <ion-col size="2" size-md="4">
               @if(membership.subjectEmail) {
                 <ion-item lines="none" (click)="useEmail(membership.subjectEmail)">
-                  <ion-icon name="at-outline" slot="icon-only" class="ion-hide-md-up"/>
+                  <ion-icon src="{{'at-outline' | svgIcon }}" slot="icon-only" class="ion-hide-md-up" />
                   <span class="ion-hide-md-down">{{membership.subjectEmail }}</span>
                 </ion-item>  
               }
@@ -151,11 +155,6 @@ export class MembershipScsContactsListComponent extends BaseModelListComponent i
   protected listType = ListType.MemberScsContacts;
   protected collectionName = CollectionNames.Membership;
   protected listRoute = '/membership/scsContacts';
-
-  constructor() {
-    super();
-    addIcons({atOutline, addCircleOutline, callOutline, copyOutline, downloadOutline, arrowUpOutline, arrowDownOutline});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

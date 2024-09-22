@@ -2,20 +2,22 @@ import { Component, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { SubjectService } from './subject.service';
-import { addIcons } from "ionicons";
-import { arrowBackCircleOutline, arrowForwardCircleOutline } from "ionicons/icons";
+import { SvgIconPipe } from '@bk/pipes';
 
 @Component({
     selector: 'bk-subject-iterator',
     standalone: true,
-    imports: [CommonModule, IonicModule],
+    imports: [
+      SvgIconPipe,
+      CommonModule, IonicModule
+    ],
     template: `
     <ion-buttons>
       <ion-button (click)="prev()">
-        <ion-icon slot="icon-only" name="arrow-back-circle-outline"></ion-icon>
+        <ion-icon slot="icon-only" src="{{'arrow-back-circle-outline' | svgIcon }}"></ion-icon>
       </ion-button>
       <ion-button (click)="next()">
-        <ion-icon slot="icon-only" name="arrow-forward-circle-outline"></ion-icon>
+        <ion-icon slot="icon-only" src="{{'arrow-forward-circle-outline' | svgIcon }}"></ion-icon>
       </ion-button>
     </ion-buttons>  
   `
@@ -24,10 +26,6 @@ import { arrowBackCircleOutline, arrowForwardCircleOutline } from "ionicons/icon
     public subjectService = inject(SubjectService);
 
     public subjectSelected = output<string>();
-
-    constructor() {
-      addIcons({arrowBackCircleOutline, arrowForwardCircleOutline});
-    }
 
     public prev(): void {
         this.subjectSelected.emit(this.subjectService.previousKey());

@@ -4,20 +4,18 @@ import { AbstractFormComponent, BkModelSelectComponent, DataService } from '@bk/
 import { AvatarPipe, BkCatInputComponent, BkDateInputComponent, BkNotesComponent, BkSpinnerComponent, BkTagsComponent, BkTextInputComponent } from '@bk/ui';
 import { SubjectModel, TaskFormModel, isSubject, taskFormModelShape, taskFormValidations } from '@bk/models';
 import { CollectionNames, TaskTags } from '@bk/util';
-import { FullNamePipe, TranslatePipe } from '@bk/pipes';
+import { FullNamePipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { Importances, ListType, ModelType, Priorities, TaskState, TaskStates } from '@bk/categories';
 import { Observable, firstValueFrom } from 'rxjs';
 import { vestForms } from 'ngx-vest-forms';
-import { addIcons } from "ionicons";
-import { search } from "ionicons/icons";
 
 @Component({
   selector: 'bk-task-form',
   standalone: true,
   imports: [
     vestForms,
-    TranslatePipe, AsyncPipe, AvatarPipe, FullNamePipe,
+    TranslatePipe, AsyncPipe, AvatarPipe, FullNamePipe, SvgIconPipe,
     BkTextInputComponent, BkDateInputComponent, BkCatInputComponent, BkTagsComponent, BkNotesComponent, BkSpinnerComponent,
     IonGrid, IonRow, IonCol, IonInput, IonLabel, IonIcon, IonAvatar, IonImg, IonItem
   ],
@@ -57,7 +55,7 @@ import { search } from "ionicons/icons";
 
         <ion-col size="12" size-md="6"> 
           <ion-item lines="none">                                        <!-- assignee label -->
-            <ion-icon name="search" (click)="selectPerson()" slot="start" /> 
+            <ion-icon src="{{'search-outline' | svgIcon }}" (click)="selectPerson()" slot="start" /> 
             <ion-label>{{ '@task.list.header.assignee' | translate | async }}</ion-label>
           </ion-item>
         </ion-col>
@@ -125,11 +123,6 @@ export class TaskFormComponent extends AbstractFormComponent implements AfterVie
   protected taskState = TaskState;
   protected taskStates = TaskStates;
   
-  constructor() {
-    super();
-    addIcons({search});
-  }
-
   async ngOnInit() {
     if (this.vm().assignee) {
       this.assignee = await firstValueFrom(this.dataService.readModel(CollectionNames.Person, this.vm().assignee) as Observable<SubjectModel | undefined>); 

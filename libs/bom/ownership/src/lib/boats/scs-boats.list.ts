@@ -3,13 +3,11 @@ import { RelationshipModel } from '@bk/models';
 import { BoatTypes, FilterType, ListType, RelationshipStates } from '@bk/categories';
 import { BoatTags, CollectionNames } from '@bk/util';
 import { AvatarPipe, BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
-import { CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar ,IonBackdrop, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonImg } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { ScsBoatsService } from './scs-boats.service';
-import { addIcons } from "ionicons";
-import { addCircleOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-ownership-list',
@@ -17,7 +15,7 @@ import { addCircleOutline, createOutline, downloadOutline, arrowUpOutline, arrow
   imports: [ 
     BkSearchbarComponent, BkSpinnerComponent,
     BkSingleTagComponent, BkCatComponent, BkAvatarLabelComponent,
-    TranslatePipe, CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, AvatarPipe,
+    TranslatePipe, CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, AvatarPipe, SvgIconPipe,
     IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton,
     IonGrid, IonRow, IonCol, IonIcon, IonLabel, IonContent, IonItem, IonBackdrop,
     IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonImg   
@@ -30,12 +28,12 @@ import { addCircleOutline, createOutline, downloadOutline, arrowUpOutline, arrow
       <ion-buttons slot="end">
         @if(authorizationService.hasRole('resourceAdmin')) {
           <ion-button (click)="addOwnership()">
-            <ion-icon slot="icon-only" name="add-circle-outline" />
+            <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
           </ion-button>
         }
         @if(authorizationService.isPrivilegedOr('resourceAdmin')) {
           <ion-button (click)="export()">
-            <ion-icon slot="icon-only" name="download-outline" />
+            <ion-icon slot="icon-only" src="{{'download-outline' | svgIcon }}" />
           </ion-button>
         }
       </ion-buttons>
@@ -63,7 +61,7 @@ import { addCircleOutline, createOutline, downloadOutline, arrowUpOutline, arrow
           <ion-col size="6">
             <ion-button (click)="baseService.sort(SF.ObjectName)" fill="clear">
               @if(baseService.currentSortCriteria() | isSorted:SF.ObjectName) {
-                <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+                <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
               }
               <ion-label color="light"><strong>{{ '@input.boatName.label' | translate | async }}</strong></ion-label>
             </ion-button>
@@ -71,7 +69,7 @@ import { addCircleOutline, createOutline, downloadOutline, arrowUpOutline, arrow
           <ion-col size="6">
             <ion-button (click)="baseService.sort(SF.ObjectCategory)" fill="clear">
               @if(baseService.currentSortCriteria() | isSorted:SF.ObjectCategory) {
-                <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+                <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
               }
               <ion-label color="light"><strong>{{ '@input.boatType.label' | translate | async }}</strong></ion-label>
             </ion-button>
@@ -98,10 +96,10 @@ import { addCircleOutline, createOutline, downloadOutline, arrowUpOutline, arrow
           @if(authorizationService.hasRole('resourceAdmin')) {
             <ion-item-options side="end">
               <ion-item-option color="danger" (click)="endOwnership(slidingItem, _ownership)">
-                <ion-icon slot="icon-only" name="trash-outline" />
+                <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
               </ion-item-option>
               <ion-item-option color="primary" (click)="editOwnership(slidingItem, _ownership)">
-                <ion-icon slot="icon-only" name="create-outline" />
+                <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />
               </ion-item-option>
             </ion-item-options>
           }
@@ -127,11 +125,6 @@ export class OwnershipScsBoatsListComponent extends BaseModelListComponent imple
   protected collectionName = CollectionNames.Ownership;
   protected listRoute = '/ownership/scsBoats';
 
-  constructor() {
-    super();
-    addIcons({addCircleOutline, createOutline, downloadOutline, arrowUpOutline, arrowDownOutline, trashOutline});
-  }
-
   ngOnInit(): void {
     this.prepareData(this.listType);
   }
@@ -143,12 +136,6 @@ export class OwnershipScsBoatsListComponent extends BaseModelListComponent imple
   public async addOwnership(): Promise<void> {
     this.appNavigationService.pushLink(this.listRoute);
     this.baseService.navigateToUrl('/ownership/new');
-  }
-
-  public async onSelectedIndex(index: number): Promise<void> {
-    // export the data in the format selected by the user
-    //if (index === 0) await export2excel(this.baseService.filteredItems(), ALL_RELATIONSHIP_FIELDS, bkTranslate('@ownership.plural'));
-    console.log('export is not implemented yet');
   }
 
   public editOwnership(slidingItem: IonItemSliding, ownership: RelationshipModel): void {

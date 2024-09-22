@@ -2,10 +2,8 @@ import { Component, effect, inject, input, output } from '@angular/core';
 import { IonAvatar, IonCol, IonGrid, IonIcon, IonImg, IonItem, IonRow, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
 import { Photo } from '@capacitor/camera';
 import { AvatarService } from './avatar.service';
-import { CategoryPlainNamePipe } from '@bk/pipes';
+import { CategoryPlainNamePipe, SvgIconPipe } from '@bk/pipes';
 import { ColorIonic, ColorsIonic, ImageAction } from '@bk/categories';
-import { addIcons } from "ionicons";
-import { camera } from "ionicons/icons";
 import { showZoomedImage } from '../ui.util';
 import { newImage } from '@bk/models';
 
@@ -13,7 +11,7 @@ import { newImage } from '@bk/models';
   selector: 'bk-avatar-toolbar',
   standalone: true,
   imports: [
-    CategoryPlainNamePipe,
+    CategoryPlainNamePipe, SvgIconPipe,
     IonToolbar, IonAvatar, IonImg, IonTitle, IonIcon, IonItem,
     IonGrid, IonRow, IonCol
   ],
@@ -22,7 +20,7 @@ import { newImage } from '@bk/models';
     <ion-avatar (click)="editImage()">
       <ion-img [src]="url" [alt]="alt()" />
       @if(isEditable()) {
-        <ion-icon name="camera" />
+        <ion-icon src="{{'camera' | svgIcon }}" />
       }
     </ion-avatar>
  
@@ -56,7 +54,6 @@ export class BkAvatarToolbarComponent {
   protected colorsIonic = ColorsIonic;
 
   constructor() {
-    addIcons({camera});
     effect(async () => {
       this.url = await this.avatarService.getAbsoluteAvatarUrl(this.key());
     });

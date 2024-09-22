@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { RelationshipModel } from '@bk/models';
 import { AvatarPipe, BkSpinnerComponent } from '@bk/ui';
-import { DurationPipe, MemberCategoryPipe, TranslatePipe } from '@bk/pipes';
+import { DurationPipe, MemberCategoryPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { navigateByUrl } from '@bk/util';
 import { AuthorizationService, DataService } from '@bk/base';
 import { IonAccordion, IonAvatar, IonButton, IonButtons, IonIcon, IonImg, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, ModalController } from '@ionic/angular/standalone';
@@ -10,14 +10,12 @@ import { ListType } from '@bk/categories';
 import { Router } from '@angular/router';
 import { MembershipService } from './membership.service';
 import { MembershipEditModalComponent } from './membership-edit.modal';
-import { addIcons } from "ionicons";
-import { addCircleOutline, createOutline, reloadOutline, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-memberships-accordion',
   standalone: true,
   imports: [
-    TranslatePipe, AvatarPipe, MemberCategoryPipe, DurationPipe, AsyncPipe, 
+    TranslatePipe, AvatarPipe, MemberCategoryPipe, DurationPipe, AsyncPipe, SvgIconPipe,
     BkSpinnerComponent, MembershipEditModalComponent,
     IonAccordion, IonItem, IonLabel, IonButton, IonIcon, IonList, IonButtons,
     IonAvatar, IonImg, IonItemSliding, IonItemOptions, IonItemOption
@@ -28,7 +26,7 @@ import { addCircleOutline, createOutline, reloadOutline, trashOutline } from "io
       <ion-label>{{ title() | translate | async }}</ion-label>
       @if(authorizationService.hasRole('memberAdmin')) {
         <ion-button fill="outline" (click)="addMembership()">
-          <ion-icon color="secondary" slot="icon-only" name="add-circle-outline" />
+          <ion-icon color="secondary" slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
         </ion-button>
       }
     </ion-item>
@@ -52,13 +50,13 @@ import { addCircleOutline, createOutline, reloadOutline, trashOutline } from "io
                 @if(authorizationService.hasRole('memberAdmin')) {
                   <ion-item-options side="end">
                     <ion-item-option color="danger" (click)="endMembership(slidingItem, membership)">
-                      <ion-icon slot="icon-only" name="trash-outline" />
+                      <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
                     </ion-item-option>
                     <ion-item-option color="light" (click)="changeMembershipCategory(slidingItem, membership)">
-                      <ion-icon slot="icon-only" name="reload-outline" />
+                      <ion-icon slot="icon-only" src="{{'reload-outline' | svgIcon }}" />
                     </ion-item-option>
                     <ion-item-option color="primary" (click)="editMembership(slidingItem, membership)">
-                      <ion-icon slot="icon-only" name="create-outline" />
+                      <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />
                     </ion-item-option>
                   </ion-item-options>
                 }
@@ -86,10 +84,6 @@ export class BkMembershipsAccordionComponent {
   protected memberships$ = computed(() => this.membershipService.listMembershipsOfSubject(this.subjectKey()));
 
   public LT = ListType;
-
-  constructor() {
-    addIcons({addCircleOutline, createOutline, reloadOutline, trashOutline});
-  }
 
   protected async addMembership() {
     await this.membershipService.createNewMembership(this.subjectKey());

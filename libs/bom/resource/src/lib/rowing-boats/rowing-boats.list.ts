@@ -1,23 +1,21 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BoatTypes, ListType } from '@bk/categories';
-import { BoatTags, CollectionNames, bkTranslate } from '@bk/util';
+import { BoatTags, CollectionNames } from '@bk/util';
 import { ResourceModel } from '@bk/models';
 import { BkAvatarLabelComponent, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
-import { CategoryNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { CategoryNamePipe, IsSortedPipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { ResourceLogoPipe } from '../resource-logo.pipe';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { BaseModelListComponent } from '@bk/base';
 import { RowingBoatsService } from './rowing-boats.service';
-import { addIcons } from "ionicons";
-import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-resource-list',
   standalone: true,
   imports: [
     BkAvatarLabelComponent, BkSearchbarComponent, BkSpinnerComponent, BkSingleTagComponent, BkCatComponent,
-    TranslatePipe, IsSortedPipe, SortDirectionPipe, CategoryNamePipe, ResourceLogoPipe, AsyncPipe, 
+    TranslatePipe, IsSortedPipe, SortDirectionPipe, CategoryNamePipe, ResourceLogoPipe, AsyncPipe, SvgIconPipe,
     IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonMenuButton,
     IonGrid, IonRow, IonCol, IonIcon, IonItem, IonLabel, IonContent
   ],
@@ -28,10 +26,14 @@ import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } f
     <ion-title>{{baseService.filteredItems().length }} {{ baseService.title() | translate | async}}</ion-title>
     <ion-buttons slot="end">
       @if(authorizationService.hasRole('resourceAdmin')) {
-        <ion-button (click)="add()"><ion-icon slot="icon-only" name="add-circle-outline" /></ion-button>
+        <ion-button (click)="add()">
+          <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
+        </ion-button>
       }
       @if(authorizationService.isPrivilegedOr('resourceAdmin')) {
-        <ion-button (click)="export()"><ion-icon slot="icon-only" name="download-outline" /></ion-button>
+        <ion-button (click)="export()">
+          <ion-icon slot="icon-only" src="{{'download-outline' | svgIcon }}" />
+        </ion-button>
       }
     </ion-buttons>
   </ion-toolbar>
@@ -56,7 +58,7 @@ import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } f
         <ion-col size="9" size-md="6">
           <ion-button (click)="baseService.sort(SF.Name)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.Name) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ '@input.boatName.label' | translate | async }}</strong></ion-label>
           </ion-button>    
@@ -64,7 +66,7 @@ import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } f
         <ion-col size="3">
           <ion-button (click)="baseService.sort(SF.SubType)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.SubType) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light"><strong>{{ '@input.boatType.label' | translate | async }}</strong></ion-label>
           </ion-button>    
@@ -72,7 +74,7 @@ import { addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline } f
         <ion-col size="3" class="ion-hide-md-down">
           <ion-button (click)="baseService.sort(SF.Load)" fill="clear">
             @if(baseService.currentSortCriteria() | isSorted:SF.Load) {
-              <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+              <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
             }
             <ion-label color="light" class="ion-hide-md-down"><strong>{{ '@input.load.label' | translate | async }}</strong></ion-label>
           </ion-button>    
@@ -117,11 +119,6 @@ export class ResourceRowingBoatsListComponent extends BaseModelListComponent imp
   protected collectionName = CollectionNames.Boat;
   protected listRoute = '/resource/rowingBoats';
   protected boatTags = BoatTags;
-
-  constructor() {
-    super();
-    addIcons({addCircleOutline, downloadOutline, arrowUpOutline, arrowDownOutline});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

@@ -2,21 +2,19 @@ import { Component, OnInit, inject } from '@angular/core';
 import { TaskModel, isTask } from '@bk/models';
 import { CollectionNames } from '@bk/util';
 import { BkCatComponent, BkSearchbarComponent, BkSpinnerComponent } from '@bk/ui';
-import { CategoryNamePipe, IsSortedPipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { CategoryNamePipe, IsSortedPipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { IonBackdrop, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar, ModalController   } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { BaseModelListComponent } from '@bk/base';
 import { ListType, TaskStates } from '@bk/categories';
 import { TaskAllService } from './task-all.service';
 import { TaskModalComponent } from '../task.modal';
-import { addIcons } from "ionicons";
-import { addCircleOutline, createOutline, trash } from "ionicons/icons";
 
 @Component({
   selector: 'bk-task-all-list',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, CategoryNamePipe, IsSortedPipe, SortDirectionPipe,
+    TranslatePipe, AsyncPipe, CategoryNamePipe, IsSortedPipe, SortDirectionPipe, SvgIconPipe,
     BkSearchbarComponent, BkCatComponent, BkSpinnerComponent,
     IonToolbar, IonButton, IonIcon, IonLabel, IonHeader, IonButtons, 
     IonTitle, IonMenuButton, IonContent, IonItem, IonBackdrop,
@@ -32,7 +30,7 @@ import { addCircleOutline, createOutline, trash } from "ionicons/icons";
       <ion-buttons slot="end">
         @if(authorizationService.isPrivilegedOr('admin')) {
           <ion-button (click)="editTask()">
-            <ion-icon slot="icon-only" name="add-circle-outline" />
+            <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
           </ion-button>
         }
       </ion-buttons>
@@ -102,10 +100,10 @@ import { addCircleOutline, createOutline, trash } from "ionicons/icons";
           </ion-item>
           <ion-item-options side="end">
             <ion-item-option color="danger" (click)="deleteTask(slidingItem, task)">
-              <ion-icon slot="icon-only" name="trash" />
+              <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
             </ion-item-option>
             <ion-item-option color="primary" (click)="editTask(slidingItem, task)">
-              <ion-icon slot="icon-only" name="create-outline" />
+              <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />
             </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
@@ -126,11 +124,6 @@ export class TaskAllListComponent extends BaseModelListComponent implements OnIn
   protected modalController = inject(ModalController);
 
   public taskStates = TaskStates;
-
-  constructor() {
-    super();
-    addIcons({addCircleOutline, createOutline, trash});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);

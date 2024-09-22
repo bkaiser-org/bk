@@ -2,7 +2,7 @@ import { Component, computed, inject, input } from '@angular/core';
 import { OrgType, RelationshipType } from '@bk/categories';
 import { AuthorizationService, DataService } from '@bk/base';
 import { AvatarPipe, BkSpinnerComponent } from '@bk/ui';
-import { DurationPipe, FullNamePipe, MemberCategoryPipe, TranslatePipe } from '@bk/pipes';
+import { DurationPipe, FullNamePipe, MemberCategoryPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { CollectionNames, NameDisplay, navigateByUrl } from '@bk/util';
 import { BaseModel, RelationshipModel } from '@bk/models';
 import { IonAccordion, IonAvatar, IonButton, IonButtons, IonIcon, IonImg, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList } from '@ionic/angular/standalone';
@@ -10,14 +10,12 @@ import { Observable, of } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MembershipService } from './membership.service';
 import { Router } from '@angular/router';
-import { addIcons } from "ionicons";
-import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
 
 @Component({
     selector: 'bk-members',
     standalone: true,
     imports: [
-      TranslatePipe, MemberCategoryPipe, FullNamePipe, AvatarPipe, DurationPipe, AsyncPipe,
+      TranslatePipe, MemberCategoryPipe, FullNamePipe, AvatarPipe, DurationPipe, AsyncPipe, SvgIconPipe,
       BkSpinnerComponent,
       IonAccordion, IonItem, IonLabel, IonButton, IonIcon, IonList, IonButtons,
       IonAvatar, IonImg, IonItemSliding, IonItemOptions, IonItemOption
@@ -28,7 +26,7 @@ import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
                 <ion-label>{{ title() | translate | async }}</ion-label>
                 @if(readOnly() === false && authorizationService.hasRole('memberAdmin')) {
                   <ion-button fill="outline" (click)="addMember()">
-                      <ion-icon color="secondary" slot="icon-only" name="add-circle-outline" />
+                      <ion-icon color="secondary" slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
                   </ion-button>
                 }
             </ion-item>
@@ -56,8 +54,12 @@ import { addCircleOutline, createOutline, trashOutline } from "ionicons/icons";
                         </ion-item>
                         @if(authorizationService.hasRole('memberAdmin')) {
                           <ion-item-options side="end">
-                            <ion-item-option color="danger" (click)="endMembership(slidingItem, member)"><ion-icon slot="icon-only" name="trash-outline" /></ion-item-option>
-                            <ion-item-option color="primary" (click)="editMembership(slidingItem, member)"><ion-icon slot="icon-only" name="create-outline" /></ion-item-option>
+                            <ion-item-option color="danger" (click)="endMembership(slidingItem, member)">
+                              <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
+                            </ion-item-option>
+                            <ion-item-option color="primary" (click)="editMembership(slidingItem, member)">
+                              <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />
+                            </ion-item-option>
                           </ion-item-options>
                         }
                       </ion-item-sliding>
@@ -87,10 +89,6 @@ export class BkMembersComponent {
   public ND = NameDisplay;
   public OT = OrgType;
   public RT = RelationshipType;
-
-  constructor() {
-    addIcons({addCircleOutline, createOutline, trashOutline});
-  }
 
   private getMembers(orgKey: string | undefined): Observable<RelationshipModel[]> {
     if (!orgKey) return of([]);

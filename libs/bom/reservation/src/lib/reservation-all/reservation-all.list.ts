@@ -3,13 +3,11 @@ import { RelationshipModel } from '@bk/models';
 import { FilterType, ListType, RelationshipStates } from '@bk/categories';
 import { CollectionNames, ReservationTags } from '@bk/util';
 import { AvatarPipe, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent, BkYearSelectComponent } from '@bk/ui';
-import { CategoryNamePipe, FullNamePipe, IsSortedPipe, PrettyDatePipe, SortDirectionPipe, TranslatePipe } from '@bk/pipes';
+import { CategoryNamePipe, FullNamePipe, IsSortedPipe, PrettyDatePipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BaseModelListComponent } from '@bk/base';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar ,IonBackdrop, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonImg } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { ReservationAllService } from './reservation-all.service';
-import { addIcons } from "ionicons";
-import { addCircleOutline, createOutline, arrowUpOutline, arrowDownOutline, trashOutline } from "ionicons/icons";
 
 @Component({
   selector: 'bk-reservation-all-list',
@@ -41,7 +39,7 @@ import { addCircleOutline, createOutline, arrowUpOutline, arrowDownOutline, tras
   imports: [ 
     BkSearchbarComponent, BkSpinnerComponent, BkYearSelectComponent,
     BkSingleTagComponent, BkCatComponent,
-    TranslatePipe, CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, PrettyDatePipe, AvatarPipe,
+    TranslatePipe, CategoryNamePipe, FullNamePipe, IsSortedPipe, SortDirectionPipe, AsyncPipe, PrettyDatePipe, AvatarPipe, SvgIconPipe,
     IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonButton,
     IonGrid, IonRow, IonCol, IonIcon, IonLabel, IonContent, IonItem, IonBackdrop,
     IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonImg
@@ -54,7 +52,7 @@ import { addCircleOutline, createOutline, arrowUpOutline, arrowDownOutline, tras
     <ion-buttons slot="end">
       @if(authorizationService.hasRole('resourceAdmin')) {
         <ion-button (click)="addReservation()">
-          <ion-icon slot="icon-only" name="add-circle-outline" />
+          <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
         </ion-button>
       }
     </ion-buttons>
@@ -86,19 +84,19 @@ import { addCircleOutline, createOutline, arrowUpOutline, arrowDownOutline, tras
       <ion-item color="primary">
         <ion-button (click)="baseService.sort(SF.SubjectName)" fill="clear" slot="start">
           @if(baseService.currentSortCriteria() | isSorted:SF.SubjectName) {
-            <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+            <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
           }
           <ion-label color="light"><strong>{{ '@reservation.list.header.name' | translate | async }}</strong></ion-label>
         </ion-button>
         <ion-button (click)="baseService.sort(SF.ObjectName)" fill="clear" class="center ion-hide-md-down">
           @if(baseService.currentSortCriteria() | isSorted:SF.ObjectName) {
-            <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+            <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
           }
           <ion-label color="light"><strong>{{ '@reservation.list.header.resource' | translate | async }}</strong></ion-label>
         </ion-button>
         <ion-button (click)="baseService.sort(SF.ValidFrom)" fill="clear" slot="end">
           @if(baseService.currentSortCriteria() | isSorted:SF.ObjectName) {
-            <ion-icon color="light" slot="end" name="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
+            <ion-icon color="light" slot="end" src="{{ baseService.currentSortCriteria().direction | sortDirection }}" />
           }
           <ion-label color="light"><strong>{{ '@reservation.list.header.validFrom' | translate | async }}</strong></ion-label>
         </ion-button>
@@ -126,10 +124,10 @@ import { addCircleOutline, createOutline, arrowUpOutline, arrowDownOutline, tras
           </ion-item>
           <ion-item-options side="end">
             <ion-item-option color="danger" (click)="endReservation(slidingItem, _reservation)">
-              <ion-icon slot="icon-only" name="trash-outline" />
+              <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
             </ion-item-option>
             <ion-item-option color="primary" (click)="editReservation(slidingItem, _reservation)">
-              <ion-icon slot="icon-only" name="create-outline" />
+              <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />
             </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
@@ -152,11 +150,6 @@ export class ReservationAllListComponent extends BaseModelListComponent implemen
   protected listType = ListType.ReservationAll;
   protected collectionName = CollectionNames.Reservation;
   protected listRoute = '/reservation/all';
-
-  constructor() {
-    super();
-    addIcons({addCircleOutline, createOutline, arrowUpOutline, arrowDownOutline, trashOutline});
-  }
 
   ngOnInit(): void {
     this.prepareData(this.listType);
