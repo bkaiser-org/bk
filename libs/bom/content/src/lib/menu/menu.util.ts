@@ -83,6 +83,7 @@ export function convertFormToMenuItem(vm: MenuItemFormModel): MenuItemModel {
   _menuItem.url = vm.url ?? '';
   _menuItem.description = vm.notes ?? '';
   _menuItem.tags = vm.tags ?? '';
+  _menuItem.tenant = vm.tenant ?? [];
   return _menuItem;
 }
 

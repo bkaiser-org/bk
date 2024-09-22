@@ -8,12 +8,12 @@ export function urlValidations(fieldName: string, url: unknown ) {
   stringValidations(fieldName, url, URL_LENGTH);
 
   omitWhen(url === '', () => {
-    test(fieldName, 'urlStart', () => {
+    test(fieldName, 'url must start with https, assets or /', () => {
       const _url = url as string;
-      enforce(_url.startsWith('https://') || _url.startsWith('assets')).isTruthy();
+      enforce(_url.startsWith('https://') || _url.startsWith('assets') || _url.startsWith('/')).isTruthy();
     });
 
-    test(fieldName, 'validUrl', () => {
+    test(fieldName, 'url must be valid', () => {
       enforce(url).isURL({
         protocols: ['https'],
         require_tld: false,

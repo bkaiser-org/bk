@@ -9,27 +9,27 @@ import { test, enforce, omitWhen } from 'vest';
  * @param isMandatory true if the field must not be empty, default is false
  */
 export function stringValidations(fieldName: string, value: unknown, maxLength?: number, minLength = 0, isMandatory = false): void {
-  test(fieldName, 'notNull', () => {
+  test(fieldName, `${fieldName} may not be null`, () => {
     enforce(value).isNotNull();
   });
-  test(fieldName, 'notUndefined', () => {
+  test(fieldName, `${fieldName} may not be undefined`, () => {
     enforce(value).isNotUndefined();
   });
-  test(fieldName, 'stringMandatory', () => {
+  test(fieldName, `${fieldName} must be of type string`, () => {
     enforce(value).isString();
   });
   omitWhen(isMandatory === false, () => {
-    test(fieldName, 'valueMandatory', () => {
+    test(fieldName, `${fieldName} is mandatory`, () => {
       enforce(value as string).isNotBlank();
     });
   });
   omitWhen(maxLength === undefined || isMandatory === false, () => {
-    test(fieldName, 'valueTooLong', () => {
+    test(fieldName, `${fieldName} may not be longer than ${maxLength} characters`, () => {
       enforce(value as string).shorterThanOrEquals(maxLength);
     });
   });
   omitWhen(minLength === undefined || isMandatory === false, () => {
-    test(fieldName, 'valueTooShort', () => {
+    test(fieldName, `${fieldName} must have min. ${minLength} characters`, () => {
       enforce(value as string).longerThanOrEquals(minLength);
     });
   });

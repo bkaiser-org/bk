@@ -5,17 +5,18 @@ import { categoryValidations } from "../primitive-validations/category.validatio
 import { MenuAction, RoleEnum } from "@bk/categories";
 import { enforce, omitWhen, only, staticSuite, test } from "vest";
 import { MenuItemFormModel } from "./menu-item-form.model";
+import { tenantValidations } from "../fields/tenant.validations";
 
 export const menuItemFormValidation = staticSuite((model: MenuItemFormModel, field?: string) => {
   if (field) only(field);
 
-  stringValidations('bkey', model.bkey, SHORT_NAME_LENGTH, 4, true);
+  stringValidations('bkey', model.bkey, SHORT_NAME_LENGTH, 4);
   stringValidations('name', model.name, SHORT_NAME_LENGTH, 4, true);
   urlValidations('url', model.url);
   stringValidations('label', model.label, SHORT_NAME_LENGTH);
   stringValidations('icon', model.icon, SHORT_NAME_LENGTH);
   categoryValidations('category', model.category, MenuAction);
-  stringValidations('tenant', model.tenant, SHORT_NAME_LENGTH);
+  tenantValidations(model.tenant);
   categoryValidations('roleNeeded', model.roleNeeded, RoleEnum);
 
   omitWhen(model.data === undefined, () => {

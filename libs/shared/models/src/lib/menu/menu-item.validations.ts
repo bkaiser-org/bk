@@ -6,6 +6,7 @@ import { MenuAction, ModelType } from '@bk/categories';
 import { stringValidations } from '../primitive-validations/string.validations';
 import { SHORT_NAME_LENGTH, isArrayOfBaseProperties, isArrayOfStrings } from '@bk/util';
 import { baseValidations } from '../base/base.validations';
+import { tenantValidations } from '../fields/tenant.validations';
 
 export const menuItemValidation = staticSuite((model: MenuItemModel, field?: string) => {
   if (field) only(field);
@@ -14,7 +15,7 @@ export const menuItemValidation = staticSuite((model: MenuItemModel, field?: str
   stringValidations('label', model.label, SHORT_NAME_LENGTH);
   stringValidations('icon', model.icon, SHORT_NAME_LENGTH);
   categoryValidations('category', model.category, MenuAction);
-  stringValidations('tenant', model.tenant, SHORT_NAME_LENGTH);
+  tenantValidations(model.tenant);
 
   test('modelType', 'menuModelType', () => {
     enforce(model.modelType).equals(ModelType.Menu);
