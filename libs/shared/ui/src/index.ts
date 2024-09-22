@@ -22,7 +22,6 @@ export * from './lib/form/bk-error-toolbar';
 export * from './lib/form/bk-form-debug';
 export * from './lib/form/bk-label';
 export * from './lib/form/bk-property-list';
-export * from './lib/form/bk-sort-button';
 export * from './lib/form/bk-spinner';
 export * from './lib/form/bk-single-tag';
 export * from './lib/form/bk-strings';
