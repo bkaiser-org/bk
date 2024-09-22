@@ -57,7 +57,7 @@
         "info": "Mitgliederstatistiken",
         "active": "Aktive Mitglieder",
         "persons": "Personen",
-        "person-contacts": "Personen-Kontakte",
+        "person-contacts": "Adressliste",
         "member-contacts": "Mitglieder-Kontakte",
         "applications": "Anmeldungen",
         "birthdays": "Geburtstage",
@@ -875,7 +875,8 @@
       "label": "Priorität"
     },
     "property": {
-      "label": "Routing-Parameter"
+      "label": "Routing-Parameter",
+      "empty": "Es sind noch keine Routing-Parameter definiert."
     },
     "phone": {
       "label": "Telefon",
@@ -924,7 +925,8 @@
     "route": {
       "label": "Route",
       "placeholder": "/route/to/page",
-      "helper": "Beim Click auf das Menu wird diese Url aufgerufen."
+      "helper": "Beim Click auf das Menu wird diese Url aufgerufen.",
+      "error": "Eine Route ist ein relativer Pfad, der mit einem Schrägstrich beginnt."
     },
     "sealevel": {
       "label": "Höhe über Meer",
@@ -3735,6 +3737,10 @@
         "label": "Keine",
         "description": "Es ist keine Rolle definiert."
       },
+      "public": {
+        "label": "Öffentlich",
+        "description": "Sichtbar für nicht-authentisierte Benutzer"
+      },
       "anonymous": {
         "label": "anonymous",
         "description": "Anonymer User ohne Konto"
@@ -3793,6 +3799,29 @@
     }
   },
   "categories": {
+    "albumStyle": {
+      "name": "Album Stil",
+      "grid": {
+        "label": "Grid",
+        "description": "Bilder werden in einem Gitter angezeigt, Bilder werden als background-image gesetzt"
+      },
+      "pinterest": {
+        "label": "Pinterest",
+        "description": "Bilder werden wie in Pinterest angezeigt (Gitter mit variablen Bildgrössen)"
+      },
+      "imgix": {
+        "label": "ImgIx",
+        "description": "Bilder werden in einem Gitter angezeigt, aber von imgix optimiert geladen"
+      },
+      "list": {
+        "label": "Liste",
+        "description": "Die Bilder werden in einer Listen-Darstellung gezeigt."
+      },
+      "avatarlist": {
+        "label": "Liste mit Avatars",
+        "description": "Die Bilder werden in einer Listen-Darstellung gezeigt. Jeder Eintrag hat ein Avatar-Bild."
+      }
+    },
     "avatarUsage": {
       "name": "Avatar Verwendung",
       "none": {
