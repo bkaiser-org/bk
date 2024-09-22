@@ -40,7 +40,7 @@ export abstract class AbstractFormComponent {
     this.changedData.emit(this.vm());
   }
 
-  protected updateField(fieldName: keyof BkFormModel, value: string | number | boolean): void {
+  protected updateField(fieldName: keyof BkFormModel, value: string | string[] | number | boolean): void {
     this.vm.update((_vm) => ({..._vm, [fieldName]: value}));
     this.checkFormValidity();
   }
@@ -72,6 +72,11 @@ export abstract class AbstractFormComponent {
       let _errorMessage = _result.errors[0].message;
       if (_errorMessage && _errorMessage.length > 0) {
         _errorMessage = `@validation.${_errorMessage}`;
+        // print out more information to find the exact validation error
+        if (this.env.production === false) {
+          console.log(this.vm());
+          console.log(_result);
+        }
       }
       console.warn(_errorMessage);
       this.errorMessage.emit(_errorMessage ?? '');

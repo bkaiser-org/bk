@@ -92,6 +92,7 @@ export type BkFormModel = Partial<{
   memberState: number,
   memberUrl: string,
   menuAction: string,
+  menuItems: string[],
   mimeType: string,
   modelType: ModelType,
   name: string,

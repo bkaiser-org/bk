@@ -71,7 +71,7 @@ import { vestForms } from 'ngx-vest-forms';
       @if(vm.category === MA.SubMenu || vm.category === MA.MainMenu) {
         <ion-row>
           <ion-col size="12">                                             <!-- menuItems -->
-            <bk-strings [strings]="vm.menuItems!" (stringsChanged)="onChange()" title="@input.strings.menuTitle" addLabel="@input.strings.addMenu" />
+            <bk-strings [strings]="vm.menuItems!" (stringsChanged)="onMenuChange($event)" title="@input.strings.menuTitle" addLabel="@input.strings.addMenu" />
           </ion-col>
         </ion-row>
       }
@@ -129,8 +129,14 @@ export class MenuItemFormComponent extends AbstractFormComponent implements Afte
   ngAfterViewInit() {
     this.resetForm();
   }
+  
+  protected onMenuChange(menuItems: string[]): void {
+    console.log('onMenuChange: ', menuItems);
+    this.updateField('menuItems', menuItems);
+  }
 
   protected onChange(): void {
+    console.log('onChange');
     this.formDirty.set(true);
     this.notifyState();
   }
