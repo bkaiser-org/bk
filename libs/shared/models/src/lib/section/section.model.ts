@@ -1,8 +1,7 @@
 import { AlbumStyle, ColorIonic, ImageAction, ModelType } from '@bk/categories';
 import { BaseModel } from '../base/base.model';
 import { GuiColumn } from '@generic-ui/ngx-grid';
-import { NameDisplay } from '@bk/util';
-import { RoleName } from '../role/roles';
+import { NameDisplay, RoleName } from '@bk/util';
 
 export type Slot = 'start' | 'end' | 'icon-only' | 'none';
 

@@ -1,8 +1,7 @@
 import { ModelType } from '@bk/categories';
 import { BaseModel } from '../base/base.model';
 import { getRemoteConfig, getValue } from 'firebase/remote-config';
-import { RoleName } from '../role/roles';
-import { BaseProperty } from '@bk/util';
+import { BaseProperty, RoleName } from '@bk/util';
 
 export class MenuItemModel extends BaseModel {
   //  name: e.g. aoc, help, members ...

@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CollectionNames, EventTags_P13 } from '@bk/util';
+import { CollectionNames, YearlyEventTags } from '@bk/util';
 import { AvatarPipe, BkCatComponent, BkSearchbarComponent, BkSingleTagComponent, BkSpinnerComponent } from '@bk/ui';
 import { FullNamePipe, IsSortedPipe, LocationLabelPipe, PersonLabelPipe, SortDirectionPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar ,IonPopover ,IonList, IonItemSliding, IonItemOptions, IonItemOption, IonAvatar, IonImg } from '@ionic/angular/standalone';
@@ -123,7 +123,7 @@ export class EventYearlyListComponent extends BaseModelListComponent implements 
   protected listType = ListType.EventYearly;
   protected collectionName = CollectionNames.Event;
   protected listRoute = '/event/yearly';
-  protected eventTags = EventTags_P13;
+  protected eventTags = YearlyEventTags;
 
   ngOnInit(): void {
     this.prepareData(this.listType);

@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
-import { die, getPropertyValue, navigateByUrl, warn } from '@bk/util';
+import { die, getPropertyValue, navigateByUrl, RoleName, warn } from '@bk/util';
 import { Browser } from '@capacitor/browser';
 import { MenuAction, MenuActions, RoleEnum, RoleEnums, getCategoryAbbreviation } from '@bk/categories';
-import { MenuItemFormModel, MenuItemModel, RoleName } from '@bk/models';
+import { MenuItemFormModel, MenuItemModel } from '@bk/models';
 
 export function newMenuItem(name: string, label: string, icon = 'help-circle-outline'): MenuItemModel {
   const _menuItem = new MenuItemModel();
