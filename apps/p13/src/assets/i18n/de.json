@@ -1186,7 +1186,18 @@
     "familyrebate": "Familienrabatt",
     "edurebate": "Ausbildungsrabatt",
     "old": "Alt",
-    "new": "Neu"
+    "new": "Neu",
+    "history": "Geschichte",
+    "museum": "Museum",
+    "carriage": "Kutsche",
+    "culture": "Kultur",
+    "sport": "Sport",
+    "nature": "Natur",
+    "military": "Militär",
+    "tour": "Führung",
+    "jubilee": "Jubiläum",
+    "industry": "Industrie",
+    "religion": "Religion"
   },
   "subject": {
     "list": {
@@ -2622,7 +2633,11 @@
     "list": {
       "header": {
         "name": "Name",
-        "duration": "von-bis"
+        "duration": "von-bis",
+        "year": "Jahr",
+        "responsible": "Organisator",
+        "location": "Ort",
+        "description": "Thema"
       }
     },
     "type": {
@@ -4332,6 +4347,9 @@
         "yearLabel": "Jahr",
         "all": {
           "title": "Ereignisse"
+        },
+        "yearly": {
+          "title": "Events"
         }
       },
       "location": {

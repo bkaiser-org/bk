@@ -3,6 +3,7 @@ export const OrgTags = 'advertiser, bexio, business, private, employer, importan
 export const GroupTags = 'important, review, selectable, test';
 export const DocumentTags = 'important, review, test, selectable, cancelled, draft, invalid, old, new, business, private, offering, pending, planned';
 export const EventTags = 'important, review, selectable, test, business, private, planned, public, reserved, marketing, social, training, regatta';
+export const YearlyEventTags = 'history,museum,carriage,culture,sport,military,tour,jubilee,industry,nature,religion';
 export const LocationTags = 'important, review, selectable, test';
 export const ResourceTags = 'important, review, selectable, test, billable, old, new, lost, pending, planned, repairing, reserved, unavailable, unpaid, valid';
 export const RoleTags = 'important, review, selectable, test';
