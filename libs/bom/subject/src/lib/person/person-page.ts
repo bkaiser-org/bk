@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject, input } from '@angular/core';
-import { AppNavigationService, CollectionNames, die } from '@bk/util';
+import { AppNavigationService, CollectionNames, die, ENV } from '@bk/util';
 import { Observable, asapScheduler, firstValueFrom, map } from 'rxjs';
 import { AuthorizationService, BkCommentsAccordionComponent } from '@bk/base';
 import { AvatarService, BkAvatarToolbarComponent, BkChangeConfirmationComponent, BkHeaderComponent, BkSpinnerComponent } from '@bk/ui';
@@ -41,10 +41,16 @@ import { BkDocumentsAccordionComponent } from '@bk/document';
 
         <ion-accordion-group value="addresses">
           <bk-addresses-accordion [parentKey]="vm.bkey!" [readOnly]="!authorizationService.hasRole('memberAdmin')" [parentType]="MT.Person" />
-          <bk-memberships-accordion [subjectKey]="vm.bkey!" />
-          <bk-ownerships-accordion [subjectKey]="vm.bkey!" />
-          @if(authorizationService.isPrivilegedOr('memberAdmin')) {
+          @if(authorizationService.hasRole(env.app.showMemberships)) {
+            <bk-memberships-accordion [subjectKey]="vm.bkey!" />
+          }
+          @if(authorizationService.hasRole(env.app.showOwnerships)) {
+            <bk-ownerships-accordion [subjectKey]="vm.bkey!" />
+          }
+          @if(authorizationService.hasRole(env.app.showComments)) {
             <bk-comments-accordion [collectionName]="CNS.Subject" [parentKey]="vm.bkey!" />
+          }
+          @if(authorizationService.hasRole(env.app.showDocuments)) {
             <bk-documents-accordion [modelType]="MT.Person" [parentKey]="vm.bkey!" />
           }
         </ion-accordion-group>
@@ -59,6 +65,7 @@ export class PersonPageComponent {
   public subjectService = inject(SubjectService);
   private appNavigationService = inject(AppNavigationService);
   private avatarService = inject(AvatarService);
+  protected env = inject(ENV);
 
   public id = input.required<string>();
   protected currentPerson$ = computed(() => this.subjectService.readSubject(this.id()));

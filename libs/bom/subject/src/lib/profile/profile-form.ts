@@ -36,17 +36,21 @@ import { vestForms } from 'ngx-vest-forms';
         </ion-col>
       </ion-row>
       <ion-row>                                                         <!-- dateOfBirth -->
-        <ion-col size="12" size-md="6">                                                              
-          <bk-date-input name="dateOfBirth" [storeDate]="vm.dateOfBirth!" (changed)="updateField('dateOfBirth', $event)" autocomplete="bday" [showError]=true [showHelper]=true [readOnly]="readOnly()" />
-        </ion-col>
-
-        <ion-col size="12" size-md="6">                                 <!-- gender -->
-          <bk-cat-input name="gender" [value]="vm.gender!" [categories]="genderTypes" (changed)="updateField('gender', $event)" [readOnly]="true" />                                                  
-        </ion-col>
-
-        <ion-col size="12" size-md="6">                                <!-- ssn -->
-          <bk-text-input name="ssn" [value]="vm.ssn!" (changed)="updateField('ssn', $event)" [maxLength]=16 [mask]="ssnMask" [showError]=true [showHelper]=true [copyable]=true [readOnly]="false" />                                                  
-        </ion-col>
+        @if(authorizationService.hasRole(env.app.showDateOfBirth)) {
+          <ion-col size="12" size-md="6">                                                              
+            <bk-date-input name="dateOfBirth" [storeDate]="vm.dateOfBirth!" (changed)="updateField('dateOfBirth', $event)" autocomplete="bday" [showError]=true [showHelper]=true [readOnly]="readOnly()" />
+          </ion-col>
+        }
+        @if(authorizationService.hasRole(env.app.showGender)) {
+          <ion-col size="12" size-md="6">                                 <!-- gender -->
+            <bk-cat-input name="gender" [value]="vm.gender!" [categories]="genderTypes" (changed)="updateField('gender', $event)" [readOnly]="true" />                                                  
+          </ion-col>
+        }
+        @if(authorizationService.hasRole(env.app.showTaxId)) {
+          <ion-col size="12" size-md="6">                                <!-- ssn -->
+            <bk-text-input name="ssn" [value]="vm.ssn!" (changed)="updateField('ssn', $event)" [maxLength]=16 [mask]="ssnMask" [showError]=true [showHelper]=true [copyable]=true [readOnly]="false" />                                                  
+          </ion-col>
+        }
 
         @if(authorizationService.isAdmin()) {
           <ion-col size="12" size-md="6">                                 <!-- language -->                                                              

@@ -64,9 +64,11 @@ import { PersonAllService } from './person-all.service';
           <ion-col size="6" size-md="3">
             <bk-single-tag (selectedTag)="onTagSelected($event)" [tags]="personTags" />
           </ion-col>
-          <ion-col size="6" size-md="3">
-            <bk-cat [config]="baseService.categoryConfig()!" (ionChange)="onCategoryChange($event)" />
-          </ion-col>  
+          @if(authorizationService.hasRole(env.app.showGender)) {
+            <ion-col size="6" size-md="3">
+              <bk-cat [config]="baseService.categoryConfig()!" (ionChange)="onCategoryChange($event)" />
+            </ion-col>
+          }  
         </ion-row>
       </ion-grid>
     </ion-toolbar>

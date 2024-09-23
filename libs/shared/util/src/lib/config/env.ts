@@ -1,5 +1,7 @@
 import { InjectionToken } from "@angular/core";
 
+export type RoleName = 'none' | 'anonymous' | 'registered' | 'privileged' | 'contentAdmin' | 'resourceAdmin' | 'memberAdmin' | 'eventAdmin' | 'treasurer' | 'admin'| 'public' ;
+
 export interface BkEnvironment {
   production: boolean;
   useEmulators: boolean;
@@ -22,6 +24,17 @@ export interface BkEnvironment {
     welcomeBannerUrl: string;
     notfoundBannerUrl: string;
     osiLogoUrl: string;
+    showDateOfBirth: RoleName;
+    showDateOfDeath: RoleName;
+    showGender: RoleName;
+    showTaxId: RoleName;
+    showBexioId: RoleName;
+    showTags: RoleName;
+    showNotes: RoleName;
+    showMemberships: RoleName;
+    showOwnerships: RoleName;
+    showComments: RoleName;
+    showDocuments: RoleName;
   },
   auth: {
     tenantId: string;

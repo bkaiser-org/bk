@@ -38,29 +38,33 @@ import { vestForms } from 'ngx-vest-forms';
               <bk-text-input name="lastName" [value]="vm.lastName!" (changed)="updateField('lastName', $event)" autocomplete="family-name" [maxLength]=30 [showError]=true [readOnly]="readOnly()" />                                        
             </ion-col>
 
-            <ion-col size="12" size-md="6">                                 <!-- dateOfBirth -->
-              <bk-date-input name="dateOfBirth" [storeDate]="vm.dateOfBirth!" (changed)="updateField('dateOfBirth', $event)" autocomplete="bday" [showError]=true [showHelper]=true [readOnly]="readOnly()" />
-            </ion-col>
+            @if(authorizationService.hasRole(env.app.showDateOfBirth)) {
+              <ion-col size="12" size-md="6">                                 <!-- dateOfBirth -->
+                <bk-date-input name="dateOfBirth" [storeDate]="vm.dateOfBirth!" (changed)="updateField('dateOfBirth', $event)" autocomplete="bday" [showError]=true [showHelper]=true [readOnly]="readOnly()" />
+              </ion-col>
+            }
 
-            @if(authorizationService.hasRole('memberAdmin')) {
+            @if(authorizationService.hasRole(env.app.showDateOfDeath)) {
               <ion-col size="12" size-md="6">                                 <!-- dateOfDeath -->
                 <bk-date-input name="dateOfDeath" [storeDate]="vm.dateOfDeath!" (changed)="updateField('dateOfDeath', $event)" [showError]=true [readOnly]="readOnly()" />
               </ion-col>
             }
 
-            <ion-col size="12" size-md="6">                                   <!-- gender -->
-              <bk-cat-input name="gender" [value]="vm.gender!" [categories]="genderTypes" (changed)="updateField('gender', $event)" [readOnly]="readOnly()" />
-            </ion-col>
+            @if(authorizationService.hasRole(env.app.showGender)) {
+              <ion-col size="12" size-md="6">                                   <!-- gender -->
+                <bk-cat-input name="gender" [value]="vm.gender!" [categories]="genderTypes" (changed)="updateField('gender', $event)" [readOnly]="readOnly()" />
+              </ion-col>
+            }
     
           <!---------------------------------------------------
             OTHER  
             --------------------------------------------------->
-            @if(authorizationService.hasRole('memberAdmin')) {
+            @if(authorizationService.hasRole(env.app.showTaxId)) {
               <ion-col size="12" size-md="6">                                 <!-- SSN -->
                 <bk-text-input name="ssn" [value]="vm.ssn!" (changed)="updateField('ssn', $event)" [maxLength]=16 [mask]="ssnMask" [showError]=true [showHelper]=true [copyable]=true [readOnly]="readOnly()" />                                        
               </ion-col>
             }
-            @if(authorizationService.isAdmin()) {
+            @if(authorizationService.hasRole(env.app.showBexioId)) {
               <ion-col size="12" size-md="6">                                 <!-- bexioId -->
                 <bk-text-input name="bexioId" [value]="vm.bexioId!" (changed)="updateField('bexioId', $event)" [maxLength]=6 [mask]="bexioMask" [showError]=true [readOnly]="readOnly()" />                                        
               </ion-col>
@@ -70,7 +74,7 @@ import { vestForms } from 'ngx-vest-forms';
           <!---------------------------------------------------
             TAG, NOTES 
           --------------------------------------------------->
-          @if(authorizationService.isPrivileged()) {
+          @if(authorizationService.hasRole(env.app.showTags)) {
             <ion-row>                                                       <!-- tags -->
               <ion-col>
                 <bk-tags storedTags="{{vm.tags}}" [allTags]="personTags" (changedTags)="onTagsChanged($event)" [readOnly]="readOnly()" />
@@ -78,7 +82,7 @@ import { vestForms } from 'ngx-vest-forms';
             </ion-row>
           }
     
-          @if(authorizationService.isAdmin()) {
+          @if(authorizationService.hasRole(env.app.showNotes)) {
             <ion-row>                                                       <!-- notes -->
               <ion-col>
                <bk-notes [value]="vm.notes ?? ''" (changed)="updateField('notes', $event)" />
@@ -90,7 +94,7 @@ import { vestForms } from 'ngx-vest-forms';
     }
   `
 })
-export class PersonFormComponent extends AbstractFormComponent implements AfterViewInit {
+export class PersonFormComponent extends AbstractFormComponent implements AfterViewInit {  
   public vm = model.required<PersonFormModel>();
   public override readOnly = input(!this.authorizationService.hasRole('memberAdmin'));
 
