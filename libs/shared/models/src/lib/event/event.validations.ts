@@ -17,6 +17,7 @@ export const eventValidations = staticSuite((model: EventModel, field?: string) 
   stringValidations('locationKey', model.locationKey, SHORT_NAME_LENGTH);
   categoryValidations('periodicity', model.periodicity, Periodicity);
   dateValidations('repeatUntilDate', model.repeatUntilDate);
+  stringValidations('responsiblePersons', model.locationKey, SHORT_NAME_LENGTH);
 
   test('modelType', 'eventModelType', () => {
     enforce(model.modelType).equals(ModelType.Event);

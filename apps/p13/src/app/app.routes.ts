@@ -158,11 +158,18 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: 'all',
-        canActivate: [isPrivilegedGuard],
+        canActivate: [isAuthenticatedGuard],
         loadComponent: () =>
           import('@bk/event').then((m) => m.EventAllListComponent),
         data: { preload: true },
       },
+      {
+        path: 'yearly',
+        canActivate: [isAuthenticatedGuard],
+        loadComponent: () =>
+          import('@bk/event').then((m) => m.EventYearlyListComponent),
+        data: { preload: true },
+      }
     ],
   },
   {

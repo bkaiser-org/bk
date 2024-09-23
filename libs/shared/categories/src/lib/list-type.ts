@@ -107,7 +107,8 @@ export enum ListType {
   LocationAll,
   MenuItemAll,
   TaskAll,
-  TripAll
+  TripAll,
+  EventYearly
 }
 
 // tbd: Ehemalige und Verstorbene aus ScsMemberType entfernen und mit einer Query lösen:
@@ -822,6 +823,16 @@ export const ListTypes: ListTypeModel[] = [
     },
     initialQuery: [],
     orderBy: 'startDateTime',
+  },
+  {
+    id: ListType.EventYearly,
+    title: '@categories.listType.event.yearly.title',
+    modelType: ModelType.Event,
+    slug: 'event',
+    search: { fieldName: 'index', placeholder: '@general.operation.search.placeholder' },
+    filterType: FilterType.None,
+    initialQuery: [],
+    orderBy: 'startDate'
   },
 ];
 

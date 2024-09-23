@@ -61,7 +61,7 @@ import { vestForms } from 'ngx-vest-forms';
       
       <ion-row>
         <ion-col size="12">                                               <!-- location -->
-          <!-- tbd: locationKey is currently only a text field -->
+          <!-- tbd: locationKey is currently only a text field, should be [key]@[name], e.g.  qlöh1341hkqj@Stäfa -->
           <bk-text-input name="locationKey" [value]="vm.locationKey!" (changed)="updateField('locationKey', $event)" [maxLength]=30 [showError]=true [readOnly]="readOnly()" />                                        
         </ion-col>
       </ion-row>

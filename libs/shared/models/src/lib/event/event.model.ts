@@ -8,10 +8,11 @@ export class EventModel extends BaseModel {
     public startTime = '';
     public endDate = '';
     public endTime = '';
-    public locationKey = '';
+    public locationKey = '';  // name@key, e.g. 'Bucharest@qwerlkjqrw869sdf'
     public periodicity = Periodicity.Once;
     public repeatUntilDate = '';
     public calendarName = '';
+    public responsiblePersons = '';  // [personKey[,personKey,...]]@[personName[,personName,...]]
 
     constructor() {
         super();
