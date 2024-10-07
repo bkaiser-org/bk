@@ -12,7 +12,6 @@ export class ImgixUrlPipe implements PipeTransform {
     if (image.isThumbnail === true) {
       return getThumbnailUrl(_baseUrl + image.url, 200, 200);
     }
-    console.log('ImgixUrlPipe.transform -> url: ', _baseUrl + getImgixUrlFromImage(image));
     return _baseUrl + getImgixUrlFromImage(image);
   }
 }
