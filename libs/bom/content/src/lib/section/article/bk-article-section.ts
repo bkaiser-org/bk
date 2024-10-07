@@ -1,25 +1,27 @@
-import { Component, computed, input, output } from '@angular/core';
-import { ModelType, ViewPosition } from "@bk/categories";
-import { NameDisplay } from "@bk/util";
-import { SectionModel } from "@bk/models";
-import { BkSpinnerComponent } from "@bk/ui";
-import { FullNamePipe, TranslatePipe } from "@bk/pipes";
-import { IonButton, IonCard, IonCardContent, IonCol, IonGrid, IonItem, IonRow } from '@ionic/angular/standalone';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, computed, input, output } from '@angular/core';
+import { SectionModel } from '@bk/models';
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonGrid, IonLabel, IonRow } from '@ionic/angular/standalone';
+import { BkImgComponent, BkSpinnerComponent } from '@bk/ui';
+import { ViewPosition } from '@bk/categories';
+import { BkEditorComponent } from '../article/bk-editor';
 import { AsyncPipe } from '@angular/common';
-import { BkPersonsWidgetComponent } from './widgets/bk-persons-widget';
-import { BkEditorComponent } from './widgets/bk-editor';
 
 @Component({
-  selector: 'bk-people-list-section',
+  selector: 'bk-article-section',
   standalone: true,
   imports: [
-    BkSpinnerComponent, BkPersonsWidgetComponent, BkEditorComponent,
-    FullNamePipe, TranslatePipe, AsyncPipe,
-    IonCard, IonCardContent, IonGrid, IonRow, IonCol, IonItem, IonButton
+    AsyncPipe,
+    BkSpinnerComponent, BkEditorComponent, BkImgComponent,
+    IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle,
+    IonGrid, IonRow, IonCol, IonLabel
+  ],
+  schemas: [ 
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   styles: [`
     ion-card-content { padding: 0px; }
     ion-card { padding: 0px; margin: 0px; border: 0px; box-shadow: none !important;}
+
   `],
   template: `
     @if(section(); as section) {
@@ -29,9 +31,11 @@ import { BkEditorComponent } from './widgets/bk-editor';
             @case(VP.Left) {
               <ion-grid>
                 <ion-row>
-                  <ion-col size="12" [sizeMd]="colSizeImage()">
-                    <bk-persons-widget [section]="section" />
-                  </ion-col>
+                  @if(image(); as image) {
+                    <ion-col size="12" [sizeMd]="colSizeImage()">
+                      <bk-img [image]="image" />
+                    </ion-col>
+                  }
                   <ion-col size="12" [sizeMd]="colSizeText()">
                     <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
                   </ion-col>
@@ -44,21 +48,27 @@ import { BkEditorComponent } from './widgets/bk-editor';
                   <ion-col size="12" [sizeMd]="colSizeText()">
                     <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
                   </ion-col>
-                  <ion-col size="12" [sizeMd]="colSizeImage()">
-                    <bk-persons-widget [section]="section" />
-                  </ion-col>
+                  @if(image(); as image) {
+                    <ion-col size="12" [sizeMd]="colSizeImage()">
+                      <bk-img [image]="image" />
+                    </ion-col>
+                  }
                 </ion-row>
               </ion-grid>
             }
             @case(VP.Top) {
-              <bk-persons-widget [section]="section" />
+              @if(image(); as image) {
+                <bk-img [image]="image" />
+              }
               <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
             }
             @case(VP.Bottom) {
               <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
-              <bk-persons-widget [section]="section" />
+              @if(image(); as image) {
+                <bk-img [image]="image" />
+              }
             }
-            @default { <!-- VP.None -->
+            @default {  <!-- VP.None -->
               <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
             }
           }
@@ -69,13 +79,12 @@ import { BkEditorComponent } from './widgets/bk-editor';
     }
   `
 })
-export class BkPeopleListSectionComponent {
+export class BkArticleSectionComponent {
   public section = input<SectionModel>();
   public readOnly = input(false);
+  protected image = computed(() => this.section()?.properties.image);
   public contentChange = output<string>();
 
-  public ND = NameDisplay;
-  public MT = ModelType;
   public VP = ViewPosition;
 
   // colSizeImage
@@ -85,6 +94,7 @@ export class BkPeopleListSectionComponent {
 
   // colSizeText
   protected colSizeText = computed(() => {
+    if (!this.image()) return 12;
     return (12 - (this.section()?.colSize ?? 6));
   });
 

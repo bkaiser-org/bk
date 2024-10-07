@@ -4,7 +4,7 @@ import { IonAccordion, IonAccordionGroup, IonCol, IonGrid, IonItem, IonLabel, Io
 import { AsyncPipe } from '@angular/common';
 import { CategoryPlainNamePipe, TranslatePipe } from '@bk/pipes';
 import { ColorsIonic } from '@bk/categories';
-import { BkSectionComponent } from './bk-section';
+import { BkSectionComponent } from '../bk-section';
 
 @Component({
   selector: 'bk-accordion-section',

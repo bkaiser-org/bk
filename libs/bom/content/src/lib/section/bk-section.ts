@@ -3,27 +3,27 @@ import { SectionType } from '@bk/categories';
 import { die } from '@bk/util';
 import { Observable, firstValueFrom } from 'rxjs';
 import { SectionModel } from '@bk/models';
-import { BkArticleSectionComponent } from './bk-article-section';
-import { BkSwiperSectionComponent } from './bk-swiper-section';
-import { BkPeopleListSectionComponent } from './bk-people-list-section';
-import { BkGallerySectionComponent } from './bk-gallery-section';
+import { BkArticleSectionComponent } from './article/bk-article-section';
+import { BkSwiperSectionComponent } from './swiper/bk-swiper-section';
+import { BkPeopleListSectionComponent } from './people-list/bk-people-list-section';
+import { BkGallerySectionComponent } from './gallery/bk-gallery-section';
 import { SectionService } from './section.service';
 import { AsyncPipe } from '@angular/common';
-import { IonLabel } from '@ionic/angular/standalone';
-import { TranslatePipe } from '@bk/pipes';
-import { BkAlbumSectionComponent } from './bk-album-section';
-import { BkMapSectionComponent } from './bk-map-section';
-import { BkVideoSectionComponent } from './bk-video-section';
-import { BkCalendarSectionComponent } from './bk-calendar-section';
-import { BkModelSectionComponent } from './bk-model-section';
-import { BkHeroSectionComponent } from './bk-hero-section';
-import { BkButtonSectionComponent } from './bk-button-section';
+import { IonItem, IonLabel } from '@ionic/angular/standalone';
+import { PrettyjsonPipe, TranslatePipe } from '@bk/pipes';
+import { BkAlbumSectionComponent } from './album/bk-album-section';
+import { BkMapSectionComponent } from './map/bk-map-section';
+import { BkVideoSectionComponent } from './video/bk-video-section';
+import { BkCalendarSectionComponent } from './calendar/bk-calendar-section';
+import { BkModelSectionComponent } from './model/bk-model-section';
+import { BkHeroSectionComponent } from './hero/bk-hero-section';
+import { BkButtonSectionComponent } from './button/bk-button-section';
 import { BkChangeConfirmationComponent } from '@bk/ui';
-import { BkTableSectionComponent } from './bk-table-section';
-import { BkListSectionComponent } from './bk-list-section';
-import { BkIframeSectionComponent } from './bk-iframe-section';
+import { BkTableSectionComponent } from './table/bk-table-section';
+import { BkListSectionComponent } from './list/bk-list-section';
+import { BkIframeSectionComponent } from './iframe/bk-iframe-section';
 import { AuthorizationService } from '@bk/base';
-import { BkAccordionSectionComponent } from './bk-accordion-section';
+import { BkAccordionSectionComponent } from './accordion/bk-accordion-section';
 
 /**
  * A section is part of a page.
@@ -34,14 +34,14 @@ import { BkAccordionSectionComponent } from './bk-accordion-section';
   selector: 'bk-section',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe,
+    TranslatePipe, AsyncPipe, PrettyjsonPipe,
     BkArticleSectionComponent, BkSwiperSectionComponent, BkPeopleListSectionComponent, 
     BkGallerySectionComponent, BkAlbumSectionComponent, BkListSectionComponent,
     BkMapSectionComponent, BkVideoSectionComponent,
     BkCalendarSectionComponent, BkModelSectionComponent, BkHeroSectionComponent,
     BkButtonSectionComponent, BkChangeConfirmationComponent, BkTableSectionComponent,
     BkIframeSectionComponent, BkAccordionSectionComponent,
-    IonLabel
+    IonLabel, IonItem
   ],
   template: `
     @if(section$ | async; as section) {
@@ -51,9 +51,7 @@ import { BkAccordionSectionComponent } from './bk-accordion-section';
       @if (authorizationService.hasRole(section.roleNeeded)) {
         @switch (section.category) {
           @case(ST.Album) {                                   <!-- 0: Album -->
-            @if(section.properties.album; as album) {
-              <bk-album-section [initialDirectory]="album.directory" [initialAlbumStyle]="album.albumStyle" />
-            }                                 
+            <bk-album-section [section]="section" />
           }
           @case(ST.Article) {                                 <!-- 1: Article -->
             <bk-article-section [section]="section" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
@@ -102,6 +100,11 @@ import { BkAccordionSectionComponent } from './bk-accordion-section';
           @default {
             <ion-label>{{ '@content.section.error.noSuchSection' | translate: { type: section.category } | async }}</ion-label>
           }
+        }
+        @if (authorizationService.currentUser()?.showDebugInfo === true) {
+          <ion-item lines="none">
+            <small><div [innerHTML]="section | prettyjson"></div></small>
+          </ion-item>
         }
       }
     }

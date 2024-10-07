@@ -1,12 +1,15 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { AlbumStyle, ImageAction } from "@bk/categories";
-import { Image } from "@bk/models";
-import { ENV, STORAGE } from "@bk/util";
+import { AlbumStyle, GalleryEffects, getCategoryName, ImageAction } from "@bk/categories";
+import { AlbumConfig, getImageType, Image, ImageType, newAlbumConfig } from "@bk/models";
+import { ENV, STORAGE, warn } from "@bk/util";
+import { ModalController } from "@ionic/angular/standalone";
 import { listAll, ref, StorageReference } from "firebase/storage";
 import { catchError, EMPTY, from, Subject, switchMap, tap } from "rxjs";
+import { GalleryModalComponent } from "../gallery/gallery.modal";
 
 export interface AlbumState {
+  config: AlbumConfig;
   directory: string;
   albumStyle: AlbumStyle;
   images: Image[],
@@ -20,8 +23,10 @@ export interface AlbumState {
 export class AlbumService {
   private env = inject(ENV);
   private storage = inject(STORAGE);
+  private modalController = inject(ModalController);
 
   private state = signal<AlbumState>({
+    config: newAlbumConfig(),
     directory: 'tenant/' + this.env.auth.tenantId + '/album',
     albumStyle: AlbumStyle.Grid,
     images: [],
@@ -30,6 +35,7 @@ export class AlbumService {
   });
 
   // selectors (select a piece of state)
+  public config = computed(() => this.state().config);
   public directory = computed(() => this.state().directory);
   public albumStyle = computed(() => this.state().albumStyle);
   public images = computed(() => this.state().images);
@@ -46,7 +52,7 @@ export class AlbumService {
   constructor() {
     this.selectedDirectory$.pipe(
       tap(() => this.setLoadingIndicator(true)),
-      tap((dir => this.setDirectory(dir))),
+      tap(dir => this.setDirectory(dir)),
       switchMap((dir) => from(this.listAll(dir))),
       takeUntilDestroyed(),
       catchError(err => {
@@ -54,16 +60,21 @@ export class AlbumService {
         return EMPTY;  // Ensures the stream doesn't break
       })
     ).subscribe((images) => { 
-      console.log('AlbumService -> images: ', images);
       this.setImages(images); 
     });
     this.selectedAlbumStyle$.pipe(
-      tap((albumStyle) => this.setAlbumStyle(albumStyle)));
+      tap(albumStyle => this.setAlbumStyle(albumStyle)),
+      takeUntilDestroyed(),
+      catchError(err => {
+        this.setError('Failed to set album style: ' + JSON.stringify(err));
+        return EMPTY;  // Ensures the stream doesn't break
+      })).subscribe((style) => {
+        console.log('AlbumService -> albumStyle: ', style);
+      });
    }
 
    // reducers (how actions update state)
    private setDirectory(directory: string): void {
-    console.log('AlbumService.setDirectory -> directory: ' + directory);
     this.state.update((_state) => ({
       ..._state,
       directory: directory
@@ -100,18 +111,28 @@ export class AlbumService {
     }));
   }
 
+  public initialize(config: AlbumConfig | undefined): void {
+    if (!config) {
+      warn('AlbumService.initialize: config is undefined');
+      config = newAlbumConfig();
+    }
+    this.state.update((_state) => ({
+      ..._state,
+      config: config
+    }));
+    this.setCurrentDirectory(config.directory);
+    this.setCurrentAlbumStyle(config.albumStyle);
+  }
+
   public setCurrentDirectory(directory: string): void {
-    console.log('AlbumService.setCurrentDirectory -> directory: ' + directory);
     this.selectedDirectory$.next(directory);
   }
 
   public setCurrentAlbumStyle(albumStyle: AlbumStyle): void {
-    console.log('AlbumService.setCurrentAlbumStyle -> albumStyle: ' + albumStyle + ' of type: ' + typeof albumStyle);
     this.selectedAlbumStyle$.next(albumStyle);
   }
 
   private async listAll(directory: string): Promise<Image[]> {
-    console.log('AlbumService.listAll -> directory: ' + directory);
     const _images: Image[] = [];
     try {
       const _listRef = ref(this.storage, directory);
@@ -121,14 +142,41 @@ export class AlbumService {
       
       // list all subdirectories in the directory
       _result.prefixes.forEach((_dir) => {
-        _images.push(this.getDirImage(_dir, 'logo/filetypes/folder.svg', this.directory() + '/' + _dir.name));
+        _images.push(this.getImage(_dir, ImageType.Dir));
       });
   
       // list all files in the directory
       _result.items.forEach((_file) => {
-        _images.push(this.getImage(_file, this.directory() + '/' + _file.name, ''));
+        const _imageType = getImageType(_file.name);
+        switch(_imageType) {
+          case ImageType.Image:
+            _images.push(this.getImage(_file, _imageType));
+            break;
+          case ImageType.Video:
+            if (this.config().showVideos) {
+              _images.push(this.getImage(_file, _imageType));
+            }
+            break;
+          case ImageType.StreamingVideo:
+            if (this.config().showStreamingVideos) {
+              _images.push(this.getImage(_file, _imageType));
+            }
+            break;
+          case ImageType.Pdf: 
+            if (this.config().showPdfs) {
+              _images.push(this.getImage(_file, _imageType));
+            }
+            break;
+          case ImageType.Doc:
+            if (this.config().showDocs) {
+              _images.push(this.getImage(_file, _imageType));
+            }
+            break;
+          case ImageType.Audio:
+          default: 
+            break;
+        }
       });
-        console.log('AlbumService.listAll -> images: ', _images);
     }
     catch(_ex) {
       const _err = JSON.stringify(_ex);
@@ -142,45 +190,90 @@ export class AlbumService {
     this.setCurrentDirectory(this.parentDirectory());
   }
 
-  private getImage(ref: StorageReference, url: string, actionUrl: string): Image {
+  /**
+   * Return a thumbnail representation of the file given based on its mime type.
+   * image:  thumbnail image
+   * video:  move icon to download the video
+   * streaming video: ix-player (bk-video)
+   * other:  file icon to download the file
+   * @param ref 
+   * @param url 
+   * @param actionUrl 
+   * @returns 
+   */
+  private getImage(ref: StorageReference, imageType: ImageType): Image {
     return {
       imageLabel: ref.name,
-      url: url,
-      actionUrl: actionUrl,
-      altText: ref.name,
+      imageType: imageType,
+      url: this.getUrl(imageType, ref.name),
+      actionUrl: this.getActionUrl(imageType, ref.name),
+      altText: (imageType === ImageType.Dir) ? ref.name + ' directory' : ref.name,
       imageOverlay: '',
-      fill: true,
+      fill: (imageType === ImageType.Image) ? true : false,
       hasPriority: false,
       imgIxParams: '',
-      width: 400,
-      height: 400,
+      width: (imageType === ImageType.Image) ? 400 : 100,
+      height: (imageType === ImageType.Image) ? 400 : 100,
       sizes: '(max-width: 786px) 50vw, 100vw',
       borderRadius: 4,
-      imageAction: ImageAction.OpenSlider,
+      imageAction: this.getImageAction(imageType),
       zoomFactor: 2,
       isThumbnail: false,
       slot: 'icon-only'
     };
   }
 
-  private getDirImage(ref: StorageReference, url: string, actionUrl: string): Image {
-    return {
-      imageLabel: ref.name,
-      url: url,
-      actionUrl: actionUrl,
-      altText: ref.name + ' directory',
-      imageOverlay: '',
-      fill: false,
-      hasPriority: false,
-      imgIxParams: '',
-      width: 100,
-      height: 100,
-      sizes: '(max-width: 786px) 50vw, 100vw',
-      borderRadius: 4,
-      imageAction: ImageAction.OpenDirectory,
-      zoomFactor: 2,
-      isThumbnail: false,
-      slot: 'icon-only'
-    };
+  private getImageAction(imageType: ImageType): ImageAction {
+    switch(imageType) {
+      case ImageType.Image: return ImageAction.OpenSlider;
+      case ImageType.Pdf:
+      case ImageType.Audio:
+      case ImageType.Doc:
+      case ImageType.Video: return ImageAction.Download;
+      case ImageType.Dir: return ImageAction.OpenDirectory;
+      default: return ImageAction.None;
+    }
+  }
+
+  private getUrl(imageType: ImageType, fileName: string): string {
+    switch(imageType) {
+      case ImageType.Image: return this.directory() + '/' + fileName;
+      case ImageType.Video: return 'logo/filetypes/video.svg';
+      case ImageType.StreamingVideo: return this.env.app.imgixBaseUrl + '/' + this.directory() + '/' + fileName;
+      case ImageType.Audio: return 'logo/filetypes/audio.svg';
+      case ImageType.Pdf: return this.directory() + '/' + fileName;
+      case ImageType.Doc: return 'logo/filetypes/doc.svg';
+      case ImageType.Dir: return 'logo/filetypes/folder.svg';
+      default: return 'logo/filetypes/file.svg';
+    }
+  }
+
+  private getActionUrl(imageType: ImageType, fileName: string): string {
+    const _downloadUrl = this.env.app.imgixBaseUrl + '/' + this.directory() + '/' + fileName;
+    switch(imageType) {
+      case ImageType.Video: 
+      case ImageType.Audio:
+      case ImageType.Doc:
+      case ImageType.Pdf: return _downloadUrl;
+      case ImageType.Dir: return this.directory() + '/' + fileName;
+      default: return '';
+    }
+  }
+
+  public async openGallery(files: Image[], title = '', initialSlide = 0): Promise<void> {
+    const _images = files.filter((file) => file.imageType === ImageType.Image);
+    const _modal = await this.modalController.create({
+      component: GalleryModalComponent,
+      cssClass: 'full-modal',
+      componentProps: {
+        imageList: _images,
+        initialSlide: initialSlide,
+        title: title,
+        effect: getCategoryName(GalleryEffects, this.config().galleryEffect)
+      }
+    });
+    _modal.present();
+
+    await _modal.onWillDismiss();
   }
 }

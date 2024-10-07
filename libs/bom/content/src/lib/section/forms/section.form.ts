@@ -7,19 +7,20 @@ import { ModelType, RoleEnum, RoleEnums, SectionType, SectionTypes, ViewPosition
 import { CategoryNamePipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { SectionTags, copyToClipboard, showToast } from '@bk/util';
-import { BkEditorComponent } from '../widgets/bk-editor';
-import { BkEditorToolbar } from '../widgets/bk-editor-toolbar';
-import { BkAccordionSectionFormComponent } from './accordion-section.form';
-import { BkVideoSectionFormComponent } from './video.form';
-import { BkMapSectionFormComponent } from './map.form';
-import { BkArticleSectionFormComponent } from './article-section.form';
-import { BkButtonSectionFormComponent } from './button-section.form';
-import { PeopleListFormComponent } from './people-list.form';
-import { BkIframeSectionFormComponent } from "./iframe.form";
+import { BkEditorComponent } from '../article/bk-editor';
+import { BkEditorToolbar } from '../article/bk-editor-toolbar';
+import { BkAccordionSectionFormComponent } from '../accordion/accordion-section.form';
+import { BkVideoSectionFormComponent } from '../video/video.form';
+import { BkMapSectionFormComponent } from '../map/map.form';
+import { BkArticleSectionFormComponent } from '../article/article-section.form';
+import { BkButtonSectionFormComponent } from '../button/button-section.form';
+import { PeopleListFormComponent } from '../people-list/people-list.form';
+import { BkIframeSectionFormComponent } from "../iframe/iframe.form";
 import { vestForms } from 'ngx-vest-forms';
 import { BkImageConfigFormComponent } from './default-image-config.form';
 import { BkImageListFormComponent } from "./image-list.form";
 import { SingleImageFormComponent } from "./image.form";
+import { AlbumFormComponent } from "../album/album-section.form";
 
 @Component({
   selector: 'bk-section-form',
@@ -33,7 +34,8 @@ import { SingleImageFormComponent } from "./image.form";
     BkVideoSectionFormComponent, BkArticleSectionFormComponent, PeopleListFormComponent,
     IonToolbar, IonButton, IonGrid, IonRow, IonCol, IonLabel, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem,
     BkImageListFormComponent,
-    SingleImageFormComponent
+    SingleImageFormComponent,
+    AlbumFormComponent
 ],
   template: `
   @if(vm(); as vm) {
@@ -73,8 +75,9 @@ import { SingleImageFormComponent } from "./image.form";
       <!-- section specific settings must be defined within ion-row -->
       @switch(vm.type) {
         @case(ST.Album) {                                             <!-- 0: Album -->
-          <bk-image-list-form [vm]="vm" (changedProperties)="onPropertiesChange($event)" />
-          <bk-image-config-form [vm]="vm" (changedProperties)="onPropertiesChange($event)" />
+          <bk-album-config-form [vm]="vm" (changedProperties)="onPropertiesChange($event)" />
+<!--           <bk-image-list-form [vm]="vm" (changedProperties)="onPropertiesChange($event)" />
+ -->          <bk-image-config-form [vm]="vm" (changedProperties)="onPropertiesChange($event)" />
         }
         @case(ST.Article) {                                           <!-- 1: Article -->
           <bk-single-image-form [vm]="vm" (changedProperties)="onPropertiesChange($event)" />

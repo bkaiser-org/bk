@@ -2,7 +2,7 @@ import { Component, model, output } from '@angular/core';
 import { SectionFormModel } from '@bk/models';
 import { BkCatInputComponent } from '@bk/ui';
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonRow } from '@ionic/angular/standalone';
-import { BkEditorComponent } from '../widgets/bk-editor';
+import { BkEditorComponent } from './bk-editor';
 import { ViewPositions } from '@bk/categories';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';

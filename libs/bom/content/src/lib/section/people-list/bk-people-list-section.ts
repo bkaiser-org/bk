@@ -1,19 +1,21 @@
 import { Component, computed, input, output } from '@angular/core';
-import { SectionModel } from '@bk/models';
-import { IonCard, IonCardContent, IonCheckbox, IonCol, IonGrid, IonRow } from '@ionic/angular/standalone';
-import { BkSpinnerComponent } from '@bk/ui';
-import { ViewPosition } from '@bk/categories';
-import { ButtonWidgetComponent } from './widgets/bk-button-widget';
-import { BkEditorComponent } from './widgets/bk-editor';
+import { ModelType, ViewPosition } from "@bk/categories";
+import { NameDisplay } from "@bk/util";
+import { SectionModel } from "@bk/models";
+import { BkSpinnerComponent } from "@bk/ui";
+import { FullNamePipe, TranslatePipe } from "@bk/pipes";
+import { IonButton, IonCard, IonCardContent, IonCol, IonGrid, IonItem, IonRow } from '@ionic/angular/standalone';
+import { AsyncPipe } from '@angular/common';
+import { BkPersonsWidgetComponent } from './bk-persons-widget';
+import { BkEditorComponent } from '../article/bk-editor';
 
 @Component({
-  selector: 'bk-button-section',
+  selector: 'bk-people-list-section',
   standalone: true,
   imports: [
-    BkSpinnerComponent, ButtonWidgetComponent,
-    BkEditorComponent,
-    IonCard, IonCardContent,
-    IonGrid, IonRow, IonCol, IonCheckbox
+    BkSpinnerComponent, BkPersonsWidgetComponent, BkEditorComponent,
+    FullNamePipe, TranslatePipe, AsyncPipe,
+    IonCard, IonCardContent, IonGrid, IonRow, IonCol, IonItem, IonButton
   ],
   styles: [`
     ion-card-content { padding: 0px; }
@@ -27,10 +29,10 @@ import { BkEditorComponent } from './widgets/bk-editor';
             @case(VP.Left) {
               <ion-grid>
                 <ion-row>
-                  <ion-col size="12" [size]="colSizeImage()">
-                    <bk-button-widget [section]="section" />
+                  <ion-col size="12" [sizeMd]="colSizeImage()">
+                    <bk-persons-widget [section]="section" />
                   </ion-col>
-                  <ion-col size="12" [size]="colSizeText()">
+                  <ion-col size="12" [sizeMd]="colSizeText()">
                     <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
                   </ion-col>
                 </ion-row>
@@ -39,24 +41,24 @@ import { BkEditorComponent } from './widgets/bk-editor';
             @case(VP.Right) {
               <ion-grid>
                 <ion-row>
-                  <ion-col size="12" [size]="colSizeText()">
+                  <ion-col size="12" [sizeMd]="colSizeText()">
                     <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
                   </ion-col>
-                  <ion-col size="12" [size]="colSizeImage()">
-                    <bk-button-widget [section]="section" />
+                  <ion-col size="12" [sizeMd]="colSizeImage()">
+                    <bk-persons-widget [section]="section" />
                   </ion-col>
                 </ion-row>
               </ion-grid>
             }
             @case(VP.Top) {
-              <bk-button-widget [section]="section" />
+              <bk-persons-widget [section]="section" />
               <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
             }
             @case(VP.Bottom) {
               <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
-              <bk-button-widget [section]="section" />
+              <bk-persons-widget [section]="section" />
             }
-            @default {  <!-- VP.None -->
+            @default { <!-- VP.None -->
               <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
             }
           }
@@ -67,11 +69,13 @@ import { BkEditorComponent } from './widgets/bk-editor';
     }
   `
 })
-export class BkButtonSectionComponent {
+export class BkPeopleListSectionComponent {
   public section = input<SectionModel>();
   public readOnly = input(false);
   public contentChange = output<string>();
 
+  public ND = NameDisplay;
+  public MT = ModelType;
   public VP = ViewPosition;
 
   // colSizeImage

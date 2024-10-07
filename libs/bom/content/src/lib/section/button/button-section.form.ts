@@ -2,7 +2,7 @@ import { Component, computed, model, output } from '@angular/core';
 import { Button, Icon, SectionFormModel, SectionProperties } from '@bk/models';
 import { BkCatInputComponent, BkNumberInputComponent, BkStringSelectComponent, BkTextInputComponent, BkUrlComponent, lowercaseWordMask, sizeMask } from '@bk/ui';
 import { IonCol, IonItem, IonLabel, IonNote, IonRow, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
-import { BkEditorComponent } from '../widgets/bk-editor';
+import { BkEditorComponent } from '../article/bk-editor';
 import { ColorIonic, ColorsIonic, FileTypeIcon, ViewPositions } from '@bk/categories';
 import { error, stripPostfix } from '@bk/util';
 import { TranslatePipe } from '@bk/pipes';

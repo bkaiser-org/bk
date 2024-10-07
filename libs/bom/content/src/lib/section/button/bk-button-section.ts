@@ -1,27 +1,23 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, computed, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { SectionModel } from '@bk/models';
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonGrid, IonLabel, IonRow } from '@ionic/angular/standalone';
-import { BkImgComponent, BkSpinnerComponent } from '@bk/ui';
+import { IonCard, IonCardContent, IonCheckbox, IonCol, IonGrid, IonRow } from '@ionic/angular/standalone';
+import { BkSpinnerComponent } from '@bk/ui';
 import { ViewPosition } from '@bk/categories';
-import { BkEditorComponent } from './widgets/bk-editor';
-import { AsyncPipe } from '@angular/common';
+import { ButtonWidgetComponent } from './bk-button-widget';
+import { BkEditorComponent } from '../article/bk-editor';
 
 @Component({
-  selector: 'bk-article-section',
+  selector: 'bk-button-section',
   standalone: true,
   imports: [
-    AsyncPipe,
-    BkSpinnerComponent, BkEditorComponent, BkImgComponent,
-    IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle,
-    IonGrid, IonRow, IonCol, IonLabel
-  ],
-  schemas: [ 
-    CUSTOM_ELEMENTS_SCHEMA
+    BkSpinnerComponent, ButtonWidgetComponent,
+    BkEditorComponent,
+    IonCard, IonCardContent,
+    IonGrid, IonRow, IonCol, IonCheckbox
   ],
   styles: [`
     ion-card-content { padding: 0px; }
     ion-card { padding: 0px; margin: 0px; border: 0px; box-shadow: none !important;}
-
   `],
   template: `
     @if(section(); as section) {
@@ -31,12 +27,10 @@ import { AsyncPipe } from '@angular/common';
             @case(VP.Left) {
               <ion-grid>
                 <ion-row>
-                  @if(image(); as image) {
-                    <ion-col size="12" [sizeMd]="colSizeImage()">
-                      <bk-img [image]="image" />
-                    </ion-col>
-                  }
-                  <ion-col size="12" [sizeMd]="colSizeText()">
+                  <ion-col size="12" [size]="colSizeImage()">
+                    <bk-button-widget [section]="section" />
+                  </ion-col>
+                  <ion-col size="12" [size]="colSizeText()">
                     <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
                   </ion-col>
                 </ion-row>
@@ -45,28 +39,22 @@ import { AsyncPipe } from '@angular/common';
             @case(VP.Right) {
               <ion-grid>
                 <ion-row>
-                  <ion-col size="12" [sizeMd]="colSizeText()">
+                  <ion-col size="12" [size]="colSizeText()">
                     <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
                   </ion-col>
-                  @if(image(); as image) {
-                    <ion-col size="12" [sizeMd]="colSizeImage()">
-                      <bk-img [image]="image" />
-                    </ion-col>
-                  }
+                  <ion-col size="12" [size]="colSizeImage()">
+                    <bk-button-widget [section]="section" />
+                  </ion-col>
                 </ion-row>
               </ion-grid>
             }
             @case(VP.Top) {
-              @if(image(); as image) {
-                <bk-img [image]="image" />
-              }
+              <bk-button-widget [section]="section" />
               <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
             }
             @case(VP.Bottom) {
               <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
-              @if(image(); as image) {
-                <bk-img [image]="image" />
-              }
+              <bk-button-widget [section]="section" />
             }
             @default {  <!-- VP.None -->
               <bk-editor [content]="section.content" [readOnly]="readOnly()" (contentChange)="onContentChange($event)" />
@@ -79,10 +67,9 @@ import { AsyncPipe } from '@angular/common';
     }
   `
 })
-export class BkArticleSectionComponent {
+export class BkButtonSectionComponent {
   public section = input<SectionModel>();
   public readOnly = input(false);
-  protected image = computed(() => this.section()?.properties.image);
   public contentChange = output<string>();
 
   public VP = ViewPosition;
@@ -94,7 +81,6 @@ export class BkArticleSectionComponent {
 
   // colSizeText
   protected colSizeText = computed(() => {
-    if (!this.image()) return 12;
     return (12 - (this.section()?.colSize ?? 6));
   });
 

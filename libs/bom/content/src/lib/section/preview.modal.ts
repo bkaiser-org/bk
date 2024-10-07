@@ -1,24 +1,24 @@
 import { Component, forwardRef, inject, input } from '@angular/core';
 import { SectionType } from '@bk/categories';
 import { SectionModel } from '@bk/models';
-import { BkArticleSectionComponent } from './bk-article-section';
-import { BkSwiperSectionComponent } from './bk-swiper-section';
+import { BkArticleSectionComponent } from './article/bk-article-section';
+import { BkSwiperSectionComponent } from './swiper/bk-swiper-section';
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonLabel, IonMenuButton, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
-import { BkGallerySectionComponent } from './bk-gallery-section';
-import { BkPeopleListSectionComponent } from './bk-people-list-section';
+import { BkGallerySectionComponent } from './gallery/bk-gallery-section';
+import { BkPeopleListSectionComponent } from './people-list/bk-people-list-section';
 import { AsyncPipe } from '@angular/common';
 import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
-import { BkAlbumSectionComponent } from './bk-album-section';
-import { BkModelSectionComponent } from './bk-model-section';
-import { BkMapSectionComponent } from './bk-map-section';
-import { BkVideoSectionComponent } from './bk-video-section';
-import { BkCalendarSectionComponent } from './bk-calendar-section';
-import { BkHeroSectionComponent } from './bk-hero-section';
-import { BkButtonSectionComponent } from './bk-button-section';
-import { BkIframeSectionComponent } from './bk-iframe-section';
-import { BkListSectionComponent } from './bk-list-section';
-import { BkTableSectionComponent } from './bk-table-section';
-import { BkAccordionSectionComponent } from './bk-accordion-section';
+import { BkAlbumSectionComponent } from './album/bk-album-section';
+import { BkModelSectionComponent } from './model/bk-model-section';
+import { BkMapSectionComponent } from './map/bk-map-section';
+import { BkVideoSectionComponent } from './video/bk-video-section';
+import { BkCalendarSectionComponent } from './calendar/bk-calendar-section';
+import { BkHeroSectionComponent } from './hero/bk-hero-section';
+import { BkButtonSectionComponent } from './button/bk-button-section';
+import { BkIframeSectionComponent } from './iframe/bk-iframe-section';
+import { BkListSectionComponent } from './list/bk-list-section';
+import { BkTableSectionComponent } from './table/bk-table-section';
+import { BkAccordionSectionComponent } from './accordion/bk-accordion-section';
 
 @Component( {
   selector: 'bk-preview-modal',
@@ -49,9 +49,7 @@ import { BkAccordionSectionComponent } from './bk-accordion-section';
       @if(section(); as section) {
         @switch (section.category) {
           @case(ST.Album) {                                   <!-- 0: Album -->
-            @if(section.properties.album; as album) {
-              <bk-album-section [initialDirectory]="album.directory" [initialAlbumStyle]="album.albumStyle" />
-            }                                 
+            <bk-album-section [section]="section" />
           }
           @case(ST.Article) {                                 <!-- 1: Article -->
             <bk-article-section [section]="section" [readOnly]="true"  />

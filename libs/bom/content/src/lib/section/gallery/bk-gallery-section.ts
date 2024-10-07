@@ -1,9 +1,12 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, input } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, input, viewChild } from '@angular/core';
 import { downloadToBrowser } from '@bk/util';
 import { Image, SectionModel } from '@bk/models';
 import { BkLabelComponent, BkSpinnerComponent } from '@bk/ui';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
+import { register, SwiperContainer } from 'swiper/element/bundle';
+
+register(); // globally register Swiper's custom elements.
 
 @Component({
   selector: 'bk-gallery-section',
@@ -17,7 +20,7 @@ import { AsyncPipe } from '@angular/common';
     html, body { position: relative; height: 100%; }
 
     body {
-      background: #eee;
+      background: #000;
       font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
       font-size: 14px;
       color: #000;
@@ -26,46 +29,52 @@ import { AsyncPipe } from '@angular/common';
     }
     swiper-container { 
       width: 100%;
-      height: 300px;
-      margin: 20px auto; 
+      height: 100%;
     }
 
     swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
     }
 
-    .gallery-top {
+    swiper-slide bk-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .main {
       height: 80%;
       width: 100%;
     }
-    .gallery-thumbs {
+    .thumbs {
       height: 20%;
       box-sizing: border-box;
       padding: 10px 0;
     }
-    .gallery-thumbs swiper-slide {
+    .thumbs swiper-slide {
       width: 20%;
       height: 100%;
       opacity: 0.4;
     }
-    .gallery-thumbs .swiper-slide-active {
+    .thumbs .swiper-slide-thumb-active {
       opacity: 1;
     }
   `],
   template: `
     @if(section(); as section) {
       @if(section.properties.imageList; as imageList) {
-         <swiper-container class="gallery-top" space-between="10" loop="true" navigation="true" 
-          controller-control=".gallery-thumbs" thumbs-swiper=".gallery-thumbs">
+         <swiper-container #mainSwiper class="main" space-between="10" loop="true" navigation="true" thumbs-swiper=".thumbs">
           @for(image of imageList; track image.url) {
             <swiper-slide [style]="'background-image:url(' + image.actionUrl + ')'" />
           }
         </swiper-container>
-        <swiper-container class="gallery-thumbs" space-between="10" slides-per-view="4" loop="true" free-mode="true" 
-          controller-control=".gallery-top" watch-slides-visibility="true" watch-slides-progress="true" slide-to-clicked-slide="true">
+        <swiper-container #thumbsSwiper class="thumbs" space-between="10" slides-per-view="4" loop="true" free-mode="true"  watch-slides-progress="true">
           @for(image of imageList; track image.url) {
             <swiper-slide [style]="'background-image:url(' + image.actionUrl + ')'" />
           }
@@ -80,7 +89,15 @@ import { AsyncPipe } from '@angular/common';
 })
 export class BkGallerySectionComponent {
   public section = input<SectionModel>();
+  private mainSwiper = viewChild<SwiperContainer>('mainSwiper');
 
+  constructor() {
+    effect(() => {
+      console.log('BkGallerySectionComponent -> section: ', this.section());
+      console.log('BkGallerySectionComponent -> mainSwiper: ', this.mainSwiper);
+      console.log('BkGallerySectionComponent -> activeIndex: ', this.mainSwiper?.arguments.activeIndex);
+    });
+  }
   public show(image: Image): void {
     downloadToBrowser(image.actionUrl);
   }

@@ -2,7 +2,7 @@ import { Component, computed, input, output } from '@angular/core';
 import { Avatar, SectionFormModel, SectionProperties } from '@bk/models';
 import { BkCheckComponent, caseInsensitiveWordMask, BkTextInputComponent, BkNumberInputComponent, BkCatInputComponent } from '@bk/ui';
 import { IonCol, IonLabel, IonRow } from '@ionic/angular/standalone';
-import { BkEditorComponent } from '../widgets/bk-editor';
+import { BkEditorComponent } from '../article/bk-editor';
 import { NameDisplays, ViewPositions } from '@bk/categories';
 import { error, NameDisplay } from '@bk/util';
 import { BkModelListComponent } from '@bk/base';
