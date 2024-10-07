@@ -3,7 +3,7 @@ import { BoatTypes, BoatUsages, ResourceType, ResourceTypes } from '@bk/categori
 import { BkCatInputComponent, BkColorComponent, BkNotesComponent, BkNumberInputComponent, BkTagsComponent, BkTextInputComponent } from '@bk/ui';
 import { ResourceNewFormModel, resourceNewFormModelShape, resourceNewValidations } from '@bk/models';
 import { AbstractFormComponent } from '@bk/base';
-import { PrettyjsonPipe, TranslatePipe } from '@bk/pipes';
+import { TranslatePipe } from '@bk/pipes';
 import { IonButton, IonCol, IonGrid, IonRow } from '@ionic/angular/standalone';
 import { ResourceTags } from '@bk/util';
 import { vestForms } from 'ngx-vest-forms';
@@ -12,7 +12,7 @@ import { vestForms } from 'ngx-vest-forms';
   selector: 'bk-resource-new-form',
   standalone: true,
   imports: [
-    TranslatePipe, PrettyjsonPipe, vestForms,
+    TranslatePipe, vestForms,
     BkCatInputComponent, BkTextInputComponent, BkNumberInputComponent, BkColorComponent, BkTagsComponent, BkNotesComponent,
     IonGrid, IonRow, IonCol, IonButton
   ],

@@ -4,7 +4,7 @@ import { BkCatInputComponent, BkColorComponent, BkNotesComponent, BkNumberInputC
 import { ResourceFormModel, resourceFormShape, resourceFormValidations } from '@bk/models';
 import { AbstractFormComponent } from '@bk/base';
 import { IonCol, IonGrid, IonRow, IonToolbar } from '@ionic/angular/standalone';
-import { PrettyjsonPipe, TranslatePipe } from '@bk/pipes';
+import { TranslatePipe } from '@bk/pipes';
 import { ResourceTags } from '@bk/util';
 import { vestForms } from 'ngx-vest-forms';
 
@@ -12,7 +12,7 @@ import { vestForms } from 'ngx-vest-forms';
   selector: 'bk-resource-form',
   standalone: true,
   imports: [
-    TranslatePipe, PrettyjsonPipe, vestForms,
+    TranslatePipe, vestForms,
     BkTextInputComponent, BkNumberInputComponent, BkCatInputComponent, BkColorComponent, BkTagsComponent, BkNotesComponent,
     IonToolbar, IonGrid, IonRow, IonCol, 
   ],

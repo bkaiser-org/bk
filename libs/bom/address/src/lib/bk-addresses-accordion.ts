@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AddressUsageNamePipe, ChannelIconPipe, FavoriteColorPipe, FavoriteIconPipe, FormatAddressPipe, PrettyjsonPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
+import { AddressUsageNamePipe, ChannelIconPipe, FavoriteColorPipe, FavoriteIconPipe, FormatAddressPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AddressModel, isAddress } from '@bk/models';
 import { AddressService } from './address.service';
 import { IonAccordion, IonButton, IonCol, IonGrid, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonRow, ModalController } from '@ionic/angular/standalone';
@@ -14,7 +14,7 @@ import { AddressUsage, ModelType } from '@bk/categories';
   selector: 'bk-addresses-accordion',
   standalone: true,
   imports: [ 
-    TranslatePipe, AsyncPipe, PrettyjsonPipe,
+    TranslatePipe, AsyncPipe,
     BkSpinnerComponent,
     FavoriteColorPipe, FavoriteIconPipe, ChannelIconPipe, AddressUsageNamePipe, FormatAddressPipe, SvgIconPipe,
     IonAccordion, IonItem, IonLabel, IonButton, IonIcon, IonGrid, IonRow, IonCol, 

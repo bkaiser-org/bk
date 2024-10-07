@@ -6,7 +6,7 @@ import { PersonNewFormComponent } from './person-new-form';
 import { IonContent } from '@ionic/angular/standalone';
 import { SubjectService } from '../subject.service';
 import { convertNewFormToMembership, convertNewFormToPerson, getPersonNewFormModel } from './person-new-form.util';
-import { PrettyjsonPipe, TranslatePipe } from '@bk/pipes';
+import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { AppNavigationService } from '@bk/util';
 
@@ -14,7 +14,7 @@ import { AppNavigationService } from '@bk/util';
   selector: 'bk-person-new-page',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, PrettyjsonPipe,
+    TranslatePipe, AsyncPipe,
     PersonNewFormComponent, 
     BkSpinnerComponent, BkHeaderComponent, BkChangeConfirmationComponent,
     IonContent

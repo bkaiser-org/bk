@@ -39,8 +39,12 @@ import { ModelType } from '@bk/categories';
           </ion-accordion-group>
 
           @if(authorizationService.currentUser()?.showDebugInfo === true) {
-            <ion-item lines="none"><small>View Model (vm) on page level:</small></ion-item>
-            <ion-item lines="none"><small><div [innerHTML]="vm | prettyjson"></div></small></ion-item>
+            <ion-item lines="none">
+              <small>View Model (vm) on page level:</small>
+            </ion-item>
+            <ion-item lines="none">
+              <small><div [innerHTML]="vm | prettyjson"></div></small>
+            </ion-item>
           }
       } @else {
         <bk-spinner />
