@@ -19,6 +19,7 @@ export * from './lib/document-type';
 export * from './lib/event-type';
 export * from './lib/file-type-icon';
 export * from './lib/filter-type';
+export * from './lib/gallery-effect';
 export * from './lib/gallery-layout-type';
 export * from './lib/gender-type';
 export * from './lib/image-action';

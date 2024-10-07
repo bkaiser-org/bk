@@ -8,6 +8,8 @@ export enum AlbumStyle {
     AvatarList
 }
 
+export const DefaultAlbumStyle = AlbumStyle.Pinterest;
+
 export type AlbumStyleCategory = Category;
 
 export const AlbumStyles: AlbumStyleCategory[] = [

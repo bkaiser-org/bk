@@ -1,13 +1,36 @@
-import { AlbumStyle, ColorIonic, ImageAction, ModelType } from '@bk/categories';
+import { AlbumStyle, ColorIonic, GalleryEffect, ImageAction, ModelType } from '@bk/categories';
 import { BaseModel } from '../base/base.model';
 import { GuiColumn } from '@generic-ui/ngx-grid';
-import { NameDisplay, RoleName } from '@bk/util';
+import { isAudio, isDocument, isImage, isPdf, isStreamingVideo, isVideo, NameDisplay, RoleName } from '@bk/util';
 
 export type Slot = 'start' | 'end' | 'icon-only' | 'none';
+
+export enum ImageType {
+  Image,
+  Video,
+  StreamingVideo,
+  Audio,
+  Pdf,
+  Doc,
+  Dir,
+  Other
+};
+
+export function getImageType(fileName: string): ImageType {
+  if (isImage(fileName)) return ImageType.Image;
+  // we ignore the streaming video files *.ts as they are listed with the m3u8 file (as StreamingVideo)
+  if (isVideo(fileName) && !fileName.endsWith('.ts')) return ImageType.Video;
+  if (isStreamingVideo(fileName)) return ImageType.StreamingVideo; 
+  if (isAudio(fileName)) return ImageType.Audio;
+  if (isPdf(fileName)) return ImageType.Pdf;
+  if (isDocument(fileName)) return ImageType.Doc;
+  return ImageType.Other;
+}
 
 // the configuration of a single image
 export interface Image {  // identifies a single image or a specific image in an image list
   imageLabel: string,        // a short title to identify the image (this is shown in lists)
+  imageType?: ImageType,     // the type of the image, default is ImageType.Image
   url: string,          // the url of the image, a relative path to the file in Firebase storage; this is used as a basis to construct the imgix url
   actionUrl: string,    // the url used with the action
   altText: string,     // aria text for the image,
@@ -25,9 +48,31 @@ export interface Image {  // identifies a single image or a specific image in an
   slot: Slot    // default is none
 }
 
+// get this from imxig with fm=json
+export interface ImageMetaData {
+  altitude?: number,   // GPS.Altitude
+  latitude?: number,  // GPS.Latitude
+  longitude?: number,      // GPS.Longitude
+  speed?: number,     // GPS.Speed
+  direction?: number,  // GPS.ImgDirection
+  size?: number,         // ContentLength
+  height?: number,       // PixelHeight
+  width?: number,        // PixelWidth   -> portrait = height > width, landscape = width > height
+  cameraMake?: string,   // TIFF.Make
+  cameraModel?: string,    // TIFF.Model
+  software?: string,     // TIFF.Software
+  focalLength?: number,   // EXIF.FocalLength mm
+  focalLengthIn35mmFilm?: number, // EXIF.FocalLengthIn35mmFilm 35mm equivalent
+  aperture?: number,      // EXIF.FNumber  f/2.8
+  exposureTime?: number,  // EXIF.ExposureTime
+  iso?: number,        // EXIF.ISOSpeedRatings
+  lensModel?: string,    // EXIF.LensModel
+}
+
 export function newImage(title = '', url = '', actionUrl = '', altText = '', defaultImageConfig = newDefaultImageConfig()): Image {
   return {
     imageLabel: title,
+    imageType: ImageType.Image,
     url: url,
     actionUrl: actionUrl,
     altText: altText,
@@ -141,10 +186,16 @@ export interface Accordion {
   readonly: boolean, // if true, the accordion is readonly, default is false
 }
 
-export interface Album {
+export interface AlbumConfig {
   directory: string, // the directory in Firebase storage (relative path)
   albumStyle: AlbumStyle, // the style of the album
   defaultImageConfig: DefaultImageConfig, // the configuration of the images
+  recursive: boolean, // if true, the album is shown recursively (several directories deep), default is false
+  showVideos: boolean, // if true, videos are shown, default is false
+  showStreamingVideos: boolean, // if true, streaming videos are shown, default is true
+  showDocs: boolean, // if true, documents are shown, default is false
+  showPdfs: boolean, // if true, pdfs are shown, default is true
+  galleryEffect: GalleryEffect // the effect used in the gallery, default is GalleryEffect.Slide
 }
 
 export interface SectionProperties {
@@ -153,7 +204,7 @@ export interface SectionProperties {
   image?: Image,      // single image, e.g. Hero
   logo?: Image,       // logo image
   avatar?: Avatar,
-  album?: Album,
+  album?: AlbumConfig,
   personList?: Person[],
   modelInfo?: ModelInfo,
   table?: Table,
@@ -161,6 +212,20 @@ export interface SectionProperties {
   button?: Button,
   icon?: Icon,
   accordion?: Accordion,
+}
+
+export function newAlbumConfig(): AlbumConfig {
+  return {
+    directory: '',
+    albumStyle: AlbumStyle.Pinterest,
+    defaultImageConfig: newDefaultImageConfig(),
+    recursive: false,
+    showVideos: false,
+    showStreamingVideos: true,
+    showDocs: false,
+    showPdfs: true,
+    galleryEffect: GalleryEffect.Slide
+  }
 }
 
 export class SectionModel extends BaseModel {

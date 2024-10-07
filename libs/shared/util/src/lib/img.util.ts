@@ -34,7 +34,7 @@ export function getImgixUrl(path: string | undefined, params = 'auto=compress,en
 }
 
 export function getImgixUrlWithAutoParams(path: string, imgixParams?: string): string {
-  const _params = imgixParams ? imgixParams : getImgixParamsByExtension(path);
+  const _params = imgixParams ?? getImgixParamsByExtension(path);
   return getImgixUrl(path, _params);
 }
 

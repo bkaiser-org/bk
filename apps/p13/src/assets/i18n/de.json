@@ -537,6 +537,12 @@
       "helper": "Absoluter oder relativer Pfad zum Ordner, in dem die Datei gespeichert ist (ohne den Dateinamen).",
       "error": "Der Name des Ordners ist obligatorisch und muss aus alphanumerischen Zeichen bestehen."
     },
+    "directory": {
+      "label": "Verzeichnis",
+      "placeholder": "Verzeichnis",
+      "helper": "Der Pfad zum Verzeichnis, in dem die Datei gespeichert ist.",
+      "error": "Der Pfad zum Verzeichnis ist obligatorisch."
+    },
     "direction": {
       "label": "Richtung in Grad",
       "placeholder": "Grad (0 - 360)",
@@ -595,6 +601,9 @@
       "placeholder": "z.B. Präsident",
       "helper": "Die Funktion in der Organisation, z.B. Präsident, Kassier, etc."
     },
+    "galleryEffect": {
+      "label": "Slide Transformation"
+    },
     "gender": {
       "label": "Geschlecht"
     },
@@ -633,6 +642,11 @@
       "placeholder": "40px",
       "helper": "Die Grösse des Icons in Pixel, z.B. 24, 32, 48 etc.",
       "error": "Die Grösse des Icons muss eine Ganzzahl aus lauter Ziffern sein plus px."
+    },
+    "imageAction": {
+      "label": "Bildaktion",
+      "placeholder": "action",
+      "helper": "Die Aktion, die beim Klick auf das Bild ausgeführt wird, z.B. open, download, etc."
     },
     "imagePosition": {
       "label": "Bildposition"
@@ -1126,6 +1140,30 @@
     "isReadOnly": {
       "label": "Schreibgeschützt",
       "helperText": "Das Accordeon kann nur angeschaut, aber nicht geändert werden."
+    },
+    "showDocs": {
+      "label": "Dokumente anzeigen",
+      "helperText": "Zeigt die Dokumente an."
+    },
+    "recursive": {
+      "label": "Rekursiv",
+      "helperText": "Linkt auf Alben in den Subdirectories."
+    },
+    "showImages": {
+      "label": "Bilder anzeigen",
+      "helperText": "Zeigt die Bilder an."
+    },
+    "showPdfs": {
+      "label": "PDFs anzeigen",
+      "helperText": "Zeigt die PDFs an."
+    },
+    "showStreamingVideos": {
+      "label": "Streaming Videos anzeigen",
+      "helperText": "Zeigt die Streaming Videos an."
+    },
+    "showVideos": {
+      "label": "Videos anzeigen",
+      "helperText": "Zeigt die Videos an."
     },
     "isThumbnail": {
       "label": "Thumbnail",
@@ -2589,6 +2627,7 @@
       "upload": {
         "single": {
           "title": "Dokument hochladen",
+          "avatar": "Portrait Foto hochladen",
           "conf": "Das Dokument wurde hochgeladen.",
           "error": "Das Dokument konnte nicht hochgeladen werden.",
           "upload": "Die Datei hochladen",
@@ -3982,6 +4021,36 @@
       "zip": {
         "label": "Zip",
         "description": "Compressed file(s), e.g. zip, tar, gz"
+      }
+    },
+    "galleryEffect": {
+      "slide": {
+        "label": "Slide",
+        "description": "Slide effect"
+      },
+      "fade": {
+        "label": "Fade",
+        "description": "Fade effect"
+      },
+      "cube": {
+        "label": "Cube",
+        "description": "Cube effect"
+      },
+      "coverflow": {
+        "label": "Coverflow",
+        "description": "Coverflow effect"
+      },
+      "flip": {
+        "label": "Flip",
+        "description": "Flip effect"
+      },
+      "creative": {
+        "label": "Creative",
+        "description": "Creative effect"
+      },
+      "cards": {
+        "label": "Cards",
+        "description": "Cards effect"
       }
     },
     "imageAction": {
