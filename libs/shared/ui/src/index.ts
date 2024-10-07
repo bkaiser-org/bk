@@ -64,6 +64,7 @@ export * from './lib/modals/map-view.modal';
 export * from './lib/structural/bk-footer';
 export * from './lib/structural/bk-header';
 export * from './lib/structural/bk-img/bk-img';
+export * from './lib/structural/bk-video';
 export * from './lib/structural/bk-optional-card-header/bk-optional-card-header';
 export * from './lib/structural/bk-search-toolbar/bk-search-toolbar';
 export * from './lib/structural/bk-searchable-select/bk-searchable-select';
