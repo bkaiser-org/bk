@@ -14,10 +14,8 @@ export const STORAGE = new InjectionToken('Firebase storage', {
 });
 
 export function uploadToFirebaseStorage(path: string, file: File): UploadTask {
-  console.log('shared/util/storage.uploadToFirebaseStorage: path: ', path, ' file: ', file);
   const _storage = getBkStorage();
   const _ref = ref(_storage, path);
-  console.log('shared/util/storage.uploadToFirebaseStorage: _ref: ', _ref);
   return uploadBytesResumable(_ref, file);
 }
 
@@ -29,7 +27,6 @@ export function getBkStorage(): FirebaseStorage {
   try {
     const _firebaseApp = getApp();
     const _storage = getStorage(_firebaseApp, 'gs://bkaiser-org.appspot.com');
-    console.log('shared/util/storage.getBkStorage(): ', _storage);
   
     const _env = Inject(ENV) as BkEnvironment;
     if (_env.useEmulators) {
