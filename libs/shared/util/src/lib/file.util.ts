@@ -172,8 +172,82 @@ export function isVideo(pathOrExtension: string): boolean {
   return isOfFileType(pathOrExtension, 'video');
 }
 
+// HLS consists of a m3u8 text file and several ts files (video/mp2t, mgep transport stream).
+export function isStreamingVideo(pathOrExtension: string): boolean {
+  return isOfFileType(pathOrExtension, 'application/vnd.apple.mpegurl');
+}
+
 export function isAudio(pathOrExtension: string): boolean {
   return isOfFileType(pathOrExtension, 'audio');
+}
+
+export function isText(pathOrExtension: string): boolean {
+  return isOfFileType(pathOrExtension, 'text') ||
+         isOfFileType(pathOrExtension, 'application/json') ||
+         isOfFileType(pathOrExtension, 'application/javascript') ||
+         isOfFileType(pathOrExtension, 'application/typescript') ||
+         isOfFileType(pathOrExtension, 'application/xml') ||
+         isOfFileType(pathOrExtension, 'application/xhtml+xml') ||
+         isOfFileType(pathOrExtension, 'application/x-httpd-php') ||
+         isOfFileType(pathOrExtension, 'application/x-httpd-cgi') ||
+         isOfFileType(pathOrExtension, 'application/x-javascript') ||
+         isOfFileType(pathOrExtension, 'application/x-latex') ||
+         isOfFileType(pathOrExtension, 'application/x-perl') ||
+         isOfFileType(pathOrExtension, 'application/x-shellscript') ||
+         isOfFileType(pathOrExtension, 'application/x-sh') ||
+         isOfFileType(pathOrExtension, 'application/x-tcl') ||
+         isOfFileType(pathOrExtension, 'application/x-tex') ||
+         isOfFileType(pathOrExtension, 'application/x-texinfo') ||
+         isOfFileType(pathOrExtension, 'application/x-troff') ||
+         isOfFileType(pathOrExtension, 'application/x-csh') ||
+         isOfFileType(pathOrExtension, 'application/rtf');
+}
+
+export function isFont(pathOrExtension: string): boolean {
+  return isOfFileType(pathOrExtension, 'font') ||
+    isOfFileType(pathOrExtension, 'application/vnd.ms-fontobject');
+}
+
+export function isBinary(pathOrExtension: string): boolean {
+  return isOfFileType(pathOrExtension, 'application/octet-stream');
+}
+
+// a document is a file of a well-known application.
+// it is not an image, video, audio, pdf, text, or font (e.g. word, powerpoint, excel)
+// typically, such a file is not displayed inline but downloaded for further processing.
+export function isDocument(pathOrExtension: string): boolean {
+  return isOfFileType(pathOrExtension, 'application/x-abiword') ||
+        isOfFileType(pathOrExtension, 'application/vnd.amazon.ebook') ||
+        isOfFileType(pathOrExtension, 'application/msword') ||
+        isOfFileType(pathOrExtension, 'application/vnd.ms-powerpoint') ||
+        isOfFileType(pathOrExtension, 'application/vnd.ms-excel') ||
+        isOfFileType(pathOrExtension, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') ||
+        isOfFileType(pathOrExtension, 'application/vnd.openxmlformats-officedocument.presentationml.presentation') ||
+        isOfFileType(pathOrExtension, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') ||
+        isOfFileType(pathOrExtension, 'application/epub+zip') ||
+        isOfFileType(pathOrExtension, 'application/vnd.oasis.opendocument.presentation') ||
+        isOfFileType(pathOrExtension, 'application/vnd.oasis.opendocument.spreadsheet')  ||
+        isOfFileType(pathOrExtension, 'application/vnd.oasis.opendocument.text') ||
+        isOfFileType(pathOrExtension, 'application/vnd.visio') ||
+        isOfFileType(pathOrExtension, 'application/vnd.apple.pages') ||
+        isOfFileType(pathOrExtension, 'application/vnd.apple.numbers') ||
+        isOfFileType(pathOrExtension, 'application/vnd.apple.keynote');
+}
+
+export function isZip(pathOrExtension: string): boolean { 
+  return isOfFileType(pathOrExtension, 'application/zip') ||
+         isOfFileType(pathOrExtension, 'application/x-zip-compressed') ||
+         isOfFileType(pathOrExtension, 'application/x-zip') ||
+         isOfFileType(pathOrExtension, 'application/x-compressed') ||
+         isOfFileType(pathOrExtension, 'application/x-compress') ||
+         isOfFileType(pathOrExtension, 'application/x-tar') ||
+         isOfFileType(pathOrExtension, 'application/x-gzip') ||
+         isOfFileType(pathOrExtension, 'application/x-bzip2') ||
+         isOfFileType(pathOrExtension, 'application/x-bzip') ||
+         isOfFileType(pathOrExtension, 'application/x-7z-compressed') ||
+         isOfFileType(pathOrExtension, 'application/java-archive') ||
+        isOfFileType(pathOrExtension, 'application/vnd.rar') ||
+         isOfFileType(pathOrExtension, 'application/vnd.apple.installer+xml');
 }
 
 export function blobToFile(theBlob: Blob, fileName: string): File {
