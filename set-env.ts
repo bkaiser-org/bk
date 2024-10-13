@@ -105,6 +105,7 @@ export const setEnv = () => {
 `;
   writeFile(targetPath, envConfigFile, (err) => {
     if (err) {
+      console.error('Angular environment.ts file could not be generated with writeFile().');
       console.error(err);
       throw err;
     } else {
