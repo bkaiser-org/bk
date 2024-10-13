@@ -49,7 +49,7 @@ import { BkCopyButtonComponent } from '../form/bk-copy-button';
   `
 })
 export class BkNotesComponent {
-  private alertController = inject(AlertController);
+  private readonly alertController = inject(AlertController);
 
   public value = model.required<string>(); // mandatory view model
   public name = input('notes'); // name of the input field

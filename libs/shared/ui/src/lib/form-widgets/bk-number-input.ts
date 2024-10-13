@@ -33,8 +33,8 @@ import { IonIcon, IonInput, IonItem } from '@ionic/angular/standalone';
   `
 })
 export class BkNumberInputComponent implements AfterViewInit {
-  private toastController = inject(ToastController);
-  private env = inject(ENV);
+  private readonly toastController = inject(ToastController);
+  private readonly env = inject(ENV);
 
   public value = input.required<number>(); // mandatory view model
   public name = input.required<string>(); // mandatory name of the input field
