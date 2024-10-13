@@ -24,7 +24,7 @@ import { bkTranslate, IBAN_LENGTH } from '@bk/util';
         placeholder="{{'@input.' + name() + '.placeholder' | translate | async }}"
         inputMode="text"
         type="text"
-        [counter]="true"
+        [counter]="!readOnly()"
         [maxlength]="maxLength()"
         autocomplete="off"
         [clearInput]="clearInput()"
@@ -53,10 +53,10 @@ export class BkIbanComponent implements AfterViewInit {
   public changed = output<string>();
 
   ngAfterViewInit(): void {
-    if (this.showError() === true) {
+    if (!this.readOnly() && this.showError() === true) {
       this.ionInput().errorText = bkTranslate('@input.' + this.name() + '.error');
     }
-    if (this.showHelper() === true) {
+    if (!this.readOnly() && this.showHelper() === true) {
       this.ionInput().helperText = bkTranslate('@input.' + this.name() + '.helper');
     }
   }

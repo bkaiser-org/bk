@@ -20,7 +20,7 @@ import { IonIcon, IonInput, IonItem } from '@ionic/angular/standalone';
     placeholder="{{'@input.' + name() + '.placeholder' | translate | async }}"
     [inputMode]="inputMode()"
     type="number"
-    [counter]=true
+    [counter]="!readOnly()"
     [maxlength]="maxLength()"
     [autocomplete]="autocomplete()"
     [clearInput]="clearInput()"
@@ -53,10 +53,10 @@ export class BkNumberInputComponent implements AfterViewInit {
   public ionInput = viewChild.required<IonInput>('bkNumberInput');
 
   ngAfterViewInit(): void {
-    if (this.showError() === true) {
+    if (!this.readOnly() && this.showError() === true) {
       this.ionInput().errorText = bkTranslate('@input.' + this.name() + '.error');
     }
-    if (this.showHelper() === true) {
+    if (!this.readOnly() && this.showHelper() === true) {
       this.ionInput().helperText = bkTranslate('@input.' + this.name() + '.helper');
     }
   }

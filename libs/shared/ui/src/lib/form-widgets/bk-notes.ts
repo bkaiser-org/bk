@@ -24,7 +24,7 @@ import { BkCopyButtonComponent } from '../form/bk-copy-button';
             inputMode="text"
             type="text"
             fill="outline"
-            [counter]="true"
+            [counter]="!readOnly()"
             [autoGrow]="true"
             [maxlength]="maxLength()"
             [rows]="rows()"

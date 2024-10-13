@@ -26,7 +26,7 @@ import { MaskitoDirective } from '@maskito/angular';
       label="{{'@input.' + name() + '.label' | translate | async }}"
       placeholder="{{'@input.' + name() + '.placeholder' | translate | async }}"
       [inputMode]="inputMode()"
-      [counter]="true"
+      [counter]="!readOnly()"
       [maxlength]="5"
       autocomplete="off"
       [clearInput]="clearInput()"

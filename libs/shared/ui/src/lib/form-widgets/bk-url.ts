@@ -21,7 +21,7 @@ import { bkTranslate, URL_LENGTH } from '@bk/util';
         placeholder="{{'@input.' + name() + '.placeholder' | translate | async }}"
         inputmode="url"
         type="url"
-        [counter]="true"
+        [counter]="!readOnly()"
         [maxlength]="maxLength()"
         autocomplete="url"
         [clearInput]="clearInput()"

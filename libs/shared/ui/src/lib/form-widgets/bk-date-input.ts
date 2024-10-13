@@ -48,7 +48,7 @@ export const chFutureDate = maskitoDateOptionsGenerator({
       placeholder="{{'@input.' + name() + '.placeholder' | translate | async }}"
       [inputMode]="inputMode()"
       type="text"
-      [counter]="true"
+      [counter]="!readOnly()"
       [maxlength]="maxLength()"
       autocomplete="autocomplete()"
       [clearInput]="clearInput()"
@@ -90,10 +90,10 @@ export class BkDateInputComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.showError() === true) {
+    if (!this.readOnly() && this.showError() === true) {
       this.ionInput().errorText = bkTranslate(`@input.${this.name()}.error`);
     }
-    if (this.showHelper() === true) {
+    if (!this.readOnly() && this.showHelper() === true) {
       this.ionInput().helperText = bkTranslate(`@input.${this.name()}.helper`);
     }
   }

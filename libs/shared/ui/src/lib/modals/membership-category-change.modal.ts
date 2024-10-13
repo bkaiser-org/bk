@@ -39,13 +39,13 @@ import { RelationshipModel } from '@bk/models';
           labelPlacement="floating"
           inputMode="text"
           type="datetime-local"
-          [counter]="true"
+          [counter]="!readOnly()"
           [maxlength]="10"
           placeholder="{{ placeholder() | translate | async }}"
           autocomplete="off"
           [clearInput]="true"
           (ionChange)="dateChanged($event)"
-          [readonly]="false" />
+          [readonly]="readOnly()" />
       </ion-item>
     </ion-content>
   `,
@@ -58,6 +58,7 @@ export class MembershipCategoryChangeModalComponent implements OnInit {
   public title = input('@membership.operation.catChange.chooseNew');
   public placeholder = input('@input.validFrom.placeholder');
   public label = input('@input.validFrom.label');
+  public readOnly = input(false);
 
   protected config: CategoryConfig | undefined;
   protected dataCanBeSaved = false;

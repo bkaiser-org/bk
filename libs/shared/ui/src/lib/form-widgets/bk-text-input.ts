@@ -59,7 +59,7 @@ export const chZipCodeMask: MaskitoOptions = {
           placeholder="{{'@input.' + name() + '.placeholder' | translate | async }}"
           [inputMode]="inputMode()"
           type="text"
-          [counter]=true
+          [counter]="!readOnly()"
           [maxlength]="maxLength()"
           [autocomplete]="autocomplete()"
           [clearInput]="clearInput()"
@@ -74,7 +74,7 @@ export const chZipCodeMask: MaskitoOptions = {
           placeholder="{{'@input.' + name() + '.placeholder' | translate | async }}"
           [inputMode]="inputMode()"
           type="text"
-          [counter]=true
+          [counter]="!readOnly()"
           [maxlength]="maxLength()"
           [autocomplete]="autocomplete()"
           [clearInput]="clearInput()"
@@ -106,10 +106,10 @@ export class BkTextInputComponent implements AfterViewInit {
   public changed = output<string>();
 
   ngAfterViewInit(): void {
-    if (this.showError() === true) {
+    if (!this.readOnly() && this.showError() === true) {
       this.ionInput().errorText = bkTranslate('@input.' + this.name() + '.error');
     }
-    if (this.showHelper() === true) {
+    if (!this.readOnly() && this.showHelper() === true) {
       this.ionInput().helperText = bkTranslate('@input.' + this.name() + '.helper');
     }
   }

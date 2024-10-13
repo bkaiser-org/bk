@@ -24,7 +24,7 @@ import { bkTranslate, PHONE_LENGTH } from '@bk/util';
       placeholder="{{'@input.' + name() + '.placeholder' | translate | async }}"
       inputMode="tel"
       type="tel"
-      [counter]="true"
+      [counter]="!readOnly()"
       [maxlength]="maxLength()"
       autocomplete="tel"
       [clearInput]="clearInput()"
@@ -71,10 +71,10 @@ export class BkPhoneComponent implements AfterViewInit {
   */
 
   ngAfterViewInit(): void {
-    if (this.showError() === true) {
+    if (!this.readOnly() && this.showError() === true) {
       this.ionInput().errorText = bkTranslate('@input.' + this.name() + '.error');
     }
-    if (this.showHelper() === true) {
+    if (!this.readOnly() && this.showHelper() === true) {
       this.ionInput().helperText = bkTranslate('@input.' + this.name() + '.helper');
     }
   }

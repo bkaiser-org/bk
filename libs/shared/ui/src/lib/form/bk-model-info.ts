@@ -35,7 +35,7 @@ import { MaskitoDirective } from '@maskito/angular';
                 labelPlacement="floating"
                 inputMode="text"
                 type="text"
-                [counter]="true"
+                [counter]="!readOnly()"
                 [maxlength]="20"
                 placeholder="{{ placeholder() | translate | async }}"
                 [clearInput]="true"
