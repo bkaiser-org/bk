@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();    // load environment variables from .env file
 const writeFile = fs.writeFile;
-const targetPath = `./apps/${process.env['AUTH_TENANTID']}/src/environments/environment.ts`;
+const targetPath = `./apps/${process.env['NEXT_PUBLIC_AUTH_TENANTID']}/src/environments/environment.ts`;
 
 export const setEnv = () => {
 // example to read version from package.json: import { version as appVersion } from '../../package.json';
@@ -16,23 +16,23 @@ export const setEnv = () => {
     production: false,
     useEmulators: false,
     firebase: {
-      apiKey: '${process.env['FIREBASE_API_KEY']}',
-      authDomain: '${process.env['FIREBASE_AUTH_DOMAIN']}',
-      databaseUrl: '${process.env['FIREBASE_DATABASE_URL']}',
-      projectId: '${process.env['FIREBASE_PROJECT_ID']}',
-      storageBucket: '${process.env['FIREBASE_STORAGE_BUCKET']}',
-      messagingSenderId: '${process.env['FIREBASE_MESSAGING_SENDER_ID']}',
-      appId: '${process.env['FIREBASE_APP_ID']}',
-      measurementId: '${process.env['FIREBASE_MEASUREMENT_ID']}',
-      appcheckRecaptchaEnterpriseKey: '${process.env['FIREBASE_RECAPTCHA_KEY']}'
+      apiKey: '${process.env['NEXT_PUBLIC_FIREBASE_API_KEY']}',
+      authDomain: '${process.env['NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN']}',
+      databaseUrl: '${process.env['NEXT_PUBLIC_FIREBASE_DATABASE_URL']}',
+      projectId: '${process.env['NEXT_PUBLIC_FIREBASE_PROJECT_ID']}',
+      storageBucket: '${process.env['NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET']}',
+      messagingSenderId: '${process.env['NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID']}',
+      appId: '${process.env['NEXT_PUBLIC_FIREBASE_APP_ID']}',
+      measurementId: '${process.env['NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID']}',
+      appcheckRecaptchaEnterpriseKey: '${process.env['NEXT_PUBLIC_FIREBASE_RECAPTCHA_KEY']}'
     },
     app: {
-      domain: '${process.env['APP_DOMAIN']}',
-      imgixBaseUrl: '${process.env['APP_IMGIX_BASE_URL']}',
+      domain: '${process.env['NEXT_PUBLIC_APP_DOMAIN']}',
+      imgixBaseUrl: '${process.env['NEXT_PUBLIC_APP_IMGIX_BASE_URL']}',
       rootUrl: '/public/welcome',
-      logoUrl: 'tenant/${process.env['AUTH_TENANTID']}/logo/logo_round.svg',
-      welcomeBannerUrl: 'tenant/${process.env['AUTH_TENANTID']}/app/welcome.jpg',
-      notfoundBannerUrl: 'tenant/${process.env['AUTH_TENANTID']}/app/not-found.jpg',
+      logoUrl: 'tenant/${process.env['NEXT_PUBLIC_AUTH_TENANTID']}/logo/logo_round.svg',
+      welcomeBannerUrl: 'tenant/${process.env['NEXT_PUBLIC_AUTH_TENANTID']}/app/welcome.jpg',
+      notfoundBannerUrl: 'tenant/${process.env['NEXT_PUBLIC_AUTH_TENANTID']}/app/not-found.jpg',
       osiLogoUrl: 'logo/general/osi.svg',
       showDateOfBirth: 'admin',
       showDateOfDeath: 'admin',
@@ -47,7 +47,7 @@ export const setEnv = () => {
       showDocuments: 'admin'
     },
     auth: {
-      tenantId: '${process.env['AUTH_TENANTID']}',
+      tenantId: '${process.env['NEXT_PUBLIC_AUTH_TENANTID']}',
       loginUrl: '/auth/login',
       passwordResetUrl: '/auth/pwdreset',
     },
@@ -56,16 +56,16 @@ export const setEnv = () => {
       height: 300
     },
     dpo: {
-      email: '${process.env['DPO_EMAIL']}',
-      name: '${process.env['DPO_NAME']}'
+      email: '${process.env['NEXT_PUBLIC_DPO_EMAIL']}',
+      name: '${process.env['NEXT_PUBLIC_DPO_NAME']}'
     },
     git: {
-      repo: '${process.env['GIT_REPO']}',
-      org: '${process.env['GIT_ORG']}',
-      issueUrl: 'https://github.com/${process.env['GIT_ORG']}/${process.env['GIT_REPO']}/issues/new'
+      repo: '${process.env['NEXT_PUBLIC_GIT_REPO']}',
+      org: '${process.env['NEXT_PUBLIC_GIT_ORG']}',
+      issueUrl: 'https://github.com/${process.env['NEXT_PUBLIC_GIT_ORG']}/${process.env['NEXT_PUBLIC_GIT_REPO']}/issues/new'
     },
     services: {
-      gmapKey: '${process.env['SVC_GMAP_KEY']}'
+      gmapKey: '${process.env['NEXT_PUBLIC_SVC_GMAP_KEY']}'
     },
     i18n: {
       availableLangs: '["en","de","fr","es","it"]',
@@ -78,12 +78,12 @@ export const setEnv = () => {
       useFallbackTranslation: true
     },
     operator: {
-      name: '${process.env['OP_NAME']}',
-      street: '${process.env['OP_STREET']}',
-      zipcode: '${process.env['OP_ZIP']}',
-      city: '${process.env['OP_CITY']}',
-      email: '${process.env['OP_EMAIL']}',
-      web: '${process.env['OP_WEB']}'
+      name: '${process.env['NEXT_PUBLIC_OP_NAME']}',
+      street: '${process.env['NEXT_PUBLIC_OP_STREET']}',
+      zipcode: '${process.env['NEXT_PUBLIC_OP_ZIP']}',
+      city: '${process.env['NEXT_PUBLIC_OP_CITY']}',
+      email: '${process.env['NEXT_PUBLIC_OP_EMAIL']}',
+      web: '${process.env['NEXT_PUBLIC_OP_WEB']}'
     },
     settingsDefaults: {
       avatarUsage: 3,
