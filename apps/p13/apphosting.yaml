@@ -3,83 +3,84 @@ runConfig:
   minInstances: 0
   maxInstances: 20
   concurrency: 20
-  cpu: 2
+  cpu: 1
   memoryMiB: 1024
 
 # Environment variables and secrets
 # add secrets with firebase apphosting:secrets:set secretName
+# better: use Secret Manager in console.cloud.google.com to administer the secrets
 env:
-  - variable: FIREBASE_API_KEY
-    secret: firebaseApiKey
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    secret: NEXT_PUBLIC_FIREBASE_API_KEY
 
-  - variable: FIREBASE_AUTH_DOMAIN
-    secret: firebaseAuthDomain
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    secret: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
 
-  - variable: FIREBASE_DATABASE_URL
-    secret: firebaseDatabaseUrl
+  - variable: NEXT_PUBLIC_FIREBASE_DATABASE_URL
+    secret: NEXT_PUBLIC_FIREBASE_DATABASE_URL
 
-  - variable: FIREBASE_PROJECT_ID
-    secret: firebaseProjectId
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    secret: NEXT_PUBLIC_FIREBASE_PROJECT_ID
 
-  - variable: FIREBASE_STORAGE_BUCKET
-    secret: firebaseStorageBucket
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    secret: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
 
-  - variable: FIREBASE_MESSAGING_SENDER_ID
-    secret: firebaseMessagingSenderId
+  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    secret: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
 
-  - variable: FIREBASE_APP_ID
-    secret: firebaseAppId
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    secret: NEXT_PUBLIC_FIREBASE_APP_ID
 
-  - variable: FIREBASE_MEASUREMENT_ID
-    secret: firebaseMeasurementId
+  - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+    secret: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 
-  - variable: FIREBASE_RECAPTCHA_KEY
-    secret: firebaseRecaptchaKey
+  - variable: NEXT_PUBLIC_FIREBASE_RECAPTCHA_KEY
+    secret: NEXT_PUBLIC_FIREBASE_RECAPTCHA_KEY
 
-  - variable: APP_DOMAIN
-    secret: appDomain
+  - variable: NEXT_PUBLIC_APP_DOMAIN
+    secret: NEXT_PUBLIC_APP_DOMAIN
 
-  - variable: APP_IMGIX_BASE_URL
-    secret: appImgixBaseUrl
+  - variable: NEXT_PUBLIC_APP_IMGIX_BASE_URL
+    secret: NEXT_PUBLIC_APP_IMGIX_BASE_URL
 
-  - variable: AUTH_TENANTID
-    secret: authTenantId
+  - variable: NEXT_PUBLIC_AUTH_TENANTID
+    secret: NEXT_PUBLIC_AUTH_TENANTID
 
-  - variable: DPO_EMAIL
-    secret: dpoEmail
+  - variable: NEXT_PUBLIC_DPO_EMAIL
+    secret: NEXT_PUBLIC_DPO_EMAIL
   
-  - variable: DPO_NAME
-    secret: dpoName
+  - variable: NEXT_PUBLIC_DPO_NAME
+    secret: NEXT_PUBLIC_DPO_NAME
 
-  - variable: GIT_REPO
-    secret: gitRepo
+  - variable: NEXT_PUBLIC_GIT_REPO
+    secret: NEXT_PUBLIC_GIT_REPO
 
-  - variable: GIT_ORG
-    secret: gitOrg
+  - variable: NEXT_PUBLIC_GIT_ORG
+    secret: NEXT_PUBLIC_GIT_ORG
 
-  - variable: GIT_ISSUE_URL
-    secret: gitIssueUrl
+  - variable: NEXT_PUBLIC_GIT_ISSUE_URL
+    secret: NEXT_PUBLIC_GIT_ISSUE_URL
 
-  - variable: SVC_GMAP_KEY
-    secret: svcGmapKey
+  - variable: NEXT_PUBLIC_SVC_GMAP_KEY
+    secret: NEXT_PUBLIC_SVC_GMAP_KEY
 
-  - variable: OP_NAME
-    secret: opName
+  - variable: NEXT_PUBLIC_OP_NAME
+    secret: NEXT_PUBLIC_OP_NAME
 
-  - variable: OP_STREET
-    secret: opStreet
+  - variable: NEXT_PUBLIC_OP_STREET
+    secret: NEXT_PUBLIC_OP_STREET
 
-  - variable: OP_ZIP
-    secret: opZip
+  - variable: NEXT_PUBLIC_OP_ZIP
+    secret: NEXT_PUBLIC_OP_ZIP
   
-  - variable: OP_CITY
-    secret: opCity
+  - variable: NEXT_PUBLIC_OP_CITY
+    secret: NEXT_PUBLIC_OP_CITY
 
-  - variable: OP_EMAIL
-    secret: opEmail
+  - variable: NEXT_PUBLIC_OP_EMAIL
+    secret: NEXT_PUBLIC_OP_EMAIL
 
-  - variable: OP_WEB
-    secret: opWeb
+  - variable: NEXT_PUBLIC_OP_WEB
+    secret: NEXT_PUBLIC_OP_WEB
 
-  - variable: NxCloudAccessToken
-    secret: nxCloudAccessToken
+  - variable: NEXT_PUBLIC_NX_CLOUD_ACCESS_TOKEN
+    secret: NEXT_PUBLIC_NX_CLOUD_ACCESS_TOKEN
