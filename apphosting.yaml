@@ -58,9 +58,6 @@ env:
   - variable: NEXT_PUBLIC_GIT_ORG
     secret: NEXT_PUBLIC_GIT_ORG
 
-  - variable: NEXT_PUBLIC_GIT_ISSUE_URL
-    secret: NEXT_PUBLIC_GIT_ISSUE_URL
-
   - variable: NEXT_PUBLIC_SVC_GMAP_KEY
     secret: NEXT_PUBLIC_SVC_GMAP_KEY
 
