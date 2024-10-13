@@ -27,11 +27,11 @@ import { FormsModule } from "@angular/forms";
   templateUrl: 'adminops.html'
 })
 export class AdminOpsComponent {
-  private dataService = inject(DataService);
-  private firestore = inject(FIRESTORE);
+  private readonly dataService = inject(DataService);
+  private readonly firestore = inject(FIRESTORE);
 
   public logInfo: LogInfo[] = [];
-  private _logTitle = new BehaviorSubject<string>('');
+  private readonly _logTitle = new BehaviorSubject<string>('');
   public logTitle$ = this._logTitle.asObservable();
   public RT = RelationshipType;
   public MVT = ModelValidationType;
