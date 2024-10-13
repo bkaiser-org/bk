@@ -3,6 +3,7 @@
 # sensitive production keys
 **/environments/environment.ts
 **/environments/environment.prod.ts
+**/.env
 emulator-storage
 **/firebase.config.ts
 environment.global.ts

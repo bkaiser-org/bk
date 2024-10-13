@@ -6,9 +6,13 @@
   "sourceRoot": "apps/p13/src",
   "tags": [],
   "targets": {
+    "config": {
+      "command": "ts-node ./set-env.ts"
+    },
     "build": {
+      "dependsOn": ["config"],
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": ["{options.outputPath}"], 
       "options": {
         "outputPath": "dist/apps/p13",
         "index": "apps/p13/src/index.html",
