@@ -51,7 +51,7 @@ import { RelationshipModel } from '@bk/models';
   `,
 })
 export class MembershipCategoryChangeModalComponent implements OnInit {
-  private modalController = inject(ModalController);
+  private readonly modalController = inject(ModalController);
 
   public membership = input.required<RelationshipModel>();
   public selectedDate = input(getTodayStr());
