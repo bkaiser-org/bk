@@ -1,8 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # sensitive production keys
-**/environments/environment.ts
-**/environments/environment.prod.ts
+**/environment.ts
+**/environment.prod.ts
 **/.env
 emulator-storage
 **/firebase.config.ts
@@ -55,6 +55,7 @@ firestore-debug.log
 .DS_Store
 Thumbs.db
 
+**/nx.json
 .nx/cache
 .nx/workspace-data
 

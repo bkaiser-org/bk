@@ -7,8 +7,10 @@ runConfig:
   memoryMiB: 1024
 
 # Environment variables and secrets
-# add secrets with firebase apphosting:secrets:set secretName
-# better: use Secret Manager in console.cloud.google.com to administer the secrets
+# add secrets with firebase apphosting:secrets:set SECRET
+# better: use Secret Manager in console.cloud.google.com to administer the secrets, 
+# then you'll need to grant access to each secret to the Cloud Run service account
+# firebase apphosting:secrets:grantaccess SECRET -b BACKEND_ID
 env:
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
     secret: NEXT_PUBLIC_FIREBASE_API_KEY
