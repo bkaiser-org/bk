@@ -25,6 +25,9 @@ jobs:
       - name: Install ts-node
         run: pnpm install -g ts-node
 
+      - name: Install dotenv
+        run: pnpm install dotenv
+        
       - name: Generate nx.json
         run: ts-node ./generate-nx.ts
 
