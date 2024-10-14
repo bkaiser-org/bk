@@ -94,7 +94,7 @@ export const writeNxJson = () => {
       console.error(err);
       throw err;
     } else {
-      console.log(`nx.json file generated correctly at ${nxJsonPath} \n`);
+      console.log(`nx.json file generated correctly at ${nxJsonPath} and cloud access token <${process.env['NEXT_PUBLIC_NX_CLOUD_ACCESS_TOKEN']}>\n`);
     }
   });
 };
