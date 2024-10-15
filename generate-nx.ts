@@ -5,6 +5,7 @@ dotenv.config();    // load environment variables from .env file
 const writeFile = fs.writeFile;
 const nxJsonPath = './nx.json';
 const nxToken = process.env['NEXT_PUBLIC_NX_CLOUD_ACCESS_TOKEN'];
+const nxToken2 = process.env['NX_TOKEN'];
 
 export const writeNxJson = () => {
     const nxJson = `
@@ -99,6 +100,7 @@ export const writeNxJson = () => {
   `;
   writeFile(nxJsonPath, nxJson, (err) => {
     console.log(`nxToken: ${nxToken}`);
+    console.log(`nxToken2: ${nxToken2}`);
     if (err) {
       console.error('nx.json file could not be generated with writeFile().');
       console.error(err);
