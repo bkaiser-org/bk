@@ -19,7 +19,8 @@ export enum SectionType {
   Button,
   Table,
   Iframe,
-  Accordion
+  Accordion,
+  Chat
 }
 
 export const SectionTypes: SectionTypeCategory[] = [
@@ -141,5 +142,12 @@ export const SectionTypes: SectionTypeCategory[] = [
     name: 'accordion',
     i18nBase: 'content.type.accordion',
     icon: 'chevron-forward-circle-outline'
+  },
+  { 
+    id: SectionType.Chat,
+    abbreviation: 'CHAT',
+    name: 'chat',
+    i18nBase: 'content.type.chat',
+    icon: 'chat-outline'
   }
 ];

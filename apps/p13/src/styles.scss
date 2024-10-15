@@ -34,6 +34,10 @@
 
 @import '@ionic/angular/css/palettes/dark.system.css';
 
+/* Chat with Stream.io */
+@import 'stream-chat-angular/src/assets/styles/scss/index.scss';
+
+
 /********************* custom style extensions *****************************/
 
 ion-content {

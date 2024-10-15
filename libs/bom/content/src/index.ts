@@ -45,6 +45,9 @@ export * from './lib/section/button/button-section.form';
 export * from './lib/section/button/button.form';
 export * from './lib/section/button/bk-button-widget';
 
+// chat
+export * from './lib/section/chat/chat-section';
+
 // gallery
 export * from './lib/section/gallery/bk-gallery-section';
 export * from './lib/section/gallery/gallery.modal';

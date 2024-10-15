@@ -35,6 +35,7 @@ import {
   ReCaptchaEnterpriseProvider,
 } from 'firebase/app-check';
 import { provideServiceWorker } from '@angular/service-worker';
+import { TranslateModule } from '@ngx-translate/core';
 
 const app = initializeApp(environment.firebase);
 
@@ -67,6 +68,8 @@ export const appConfig: ApplicationConfig = {
       withPreloading(FlagBasedPreloadingStrategy),
       withEnabledBlockingInitialNavigation()
     ),
+
+    importProvidersFrom(TranslateModule.forRoot()),
 
     // Browser and HttpClient
     importProvidersFrom(BrowserModule),

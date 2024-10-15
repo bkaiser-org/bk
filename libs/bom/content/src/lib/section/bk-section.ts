@@ -24,6 +24,7 @@ import { BkListSectionComponent } from './list/bk-list-section';
 import { BkIframeSectionComponent } from './iframe/bk-iframe-section';
 import { AuthorizationService } from '@bk/base';
 import { BkAccordionSectionComponent } from './accordion/bk-accordion-section';
+import { ChatSectionComponent } from './chat/chat-section'; 
 
 /**
  * A section is part of a page.
@@ -40,7 +41,7 @@ import { BkAccordionSectionComponent } from './accordion/bk-accordion-section';
     BkMapSectionComponent, BkVideoSectionComponent,
     BkCalendarSectionComponent, BkModelSectionComponent, BkHeroSectionComponent,
     BkButtonSectionComponent, BkChangeConfirmationComponent, BkTableSectionComponent,
-    BkIframeSectionComponent, BkAccordionSectionComponent,
+    BkIframeSectionComponent, BkAccordionSectionComponent, ChatSectionComponent,
     IonLabel, IonItem
   ],
   template: `
@@ -97,6 +98,9 @@ import { BkAccordionSectionComponent } from './accordion/bk-accordion-section';
           @case(ST.Accordion) {                               <!-- 16: Accordion -->
             <bk-accordion-section [section]="section" [readOnly]="readOnly()" />      
           }
+          @case(ST.Chat) {                                    <!-- 17: Chat -->
+            <bk-chat-section [section]="section" />
+          }
           @default {
             <ion-label>{{ '@content.section.error.noSuchSection' | translate: { type: section.category } | async }}</ion-label>
           }
@@ -111,7 +115,7 @@ import { BkAccordionSectionComponent } from './accordion/bk-accordion-section';
   `
 })
 export class BkSectionComponent implements OnInit {
-  private sectionService = inject(SectionService);
+  private readonly sectionService = inject(SectionService);
   public authorizationService = inject(AuthorizationService);
 
   public sectionKey = input.required<string>();
