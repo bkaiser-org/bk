@@ -4,8 +4,6 @@ import dotenv from 'dotenv';
 dotenv.config();    // load environment variables from .env file
 const writeFile = fs.writeFile;
 const nxJsonPath = './nx.json';
-const nxToken = process.env['NEXT_PUBLIC_NX_CLOUD_ACCESS_TOKEN'];
-const nxToken2 = process.env['NX_TOKEN'];
 
 export const writeNxJson = () => {
     const nxJson = `
@@ -86,27 +84,16 @@ export const writeNxJson = () => {
       "style": "scss",
       "unitTestRunner": "jest"
     }
-  },
-  "nxCloudAccessToken": "${nxToken}",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@nrwl/nx-cloud",
-      "options": {
-        "accessToken": "${nxToken}"
-      }
-    }
   }
 }
   `;
   writeFile(nxJsonPath, nxJson, (err) => {
-    console.log(`nxToken: ${nxToken}`);
-    console.log(`nxToken2: ${nxToken2}`);
     if (err) {
       console.error('nx.json file could not be generated with writeFile().');
       console.error(err);
       throw err;
     } else {
-      console.log(`nx.json file generated correctly at ${nxJsonPath} and cloud access token <${nxToken}>\n`);
+      console.log(`nx.json file generated correctly at ${nxJsonPath} (cloud access token is read from env).\n`);
     }
   });
 };
