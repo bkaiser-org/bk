@@ -85,7 +85,15 @@ export const writeNxJson = () => {
       "unitTestRunner": "jest"
     }
   },
-  "nxCloudAccessToken": "${process.env['NEXT_PUBLIC_NX_CLOUD_ACCESS_TOKEN']}"
+  "nxCloudAccessToken": "${process.env['NEXT_PUBLIC_NX_CLOUD_ACCESS_TOKEN']}",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "accessToken": "${process.env['NEXT_PUBLIC_NX_CLOUD_ACCESS_TOKEN']}"
+      }
+    }
+  }
 }
   `;
   writeFile(nxJsonPath, nxJson, (err) => {
