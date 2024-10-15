@@ -7,7 +7,8 @@
   "tags": [],
   "targets": {
     "config": {
-      "command": "ts-node ./set-env.ts"
+      "command": "ts-node ./set-env.ts",
+      "cache": true
     },
     "build": {
       "dependsOn": ["config"],
