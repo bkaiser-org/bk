@@ -131,12 +131,10 @@ export class MenuItemFormComponent extends AbstractFormComponent implements Afte
   }
   
   protected onMenuChange(menuItems: string[]): void {
-    console.log('onMenuChange: ', menuItems);
     this.updateField('menuItems', menuItems);
   }
 
   protected onChange(): void {
-    console.log('onChange');
     this.formDirty.set(true);
     this.notifyState();
   }
