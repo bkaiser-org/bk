@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { AppNavigationService } from '@bk/util';
 import { IonButton, IonButtons, IonHeader, IonIcon, IonMenuButton, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
 import { BkSearchbarComponent } from './bk-searchbar/bk-searchbar';
@@ -25,6 +25,11 @@ import { AsyncPipe } from '@angular/common';
             <ion-button (click)="back()">
               <ion-icon slot="icon-only" src="{{'close-circle-outline' | svgIcon }}" />
             </ion-button>
+            @if(showOkButton()) {
+              <ion-button (click)="okClicked.emit()">
+                <ion-icon slot="icon-only" src="{{'checkmark-circle-outline' | svgIcon }}" />
+              </ion-button>
+            }
           </ion-buttons>
         }
       </ion-toolbar>
@@ -48,7 +53,9 @@ export class BkHeaderComponent {
   public isModal = input(false);
   public isRoot = input(false);
   public isSearchable = input(false);
+  public showOkButton = input(false);
   public placeholder = input('@general.operation.search.placeholder');
+  public okClicked = output();
 
   public back(): void {
     if (this.isModal()) {
