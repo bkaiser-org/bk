@@ -29,6 +29,9 @@ export const menuItemFormValidation = staticSuite((model: MenuItemFormModel, fie
     test('menuItems', 'menuSubMenuItemsMissing', () => {
       enforce(model.menuItems).isNotUndefined();
     });
+    test('menuItems', 'menuItems must be of type string[]', () => {
+      enforce(isArrayOfStrings(model.menuItems)).isTruthy();
+    });
   });
   
   omitWhen(model.menuItems === undefined, () => {
