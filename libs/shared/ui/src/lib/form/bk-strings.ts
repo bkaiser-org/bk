@@ -1,6 +1,6 @@
 import { Component, input, model, output } from '@angular/core';
 import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonInput, IonItem, IonLabel, IonList, IonListHeader, IonReorder, IonReorderGroup, ItemReorderEventDetail } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonInput, IonItem, IonLabel, IonList, IonListHeader, IonNote, IonReorder, IonReorderGroup, ItemReorderEventDetail } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { arrayMove } from '@bk/util';
 import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
@@ -15,7 +15,7 @@ import { lowercaseWordMask } from '../form-widgets/bk-text-input';
     TranslatePipe, AsyncPipe, SvgIconPipe,
     FormsModule, MaskitoDirective,
     IonList, IonListHeader, IonItem,
-    IonLabel, IonInput, IonIcon,
+    IonLabel, IonInput, IonIcon, IonNote,
     IonReorderGroup, IonReorder,
     IonCard, IonCardHeader, IonCardContent, IonCardTitle
   ],
@@ -26,16 +26,21 @@ import { lowercaseWordMask } from '../form-widgets/bk-text-input';
       </ion-card-header>
       <ion-card-content>
         <ion-item lines="none">
+          @if((description() ?? '').length > 0) {
+            <ion-note>{{ description() | translate | async }}</ion-note>
+          }
+        </ion-item>
+        <ion-item lines="none">
           <ion-input [(ngModel)]="newString" (ionChange)="save()"
-            label="{{ addLabel() | translate | async }}"
-            labelPlacement="floating"
-            inputMode="text"
-            type="text"
-            [counter]="true"
-            [maxlength]="maxLength()"
-            placeholder="ssssss"
-            [maskito]="mask()"
-            [maskitoElement]="maskPredicate" />
+              label="{{ addLabel() | translate | async }}"
+              labelPlacement="floating"
+              inputMode="text"
+              type="text"
+              [counter]="true"
+              [maxlength]="maxLength()"
+              placeholder="ssssss"
+              [maskito]="mask()"
+              [maskitoElement]="maskPredicate" />
         </ion-item>
 
         @if(strings(); as strings) {
@@ -60,6 +65,7 @@ export class BkStringsComponent {
   public strings = model.required<string[]>(); // the keys of the menu items
   public title = input('@input.strings.label');
   public addLabel = input('@input.strings.addString');
+  public description = input<string>();
   public mask = input<MaskitoOptions>(lowercaseWordMask);
   public maxLength = input(20);
 
