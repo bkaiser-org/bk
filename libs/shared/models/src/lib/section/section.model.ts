@@ -1,6 +1,5 @@
 import { AlbumStyle, ColorIonic, GalleryEffect, ImageAction, ModelType } from '@bk/categories';
 import { BaseModel } from '../base/base.model';
-import { GuiColumn } from '@generic-ui/ngx-grid';
 import { isAudio, isDocument, isImage, isPdf, isStreamingVideo, isVideo, NameDisplay, RoleName } from '@bk/util';
 
 export type Slot = 'start' | 'end' | 'icon-only' | 'none';
@@ -162,10 +161,28 @@ export interface Avatar {
   linkedSection: string // this section content will be shown in a modal when the title is clicked
 }
 
+export interface TableConfig {
+  gridTemplate: string,
+  gridGap: string,
+  gridBackgroundColor: string,
+  gridPadding: string,
+  headerBackgroundColor: string,
+  headerTextAlign: string,
+  headerFontSize: string,
+  headerFontWeight: string,
+  headerPadding: string,
+  cellBackgroundColor: string,
+  cellTextAlign: string,
+  cellFontSize: string,
+  cellFontWeight: string,
+  cellPadding: string
+}
+
 // GuiColumn is header: string, field: string 
 export interface Table {
-  columns: GuiColumn[],     // column headers: e.g. [{header: 'Name', field: 'name'}, {header: 'Age', field: 'age'}]
-  source: unknown[]               // data array:   e.g. [{name: 'John', age: 30}, {name: 'Jane', age: 25}]
+  config: TableConfig,
+  header: string[],   // column headers: strings or html
+  content: string[]   // field content: strings or html
 }
 
 export interface Iframe {
@@ -177,6 +194,29 @@ export interface AccordionSection {
   key: string,
   label: string,
   value: string
+}
+
+export function newTable(): Table {
+  return {
+    config: {
+      gridTemplate: 'auto auto',
+      gridGap: '1px',
+      gridBackgroundColor: 'grey',
+      gridPadding: '1px',
+      headerBackgroundColor: 'lightgrey',
+      headerTextAlign: 'center',
+      headerFontSize: '1rem',
+      headerFontWeight: 'bold',
+      headerPadding: '5px',
+      cellBackgroundColor: 'white',
+      cellTextAlign: 'left',
+      cellFontSize: '0.8rem',
+      cellFontWeight: 'normal',
+      cellPadding: '5px'
+    },
+    header: [],
+    content: []
+  }
 }
 
 export interface Accordion {

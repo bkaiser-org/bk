@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, model, signal } from '@angular/core';
+import { AfterViewInit, Component, computed, model, signal } from '@angular/core';
 import { BkCatInputComponent, BkModelInfoComponent, BkNotesComponent, BkSpinnerComponent, BkTagsComponent, BkTextInputComponent } from '@bk/ui';
-import { ModelInfo, SectionFormModel, sectionFormModelShape, sectionFormValidations, SectionProperties } from '@bk/models';
+import { ModelInfo, newTable, SectionFormModel, sectionFormModelShape, sectionFormValidations, SectionProperties } from '@bk/models';
 import { AbstractFormComponent, BkModelListComponent } from '@bk/base';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonGrid, IonIcon, IonItem, IonLabel, IonRow, IonToolbar } from '@ionic/angular/standalone';
 import { ModelType, RoleEnum, RoleEnums, SectionType, SectionTypes, ViewPositions } from '@bk/categories';
@@ -21,6 +21,7 @@ import { BkImageConfigFormComponent } from './default-image-config.form';
 import { BkImageListFormComponent } from "./image-list.form";
 import { SingleImageFormComponent } from "./image.form";
 import { AlbumFormComponent } from "../album/album-section.form";
+import { BkTableSectionFormComponent } from '../table/table-section.form';
 
 @Component({
   selector: 'bk-section-form',
@@ -30,7 +31,7 @@ import { AlbumFormComponent } from "../album/album-section.form";
     BkTagsComponent, BkNotesComponent, BkSpinnerComponent, BkModelInfoComponent, BkTextInputComponent,
     BkButtonSectionFormComponent, BkCatInputComponent, BkImageConfigFormComponent, SingleImageFormComponent,
     BkModelListComponent, BkEditorComponent, BkIframeSectionFormComponent, BkImageListFormComponent,
-    BkAccordionSectionFormComponent, BkMapSectionFormComponent,
+    BkAccordionSectionFormComponent, BkMapSectionFormComponent, BkTableSectionFormComponent,
     BkVideoSectionFormComponent, BkArticleSectionFormComponent, PeopleListFormComponent,
     IonToolbar, IonButton, IonGrid, IonRow, IonCol, IonLabel, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem,
     BkImageListFormComponent,
@@ -122,7 +123,9 @@ import { AlbumFormComponent } from "../album/album-section.form";
         @case(ST.Button) {                                            <!-- 13: Button -->
           <bk-button-section-form [vm]="vm" (positionChange)="onPositionChange($event)" (contentChange)="onContentChange($event)" (changedProperties)="onPropertiesChange($event)" />
         }
-        <!-- tbd: TableSectionForm is not yet implemented -->         <!-- 14: Table -->
+        @case(ST.Table) {                                             <!-- 14: Table -->
+          <bk-table-section-form [table]="table()!" (changedProperties)="onPropertiesChange($event)" />  
+        }
         @case(ST.Iframe) {                                            <!-- 15: Iframe -->           
           <bk-iframe-section-form [vm]="vm" (changedProperties)="onPropertiesChange($event)" (changedUrl)="updateField('url', $event)" />
         }
@@ -157,6 +160,7 @@ import { AlbumFormComponent } from "../album/album-section.form";
 })
 export class SectionFormComponent extends AbstractFormComponent implements AfterViewInit {
   public vm = model.required<SectionFormModel>();
+  public table = computed(() => this.vm().properties?.table ?? newTable());
 
   protected readonly suite = sectionFormValidations;
   protected readonly formValue = signal<SectionFormModel>({});

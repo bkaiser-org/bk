@@ -428,6 +428,31 @@
       "placeholder": "Name des Kalenders",
       "error": "Bitte einen anderen Namen wählen."
     },
+    "cellBackgroundColor": {
+      "label": "Hintergrundfarbe",
+      "placeholder": "Farbe",
+      "helper": "Die Hintergrundfarbe der Felder, z.B. #f0f0f0, grey etc."
+    },
+    "cellTextAlign": {
+      "label": "Textausrichtung",
+      "placeholder": "left | center | right",
+      "helper": "Die Ausrichtung des Textes in den Tabellenfeldern."
+    },
+    "cellFontSize": {
+      "label": "Schriftgrösse",
+      "placeholder": "nnpx",
+      "helper": "Die Schriftgrösse des Textes in den Tabellenfeldern in Pixel, z.B. 16, 20 etc."
+    },
+    "cellFontWeight": {
+      "label": "Schriftstärke",
+      "placeholder": "normal | bold",
+      "helper": "Die Stärke der Schrift in den Tabellenfeldern, z.B. normal oder bold."
+    },
+    "cellPadding": {
+      "label": "Textausrichtung",
+      "placeholder": "nnpx",
+      "helper": "Der Abstand zwischen dem Text und dem Rand der Tabellenfelder in Pixel, z.B. 10, 20 etc."
+    },
     "city": {
       "label": "Ort",
       "placeholder": "Ortsname",
@@ -611,6 +636,51 @@
       "label": "Gravatar E-Mail",
       "placeholder": "E-Mail Adresse für Gravatar",
       "helper": "Die E-Mail Adresse, die für den Gravatar verwendet wird (globally recognized avatar auf gravatar.com). Wenn du deinen Gravatar angibst, wird dieser anstelle eines hochgeladenen Bildes im Avatar der App verwendet."
+    },
+    "gridBackgroundColor": {
+      "label": "Hintergrundfarbe",
+      "placeholder": "Farbe",
+      "helper": "Die Hintergrundfarbe der Tabelle, z.B. #f0f0f0, grey etc."
+    },
+    "gridGap": {
+      "label": "Gap",
+      "placeholder": "nn",
+      "helper": "Der Zwischenraum zwischen den Zellen in der Tabelle in Pixel, z.B. 10, 20 etc."
+    },
+    "gridPadding": {
+      "label": "Padding",
+      "placeholder": "nn",
+      "helper": "Der Abstand zwischen dem Rand der Tabelle und den Zellen in Pixel, z.B. 10, 20 etc."
+    },
+    "gridTemplate": {
+      "label": "Template",
+      "placeholder": "auto auto",
+      "helper": "Die Definition des Grids. Sie gibt an, wie wiele Spalten angezeigt werden und wie breit diese sein sollen. Beispiele Drei automatisch breite Spalten: 'auto auto auto', 2 Spalten, die erste mit fixer Breite: '200px auto'"
+    },
+    "headerBackgroundColor": {
+      "label": "Hintergrundfarbe",
+      "placeholder": "Farbe",
+      "helper": "Die Hintergrundfarbe des Headers, z.B. #f0f0f0, grey etc."
+    },
+    "headerTextAlign": {
+      "label": "Textausrichtung",
+      "placeholder": "left | center | right",
+      "helper": "Die Ausrichtung des Textes im Header."
+    },
+    "headerFontSize": {
+      "label": "Schriftgrösse",
+      "placeholder": "nnpx",
+      "helper": "Die Schriftgrösse des Textes im Header in Pixel, z.B. 16, 20 etc."
+    },
+    "headerFontWeight": {
+      "label": "Schriftstärke",
+      "placeholder": "normal | bold",
+      "helper": "Die Stärke der Schrift im Header, z.B. normal oder bold."
+    },
+    "headerPadding": {
+      "label": "Textausrichtung",
+      "placeholder": "nnpx",
+      "helper": "Der Abstand zwischen dem Text und dem Rand des Headers in Pixel, z.B. 10, 20 etc."
     },
     "height": {
       "label": "Höhe",
@@ -2200,6 +2270,10 @@
         "label": "Diagramm",
         "description": "Darstellung von Daten in Form von Diagrammen"
       },
+      "chat": {
+        "label": "Chat",
+        "description": "Chat-Fenster für direkte oder Gruppen-Kommunikation"
+      },
       "gallery": {
         "label": "Gallerie",
         "description": "Darstellung von Bildern in Grossformat"
@@ -2430,6 +2504,7 @@
       },
       "error": {
         "emptyPage": "Es gibt noch keine Sektionen für diese Seite. Bitte zuerst Sektionen erstellen.",
+        "emptyTable": "Leere Tabelle",
         "emptyPageReadOnly": "Diese Seite ist noch leer.",
         "noPeople": "Es sind noch keine Personen definiert, die hier angezeigt werden sollen.",
         "noImages": "Es sind noch keine Bilder definiert, die hier angezeigt werden sollen.",

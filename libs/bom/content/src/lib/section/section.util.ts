@@ -1,5 +1,5 @@
 import { ColorIonic, ModelType, SectionType, SectionTypes, ViewPosition } from "@bk/categories";
-import { Avatar, Button, Icon, SectionModel, ModelInfo } from "@bk/models";
+import { Avatar, Button, Icon, SectionModel, ModelInfo, newTable } from "@bk/models";
 import { NameDisplay, bkTranslate } from "@bk/util";
 
 /**
@@ -39,6 +39,9 @@ export function createSection(categoryId: number, tenantId: string): SectionMode
       _section.imagePosition = ViewPosition.Left;
       _section.properties.button = newButton();
       _section.properties.icon = newIcon();
+      break;
+    case SectionType.Table:
+      _section.properties.table = newTable();
       break;
   }
   return _section;
