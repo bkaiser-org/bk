@@ -9,13 +9,14 @@ import { BkCardSelectModalComponent } from "@bk/ui";
 import { createSection } from "../section/section.util";
 import { SectionService } from "../section/section.service";
 import { BkSortSectionsComponent } from "./sort-sections.modal";
+import { PageEditModalComponent } from "./page-edit.modal";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PageService extends BaseService {
   protected modalController = inject(ModalController);
-  private sectionService = inject(SectionService);
+  private readonly sectionService = inject(SectionService);
 
   /*-------------------------- CRUD operations --------------------------------*/
   /**
@@ -27,6 +28,21 @@ export class PageService extends BaseService {
     const _key = await this.dataService.createModel(CollectionNames.Page, page, '@content.page.operation.create');
     await this.saveComment(CollectionNames.Page, _key, '@comment.operation.initial.conf');
     return _key;
+  }
+
+  public async editPage(page: PageModel): Promise<string> {
+    const _modal = await this.modalController.create({
+      component: PageEditModalComponent,
+      componentProps: {
+        page: page
+      }
+    });
+    _modal.present();
+    const { data, role } = await _modal.onDidDismiss();
+    if (role === 'confirm') {
+      this.updatePage(data);
+    }
+    return '';
   }
 
   /**
@@ -124,11 +140,17 @@ export class PageService extends BaseService {
     return undefined;
   }
 
+  /**
+   * Select an existing section and add it to the page.
+   * @param page the page to add the section to
+   * @returns 
+   */
   public async selectSection(page: PageModel): Promise<void> {
     const _modal = await this.modalController.create({
       component: BkModelSelectComponent,
       componentProps: {
-        bkListType: ListType.SectionAll
+        bkListType: ListType.SectionAll,
+        betterTitle: 'Eine bestehende Sektion hinzufügen'
       }
     });
     _modal.present();

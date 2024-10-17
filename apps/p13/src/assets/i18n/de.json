@@ -2406,6 +2406,13 @@
         "description": "Eine Website enthält einen Titel und mehrere Sektionen. Die Reihenfolge der Sektionen kann geändert werden.",
         "empty": "Es sind noch keine Webseiten erstellt worden. Erstelle eine mit Klicken des + Buttons."
       },
+      "forms": {
+        "title": "Webseite",
+        "section": {
+          "label": "Sektionen",
+          "placeholder": "Sektionen"
+        }
+      },
       "operation": {
         "update": {
           "label": "Seite ändern",

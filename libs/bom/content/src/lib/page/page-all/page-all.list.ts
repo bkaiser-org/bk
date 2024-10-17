@@ -8,6 +8,7 @@ import { AsyncPipe } from '@angular/common';
 import { ListType, ModelType } from '@bk/categories';
 import { BaseModelListComponent } from '@bk/base';
 import { PageAllService } from './page-all.service';
+import { PageService } from '../page.service';
 
 @Component({
   selector: 'bk-page-all-list',
@@ -83,7 +84,7 @@ import { PageAllService } from './page-all.service';
     } @else {
       @for(page of pages; track page.bkey) {
         <ion-item-sliding #slidingItem>
-          <ion-item (click)="openPage(slidingItem, page.bkey)">
+          <ion-item (click)="editPage(slidingItem, page)">
             <ion-label class="ion-hide-md-down">{{ page.bkey }}</ion-label>
             <ion-label>{{ page.name }}</ion-label>
             <ion-label>{{ page.sections.length }}</ion-label>
@@ -92,7 +93,7 @@ import { PageAllService } from './page-all.service';
             <ion-item-option color="danger" (click)="deletePage(slidingItem, page)">
               <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
             </ion-item-option>
-            <ion-item-option color="primary" (click)="openPage(slidingItem, page.bkey)">
+            <ion-item-option color="primary" (click)="editPage(slidingItem, page)">
               <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />
             </ion-item-option>
           </ion-item-options>
@@ -108,10 +109,11 @@ import { PageAllService } from './page-all.service';
 })
 export class PageAllListComponent extends BaseModelListComponent implements OnInit {
   public baseService = inject(PageAllService);
+  private readonly pageService = inject(PageService);
   protected listType = ListType.PageAll;
   protected collectionName = CollectionNames.Page;
   protected listRoute = '/page/all';
-  private alertController = inject(AlertController);
+  private readonly alertController = inject(AlertController);
 
   ngOnInit(): void {
     this.prepareData(this.listType);
@@ -137,11 +139,10 @@ export class PageAllListComponent extends BaseModelListComponent implements OnIn
     await this.baseService.deletePage(page);
   }
 
-  public async openPage(slidingItem?: IonItemSliding, key?: string): Promise<void> {
+  public async editPage(slidingItem?: IonItemSliding, page?: PageModel): Promise<void> {
     if (slidingItem) slidingItem.close();
-    if (!key) return;
-    this.appNavigationService.pushLink(this.listRoute);
-    await this.baseService.navigateToUrl(`/private/${key}`);
+    if (!page) return;
+    await this.pageService.editPage(page);
   }
 }
 

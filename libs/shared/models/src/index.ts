@@ -69,6 +69,8 @@ export * from './lib/org/org-new.validations';
 // page
 export * from './lib/page/page.model';
 export * from './lib/page/page.validations';
+export * from './lib/page/page-form.model';
+export * from './lib/page/page-form.validations';
 
 // person
 export * from './lib/person/person-form.model';

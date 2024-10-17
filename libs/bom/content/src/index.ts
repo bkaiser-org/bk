@@ -12,6 +12,8 @@ export * from './lib/page/content.page';
 export * from './lib/page/page.service';
 export * from './lib/page/page-all/page-all.list';
 export * from './lib/page/page-title.pipe';
+export * from './lib/page/page.form';
+export * from './lib/page/page-edit.modal';
 
 // page-all
 export * from './lib/page/page-all/page-all.service';
