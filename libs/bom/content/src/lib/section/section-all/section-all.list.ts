@@ -114,7 +114,7 @@ import { Router } from '@angular/router';
   `
 })
 export class SectionAllListComponent extends BaseModelListComponent implements OnInit {
-  private router = inject(Router);
+  private readonly router = inject(Router);
   public baseService = inject(SectionAllService);
   protected listType = ListType.SectionAll;
   protected collectionName = CollectionNames.Section;
