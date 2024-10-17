@@ -8,6 +8,9 @@ import { BkCopyButtonComponent } from '../form/bk-copy-button';
 import { vestFormsViewProviders } from 'ngx-vest-forms';
 import { MaskitoDirective } from '@maskito/angular';
 
+// Masks
+
+// 1) Word masks
 export const lowercaseWordMask: MaskitoOptions = {
   mask: /^[a-z0-9-_]+$/,
 };
@@ -17,9 +20,23 @@ export const uppercaseWordMask: MaskitoOptions = {
 export const caseInsensitiveWordMask: MaskitoOptions = {
   mask: /^[a-zA-Z0-9-_]+$/,
 };
-export const what3WordMask: MaskitoOptions = {
-  mask: [/\w+/, /\./, /\w+/, /\./, /\w+/]
+
+// 2) Text masks
+export const lowercaseTextMask: MaskitoOptions = {  
+  mask: /^[a-z0-9-_ ]+$/,
 };
+export const uppercaseTextMask: MaskitoOptions = {
+  mask: /^[A-Z0-9-_ ]+$/,
+};
+export const caseInsensitiveTextMask: MaskitoOptions = {
+  mask: /^[a-zA-Z0-9-_ ]+$/,
+};
+
+// 3) HTML text masks (this is not matching emojis, foreign characters, only typical western html code is matched)
+export const htmlTextMask: MaskitoOptions = {
+  mask: /^[a-zA-Z0-9 !-/:-@[-`{-~]+$/,
+};
+// 3) Number masks or special characters
 export const sizeMask: MaskitoOptions = {
   mask: /^[0-9]{1,3}$/,
 };
@@ -28,6 +45,9 @@ export const bexioIdMask: MaskitoOptions = {
 };
 export const coordinateMask: MaskitoOptions = {
   mask: /^[0-9.,]+$/,
+};
+export const what3WordMask: MaskitoOptions = {
+  mask: [/\w+/, /\./, /\w+/, /\./, /\w+/]
 };
 export const chVatMask: MaskitoOptions = {
   mask: ['C', 'H', 'E', '-', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, ' ', 'M', 'W', 'S', 'T'],

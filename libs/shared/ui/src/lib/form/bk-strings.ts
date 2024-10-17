@@ -6,6 +6,7 @@ import { arrayMove } from '@bk/util';
 import { MaskitoElementPredicate, MaskitoOptions } from '@maskito/core';
 import { FormsModule } from '@angular/forms';
 import { MaskitoDirective } from '@maskito/angular';
+import { lowercaseWordMask } from '../form-widgets/bk-text-input';
 
 @Component({
   selector: 'bk-strings',
@@ -31,9 +32,9 @@ import { MaskitoDirective } from '@maskito/angular';
             inputMode="text"
             type="text"
             [counter]="true"
-            [maxlength]="20"
+            [maxlength]="maxLength()"
             placeholder="ssssss"
-            [maskito]="wordMask"
+            [maskito]="mask()"
             [maskitoElement]="maskPredicate" />
         </ion-item>
 
@@ -59,6 +60,9 @@ export class BkStringsComponent {
   public strings = model.required<string[]>(); // the keys of the menu items
   public title = input('@input.strings.label');
   public addLabel = input('@input.strings.addString');
+  public mask = input<MaskitoOptions>(lowercaseWordMask);
+  public maxLength = input(20);
+
   public newString = '';
   public stringsChanged = output<string[]>();
 
@@ -87,9 +91,6 @@ export class BkStringsComponent {
     this.stringsChanged.emit(this.strings());
   }
 
-  readonly wordMask: MaskitoOptions = {
-    mask: /^[a-z0-9-_]+$/,
-  };
   readonly maskPredicate: MaskitoElementPredicate = async (el: HTMLElement) => (el as HTMLIonInputElement).getInputElement();
 }
 
