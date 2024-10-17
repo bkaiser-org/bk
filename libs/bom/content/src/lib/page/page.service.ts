@@ -1,13 +1,14 @@
 import { Injectable, inject } from "@angular/core";
 import { ListType, SectionTypes, getModelSlug } from "@bk/categories";
-import { Observable } from "rxjs";
+import { firstValueFrom, Observable } from "rxjs";
 import { CollectionNames, die } from "@bk/util";
 import { BaseService, BkModelSelectComponent } from "@bk/base";
-import { PageModel, isSection } from "@bk/models";
+import { isSection, PageModel, SectionModel } from "@bk/models";
 import { ModalController } from "@ionic/angular/standalone";
 import { BkCardSelectModalComponent } from "@bk/ui";
 import { createSection } from "../section/section.util";
 import { SectionService } from "../section/section.service";
+import { BkSortSectionsComponent } from "./sort-sections.modal";
 
 @Injectable({
     providedIn: 'root'
@@ -94,10 +95,38 @@ export class PageService extends BaseService {
     }
   }
 
+  public async getSections(page: PageModel): Promise<SectionModel[]> {
+    const _sections: SectionModel[] = [];
+    for (const _sectionKey of page.sections) {
+      const _section = await firstValueFrom(this.sectionService.readSection(_sectionKey));
+      if (_section) {
+        _sections.push(_section);
+      }
+    }
+    return _sections;
+  }
+
+  public async sortSections(page: PageModel): Promise<void> {
+    const _sections = await this.getSections(page);
+    const _modal = await this.modalController.create({
+      component: BkSortSectionsComponent,
+      componentProps: {
+        sections: _sections
+      }
+    });
+    _modal.present();
+    const { data, role } = await _modal.onDidDismiss();
+    if (role === 'confirm') {
+      page.sections = data.map((_section: SectionModel) => _section.bkey);
+      await this.updatePage(page);
+      return;
+    }
+    return undefined;
+  }
+
   public async selectSection(page: PageModel): Promise<void> {
     const _modal = await this.modalController.create({
       component: BkModelSelectComponent,
-      cssClass: 'full-modal',
       componentProps: {
         bkListType: ListType.SectionAll
       }

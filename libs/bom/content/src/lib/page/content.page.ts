@@ -36,7 +36,7 @@ import { ActivatedRoute, Router } from '@angular/router';
             <ion-icon slot="icon-only" src="{{'toggle' | svgIcon }}" />
           </ion-button>
 
-          <ion-button (click)="toggleReordering()">
+          <ion-button (click)="pageService.sortSections(page)">
             <ion-icon slot="icon-only" src="{{'sync-circle-outline' | svgIcon }}" />
           </ion-button>
           <ion-button (click)="pageService.selectSection(page)">
@@ -62,33 +62,21 @@ import { ActivatedRoute, Router } from '@angular/router';
             </ion-button>
           </ion-item>
         } @else {     <!-- page contains sections -->
-          @if (doReorder) {
-            <!-- Casting $event to $any is a temporary fix for this bug https://github.com/ionic-team/ionic-framework/issues/24245 -->
-            <ion-reorder-group disabled="false" (ionItemReorder)="handleReorder($any($event))">
-              @for(sectionKey of page.sections; track sectionKey) {
-                <ion-item>
-                  <bk-section [sectionKey]="sectionKey" [readOnly]="true" />
-                  <ion-reorder slot="end" />
+          <ion-list class="section-list">
+            @for(sectionKey of page.sections; track sectionKey) {
+              <ion-item-sliding #slidingList>
+                <ion-item lines="none" [id]="sectionKey">
+                  <bk-section [sectionKey]="sectionKey" [readOnly]="!isEditMode" />
                 </ion-item>
-              }
-            </ion-reorder-group>
-          } @else {
-            <ion-list class="section-list">
-              @for(sectionKey of page.sections; track sectionKey) {
-                <ion-item-sliding #slidingList>
-                  <ion-item lines="none" [id]="sectionKey">
-                    <bk-section [sectionKey]="sectionKey" [readOnly]="!isEditMode" />
-                  </ion-item>
-                  <ion-item-options side="end">
-                    <ion-item-option color="danger" (click)="deleteSection(slidingList, page, sectionKey)"><ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" /></ion-item-option>
-                    <!-- <ion-item-option color="light" (click)="uploadImage(slidingList, sectionKey)"><ion-icon slot="icon-only" src="{{'camera' | svgIcon }}" /></ion-item-option> -->
-                    <!-- <ion-item-option color="light" (click)="uploadDocument(slidingList, sectionKey)"><ion-icon slot="icon-only" src="{{'document' | svgIcon }}" /></ion-item-option> -->
-                    <ion-item-option color="success" (click)="editSection(slidingList, sectionKey)"><ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" /></ion-item-option>
-                  </ion-item-options>
-                </ion-item-sliding>
-              }
-            </ion-list>
-          }
+                <ion-item-options side="end">
+                  <ion-item-option color="danger" (click)="deleteSection(slidingList, page, sectionKey)"><ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" /></ion-item-option>
+                  <!-- <ion-item-option color="light" (click)="uploadImage(slidingList, sectionKey)"><ion-icon slot="icon-only" src="{{'camera' | svgIcon }}" /></ion-item-option> -->
+                  <!-- <ion-item-option color="light" (click)="uploadDocument(slidingList, sectionKey)"><ion-icon slot="icon-only" src="{{'document' | svgIcon }}" /></ion-item-option> -->
+                  <ion-item-option color="success" (click)="editSection(slidingList, sectionKey)"><ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" /></ion-item-option>
+                </ion-item-options>
+              </ion-item-sliding>
+            }
+          </ion-list>
         }
       } @else { <!-- not contentAdmin -->
         @if(!page.sections || page.sections.length === 0) {
@@ -128,7 +116,6 @@ export class ContentPageComponent implements OnInit {
   public title = '';
   public isArchivedVisible = false;
   public isEditMode = false;
-  public doReorder = false;
 
   ngOnInit(): void {
     this.activatedRoute.fragment.subscribe((fragment: string | null) => {
@@ -179,10 +166,6 @@ export class ContentPageComponent implements OnInit {
       this.sectionService.updateDownloadUrl(sectionKey, _path);
     }
   } */
-
-  public toggleReordering() {
-    this.doReorder = !this.doReorder;
-  }
 
   public toggleEditMode() {
     this.isEditMode = !this.isEditMode;
