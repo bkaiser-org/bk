@@ -32,20 +32,16 @@ import { ActivatedRoute, Router } from '@angular/router';
         <ion-title>{{ page.name | translate | async }}</ion-title>
         @if(authorizationService.hasRole('contentAdmin')) {
           <ion-buttons slot="end">
-          <ion-button (click)="toggleEditMode()">
-            <ion-icon slot="icon-only" src="{{'toggle' | svgIcon }}" />
-          </ion-button>
-
-          <ion-button (click)="pageService.sortSections(page)">
-            <ion-icon slot="icon-only" src="{{'sync-circle-outline' | svgIcon }}" />
-          </ion-button>
-          <ion-button (click)="pageService.selectSection(page)">
-            <ion-icon slot="icon-only" src="{{'reorder-four-outline' | svgIcon }}" />
-          </ion-button>
-          <ion-button (click)="pageService.addSection(page)">
-            <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
-          </ion-button>
-        </ion-buttons>
+            <ion-button (click)="pageService.sortSections(page)">
+              <ion-icon slot="icon-only" src="{{'sync-circle-outline' | svgIcon }}" />
+            </ion-button>
+            <ion-button (click)="pageService.selectSection(page)">
+              <ion-icon slot="icon-only" src="{{'reorder-four-outline' | svgIcon }}" />
+            </ion-button>
+            <ion-button (click)="pageService.addSection(page)">
+              <ion-icon slot="icon-only" src="{{'add-circle-outline' | svgIcon }}" />
+            </ion-button>
+          </ion-buttons>
         }
       </ion-toolbar>
     </ion-header>
@@ -70,8 +66,6 @@ import { ActivatedRoute, Router } from '@angular/router';
                 </ion-item>
                 <ion-item-options side="end">
                   <ion-item-option color="danger" (click)="deleteSection(slidingList, page, sectionKey)"><ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" /></ion-item-option>
-                  <!-- <ion-item-option color="light" (click)="uploadImage(slidingList, sectionKey)"><ion-icon slot="icon-only" src="{{'camera' | svgIcon }}" /></ion-item-option> -->
-                  <!-- <ion-item-option color="light" (click)="uploadDocument(slidingList, sectionKey)"><ion-icon slot="icon-only" src="{{'document' | svgIcon }}" /></ion-item-option> -->
                   <ion-item-option color="success" (click)="editSection(slidingList, sectionKey)"><ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" /></ion-item-option>
                 </ion-item-options>
               </ion-item-sliding>
@@ -104,14 +98,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ContentPageComponent implements OnInit {
   protected pageService = inject(PageService);
-  private router = inject(Router);
-  private activatedRoute = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
   public authorizationService = inject(AuthorizationService);
-  private appNavigationService = inject(AppNavigationService);
+  private readonly appNavigationService = inject(AppNavigationService);
 
   public id = input.required<string>();
 
-  private currentPage: PageModel | undefined;
   public page$: Observable<PageModel | undefined> | undefined;
   public title = '';
   public isArchivedVisible = false;
@@ -131,46 +124,6 @@ export class ContentPageComponent implements OnInit {
     if (sectionKey) document.getElementById(sectionKey)?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  public async save(): Promise<void> {
-    if (this.currentPage) {
-      await this.pageService.updatePage(this.currentPage);
-    }
-  }
-
-  /* public async uploadImage(slidingItem: IonItemSliding, sectionKey: string): Promise<void> {
-    if (slidingItem) slidingItem.close();
-
-    // select a photo from the camera or the photo library
-    const _file = await this.documentService.pickPhoto();
-
-    // upload the file to the storage and upload the download url
-    await this.uploadAndUpdateUrl(_file, sectionKey);
-  } */
-
-  /* public async uploadDocument(slidingItem: IonItemSliding, sectionKey: string): Promise<void> {
-    if (slidingItem) slidingItem.close();
-
-    // show a file dialog to select the file to upload
-    const _file = await this.documentService.pickFile([]);  // any file type is allowed
-
-    // upload the file to the storage and upload the download url
-    await this.uploadAndUpdateUrl(_file, sectionKey);
-  } */
-
-/*   private async uploadAndUpdateUrl(file: File | undefined, sectionKey: string): Promise<void> {
-    if (file) {
-      // upload the file to the storage
-      const _path = await this.documentService.uploadFileToModel(file, ModelType.Section, sectionKey);
-
-      // update the section with the download url
-      this.sectionService.updateDownloadUrl(sectionKey, _path);
-    }
-  } */
-
-  public toggleEditMode() {
-    this.isEditMode = !this.isEditMode;
-  }
-
   public async editSection(slidingItem: IonItemSliding, sectionKey: string) { 
     if (slidingItem) slidingItem.close();
     this.appNavigationService.pushLink('private/' + this.id());
@@ -182,7 +135,7 @@ export class ContentPageComponent implements OnInit {
     this.pageService.deleteSectionFromPage(page, sectionKey);
   }
 
-  public async handleReorder(ev: CustomEvent<ItemReorderEventDetail>) {
+  public async reorder(ev: CustomEvent<ItemReorderEventDetail>) {
     // The `from` and `to` properties contain the index of the item
     // when the drag started and ended, respectively
     if (!this.page$) die('ContentPage.handleReorder: page$ is mandatory.');
