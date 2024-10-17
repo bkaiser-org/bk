@@ -35,7 +35,6 @@
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",
     "@fullcalendar/timegrid": "^6.1.15",
-    "@generic-ui/ngx-grid": "^0.21.0",
     "@google-cloud/functions-framework": "^3.4.2",
     "@imgix/angular": "^1.1.11",
     "@imgix/ix-player": "^1.0.0",

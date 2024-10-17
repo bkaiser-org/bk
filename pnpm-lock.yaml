@@ -92,9 +92,6 @@ importers:
       '@fullcalendar/timegrid':
         specifier: ^6.1.15
         version: 6.1.15(@fullcalendar/core@6.1.15)
-      '@generic-ui/ngx-grid':
-        specifier: ^0.21.0
-        version: 0.21.0(zofl6bru72522xdkmw7eykfb3q)
       '@google-cloud/functions-framework':
         specifier: ^3.4.2
         version: 3.4.2
@@ -1937,30 +1934,6 @@ packages:
     resolution: {integrity: sha512-61ORr3A148RtxQ2FNG7JKvacyA/TEVZ7z6I+3E9Oeu3dqTf6M928bFcpehRTIK6zIA6Yifs7BeWHgOE9dFnpbw==}
     peerDependencies:
       '@fullcalendar/core': ~6.1.15
-
-  '@generic-ui/fabric@0.21.0':
-    resolution: {integrity: sha512-h9Hk4KkU+uYQScqIok2CN18i25I3lrWyHnR9H6oFwRMKm8DnXG5z96mGwPKYsB7Z7NbpSnbecvJP+4jQqgbjQg==}
-    peerDependencies:
-      '@angular/common': ^17.0.0
-      '@angular/core': ^17.0.0
-
-  '@generic-ui/hermes@0.21.0':
-    resolution: {integrity: sha512-ehKYSpJKNMN/gMZgWASul0+MbNOYD3uUlwRN4bedADD+itFVNwb2ByPd+baIVUGIqiCnro60zgg5YzhR4Ieu1w==}
-    peerDependencies:
-      '@angular/common': ^17.0.0
-      '@angular/core': ^17.0.0
-      rxjs: ~7.8.0
-
-  '@generic-ui/ngx-grid@0.21.0':
-    resolution: {integrity: sha512-tSMHul8/kqZw5jCK8M3XdZvwQn5GlUyiWCiNGsE8tOzdvdRP0Hu4zpWMCB7DqEXkp10XQgCiHmf6GYMdQ11+HQ==}
-    peerDependencies:
-      '@angular/common': ^17.0.0
-      '@angular/core': ^17.0.0
-      '@angular/forms': ^17.0.0
-      '@angular/platform-browser': ^17.0.0
-      '@generic-ui/fabric': 0.21.0
-      '@generic-ui/hermes': 0.21.0
-      rxjs: ~7.8.0
 
   '@google-cloud/firestore@7.10.0':
     resolution: {integrity: sha512-VFNhdHvfnmqcHHs6YhmSNHHxQqaaD64GwiL0c+e1qz85S8SWZPC2XFRf8p9yHRTF40Kow424s1KBU9f0fdQa+Q==}
@@ -12310,30 +12283,6 @@ snapshots:
       '@fullcalendar/core': 6.1.15
       '@fullcalendar/daygrid': 6.1.15(@fullcalendar/core@6.1.15)
 
-  '@generic-ui/fabric@0.21.0(@angular/common@18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))':
-    dependencies:
-      '@angular/common': 18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
-      '@angular/core': 18.1.5(rxjs@7.8.1)(zone.js@0.14.10)
-      tslib: 2.8.0
-
-  '@generic-ui/hermes@0.21.0(@angular/common@18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)':
-    dependencies:
-      '@angular/common': 18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
-      '@angular/core': 18.1.5(rxjs@7.8.1)(zone.js@0.14.10)
-      rxjs: 7.8.1
-      tslib: 2.8.0
-
-  '@generic-ui/ngx-grid@0.21.0(zofl6bru72522xdkmw7eykfb3q)':
-    dependencies:
-      '@angular/common': 18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
-      '@angular/core': 18.1.5(rxjs@7.8.1)(zone.js@0.14.10)
-      '@angular/forms': 18.1.5(@angular/common@18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(@angular/platform-browser@18.1.5(@angular/animations@18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10)))(@angular/common@18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10)))(rxjs@7.8.1)
-      '@angular/platform-browser': 18.1.5(@angular/animations@18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10)))(@angular/common@18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))
-      '@generic-ui/fabric': 0.21.0(@angular/common@18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))
-      '@generic-ui/hermes': 0.21.0(@angular/common@18.1.5(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.1.5(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
-      rxjs: 7.8.1
-      tslib: 2.8.0
-
   '@google-cloud/firestore@7.10.0(encoding@0.1.13)':
     dependencies:
       '@opentelemetry/api': 1.9.0
@@ -13432,6 +13381,21 @@ snapshots:
       - typescript
       - verdaccio
 
+  '@nrwl/js@19.8.5(@babel/traverse@7.25.7)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13))(@types/node@18.16.9)(nx@19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13)))(typescript@5.4.5)':
+    dependencies:
+      '@nx/js': 19.8.5(@babel/traverse@7.25.7)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13))(@types/node@18.16.9)(nx@19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13)))(typescript@5.4.5)
+    transitivePeerDependencies:
+      - '@babel/traverse'
+      - '@swc-node/register'
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - debug
+      - nx
+      - supports-color
+      - typescript
+      - verdaccio
+
   '@nrwl/js@19.8.5(@babel/traverse@7.25.7)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13))(@types/node@18.16.9)(nx@19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13)))(typescript@5.5.4)':
     dependencies:
       '@nx/js': 19.8.5(@babel/traverse@7.25.7)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13))(@types/node@18.16.9)(nx@19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13)))(typescript@5.5.4)
@@ -14037,7 +14001,7 @@ snapshots:
       '@babel/preset-env': 7.25.8(@babel/core@7.25.8)
       '@babel/preset-typescript': 7.25.7(@babel/core@7.25.8)
       '@babel/runtime': 7.25.7
-      '@nrwl/js': 19.8.5(@babel/traverse@7.25.7)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13))(@types/node@18.16.9)(nx@19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13)))(typescript@5.5.4)
+      '@nrwl/js': 19.8.5(@babel/traverse@7.25.7)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13))(@types/node@18.16.9)(nx@19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13)))(typescript@5.4.5)
       '@nx/devkit': 19.8.5(nx@19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13)))
       '@nx/workspace': 19.8.5(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.13))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.13))
       babel-plugin-const-enum: 1.2.0(@babel/core@7.25.8)

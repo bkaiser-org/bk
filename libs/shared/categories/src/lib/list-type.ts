@@ -833,7 +833,7 @@ export const ListTypes: ListTypeModel[] = [
     filterType: FilterType.None,
     initialQuery: [],
     orderBy: 'startDate'
-  },
+  }
 ];
 
 
