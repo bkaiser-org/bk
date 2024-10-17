@@ -77,12 +77,11 @@ import { BkTableSectionFormComponent } from '../table/table-section.form';
       @switch(vm.type) {
         @case(ST.Album) {                                             <!-- 0: Album -->
           <bk-album-config-form [vm]="vm" (changedProperties)="onPropertiesChange($event)" />
-<!--           <bk-image-list-form [vm]="vm" (changedProperties)="onPropertiesChange($event)" />
- -->          <bk-image-config-form [vm]="vm" (changedProperties)="onPropertiesChange($event)" />
+          <bk-image-config-form [vm]="vm" (changedProperties)="onPropertiesChange($event)" />
         }
         @case(ST.Article) {                                           <!-- 1: Article -->
-          <bk-single-image-form [vm]="vm" (changedProperties)="onPropertiesChange($event)" />
-          <bk-article-section-form [vm]="vm" (positionChange)="onPositionChange($event)" (contentChange)="onContentChange($event)" />
+          <bk-single-image-form [vm]="vm" (positionChange)="onPositionChange($event)" (changedProperties)="onPropertiesChange($event)" />
+          <bk-article-section-form [vm]="vm" (contentChange)="onContentChange($event)" />
         }
         <!-- tbd: ChartSectionForm is not yet implemented -->         <!-- 2: Chart -->
 

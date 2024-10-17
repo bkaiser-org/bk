@@ -4,10 +4,10 @@ import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol
 import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { deleteFileFromStorage } from '@bk/util';
-import { BkImgComponent, BkSpinnerComponent } from '@bk/ui';
+import { BkCatInputComponent, BkImgComponent, BkSpinnerComponent } from '@bk/ui';
 import { DocumentService } from '@bk/document';
 import { SectionService } from '../section.service';
-import { ImageAction } from '@bk/categories';
+import { ImageAction, ViewPositions } from '@bk/categories';
 
 /**
  * This form lets a user pick an image and define its properties.
@@ -22,7 +22,7 @@ import { ImageAction } from '@bk/categories';
     TranslatePipe, AsyncPipe, SvgIconPipe,
     IonRow, IonCol, IonButton, IonIcon, IonItem, IonLabel,
     IonCard, IonCardHeader, IonCardTitle, IonCardContent,
-    BkSpinnerComponent, BkImgComponent
+    BkSpinnerComponent, BkImgComponent, BkCatInputComponent
   ],
   template: `
     @if(vm(); as vm) {
@@ -40,11 +40,14 @@ import { ImageAction } from '@bk/categories';
                 </ion-button>
               </ion-item>
               @if(image(); as image) {
-                <ion-item lines="none">
-                  <bk-img [image]="patchImage(image)" (click)="editImage(image)" />
-                  <ion-label (click)="editImage(image)">{{image.imageLabel}}</ion-label>
-                  <ion-icon src="{{'close-circle-outline' | svgIcon }}" slot="end" (click)="removeImage(image)" />
-                </ion-item>
+                @if(image.url.length > 0) {
+                  <ion-item lines="none">
+                    <bk-img [image]="patchImage(image)" (click)="editImage(image)" />
+                    <ion-label (click)="editImage(image)">{{image.imageLabel}}</ion-label>
+                    <ion-icon src="{{'close-circle-outline' | svgIcon }}" slot="end" (click)="removeImage(image)" />
+                  </ion-item>
+                  <bk-cat-input name="imagePosition" [value]="vm.imagePosition!" [categories]="VPS" (changed)="updateImagePosition($event)" />
+                }
               } @else {
                 <bk-spinner />
               }
@@ -56,13 +59,16 @@ import { ImageAction } from '@bk/categories';
   `
 })
 export class SingleImageFormComponent {
-  private documentService = inject(DocumentService);
-  private sectionService = inject(SectionService);
-  private toastController = inject(ToastController);
+  private readonly documentService = inject(DocumentService);
+  private readonly sectionService = inject(SectionService);
+  private readonly toastController = inject(ToastController);
 
   public vm = model.required<SectionFormModel>();
   protected image = computed(() => this.vm().properties?.image ?? newImage());
   public changedProperties = output<SectionProperties>();
+  public positionChange = output<number>();
+
+  protected VPS = ViewPositions;
 
   // call modal with input form to select an image and add metadata
   protected async addImage() {
@@ -108,5 +114,10 @@ export class SingleImageFormComponent {
     this.changedProperties.emit({
       image
     });
+  }
+
+  protected updateImagePosition(position: number): void {
+    this.vm.update((_vm) => ({..._vm, imagePosition: position}));
+    this.positionChange.emit(position);
   }
 }
