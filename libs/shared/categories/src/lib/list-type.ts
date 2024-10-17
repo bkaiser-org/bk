@@ -590,7 +590,8 @@ export const ListTypes: ListTypeModel[] = [
       fieldName: 'category',
       label: '@categories.listType.section.all.categoryLabel'
     },
-    initialQuery: []
+    initialQuery: [],
+    orderBy: 'name'
   },
   {
     id: ListType.ResourceAll,
