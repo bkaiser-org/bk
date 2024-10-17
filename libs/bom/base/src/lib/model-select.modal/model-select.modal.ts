@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, inject, input } from '@angular/core';
+import { Component, DestroyRef, OnInit, computed, inject, input } from '@angular/core';
 import { BaseModel } from '@bk/models';
 import { CategoryNamePipe, LogoPipe, TranslatePipe } from '@bk/pipes';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonModal, IonRow, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
@@ -26,7 +26,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     IonButtons, IonButton, IonIcon, IonLabel
   ],
   template: `
-    <bk-header title="{{ title() | translate | async }}" [isModal]="true" [isSearchable]="true" (ionInput)="onSearchtermChange($event)"/>
+    <bk-header title="{{ finalTitle() | translate | async }}" [isModal]="true" [isSearchable]="true" (ionInput)="onSearchtermChange($event)"/>
     <ion-content>
       @if (filteredItems()) {
           <ion-grid>
@@ -45,11 +45,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   `
 })
 export class BkModelSelectComponent extends SearchableComponent implements OnInit {
-  private dataService = inject(DataService);
-  private modalController = inject(ModalController);
+  private readonly dataService = inject(DataService);
+  private readonly modalController = inject(ModalController);
   protected destroyRef = inject(DestroyRef); // takeUntilDestroyed must be used inside an injection context.
 
   public bkListType = input.required<ListType>();
+  public betterTitle = input<string>(); // optionally overwrite the title set in the ListType
+  protected finalTitle = computed(() => this.betterTitle() ?? this.title());
 
   protected sectionTypes = SectionTypes;
 
