@@ -105,13 +105,19 @@ import { AsyncPipe } from '@angular/common';
       <ion-row>
         <ion-col size="12">
           <!-- header -->
-          <bk-strings [strings]="header()!" [mask]="mask" [maxLength]="40" (stringsChanged)="onHeaderChange($event)" title="Titel (Header)" addLabel="Neuen Titel hinzufügen" />
+          <bk-strings [strings]="header()!" [mask]="mask" [maxLength]="40" (stringsChanged)="onHeaderChange($event)" 
+            title="Titel (Header)" 
+            description="Optional kannst du hier die Inhalte der Titel-Zeile der Tabelle eintragen. Die Reihenfolge der Einträge entspricht der Reihenfolge der Zellen in der Tabelle. Die Einträge können nachträglich sortiert oder gelöscht werden. Die Titelzeile wird nur angezeigt, wenn sie Inhalte enthält."
+            addLabel="Neuen Titel hinzufügen" />
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12">
           <!-- content -->
-          <bk-strings [strings]="content()!" [mask]="mask" [maxLength]="500" (stringsChanged)="onContentChange($event)" title="Felder" addLabel="Neues Feld hinzufügen" />
+          <bk-strings [strings]="content()!" [mask]="mask" [maxLength]="500" (stringsChanged)="onContentChange($event)" 
+          title="Felder"
+          description="Hier kannst du die Daten der Tabelle eintragen. Füge für jede Zelle der Tabelle ein eigenes Feld hinzu. Die Feld-Einträge bestehen aus html-Fragmenten. Es können also auch Links eingegeben werden. Umlaute sind als HTML-Codes einzugeben. Die Reihenfolge der Feld-Einträge entspricht der Reihenfolge der Zellen in der Tabelle. Die Felder können nachträglich sortiert oder gelöscht werden."
+          addLabel="Neues Feld hinzufügen" />
         </ion-col>
       </ion-row>
     }
