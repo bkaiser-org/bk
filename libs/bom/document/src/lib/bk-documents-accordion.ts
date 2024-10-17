@@ -3,7 +3,7 @@ import { DocumentModel } from '@bk/models';
 import { BkSpinnerComponent } from '@bk/ui';
 import { FileLogoPipe, FileSizePipe, PrettyDatePipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AuthorizationService, DataService, getModelAdmin } from '@bk/base';
-import { IonAccordion, IonButton, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList } from '@ionic/angular/standalone';
+import { IonAccordion, IonButton, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, ModalController } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { ModelType, RelationshipType } from '@bk/categories';
 import { DocumentService } from './document.service';
@@ -67,7 +67,8 @@ export class BkDocumentsAccordionComponent implements OnInit {
   public dataService = inject(DataService);
   public documentService = inject(DocumentService);
   public authorizationService = inject(AuthorizationService);
-  private env = inject(ENV);
+  public modalController = inject(ModalController); 
+  private readonly env = inject(ENV);
 
   public modelType = input.required<ModelType>();
   public parentKey = input.required<string>();
@@ -102,7 +103,7 @@ export class BkDocumentsAccordionComponent implements OnInit {
       // upload the file to the storage
       const _path = this.path();
       if (_path) {
-        await uploadFile(_file, _path);
+        await uploadFile(this.modalController, _file, _path);
       }
     }
   }

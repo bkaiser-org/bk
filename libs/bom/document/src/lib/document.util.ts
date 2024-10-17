@@ -1,9 +1,8 @@
-import { inject, Inject } from '@angular/core';
 import { addIndexElement } from '@bk/base';
 import { DocumentTypes, ModelType, RelationshipType, getCategoryAbbreviation, getModelSlug, getSlugFromRelationshipType } from '@bk/categories';
 import { BaseModel, DOCUMENT_DIR, DocumentModel, isDocument } from '@bk/models';
 import { readAsFile, UploadTaskComponent } from '@bk/ui';
-import { checkUrlType, ENV, warn } from '@bk/util';
+import { checkUrlType, warn } from '@bk/util';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { ModalController, Platform } from '@ionic/angular/standalone';
@@ -40,7 +39,7 @@ export function getDocumentIndexInfo(): string {
  * @returns the selected file or undefined if the file dialog was cancelled
  */
 export async function pickFile(mimeTypes: string[]): Promise<File | undefined> {
-  const _result = await Inject(FilePicker).pickFiles({
+  const _result = await FilePicker.pickFiles({
     types: mimeTypes
   });
   if (_result.files.length !== 1) {
@@ -64,8 +63,9 @@ export async function pickFile(mimeTypes: string[]): Promise<File | undefined> {
  * @param storageLocation an URL to the storage location, i.e. the folder where the file should be stored
  * @returns the full path of the uploaded file or undefined if the upload was cancelled
  */
-export async function uploadFile(file: File, storageLocation: string): Promise<string | undefined> {
-  const _modal = await Inject(ModalController).create({
+export async function uploadFile(modalController: ModalController, file: File, storageLocation: string): Promise<string | undefined> {
+  console.log('uploadFile: file =', file, 'storageLocation =', storageLocation, 'fullPath =', storageLocation + '/' + file.name);
+  const _modal = await modalController.create({
     component: UploadTaskComponent,
     cssClass: 'upload-modal',
     componentProps: {
@@ -82,16 +82,17 @@ export async function uploadFile(file: File, storageLocation: string): Promise<s
 
 /**
  * Uploads a file to a specific model.
+ * @param modalController the modal controller to show the upload progress
+ * @param tenantId the tenant of the model
  * @param file the file to upload
  * @param modelType the type of the model to which the file belongs
  * @param key the key of the model to which the file belongs
  * @returns the full path of the uploaded file or undefined if the upload was cancelled
  */
-export async function uploadFileToModel(file: File, modelType: ModelType, key: string): Promise<string | undefined> {
-  const _env = inject(ENV);
+export async function uploadFileToModel(modalController: ModalController, tenantId: string, file: File, modelType: ModelType, key: string): Promise<string | undefined> {
   if (key) {
-    const _storageLocation = getDocumentStoragePath(_env.auth.tenantId, modelType, key);
-    return _storageLocation ? await uploadFile(file, _storageLocation) : undefined;
+    const _storageLocation = getDocumentStoragePath(tenantId, modelType, key);
+    return _storageLocation ? await uploadFile(modalController, file, _storageLocation) : undefined;
   }
   return undefined;
 }
@@ -101,15 +102,14 @@ export async function uploadFileToModel(file: File, modelType: ModelType, key: s
    * Select a photo from the camera or the photo library.
    * @returns the image taken or selected
    */
-  export async function pickPhoto(): Promise<File | undefined> {
-    const _platform = Inject(Platform);
+  export async function pickPhoto(platform: Platform): Promise<File | undefined> {
     const _photo = await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
       resultType: CameraResultType.Uri,
-      source: _platform.is('mobile') ? CameraSource.Prompt : CameraSource.Photos 
+      source: platform.is('mobile') ? CameraSource.Prompt : CameraSource.Photos 
     });
-    return await readAsFile(_photo, _platform);
+    return await readAsFile(_photo, platform);
   }
 
 /* ---------------------- Helpers -------------------------*/
@@ -138,6 +138,7 @@ export function checkMimeType(mimeType: string, imagesOnly = false): boolean {
 }
 
 export function getDocumentStoragePath(tenant: string, modelType: ModelType, key: string, relationshipType?: RelationshipType): string | undefined {
+  console.log('getDocumentStoragePath: tenant =', tenant, 'modelType =', modelType, 'key =', key, 'relationshipType =', relationshipType);
   if (modelType === undefined) {
     warn('document.util.getDocumentStoragePath -> modelType is undefined');
     return undefined;
