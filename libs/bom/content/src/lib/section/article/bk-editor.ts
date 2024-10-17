@@ -26,7 +26,37 @@ import { BkEditorToolbar } from '../article/bk-editor-toolbar';
       }
     }
   }
-  `],
+  .content {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    h1 {
+    line-height: 80px;
+    color: #25265e;
+}
+
+h2,
+h3 {
+    color: #25265e;
+    margin-bottom: 12px;
+}
+
+p {
+    margin-bottom: 24px;
+    line-height: 24px;
+}
+
+/* styles the under ordered list in main element */
+ul {
+    list-style-position: inside;
+    padding-left: 20px;
+    margin-bottom: 12px;
+}
+
+  }
+
+ `],
   template: `
     @if(editor && content(); as content) {
       <div class="editor">
@@ -46,7 +76,10 @@ import { BkEditorToolbar } from '../article/bk-editor-toolbar';
           </ion-item>
         } @else {           <!-- viewing mode -->
           @if(content && content.length > 0 && content !== '<p></p>') {
-            <ngx-editor [editor]="editor!" [ngModel]="content" [disabled]="readOnly()" [placeholder]="'Text...'" />
+            <ion-item lines="none">
+              <div [innerHTML]="content" class="content"></div>
+            </ion-item>
+            <!-- <ngx-editor [editor]="editor!" [ngModel]="content" [disabled]="readOnly()" [placeholder]="'Text...'" /> -->
           }
         }
       </div>
