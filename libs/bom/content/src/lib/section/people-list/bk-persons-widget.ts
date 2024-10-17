@@ -49,7 +49,7 @@ import { ColorIonic } from '@bk/categories';
   `
 })
 export class BkPersonsWidgetComponent {
-  private router = inject(Router);
+  private readonly router = inject(Router);
   public section = input<SectionModel>();
   protected personList = computed(() => this.section()?.properties.personList ?? []);
 
@@ -82,7 +82,7 @@ export class BkPersonsWidgetComponent {
   protected getPersonLabel(person: Person): string {
     if (!this.showName()) return '';
     const _name = getFullPersonName(person.firstName, person.lastName, '', this.nameDisplay());
-    return this.showLabel() ? `${_name} (${person.label})` : _name;
+    return (this.showLabel() && person.label.length > 0) ? `${_name} (${person.label})` : _name;
   }
 
   // tbd: add a group and show all persons of this group

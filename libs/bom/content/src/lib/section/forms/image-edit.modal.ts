@@ -88,7 +88,7 @@ import { ImageAction } from '@bk/categories';
   `
 })
 export class ImageEditModalComponent {
-  private modalController = inject(ModalController);
+  private readonly modalController = inject(ModalController);
   public image = input.required<Image>();
   protected canSave = false;
   

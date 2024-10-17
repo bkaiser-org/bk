@@ -41,7 +41,7 @@ import { arrayMove } from '@bk/util';
   `
 })
 export class BkSortSectionsComponent {
-  private modalController = inject(ModalController);
+  private readonly modalController = inject(ModalController);
   public sections = input.required<SectionModel[]>();
   protected STS = SectionTypes;
   public sectionsChanged = output<SectionModel[]>();

@@ -70,9 +70,9 @@ import { ImageAction } from '@bk/categories';
   `
 })
 export class BkImageListFormComponent {
-  private documentService = inject(DocumentService);
-  private sectionService = inject(SectionService);
-  private toastController = inject(ToastController);
+  private readonly documentService = inject(DocumentService);
+  private readonly sectionService = inject(SectionService);
+  private readonly toastController = inject(ToastController);
 
   public vm = model.required<SectionFormModel>();
 

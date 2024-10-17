@@ -46,9 +46,9 @@ import { updateMembership } from './membership.util';
   `
 })
 export class MembershipEditModalComponent {
-  private modalController = inject(ModalController);
+  private readonly modalController = inject(ModalController);
   public authorizationService = inject(AuthorizationService);
-  private toastController = inject(ToastController);
+  private readonly toastController = inject(ToastController);
 
   public membership = input.required<RelationshipModel>();
   protected vm = computed(() => convertMembershipToForm(this.membership()));

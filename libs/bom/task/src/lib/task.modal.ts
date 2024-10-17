@@ -31,7 +31,7 @@ import { convertFormToTask, convertTaskToForm, getTaskTitle } from './task.util'
   `
 })
 export class TaskModalComponent{
-  private modalController = inject(ModalController);
+  private readonly modalController = inject(ModalController);
   protected authorizationService = inject(AuthorizationService);
 
   public task = input.required<TaskModel>();

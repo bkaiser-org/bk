@@ -13,8 +13,8 @@ import { ImageSelectModalComponent } from './image-select.modal';
   providedIn: 'root'
 })
 export class DocumentService extends BaseService {
-  private modalController = inject(ModalController);
-  private storage = inject(STORAGE);
+  private readonly modalController = inject(ModalController);
+  private readonly storage = inject(STORAGE);
 
   /*-------------------------- CRUD operations --------------------------------*/
   /**

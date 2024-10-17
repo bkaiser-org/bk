@@ -55,10 +55,10 @@ import { SectionFormComponent } from './forms/section.form';
   `
 })
 export class SectionPageComponent implements OnInit {
-  private modalController = inject(ModalController);
+  private readonly modalController = inject(ModalController);
   public sectionService = inject(SectionService);
   public authorizationService = inject(AuthorizationService);
-  private appNavigationService = inject(AppNavigationService);
+  private readonly appNavigationService = inject(AppNavigationService);
 
   public id = input.required<string>();
 
