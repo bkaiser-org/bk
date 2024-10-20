@@ -60,7 +60,7 @@ import { ImageActions } from '@bk/categories';
     }
   `
 })
-export class BkImageConfigFormComponent {
+export class ImageConfigFormComponent {
   public vm = model.required<SectionFormModel>();
   protected defaultImageConfig = newDefaultImageConfig();
 
@@ -90,7 +90,7 @@ export class BkImageConfigFormComponent {
       case 'zoomFactor': _config.zoomFactor = value as number; break;
       case 'isThumbnail': _config.isThumbnail = value as boolean; break;
       case 'slot': _config.slot = value as 'start' | 'end' | 'icon-only'; break;
-      default: error(undefined, `BkImageConfigSectionForm.onPropertyChanged: unknown field ${fieldName}`); return;
+      default: error(undefined, `ImageConfigSectionForm.onPropertyChanged: unknown field ${fieldName}`); return;
     }
     const _properties = this.vm().properties;
     if (_properties) {
