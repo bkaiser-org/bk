@@ -97,7 +97,7 @@ import { Router } from '@angular/router';
           </ion-item>
           <ion-item-options side="end">
             <ion-item-option color="danger" (click)="deleteSection(slidingItem, section)">
-              <ion-icon slot="icon-only" src="{{'trash' | svgIcon }}" />
+              <ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" />
             </ion-item-option>
             <ion-item-option color="primary" (click)="editSection(slidingItem, section.bkey)">
               <ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" />

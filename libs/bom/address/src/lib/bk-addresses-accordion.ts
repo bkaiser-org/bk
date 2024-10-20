@@ -63,7 +63,7 @@ import { AddressUsage, ModelType } from '@bk/categories';
                 </ion-item>
                 @if(readOnly() === false) {
                   <ion-item-options side="end">
-                    <ion-item-option color="danger" (click)="deleteAddress(slidingItem, address)"><ion-icon slot="icon-only" src="{{'trash' | svgIcon }}" /></ion-item-option>
+                    <ion-item-option color="danger" (click)="deleteAddress(slidingItem, address)"><ion-icon slot="icon-only" src="{{'trash-outline' | svgIcon }}" /></ion-item-option>
                     <ion-item-option color="light" (click)="copyAddress(slidingItem, address)"><ion-icon slot="icon-only" src="{{'copy-outline' | svgIcon }}" /></ion-item-option>
                     <ion-item-option color="primary" (click)="editAddress(slidingItem, address)"><ion-icon slot="icon-only" src="{{'create-outline' | svgIcon }}" /></ion-item-option>
                     <ion-item-option color="light" (click)="uploadEzs(slidingItem, address)"><ion-icon slot="icon-only" src="{{'qr-code-outline' | svgIcon }}" /></ion-item-option>
