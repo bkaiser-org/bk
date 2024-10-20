@@ -10,6 +10,7 @@ export * from './lib/application-type';
 export * from './lib/avatar-usage';
 export * from './lib/boat-type';
 export * from './lib/boat-usage';
+export * from './lib/button-action';
 export * from './lib/competition-level';
 export * from './lib/content-type';
 export * from './lib/color-ionic';

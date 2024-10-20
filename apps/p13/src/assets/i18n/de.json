@@ -382,6 +382,10 @@
     "boatUsage": {
       "label": "Art der Boots-Verwendung"
     },
+    "buttonAction": {
+      "label": "Aktion",
+      "helper": "Die Aktion, die beim Klick auf den Button ausgeführt wird, z.B. open, download, etc."
+    },
     "borderRadius": {
       "label": "Border Radius",
       "placeholder": "nn",
@@ -389,31 +393,35 @@
       "error": "Der Radius der Ecken des Rahmens muss eine Ganzzahl aus lauter Ziffern sein."
     },
     "buttonLabel": {
-      "label": "Button-Bezeichnung",
+      "label": "Bezeichnung",
       "placeholder": "Text auf dem Button",
       "helper": "Der Text, der auf dem Button angezeigt wird.",
       "error": "Der Text auf dem Button ist obligatorisch."
     },
     "buttonWidth": {
-      "label": "Button-Breite",
-      "placeholder": "Breite in Pixel",
+      "label": "Breite",
+      "placeholder": "60",
       "helper": "Die Breite des Buttons in Pixel, z.B. 100, 200 etc.",
-      "error": "Die Breite des Buttons muss eine Ganzzahl aus lauter Ziffern sein plus px."
+      "error": "Die Breite des Buttons muss eine Ganzzahl aus lauter Ziffern sein. Sie sollte grösser als die Icon Grösse sein."
     },
     "buttonHeight": {
-      "label": "Button-Höhe",
-      "placeholder": "Höhe in Pixel",
+      "label": "Höhe",
+      "placeholder": "60",
       "helper": "Die Höhe des Buttons in Pixel, z.B. 40, 60 etc.",
-      "error": "Die Höhe des Buttons muss eine Ganzzahl aus lauter Ziffern sein plus px."
+      "error": "Die Höhe des Buttons muss eine Ganzzahl aus lauter Ziffern sein. Sie sollte grösser als die Icon Grösse sein."
+    },
+    "buttonPosition": {
+      "label": "Position des Buttons",
+      "helper": "Die Position des Buttons im Bezug zum Text, z.B. links, rechts, oben, unten. Bei none wird nur der Button angezeigt."
     },
     "buttonShape": {
-      "label": "Button-Form",
+      "label": "Form",
       "placeholder": "default | round",
       "helper": "Die Form des Buttons, entweder round oder default (= rechteckig mit runden Ecken).",
       "error": "Die Form des Buttons muss entweder round oder default sein."
     },
     "buttonFill": {
-      "label": "Button-Füllung",
+      "label": "Füllung",
       "placeholder": "default | clear | outline | solid",
       "helper": "Die Füllung des Buttons: outline, clear, solid/default",
       "error": "Die Füllung des Buttons muss default, clear, outline oder solid sein."
@@ -467,7 +475,7 @@
     "coordinates": {
       "label": "Koordinaten",
       "placeholder": "Breitengrad, Längengrad, Zoom",
-      "helper": "Die Koordinaten des Standorts, z.B. 47.2266, 8.7334. Default Zoom ist 15.",
+      "helper": "Die Koordinaten eines Standorts. Format: [longitude,latitude,zoom]. z.B. 47.2266, 8.7334. Default Zoom ist 15.",
       "error": "Die Koordinaten müssen in folgendem Format angegeben werden: latitude, longitude, zoom. Als Beispiel: 47.2266, 8.7334, 15."
     },
     "count": {
@@ -694,7 +702,7 @@
       "error": "Die IBAN-Nummer muss in folgendem Format angegeben werden: CHnn nnnn nnnn nnnn nnnn n."
     },
     "icon": {
-      "label": "Icon Name",
+      "label": "Name",
       "placeholder": "z.b. download-outline",
       "helper": "Ein Icon, das für die Darstellung verwendet wird.",
       "buttonHelper": "Das Icon auf dem Button (ion-icon).",
@@ -702,16 +710,16 @@
       "error": "Der Name des Icons ist obligatorisch und muss aus alphanumerischen Zeichen bestehen."
     },
     "iconName": {
-      "label": "Icon-Name",
+      "label": "Name",
       "placeholder": "name",
-      "helper": "Der Name des Icons, z.B. pdf, doc etc. (siehe assets/icons).",
+      "helper": "Der Name des Icons, z.B. pdf, doc etc. (siehe assets/icons oder ionic).",
       "error": "Der Name des Icons muss ein Wort aus alphanumerischen Zeichen sein."
     },
     "iconSize": {
-      "label": "Icon-Grösse",
-      "placeholder": "40px",
+      "label": "Grösse",
+      "placeholder": "40",
       "helper": "Die Grösse des Icons in Pixel, z.B. 24, 32, 48 etc.",
-      "error": "Die Grösse des Icons muss eine Ganzzahl aus lauter Ziffern sein plus px."
+      "error": "Die Grösse des Icons muss eine Ganzzahl aus lauter Ziffern sein."
     },
     "imageAction": {
       "label": "Bildaktion",
@@ -1019,7 +1027,8 @@
       "error": "Es muss eine Ganzzahl aus lauter Ziffern eingegeben werden."
     },
     "slot": {
-      "label": "Slot"
+      "label": "Slot",
+      "helper": "Slot bezeichnet die Positionierung des Icons (am Anfang = start, am Schluss = end)" 
     },
     "speed": {
       "label": "Geschwindigkeit",
@@ -3975,6 +3984,29 @@
       "photoFirst": {
         "label": "Avatar-Photo priorisieren",
         "description": "Gravatar nur darstellen, falls kein eigenes Avatar-Photo vorhanden ist."
+      }
+    },
+    "buttonAction": {
+      "name": "Button Aktion",
+      "download": {
+        "label": "Download",
+        "description": "Datei herunterladen"
+      },
+      "navigate": {
+        "label": "Navigieren",
+        "description": "Zu einer anderen Seite navigieren"
+      },
+      "browse": {
+        "label": "Browse",
+        "description": "Externen Link in einem neuen Browser-Fenster öffnen"
+      },
+      "zoom": {
+        "label": "Zoom",
+        "description": "Bild vergrössern"
+      },
+      "none": {
+        "label": "Keine",
+        "description": "Keine Aktion wird ausgeführt"
       }
     },
     "color": {

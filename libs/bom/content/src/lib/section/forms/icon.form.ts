@@ -73,7 +73,7 @@ export class IconConfigFormComponent {
       case 'name': _config.name = value as string; break;
       case 'size': _config.size = value as string + 'px'; break;
       case 'slot': _config.slot = value as 'start'|'end'|'icon-only'; break;
-      default: error(undefined, `BkButtonSectionForm.onIconPropertyChanged: unknown field ${fieldName}`); return;
+      default: error(undefined, `IconConfigFormComponent.onIconPropertyChanged: unknown field ${fieldName}`); return;
     }
     const _properties = this.vm().properties;
     if (_properties) {

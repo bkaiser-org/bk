@@ -1,48 +1,63 @@
 import { Component, computed, model, output } from '@angular/core';
 import { Button, Icon, SectionFormModel, SectionProperties } from '@bk/models';
-import { BkCatInputComponent, BkNumberInputComponent, BkStringSelectComponent, BkTextInputComponent, BkUrlComponent, lowercaseWordMask, sizeMask } from '@bk/ui';
-import { IonCol, IonItem, IonLabel, IonNote, IonRow, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
+import { BkCatInputComponent, BkLabelSelectModalComponent, BkNumberInputComponent, BkStringSelectComponent, BkTextInputComponent, BkUrlComponent, lowercaseWordMask, sizeMask } from '@bk/ui';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonGrid, IonItem, IonLabel, IonNote, IonRow, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { BkEditorComponent } from '../article/bk-editor';
-import { ColorIonic, ColorsIonic, FileTypeIcon, ViewPositions } from '@bk/categories';
-import { error, stripPostfix } from '@bk/util';
+import { ButtonAction, ColorsIonic, FileTypeIcon, ViewPosition, ViewPositions } from '@bk/categories';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
+import { ButtonFormComponent } from "./button.form";
+import { newButton, newIcon } from './button-section.util';
+import { IconFormComponent } from './icon.form';
+import { ButtonActionFormComponent } from "./button-action.form";
 
 @Component({
   selector: 'bk-button-section-form',
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe,
-    IonRow, IonCol, IonLabel, IonSelect, IonSelectOption, IonNote, IonItem,
-    BkUrlComponent, BkEditorComponent, BkCatInputComponent,
-    BkTextInputComponent, BkNumberInputComponent, BkStringSelectComponent
-  ],
+    IonGrid, IonRow, IonCol, IonLabel, IonSelect, IonSelectOption, IonNote, IonItem,
+    IonCard, IonCardHeader, IonCardContent, IonCardTitle,
+    BkUrlComponent, BkEditorComponent, BkCatInputComponent, BkLabelSelectModalComponent,
+    BkTextInputComponent, BkNumberInputComponent, BkStringSelectComponent,
+    ButtonFormComponent, IconFormComponent,
+    ButtonActionFormComponent, ButtonActionFormComponent
+],
   template: `
     @if(vm(); as vm) {
+      <bk-button-form [button]="button()" (changedButton)="onButtonChanged($event)" />
+      <bk-button-action-form [vm]="vm" (changedAction)="changedAction.emit($event)" (changedUrl)="changedUrl.emit($event)" />
+      <bk-icon-form [icon]="icon()" (changedIcon)="onIconChanged($event)" />
       <ion-row>
-        <ion-col size="12">                                            <!-- url -->
-          <bk-url [value]="vm.url ?? ''" (changed)="changedUrl.emit($event)" />
-        </ion-col>
-        <ion-col size="12">                                             <!-- image position -->
-          <bk-cat-input name="imagePosition" [value]="vm.imagePosition!" [categories]="viewPositions" (changed)="updateImagePosition($event)" />
-        </ion-col>
-        <ion-col size="12">                                         <!-- content -->
-          <bk-editor [content]="vm.content ?? '<p></p>'" [readOnly]="false" (contentChange)="onContentChange($event)" />
+        <ion-col size="12">
+        <ion-card>
+            <ion-card-header>
+              <ion-card-title>Begleittext</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-note>
+                Hier kannst du einen optionalen Begleittext eingeben, der mit dem Button zusammen dargestellt wird.
+                Beispielsweise kann bei einem Download-Button beschrieben werden, was heruntergeladen wird (Dateiname, Grösse etc.).
+                Mit der Einstellung 'Position des Buttons' bestimmst du, ob der Button links/rechts oder oben/unten vom Text angezeigt wird.
+              </ion-note>
+              <bk-cat-input name="buttonPosition" [value]="vm.imagePosition!" [categories]="viewPositions" (changed)="changedPosition.emit($event)" />
+              <bk-editor [content]="vm.content ?? '<p></p>'" [readOnly]="false" (contentChange)="changedContent.emit($event)" />
+              </ion-card-content>
+          </ion-card>
          </ion-col>
       </ion-row>
     }
   `
 })
-export class BkButtonSectionFormComponent {
+export class ButtonSectionFormComponent {
   public vm = model.required<SectionFormModel>();
+  public button = computed(() => this.vm().properties?.button ?? newButton());
+  public icon = computed(() => this.vm().properties?.icon ?? newIcon());
 
-  protected iconName = computed(() => this.vm().properties?.icon?.name ?? 'download-outline');
-  protected iconSize = computed(() => stripPostfix(this.vm().properties?.icon?.size ?? '40', 'px'));
-  protected buttonWidth = computed(() => stripPostfix(this.vm().properties?.button?.width ?? '200', 'px'));
-  protected buttonHeight = computed(() => stripPostfix(this.vm().properties?.button?.height ?? '60', 'px'));
-
-  public contentChange = output<string>();
-  public positionChange = output<number>();
+  public changedProperties = output<SectionProperties>();
+  public changedContent = output<string>();
+  public changedPosition = output<ViewPosition>();
+  public changedAction = output<ButtonAction>();
   public changedUrl = output<string>();
 
   protected wordMask = lowercaseWordMask;
@@ -52,63 +67,19 @@ export class BkButtonSectionFormComponent {
   protected viewPositions = ViewPositions;
   protected extensionList = Object.values(FileTypeIcon);
 
-  protected updateImagePosition(position: number): void {
-    this.vm.update((_vm) => ({..._vm, imagePosition: position}));
-    this.positionChange.emit(position);
-  }
-
-  protected onContentChange(changedContent: string): void {
-    this.vm.update((_vm) => ({..._vm, content: changedContent}));
-    this.contentChange.emit(changedContent);
-  }
-
-  public changedProperties = output<SectionProperties>();
-
-  protected onButtonPropertyChanged(fieldName: keyof Button, value: string | boolean | number) {
-    const _config = this.vm().properties?.button ?? {
-      label: '',
-      shape: 'round',
-      fill: 'clear',
-      width: '200',
-      height: '60',
-      color: ColorIonic.Primary,
+  protected onButtonChanged(button: Button): void {
+    const _sectionProperties = {
+      ...this.vm().properties,
+      button: button
     };
-    switch (fieldName) {
-      case 'label': _config.label = value as string; break;
-      case 'shape': _config.shape = value as string; break;
-      case 'fill': _config.fill = value as string; break;
-      case 'width': _config.width = value as string + 'px'; break;
-      case 'height': _config.height = value as string + 'px'; break;
-      case 'color': _config.color = value as number; break;
-      default: error(undefined, `BkButtonSectionForm.onButtonPropertyChanged: unknown field ${fieldName}`); return;
-    }
-    const _properties = this.vm().properties;
-    if (_properties) {
-      _properties.button = _config;
-    }
-    this.changedProperties.emit({
-      button: _config
-    });
+    this.changedProperties.emit(_sectionProperties);
   }
 
-  protected onIconPropertyChanged(fieldName: keyof Icon, value: string | boolean | number) {
-    const _config = this.vm().properties?.icon ?? {
-      name: 'pdf',
-      size: '40',
-      slot: 'icon-only'
+  protected onIconChanged(icon: Icon): void {
+    const _sectionProperties = {
+      ...this.vm().properties,
+      icon: icon
     };
-    switch (fieldName) {
-      case 'name': _config.name = value as string; break;
-      case 'size': _config.size = value as string + 'px'; break;
-      case 'slot': _config.slot = value as 'start'|'end'|'icon-only'; break;
-      default: error(undefined, `BkButtonSectionForm.onIconPropertyChanged: unknown field ${fieldName}`); return;
-    }
-    const _properties = this.vm().properties;
-    if (_properties) {
-      _properties.icon = _config;
-    }
-    this.changedProperties.emit({
-      icon: _config
-    });
+    this.changedProperties.emit(_sectionProperties);
   }
 }
