@@ -1,6 +1,8 @@
 import { ColorIonic, ModelType, SectionType, SectionTypes, ViewPosition } from "@bk/categories";
-import { Avatar, Button, Icon, SectionModel, ModelInfo, newTable } from "@bk/models";
+import { Avatar, SectionModel, ModelInfo } from "@bk/models";
 import { NameDisplay, bkTranslate } from "@bk/util";
+import { newButton, newIcon } from "./button/button-section.util";
+import { newTable } from "./table/table-section.util";
 
 /**
  * Convenience function to create a new SectionModel with given values.
@@ -16,7 +18,7 @@ export function createSection(categoryId: number, tenantId: string): SectionMode
   _section.imagePosition = ViewPosition.Top;
   _section.url = '';
   _section.tenant = [tenantId];
-  _section.roleNeeded = 'privileged';
+  _section.roleNeeded = 'contentAdmin';
   switch(categoryId) {
     case SectionType.Album:
       _section.properties.imageList = [];
@@ -52,25 +54,6 @@ export function newModelInfo(): ModelInfo {
     bkey: '',
     modelType: ModelType.Subject,
     visibleAttributes: []
-  }
-}
-
-export function newButton(): Button {
-  return {
-    label: '',
-    shape: 'round',
-    fill: 'clear',
-    width: '60px',
-    height: '60px',
-    color: ColorIonic.Primary
-  }
-}
-
-export function newIcon(): Icon {
-  return {
-    name: 'pdf',
-    size: '40px',
-    slot: 'icon-only'
   }
 }
 
