@@ -46,7 +46,7 @@ export abstract class AbstractFormComponent {
   }
 
   protected updateSectionProperties(properties: SectionProperties): void {
-    this.vm.update((_vm) => ({..._vm, sectionProperties: properties}));
+    this.vm.update((_vm) => ({..._vm, properties: properties}));
     this.checkFormValidity();
   }
 
