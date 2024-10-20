@@ -30,7 +30,7 @@ import { AsyncPipe } from '@angular/common';
     }
   `
 })
-export class BkArticleSectionFormComponent {
+export class ArticleSectionFormComponent {
   public vm = model.required<SectionFormModel>();
 
   public contentChange = output<string>();

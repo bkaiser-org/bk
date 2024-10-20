@@ -40,7 +40,7 @@ import { IonCol, IonGrid, IonRow } from '@ionic/angular/standalone';
     }
   `
 })
-export class BkAccordionSectionFormComponent {
+export class AccordionSectionFormComponent {
   public vm = model.required<SectionFormModel>();
   public changedProperties = output<SectionProperties>();
   public changedColor = output<number>();
@@ -63,7 +63,7 @@ export class BkAccordionSectionFormComponent {
       case 'readonly': _accordion.readonly = value as boolean; break;
       case 'value': _accordion.value = value as string; break;
       // tbd: case 'sections': _accordion.sections = value as AccordionSectionDesc[]; break;
-      default: error(undefined, `BkAccordionSectionFormComponent.onPropertyChanged: unknown field ${fieldName}`); return;
+      default: error(undefined, `AccordionSectionFormComponent.onPropertyChanged: unknown field ${fieldName}`); return;
     }
     const _properties = this.vm().properties;
     if (_properties) {

@@ -49,7 +49,7 @@ import { IonCard, IonCardContent, IonCol, IonGrid, IonItem, IonLabel, IonRow } f
   }
 `
 })
-export class BkTableSectionComponent {
+export class TableSectionComponent {
   public section = input<SectionModel>();
   protected config = computed(() => this.section()?.properties.table?.config);
   protected header = computed(() => this.section()?.properties.table?.header);

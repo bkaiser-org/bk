@@ -4,7 +4,7 @@ import { IonAccordion, IonAccordionGroup, IonCol, IonGrid, IonItem, IonLabel, Io
 import { AsyncPipe } from '@angular/common';
 import { CategoryPlainNamePipe, TranslatePipe } from '@bk/pipes';
 import { ColorsIonic } from '@bk/categories';
-import { BkSectionComponent } from '../bk-section';
+import { SectionComponent } from '../bk-section';
 
 @Component({
   selector: 'bk-accordion-section',
@@ -13,7 +13,7 @@ import { BkSectionComponent } from '../bk-section';
     AsyncPipe, TranslatePipe, CategoryPlainNamePipe,
     IonGrid, IonRow, IonCol, IonLabel,
     IonAccordionGroup, IonAccordion, IonItem, IonLabel,
-    forwardRef(() => BkSectionComponent)
+    forwardRef(() => SectionComponent)
   ],
   schemas: [ 
     CUSTOM_ELEMENTS_SCHEMA
@@ -35,7 +35,7 @@ import { BkSectionComponent } from '../bk-section';
     }
   `
 })
-export class BkAccordionSectionComponent {
+export class AccordionSectionComponent {
   public section = input<SectionModel>();
   public readOnly = input(true);
 

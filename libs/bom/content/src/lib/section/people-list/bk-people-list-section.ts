@@ -6,14 +6,14 @@ import { BkSpinnerComponent } from "@bk/ui";
 import { FullNamePipe, TranslatePipe } from "@bk/pipes";
 import { IonButton, IonCard, IonCardContent, IonCol, IonGrid, IonItem, IonRow } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
-import { BkPersonsWidgetComponent } from './bk-persons-widget';
+import { PersonsWidgetComponent } from './bk-persons-widget';
 import { BkEditorComponent } from '../article/bk-editor';
 
 @Component({
   selector: 'bk-people-list-section',
   standalone: true,
   imports: [
-    BkSpinnerComponent, BkPersonsWidgetComponent, BkEditorComponent,
+    BkSpinnerComponent, PersonsWidgetComponent, BkEditorComponent,
     FullNamePipe, TranslatePipe, AsyncPipe,
     IonCard, IonCardContent, IonGrid, IonRow, IonCol, IonItem, IonButton
   ],
@@ -69,7 +69,7 @@ import { BkEditorComponent } from '../article/bk-editor';
     }
   `
 })
-export class BkPeopleListSectionComponent {
+export class PeopleListSectionComponent {
   public section = input<SectionModel>();
   public readOnly = input(false);
   public contentChange = output<string>();

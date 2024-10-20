@@ -29,7 +29,7 @@ import { BkSpinnerComponent } from '@bk/ui';
     }
   `
 })
-export class BkListSectionComponent {
+export class ListSectionComponent {
   public section = input<SectionModel>();
 
 }

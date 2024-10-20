@@ -85,7 +85,7 @@ export class AlbumFormComponent {
       case 'showDocs': _config.showDocs = value as boolean; break;
       case 'showPdfs': _config.showPdfs = value as boolean; break;
       case 'galleryEffect': _config.galleryEffect = value as number; break;
-      default: error(undefined, `BkAlbumSectionForm.onAlbumPropertyChanged: unknown field ${fieldName}`); return;
+      default: error(undefined, `AlbumSectionForm.onAlbumPropertyChanged: unknown field ${fieldName}`); return;
     }
     const _properties = this.vm().properties;
     if (_properties) {

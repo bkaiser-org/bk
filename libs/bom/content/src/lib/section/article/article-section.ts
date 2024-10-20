@@ -79,7 +79,7 @@ import { AsyncPipe } from '@angular/common';
     }
   `
 })
-export class BkArticleSectionComponent {
+export class ArticleSectionComponent {
   public section = input<SectionModel>();
   public readOnly = input(false);
   protected image = computed(() => this.section()?.properties.image);

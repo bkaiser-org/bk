@@ -1,35 +1,35 @@
 import { Component, forwardRef, inject, input } from '@angular/core';
 import { SectionType } from '@bk/categories';
 import { SectionModel } from '@bk/models';
-import { BkArticleSectionComponent } from './article/bk-article-section';
-import { BkSwiperSectionComponent } from './swiper/bk-swiper-section';
+import { ArticleSectionComponent } from './article/article-section';
+import { SwiperSectionComponent } from './swiper/bk-swiper-section';
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonLabel, IonMenuButton, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
-import { BkGallerySectionComponent } from './gallery/bk-gallery-section';
-import { BkPeopleListSectionComponent } from './people-list/bk-people-list-section';
+import { GallerySectionComponent } from './gallery/bk-gallery-section';
+import { PeopleListSectionComponent } from './people-list/bk-people-list-section';
 import { AsyncPipe } from '@angular/common';
 import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
-import { BkAlbumSectionComponent } from './album/bk-album-section';
-import { BkModelSectionComponent } from './model/bk-model-section';
-import { BkMapSectionComponent } from './map/bk-map-section';
-import { BkVideoSectionComponent } from './video/bk-video-section';
-import { BkCalendarSectionComponent } from './calendar/bk-calendar-section';
-import { BkHeroSectionComponent } from './hero/bk-hero-section';
-import { BkButtonSectionComponent } from './button/bk-button-section';
-import { BkIframeSectionComponent } from './iframe/bk-iframe-section';
-import { BkListSectionComponent } from './list/bk-list-section';
-import { BkTableSectionComponent } from './table/bk-table-section';
-import { BkAccordionSectionComponent } from './accordion/bk-accordion-section';
+import { AlbumSectionComponent } from './album/bk-album-section';
+import { ModelSectionComponent } from './model/bk-model-section';
+import { MapSectionComponent } from './map/bk-map-section';
+import { VideoSectionComponent } from './video/bk-video-section';
+import { CalendarSectionComponent } from './calendar/bk-calendar-section';
+import { HeroSectionComponent } from './hero/bk-hero-section';
+import { ButtonSectionComponent } from './button/button-section';
+import { IframeSectionComponent } from './iframe/bk-iframe-section';
+import { ListSectionComponent } from './list/bk-list-section';
+import { TableSectionComponent } from './table/bk-table-section';
+import { AccordionSectionComponent } from './accordion/bk-accordion-section';
 
 @Component( {
   selector: 'bk-preview-modal',
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe, SvgIconPipe,
-    BkArticleSectionComponent, BkSwiperSectionComponent, BkGallerySectionComponent, 
-    forwardRef(() => BkPeopleListSectionComponent),
-    BkAlbumSectionComponent, BkModelSectionComponent, BkMapSectionComponent, BkVideoSectionComponent, 
-    BkCalendarSectionComponent, BkHeroSectionComponent, BkButtonSectionComponent, BkIframeSectionComponent,
-    BkListSectionComponent, BkTableSectionComponent, BkAccordionSectionComponent,
+    ArticleSectionComponent, SwiperSectionComponent, GallerySectionComponent, 
+    forwardRef(() => PeopleListSectionComponent),
+    AlbumSectionComponent, ModelSectionComponent, MapSectionComponent, VideoSectionComponent, 
+    CalendarSectionComponent, HeroSectionComponent, ButtonSectionComponent, IframeSectionComponent,
+    ListSectionComponent, TableSectionComponent, AccordionSectionComponent,
     IonHeader, IonButtons, IonToolbar, IonTitle, IonButton, IonIcon, IonMenuButton,
     IonContent, IonLabel
   ],

@@ -1,27 +1,29 @@
 import { AfterViewInit, Component, computed, model, signal } from '@angular/core';
 import { BkCatInputComponent, BkModelInfoComponent, BkNotesComponent, BkSpinnerComponent, BkTagsComponent, BkTextInputComponent } from '@bk/ui';
-import { ModelInfo, newTable, SectionFormModel, sectionFormModelShape, sectionFormValidations, SectionProperties } from '@bk/models';
-import { AbstractFormComponent, BkModelListComponent } from '@bk/base';
+import { ModelInfo, SectionFormModel, sectionFormModelShape, sectionFormValidations, SectionProperties } from '@bk/models';
+import { AbstractFormComponent, ModelListComponent } from '@bk/base';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonGrid, IonIcon, IonItem, IonLabel, IonRow, IonToolbar } from '@ionic/angular/standalone';
-import { ModelType, RoleEnum, RoleEnums, SectionType, SectionTypes, ViewPositions } from '@bk/categories';
+import { ButtonAction, ModelType, RoleEnum, RoleEnums, SectionType, SectionTypes, ViewPositions } from '@bk/categories';
 import { CategoryNamePipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { SectionTags, copyToClipboard, showToast } from '@bk/util';
 import { BkEditorComponent } from '../article/bk-editor';
-import { BkEditorToolbar } from '../article/bk-editor-toolbar';
-import { BkAccordionSectionFormComponent } from '../accordion/accordion-section.form';
-import { BkVideoSectionFormComponent } from '../video/video.form';
-import { BkMapSectionFormComponent } from '../map/map.form';
-import { BkArticleSectionFormComponent } from '../article/article-section.form';
-import { BkButtonSectionFormComponent } from '../button/button-section.form';
+import { BkEditorToolbar } from '../article/editor-toolbar';
+import { AccordionSectionFormComponent } from '../accordion/accordion-section.form';
+import { VideoSectionFormComponent } from '../video/video.form';
+import { MapSectionFormComponent } from '../map/map.form';
+import { ArticleSectionFormComponent } from '../article/article-section.form';
+import { ButtonSectionFormComponent } from '../button/button-section.form';
 import { PeopleListFormComponent } from '../people-list/people-list.form';
-import { BkIframeSectionFormComponent } from "../iframe/iframe.form";
+import { IframeSectionFormComponent } from "../iframe/iframe.form";
 import { vestForms } from 'ngx-vest-forms';
-import { BkImageConfigFormComponent } from './default-image-config.form';
-import { BkImageListFormComponent } from "./image-list.form";
+import { ImageConfigFormComponent } from './image-config.form';
+import { ImageListFormComponent } from "./image-list.form";
 import { SingleImageFormComponent } from "./image.form";
 import { AlbumFormComponent } from "../album/album-section.form";
-import { BkTableSectionFormComponent } from '../table/table-section.form';
+import { TableSectionFormComponent } from '../table/table-section.form';
+import { newButton, newIcon } from '../button/button-section.util';
+import { newTable } from '../table/table-section.util';
 
 @Component({
   selector: 'bk-section-form',
@@ -29,12 +31,12 @@ import { BkTableSectionFormComponent } from '../table/table-section.form';
   imports: [
     TranslatePipe, AsyncPipe, CategoryNamePipe, vestForms, SvgIconPipe,
     BkTagsComponent, BkNotesComponent, BkSpinnerComponent, BkModelInfoComponent, BkTextInputComponent,
-    BkButtonSectionFormComponent, BkCatInputComponent, BkImageConfigFormComponent, SingleImageFormComponent,
-    BkModelListComponent, BkEditorComponent, BkIframeSectionFormComponent, BkImageListFormComponent,
-    BkAccordionSectionFormComponent, BkMapSectionFormComponent, BkTableSectionFormComponent,
-    BkVideoSectionFormComponent, BkArticleSectionFormComponent, PeopleListFormComponent,
+    ButtonSectionFormComponent, BkCatInputComponent, ImageConfigFormComponent, SingleImageFormComponent,
+    ModelListComponent, BkEditorComponent, IframeSectionFormComponent, ImageListFormComponent,
+    AccordionSectionFormComponent, MapSectionFormComponent, TableSectionFormComponent,
+    VideoSectionFormComponent, ArticleSectionFormComponent, PeopleListFormComponent,
     IonToolbar, IonButton, IonGrid, IonRow, IonCol, IonLabel, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem,
-    BkImageListFormComponent,
+    ImageListFormComponent,
     SingleImageFormComponent,
     AlbumFormComponent
 ],
@@ -60,12 +62,10 @@ import { BkTableSectionFormComponent } from '../table/table-section.form';
               <ion-item lines="none">
                 <ion-label>{{ '@content.section.default.type' | translate | async }}: {{ vm.type | categoryName:STS }}</ion-label>
               </ion-item>
-              @if(authorizationService.isAdmin()) {
-                <ion-item lines="none">
-                  <ion-label>{{ 'Section Key: '}} {{ vm.bkey }}</ion-label>
-                  &nbsp;<ion-icon src="{{'copy-outline' | svgIcon }}" (click)="copy()" />
-                </ion-item>
-              }
+              <ion-item lines="none">
+                <ion-label>Section Key: {{ vm.bkey }}</ion-label>
+                &nbsp;<ion-icon src="{{'copy-outline' | svgIcon }}" (click)="copy()" />
+              </ion-item>
               <bk-text-input name="name" [value]="vm.name ?? ''" (changed)="updateField('name', $event)" [showHelper]=true />
               <bk-cat-input name="roleNeeded" [value]="vm.roleNeeded ?? role.Registered" [categories]="roles" (changed)="updateField('roleNeeded', $event)" [readOnly]="readOnly()" />
             </ion-card-content>
@@ -120,7 +120,13 @@ import { BkTableSectionFormComponent } from '../table/table-section.form';
             (modelInfoChanged)="onModelInfoChanged($event)" />
         }
         @case(ST.Button) {                                            <!-- 13: Button -->
-          <bk-button-section-form [vm]="vm" (positionChange)="onPositionChange($event)" (contentChange)="onContentChange($event)" (changedProperties)="onPropertiesChange($event)" />
+          <bk-button-section-form [vm]="vm" 
+            (changedProperties)="onPropertiesChange($event)" 
+            (changedContent)="onContentChange($event)"
+            (changedPosition)="onPositionChange($event)"
+            (changedAction)="onActionChange($event)"
+            (changedUrl)="updateField('url', $event)"
+           />
         }
         @case(ST.Table) {                                             <!-- 14: Table -->
           <bk-table-section-form [table]="table()!" (changedProperties)="onPropertiesChange($event)" />  
@@ -160,6 +166,8 @@ import { BkTableSectionFormComponent } from '../table/table-section.form';
 export class SectionFormComponent extends AbstractFormComponent implements AfterViewInit {
   public vm = model.required<SectionFormModel>();
   public table = computed(() => this.vm().properties?.table ?? newTable());
+  public icon = computed(() => this.vm().properties?.icon ?? newIcon());
+  public button = computed(() => this.vm().properties?.button ?? newButton()); 
 
   protected readonly suite = sectionFormValidations;
   protected readonly formValue = signal<SectionFormModel>({});
@@ -208,6 +216,14 @@ export class SectionFormComponent extends AbstractFormComponent implements After
 
   protected onPositionChange(newPosition: number): void {
     this.updateField('imagePosition', newPosition);
+  }
+
+  protected onActionChange(newAction: ButtonAction): void {
+    const _button = this.vm().properties?.button;
+    if (!_button)  return;
+    _button.buttonAction = newAction;
+    this.formDirty.set(true);
+    this.notifyState();
   }
 
   public copy(): void {

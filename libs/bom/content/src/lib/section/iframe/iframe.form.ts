@@ -40,7 +40,7 @@ import { AsyncPipe } from '@angular/common';
     }
   `
 })
-export class BkIframeSectionFormComponent {
+export class IframeSectionFormComponent {
   public vm = model.required<SectionFormModel>();
   protected iframe = computed(() => this.vm().properties?.iframe);
 
@@ -55,7 +55,7 @@ export class BkIframeSectionFormComponent {
     switch (fieldName) {
       case 'title': _config.title = value as string; break;
       case 'style': _config.style = value as string; break;
-      default: error(undefined, `BkPeopleListSectionFormComponent.onIframePropertyChanged: unknown field ${fieldName}`); return;
+      default: error(undefined, `IframeSectionFormComponent.onIframePropertyChanged: unknown field ${fieldName}`); return;
     }
     const _properties = this.vm().properties;
     if (_properties) {

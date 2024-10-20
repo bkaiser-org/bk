@@ -31,7 +31,7 @@ import { GoogleMap, MapType } from '@capacitor/google-maps';
       </ion-card>
   `
 })
-export class BkMapSectionComponent implements OnInit, OnDestroy {
+export class MapSectionComponent implements OnInit, OnDestroy {
   private env = inject(ENV);
 
   // MapSection stores the map data in the url field in this format:  "latitude/longitude/zoom" (3 numbers separated by commas)
@@ -73,7 +73,7 @@ ngOnDestroy(): void {
 
 async loadMap() {
   const _mapRef = document.getElementById('map'); // reference to the capacitor-google-map element
-  if (!_mapRef) die('BkMapSectionComponent.loadMap: Map element not found');
+  if (!_mapRef) die('MapSectionComponent.loadMap: Map element not found');
 
   this.map = await GoogleMap.create({
     id: 'bk-map',               // Unique identifier for this map instance

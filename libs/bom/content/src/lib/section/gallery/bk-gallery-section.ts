@@ -87,15 +87,15 @@ register(); // globally register Swiper's custom elements.
     }
   `
 })
-export class BkGallerySectionComponent {
+export class GallerySectionComponent {
   public section = input<SectionModel>();
   private mainSwiper = viewChild<SwiperContainer>('mainSwiper');
 
   constructor() {
     effect(() => {
-      console.log('BkGallerySectionComponent -> section: ', this.section());
-      console.log('BkGallerySectionComponent -> mainSwiper: ', this.mainSwiper);
-      console.log('BkGallerySectionComponent -> activeIndex: ', this.mainSwiper?.arguments.activeIndex);
+      console.log('GallerySectionComponent -> section: ', this.section());
+      console.log('GallerySectionComponent -> mainSwiper: ', this.mainSwiper);
+      console.log('GallerySectionComponent -> activeIndex: ', this.mainSwiper?.arguments.activeIndex);
     });
   }
   public show(image: Image): void {

@@ -20,7 +20,7 @@ import { IonCol, IonRow } from '@ionic/angular/standalone';
     }
   `
 })
-export class BkVideoSectionFormComponent {
+export class VideoSectionFormComponent {
   public vm = model.required<SectionFormModel>();
 
   protected updateField(url: string): void {

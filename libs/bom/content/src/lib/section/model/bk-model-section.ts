@@ -48,7 +48,7 @@ import { firstValueFrom } from 'rxjs';
     }
   `
 })
-export class BkModelSectionComponent implements OnInit {
+export class ModelSectionComponent implements OnInit {
   private router = inject(Router);
   //private modalController = inject(ModalController);
   private dataService = inject(DataService);

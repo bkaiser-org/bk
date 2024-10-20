@@ -36,16 +36,19 @@ export * from './lib/section/album/album-section.form';
 export * from './lib/section/album/bk-album-section';
 
 // article
-export * from './lib/section/article/bk-article-section';
+export * from './lib/section/article/article-section';
 export * from './lib/section/article/article-section.form';
 export * from './lib/section/article/bk-editor';
-export * from './lib/section/article/bk-editor-toolbar';
+export * from './lib/section/article/editor-toolbar';
 
 // button
-export * from './lib/section/button/bk-button-section';
+export * from './lib/section/button/button-section';
 export * from './lib/section/button/button-section.form';
 export * from './lib/section/button/button.form';
-export * from './lib/section/button/bk-button-widget';
+export * from './lib/section/button/button-widget';
+export * from './lib/section/button/button-section.util';
+export * from './lib/section/button/icon.form';
+export * from './lib/section/button/button-action.form';
 
 // chat
 export * from './lib/section/chat/chat-section';
@@ -85,13 +88,14 @@ export * from './lib/section/video/video.form';
 
 // table
 export * from './lib/section/table/bk-table-section';
-
+export * from './lib/section/table/table-section.form';
+export * from './lib/section/table/table-section.util';
 
 // forms
 export * from './lib/section/forms/section.form';
 export * from './lib/section/forms/section.form.util';
 export * from './lib/section/forms/icon.form';
-export * from './lib/section/forms/default-image-config.form';
+export * from './lib/section/forms/image-config.form';
 export * from './lib/section/forms/image-list.form';
 export * from './lib/section/forms/image-edit.modal';
 export * from './lib/section/forms/image.form';

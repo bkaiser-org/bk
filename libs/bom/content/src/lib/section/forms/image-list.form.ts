@@ -69,7 +69,7 @@ import { ImageAction } from '@bk/categories';
     }
   `
 })
-export class BkImageListFormComponent {
+export class ImageListFormComponent {
   private readonly documentService = inject(DocumentService);
   private readonly sectionService = inject(SectionService);
   private readonly toastController = inject(ToastController);

@@ -85,11 +85,11 @@ import { ImageAction } from '@bk/categories';
     }
   `
 })
-export class BkHeroSectionComponent {
+export class HeroSectionComponent {
   public section = input<SectionModel>();
   protected heroImage = computed(() => {
     const _imageList = this.section()?.properties.imageList ?? [];
-    if (_imageList.length !== 2) die('BkHeroSection.heroImage: Hero section must have 2 images');
+    if (_imageList.length !== 2) die('HeroSection.heroImage: Hero section must have 2 images');
     _imageList[0].hasPriority = true;
     _imageList[0].imageAction = ImageAction.None;
     _imageList[0].isThumbnail = false;
@@ -99,7 +99,7 @@ export class BkHeroSectionComponent {
   });
   protected logoImage = computed(() => {
     const _imageList = this.section()?.properties.imageList ?? [];
-    if (_imageList.length !== 2) die('BkHeroSection.logoImage: Hero section must have 2 images');
+    if (_imageList.length !== 2) die('HeroSection.logoImage: Hero section must have 2 images');
     _imageList[1].hasPriority = false;
     _imageList[1].imageAction = ImageAction.None;
     _imageList[1].isThumbnail = false;

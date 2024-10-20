@@ -65,7 +65,7 @@ register(); // globally register Swiper's custom elements.
     }
   `
 })
-export class BkSwiperSectionComponent {
+export class SwiperSectionComponent {
   public section = input<SectionModel>();
   protected imageList = computed(() => this.section()?.properties.imageList ?? []);
 }

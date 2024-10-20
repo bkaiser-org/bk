@@ -32,7 +32,7 @@ import { BkSpinnerComponent } from '@bk/ui';
     }
   `
 })
-export class BkVideoSectionComponent {
+export class VideoSectionComponent {
   private sanitizer = inject(DomSanitizer);
   public section = input.required<SectionModel>();
   // autoplay=1 starts the video automatically

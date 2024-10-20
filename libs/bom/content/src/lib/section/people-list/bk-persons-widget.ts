@@ -48,7 +48,7 @@ import { ColorIonic } from '@bk/categories';
     }
   `
 })
-export class BkPersonsWidgetComponent {
+export class PersonsWidgetComponent {
   private readonly router = inject(Router);
   public section = input<SectionModel>();
   protected personList = computed(() => this.section()?.properties.personList ?? []);

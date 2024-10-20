@@ -28,7 +28,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     }
   `
 })
-export class BkIframeSectionComponent {
+export class IframeSectionComponent {
   private sanitizer = inject(DomSanitizer);
   public section = input<SectionModel>();
   public style = computed(() => this.section()?.properties?.iframe?.style ?? 'width:100%; min-height:400px; border:none;');

@@ -195,7 +195,7 @@ import { firstValueFrom } from 'rxjs';
     }
   `
 })
-export class BkAlbumSectionComponent implements OnInit {
+export class AlbumSectionComponent implements OnInit {
   private readonly modalController = inject(ModalController);
   protected authorizationService = inject(AuthorizationService);
   protected albumService = inject(AlbumService);
@@ -244,12 +244,12 @@ export class BkAlbumSectionComponent implements OnInit {
       case ImageAction.OpenDirectory: this.albumService.setCurrentDirectory(image.actionUrl); break;
       case ImageAction.FollowLink: Browser.open({ url: image.actionUrl }); break;
       case ImageAction.None: break;
-      default: console.log('BkAlbumSectionComponent.onImageClicked -> no action defined');
+      default: console.log('AlbumSectionComponent.onImageClicked -> no action defined');
     }
   }
 
   protected getBackgroundStyle(image: Image) {
-    if (!image.width || !image.height) die('BkAlbumSection: image width and height must be set');
+    if (!image.width || !image.height) die('AlbumSection: image width and height must be set');
     const _params = getSizedImgixParamsByExtension(image.url, image.width, image.height);
     const _url = this.baseImgixUrl + '/' + image.url + '?' + _params;
     return { 
@@ -282,7 +282,7 @@ export class BkAlbumSectionComponent implements OnInit {
   protected async getMetaData(image: Image): Promise<ImageMetaData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const _data = await firstValueFrom(this.httpClient.get(this.baseImgixUrl + '/' + image.url + '?fm=json')) as any;
-    console.log('BkAlbumSectionComponent.getMetaData -> data: ', _data);
+    console.log('AlbumSectionComponent.getMetaData -> data: ', _data);
 
     const _metaData: ImageMetaData = {
       altitude: _data.GPS?.Altitude ?? undefined,
@@ -303,7 +303,7 @@ export class BkAlbumSectionComponent implements OnInit {
       iso: _data.Exif?.ISOSpeedRatings ?? undefined,
       lensModel: _data.Exif?.LensModel ?? undefined
     };
-    console.log('BkAlbumSectionComponent.getMetaData -> metaData: ', _metaData);
+    console.log('AlbumSectionComponent.getMetaData -> metaData: ', _metaData);
     return _metaData; 
   }
 
@@ -311,7 +311,7 @@ export class BkAlbumSectionComponent implements OnInit {
     const _el = this.imageContainer();
     if (_el) {
       const _value = (_el.nativeElement[key] ?? defaultValue) as number;
-      console.log(`BkAlbumSectionComponent.getValue -> element found: ${key} -> value: ${_value}`);
+      console.log(`AlbumSectionComponent.getValue -> element found: ${key} -> value: ${_value}`);
       return _value;
     }
     return defaultValue;

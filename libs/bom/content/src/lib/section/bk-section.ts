@@ -3,27 +3,27 @@ import { SectionType } from '@bk/categories';
 import { die } from '@bk/util';
 import { Observable, firstValueFrom } from 'rxjs';
 import { SectionModel } from '@bk/models';
-import { BkArticleSectionComponent } from './article/bk-article-section';
-import { BkSwiperSectionComponent } from './swiper/bk-swiper-section';
-import { BkPeopleListSectionComponent } from './people-list/bk-people-list-section';
-import { BkGallerySectionComponent } from './gallery/bk-gallery-section';
+import { ArticleSectionComponent } from './article/article-section';
+import { SwiperSectionComponent } from './swiper/bk-swiper-section';
+import { PeopleListSectionComponent } from './people-list/bk-people-list-section';
+import { GallerySectionComponent } from './gallery/bk-gallery-section';
 import { SectionService } from './section.service';
 import { AsyncPipe } from '@angular/common';
 import { IonItem, IonLabel } from '@ionic/angular/standalone';
 import { PrettyjsonPipe, TranslatePipe } from '@bk/pipes';
-import { BkAlbumSectionComponent } from './album/bk-album-section';
-import { BkMapSectionComponent } from './map/bk-map-section';
-import { BkVideoSectionComponent } from './video/bk-video-section';
-import { BkCalendarSectionComponent } from './calendar/bk-calendar-section';
-import { BkModelSectionComponent } from './model/bk-model-section';
-import { BkHeroSectionComponent } from './hero/bk-hero-section';
-import { BkButtonSectionComponent } from './button/bk-button-section';
+import { AlbumSectionComponent } from './album/bk-album-section';
+import { MapSectionComponent } from './map/bk-map-section';
+import { VideoSectionComponent } from './video/bk-video-section';
+import { CalendarSectionComponent } from './calendar/bk-calendar-section';
+import { ModelSectionComponent } from './model/bk-model-section';
+import { HeroSectionComponent } from './hero/bk-hero-section';
+import { ButtonSectionComponent } from './button/button-section';
 import { BkChangeConfirmationComponent } from '@bk/ui';
-import { BkTableSectionComponent } from './table/bk-table-section';
-import { BkListSectionComponent } from './list/bk-list-section';
-import { BkIframeSectionComponent } from './iframe/bk-iframe-section';
+import { TableSectionComponent } from './table/bk-table-section';
+import { ListSectionComponent } from './list/bk-list-section';
+import { IframeSectionComponent } from './iframe/bk-iframe-section';
 import { AuthorizationService } from '@bk/base';
-import { BkAccordionSectionComponent } from './accordion/bk-accordion-section';
+import { AccordionSectionComponent } from './accordion/bk-accordion-section';
 import { ChatSectionComponent } from './chat/chat-section'; 
 
 /**
@@ -36,12 +36,12 @@ import { ChatSectionComponent } from './chat/chat-section';
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe, PrettyjsonPipe,
-    BkArticleSectionComponent, BkSwiperSectionComponent, BkPeopleListSectionComponent, 
-    BkGallerySectionComponent, BkAlbumSectionComponent, BkListSectionComponent,
-    BkMapSectionComponent, BkVideoSectionComponent,
-    BkCalendarSectionComponent, BkModelSectionComponent, BkHeroSectionComponent,
-    BkButtonSectionComponent, BkChangeConfirmationComponent, BkTableSectionComponent,
-    BkIframeSectionComponent, BkAccordionSectionComponent, ChatSectionComponent,
+    ArticleSectionComponent, SwiperSectionComponent, PeopleListSectionComponent, 
+    GallerySectionComponent, AlbumSectionComponent, ListSectionComponent,
+    MapSectionComponent, VideoSectionComponent,
+    CalendarSectionComponent, ModelSectionComponent, HeroSectionComponent,
+    ButtonSectionComponent, BkChangeConfirmationComponent, TableSectionComponent,
+    IframeSectionComponent, AccordionSectionComponent, ChatSectionComponent,
     IonLabel, IonItem
   ],
   template: `
@@ -114,7 +114,7 @@ import { ChatSectionComponent } from './chat/chat-section';
     }
   `
 })
-export class BkSectionComponent implements OnInit {
+export class SectionComponent implements OnInit {
   private readonly sectionService = inject(SectionService);
   public authorizationService = inject(AuthorizationService);
 
@@ -141,13 +141,13 @@ export class BkSectionComponent implements OnInit {
       const _section = await firstValueFrom(this.section$);
       if (_section) {
         _section.content = this.newContent;
-        console.log('BkSectionComponent.save(): updating section ' + _section.bkey + ' with new content: ' + _section.content);
+        console.log('SectionComponent.save(): updating section ' + _section.bkey + ' with new content: ' + _section.content);
         //this.sectionService.updateSection(_section);    
       } else {
-        die(`BkSectionComponent.save(): section is undefined.`);
+        die(`SectionComponent.save(): section is undefined.`);
       }
     } else {
-      die(`BkSectionComponent.save(): section$ is undefined.`);
+      die(`SectionComponent.save(): section$ is undefined.`);
     }
   }
 

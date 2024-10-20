@@ -4,7 +4,7 @@ import { firstValueFrom, Observable } from 'rxjs';
 import { PageModel } from '@bk/models';
 import { BkSpinnerComponent } from '@bk/ui';
 import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
-import { BkSectionComponent } from '../section/bk-section';
+import { SectionComponent } from '../section/bk-section';
 import { PageService } from './page.service';
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonMenuButton, IonReorder, IonReorderGroup, IonRow, IonTitle, IonToolbar, ItemReorderEventDetail } from '@ionic/angular/standalone';
 import { AuthorizationService } from '@bk/base';
@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'bk-content-page',
   standalone: true,
   imports: [
-    BkSpinnerComponent, BkSectionComponent, 
+    BkSpinnerComponent, SectionComponent, 
     TranslatePipe, TranslatePipe, AsyncPipe, SvgIconPipe,
     IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonTitle, IonMenuButton,
     IonContent, IonGrid, IonRow, IonCol, IonList, IonItemSliding, IonItem, IonItemOptions, IonItemOption,

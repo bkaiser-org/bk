@@ -5,7 +5,7 @@ import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BkCopyButtonComponent } from '@bk/ui';
 import { IonButton, IonIcon, IonItem } from '@ionic/angular/standalone';
 import { Editor, NgxEditorModule } from 'ngx-editor';
-import { BkEditorToolbar } from '../article/bk-editor-toolbar';
+import { BkEditorToolbar } from './editor-toolbar';
 
 @Component({
   selector: 'bk-editor',

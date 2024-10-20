@@ -18,18 +18,18 @@ import { IonCol, IonLabel, IonRow } from '@ionic/angular/standalone';
     @if(vm(); as vm) {
       <ion-row>
         <ion-col size="12">
-          <ion-label>{{ '@content.section.forms.map.title' | translate | async }}</ion-label>
+          <ion-label>{{ '@input.coordinates.label' | translate | async }}</ion-label>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12">
-          <bk-text-input name="coordinates" [value]="vm.url!" (changed)="updateField($event)" [maxLength]=30 [mask]="coordMask" [showError]=true [readOnly]="readOnly()" />                                        
+          <bk-text-input name="coordinates" [value]="vm.url!" (changed)="updateField($event)" [maxLength]=30 [mask]="coordMask" [showHelper]=true [showError]=true [readOnly]="readOnly()" />                                        
         </ion-col>
       </ion-row>
     }
   `
 })
-export class BkMapSectionFormComponent {
+export class MapSectionFormComponent {
   public authorizationService = inject(AuthorizationService);
 
   public vm = model.required<SectionFormModel>();

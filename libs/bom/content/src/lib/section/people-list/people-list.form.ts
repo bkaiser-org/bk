@@ -5,7 +5,7 @@ import { IonCol, IonLabel, IonRow } from '@ionic/angular/standalone';
 import { BkEditorComponent } from '../article/bk-editor';
 import { NameDisplays, ViewPositions } from '@bk/categories';
 import { error, NameDisplay } from '@bk/util';
-import { BkModelListComponent } from '@bk/base';
+import { ModelListComponent } from '@bk/base';
 
 @Component({
   selector: 'bk-people-list-form',
@@ -13,7 +13,7 @@ import { BkModelListComponent } from '@bk/base';
   imports: [
     IonRow, IonCol, IonLabel,
     BkCatInputComponent, BkEditorComponent,
-    BkModelListComponent, BkCheckComponent, BkTextInputComponent, BkNumberInputComponent
+    ModelListComponent, BkCheckComponent, BkTextInputComponent, BkNumberInputComponent
   ],
   template: `
     @if(vm(); as vm) {

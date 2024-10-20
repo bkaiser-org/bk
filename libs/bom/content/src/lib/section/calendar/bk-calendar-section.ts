@@ -46,7 +46,7 @@ import { warn } from '@bk/util';
     }
   `
 })
-export class BkCalendarSectionComponent implements OnInit {
+export class CalendarSectionComponent implements OnInit {
   private eventService = inject(EventService);
 
   public section = input<SectionModel>();
@@ -104,7 +104,7 @@ export class BkCalendarSectionComponent implements OnInit {
     console.log('event selected: ' + _eventKey);
     const _event = await firstValueFrom(this.eventService.readEvent(_eventKey));
     if (!_event) {
-      warn('BkCalendarSectionComponent.onEventClick: event ' + _eventKey + ' not found');
+      warn('CalendarSectionComponent.onEventClick: event ' + _eventKey + ' not found');
     } else {
       await this.eventService.editEvent(_event);
     }

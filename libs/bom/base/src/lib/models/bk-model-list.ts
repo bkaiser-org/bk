@@ -58,7 +58,7 @@ import { BkModelSelectComponent } from '../model-select.modal/model-select.modal
    */
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
 })
-export class BkModelListComponent {
+export class ModelListComponent {
   private alertController = inject(AlertController);
   private modalController = inject(ModalController);
 
