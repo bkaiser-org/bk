@@ -4,6 +4,7 @@ import { BkStringsComponent, BkTextInputComponent, htmlTextMask } from '@bk/ui';
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonGrid, IonLabel, IonRow } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
+import { newTableConfig } from './table-section.util';
 
 @Component({
   selector: 'bk-table-section-form',
@@ -123,9 +124,9 @@ import { AsyncPipe } from '@angular/common';
     }
   `
 })
-export class BkTableSectionFormComponent {
+export class TableSectionFormComponent {
   public table = model.required<Table>();
-  protected config = computed(() => this.table().config) ?? this.getEmptyTableConfig();
+  protected config = computed(() => this.table().config) ?? newTableConfig();
   protected header = computed(() => this.table().header) ?? [];
   protected content = computed(() => this.table().content) ?? [];
 
@@ -148,24 +149,5 @@ export class BkTableSectionFormComponent {
   protected onContentChange(changedContent: string[]): void {
     this.table.update((_table) => ({..._table, 'content': changedContent}));
     this.changedProperties.emit({ table: this.table()});
-  }
-
-  private getEmptyTableConfig(): TableConfig {
-    return {
-      gridTemplate: 'auto auto',
-      gridGap: '1px',
-      gridBackgroundColor: 'grey',
-      gridPadding: '1px',
-      headerBackgroundColor: 'lightgrey',
-      headerTextAlign: 'center',
-      headerFontSize: '1rem',
-      headerFontWeight: 'bold',
-      headerPadding: '5px',
-      cellBackgroundColor: 'white',
-      cellTextAlign: 'left',
-      cellFontSize: '0.8rem',
-      cellFontWeight: 'normal',
-      cellPadding: '5px'
-    };
   }
 }
