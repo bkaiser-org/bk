@@ -1,12 +1,13 @@
-import { AfterViewInit, Component, computed, model, signal } from '@angular/core';
+import { AfterViewInit, Component, computed, inject, model, signal } from '@angular/core';
 import { BkCatInputComponent, BkModelInfoComponent, BkNotesComponent, BkSpinnerComponent, BkStringsComponent, BkTagsComponent, BkTextInputComponent, caseInsensitiveWordMask } from '@bk/ui';
 import { AbstractFormComponent } from '@bk/base';
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonGrid, IonIcon, IonItem, IonLabel, IonRow, IonToolbar } from '@ionic/angular/standalone';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonGrid, IonIcon, IonItem, IonLabel, IonRow, IonToolbar, ModalController } from '@ionic/angular/standalone';
 import { CategoryNamePipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { vestForms } from 'ngx-vest-forms';
 import { PageFormModel, pageFormModelShape, pageFormValidations } from '@bk/models';
 import { copyToClipboard, PageTags, showToast } from '@bk/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bk-page-form',
@@ -37,8 +38,9 @@ import { copyToClipboard, PageTags, showToast } from '@bk/util';
               </ion-card-header>
               <ion-card-content>
                 <ion-item lines="none">
+                  <ion-icon src="{{'enter-outline' | svgIcon }}" (click)="gotoPage(vm.bkey)" slot="start"/>
                   <ion-label>{{ 'Page Key: '}} {{ vm.bkey }}</ion-label>
-                  &nbsp;<ion-icon src="{{'copy-outline' | svgIcon }}" (click)="copy()" />
+                  <ion-icon src="{{'copy-outline' | svgIcon }}" (click)="copy()" slot="end"/>
                 </ion-item>
                 <bk-text-input name="name" [value]="vm.name ?? ''" (changed)="updateField('name', $event)" [showHelper]=true />
               </ion-card-content>
@@ -76,6 +78,9 @@ import { copyToClipboard, PageTags, showToast } from '@bk/util';
   `
 })
 export class PageFormComponent extends AbstractFormComponent implements AfterViewInit {
+  private readonly router = inject(Router);
+  private readonly modalController = inject(ModalController);
+
   public vm = model.required<PageFormModel>();
   protected sections = computed(() => this.vm().sections) ?? [];
 
@@ -105,5 +110,11 @@ export class PageFormComponent extends AbstractFormComponent implements AfterVie
 
   protected onSectionsChange(changedSections: string[]): void {
     this.vm.update((_vm) => ({..._vm, 'sections': changedSections}));
+  }
+
+  protected gotoPage(pageKey?: string): void {
+    if (!pageKey)  return;
+    this.modalController.dismiss(null, 'cancel');
+    this.router.navigateByUrl(`/private/${pageKey}`);
   }
 }
