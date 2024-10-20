@@ -1,4 +1,4 @@
-import { AlbumStyle, ColorIonic, GalleryEffect, ImageAction, ModelType } from '@bk/categories';
+import { AlbumStyle, ButtonAction, ColorIonic, GalleryEffect, ImageAction, ModelType } from '@bk/categories';
 import { BaseModel } from '../base/base.model';
 import { isAudio, isDocument, isImage, isPdf, isStreamingVideo, isVideo, NameDisplay, RoleName } from '@bk/util';
 
@@ -125,7 +125,8 @@ export interface Button {
   fill?: string,  // 'clear', 'outline', 'solid'
   width?: string,  // should be bigger than the iconSize, default is same value for width and height (cicle button)
   height?: string,
-  color?: ColorIonic
+  color?: ColorIonic,
+  buttonAction?: ButtonAction // default is 'none'
 }
 
 // the configuration of an icon
@@ -194,29 +195,6 @@ export interface AccordionSection {
   key: string,
   label: string,
   value: string
-}
-
-export function newTable(): Table {
-  return {
-    config: {
-      gridTemplate: 'auto auto',
-      gridGap: '1px',
-      gridBackgroundColor: 'grey',
-      gridPadding: '1px',
-      headerBackgroundColor: 'lightgrey',
-      headerTextAlign: 'center',
-      headerFontSize: '1rem',
-      headerFontWeight: 'bold',
-      headerPadding: '5px',
-      cellBackgroundColor: 'white',
-      cellTextAlign: 'left',
-      cellFontSize: '0.8rem',
-      cellFontWeight: 'normal',
-      cellPadding: '5px'
-    },
-    header: [],
-    content: []
-  }
 }
 
 export interface Accordion {
