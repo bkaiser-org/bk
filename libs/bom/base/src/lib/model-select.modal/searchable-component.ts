@@ -66,8 +66,11 @@ export abstract class SearchableComponent {
     connect(this.state)
       // when the listType changes, reset the state and reload the data
         .with(this.listType$, (state, _listType) => ({
-        state: this.getResetState(),
         listType: _listType,
+        groupedItems: [],
+        filteredItems: [],
+        searchTerm: '',
+        currentSortCriteria: resetSortCriteria()
       }))
 
       // when the data in the database changes or has been reloaded successfully

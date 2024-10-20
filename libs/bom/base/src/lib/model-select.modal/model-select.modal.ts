@@ -5,7 +5,7 @@ import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon,
 import { NameByModelPipe } from '../models/name-by-model.pipe';
 import { BkAvatarLabelComponent, BkHeaderComponent, BkSearchbarComponent, BkSpinnerComponent } from '@bk/ui';
 import { AsyncPipe } from '@angular/common';
-import { ListType, SectionTypes, getCollectionNameFromModelType } from '@bk/categories';
+import { ListType, ListTypes, SectionTypes, getCollectionNameFromModelType } from '@bk/categories';
 import { DataService } from '../models/data.service';
 import { tagMatches } from '@bk/util';
 import { SearchableComponent } from './searchable-component';
@@ -50,20 +50,23 @@ export class BkModelSelectComponent extends SearchableComponent implements OnIni
   protected destroyRef = inject(DestroyRef); // takeUntilDestroyed must be used inside an injection context.
 
   public bkListType = input.required<ListType>();
+
+  // we need to clone the initial query, because searchData will add query attributes every time it is called
+  private bkInitialQuery = computed(() => structuredClone(ListTypes[this.bkListType()]).initialQuery ?? []);
   public betterTitle = input<string>(); // optionally overwrite the title set in the ListType
   protected finalTitle = computed(() => this.betterTitle() ?? this.title());
 
   protected sectionTypes = SectionTypes;
 
   ngOnInit() {
-   this.initialize();
+    this.initialize();
   }
 
   protected initialize() {
     this.listType$.next(this.bkListType());
     this.dataService.searchData(
       getCollectionNameFromModelType(this.modelType()), 
-      this.initialQuery(), 
+      this.bkInitialQuery(), 
       this.orderBy() ?? 'name',
       this.sortOrder() ?? 'asc'
     )
@@ -77,8 +80,9 @@ export class BkModelSelectComponent extends SearchableComponent implements OnIni
     });
   }
 
-  public cancel(): Promise<boolean> {
-    return this.modalController.dismiss(null, 'cancel');
+    // we need to initialize everytime when the modal is reopened, we do this when we close the model
+  public async cancel(): Promise<void> {
+    await this.modalController.dismiss(null, 'cancel');
   }
 
   public async select(model: BaseModel): Promise<void> {
