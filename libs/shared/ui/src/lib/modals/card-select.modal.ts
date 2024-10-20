@@ -44,7 +44,7 @@ import { ENV } from '@bk/util';
   `,
 })
 export class BkCardSelectModalComponent {
-  private modalController = inject(ModalController);
+  private readonly modalController = inject(ModalController);
   protected env = inject(ENV);
 
 
