@@ -6,6 +6,7 @@ export * from './lib/address/address.validations';
 
 // auth
 export * from './lib/auth-credentials/auth-credentials.model';
+export * from './lib/auth-credentials/auth-credentials.validations';
 
 // avatar
 export * from './lib/avatar/avatar.model';
