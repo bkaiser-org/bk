@@ -34,8 +34,8 @@ import { AppNavigationService } from '@bk/util';
   `
 })
 export class PersonNewPageComponent {
-  private subjectService = inject(SubjectService);
-  private appNavigationService = inject(AppNavigationService);
+  private readonly subjectService = inject(SubjectService);
+  private readonly appNavigationService = inject(AppNavigationService);
 
   public orgId = input<string>();
   protected vm = computed(() => getPersonNewFormModel(this.orgId()));

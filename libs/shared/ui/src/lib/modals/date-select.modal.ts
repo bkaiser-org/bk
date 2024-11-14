@@ -30,7 +30,7 @@ import { ENV } from '@bk/util';
   `,
 })
 export class BkDateSelectModalComponent {
-  private modalController = inject(ModalController);
+  private readonly modalController = inject(ModalController);
   protected env = inject(ENV);
 
   // tbd: switching to input signals leads to error: not a function

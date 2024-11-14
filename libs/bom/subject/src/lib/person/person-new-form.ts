@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, computed, inject, model, signal } from '@angular/core';
-import { BkCatInputComponent, BkDateInputComponent, BkEmailComponent, BkNotesComponent, BkNumberInputComponent, BkPhoneComponent, BkTagsComponent, BkTextInputComponent, chSsnMask } from '@bk/ui';
+import { BkCatInputComponent, BkDateInputComponent, BkEmailComponent, BkNotesComponent, BkPhoneComponent, BkTagsComponent, BkTextInputComponent, chSsnMask } from '@bk/ui';
 import { GenderTypes, getMembershipCategories, getDefaultMembershipCategory } from '@bk/categories';
 import { PersonNewFormModel, personNewFormModelShape, personNewValidations } from '@bk/models';
 import { SwissCitySelectComponent } from '@bk/address';
@@ -14,7 +14,7 @@ import { vestForms } from 'ngx-vest-forms';
   imports: [
     vestForms,
     BkTextInputComponent, BkDateInputComponent, BkCatInputComponent, BkPhoneComponent, BkEmailComponent, 
-    BkNumberInputComponent, BkTagsComponent, BkNotesComponent, SwissCitySelectComponent,
+    BkTagsComponent, BkNotesComponent,
     IonGrid, IonRow, IonCol
   ],
   template: `

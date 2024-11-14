@@ -1,17 +1,17 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { IonButton, IonGrid, IonCol, IonContent, IonIcon, IonImg, IonLabel, IonRow } from '@ionic/angular/standalone';
+import { IonButton, IonGrid, IonCol, IonContent, IonIcon, IonImg, IonLabel, IonRow, ModalController } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
-import { ImgixUrlPipe, SvgIconPipe, TranslatePipe } from '@bk/pipes';
+import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
 import { BkHeaderComponent } from '@bk/ui';
-import { AuthService } from '@bk/auth';
+import { AuthService, LoginModalComponent } from '@bk/auth';
 import { ENV, getImgixUrlWithAutoParams, navigateByUrl } from '@bk/util';
 
 @Component({
   selector: 'bk-welcome-page',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, ImgixUrlPipe, SvgIconPipe,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
     IonContent, IonButton, IonIcon, IonImg, IonLabel,
     IonGrid, IonRow, IonCol,
     BkHeaderComponent
@@ -63,7 +63,7 @@ import { ENV, getImgixUrlWithAutoParams, navigateByUrl } from '@bk/util';
 }
 
 .logo, ion-button {
-  max-width: 300px;
+  max-width: 200px;
   text-align: center;
   display: block;
   margin-left: auto;
@@ -115,7 +115,8 @@ import { ENV, getImgixUrlWithAutoParams, navigateByUrl } from '@bk/util';
   `
 })
 export class BkWelcomePageComponent {
-  private router = inject(Router);
+  protected modalController = inject(ModalController);
+  private readonly router = inject(Router);
   public authService = inject(AuthService);
   protected env = inject(ENV);
 
@@ -128,6 +129,11 @@ export class BkWelcomePageComponent {
   }
 
   public async login(): Promise<void> {
-    await navigateByUrl(this.router, this.env.auth.loginUrl);
+    //await navigateByUrl(this.router, this.env.auth.loginUrl);
+    const _modal = await this.modalController.create({
+      component: LoginModalComponent,
+      cssClass: 'login-modal'
+    });
+    _modal.present();
   }
 }

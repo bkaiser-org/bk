@@ -16,7 +16,7 @@ import { ModalController } from '@ionic/angular/standalone';
     providedIn: 'root'
   })
   export class MembershipService extends BaseService {
-    private modalController = inject(ModalController);
+    private readonly modalController = inject(ModalController);
 
   /*------------------------------ membership CRUD ---------------------------------------*/
     /**

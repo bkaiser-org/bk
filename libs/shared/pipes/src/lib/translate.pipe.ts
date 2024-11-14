@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
   standalone: true,
 })
 export class TranslatePipe implements PipeTransform {
-  private i18nService = inject(I18nService);
+  private readonly i18nService = inject(I18nService);
 
   transform(key: string | undefined | null, argument?: HashMap): Observable<string> {
     return this.i18nService.translate(key, argument);  

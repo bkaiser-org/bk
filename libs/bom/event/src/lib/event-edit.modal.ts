@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { BkChangeConfirmationComponent, BkErrorToolbarComponent, BkHeaderComponent, BkSpinnerComponent } from '@bk/ui';
 import { EventFormModel, EventModel } from '@bk/models';
-import { IonContent, IonItem, IonModal, IonToolbar, ModalController } from '@ionic/angular/standalone';
+import { IonContent, ModalController } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@bk/pipes';
 import { convertEventToForm, convertFormToEvent } from './event-form.util';
@@ -13,7 +13,7 @@ import { EventFormComponent } from './event-form';
   imports: [
     BkSpinnerComponent, BkHeaderComponent, BkChangeConfirmationComponent, EventFormComponent, BkErrorToolbarComponent,
     TranslatePipe, AsyncPipe,
-    IonModal, IonContent, IonToolbar, IonItem
+    IonContent
   ],
   template: `
     <bk-header title="{{ '@event.operation.update.label' | translate | async }}" [isModal]="true" />
@@ -31,11 +31,11 @@ import { EventFormComponent } from './event-form';
   `
 })
 export class EventEditModalComponent {
-  private modalController = inject(ModalController);
+  private readonly modalController = inject(ModalController);
 
   public event = input.required<EventModel>();
   public readOnly = input(false);
-  public vm = computed(() => convertEventToForm(this.event()) as EventFormModel);
+  public vm = computed(() => convertEventToForm(this.event()));
 
   protected formCanBeSaved = false;
   protected errorMessage = '';
