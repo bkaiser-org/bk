@@ -10,7 +10,7 @@ export function getResourceNewFormModel(modelType: ModelType | undefined, resour
     keyNr: 0,
     category: resourceType,
     boatType: BoatType.b1x,
-    boatUsage: BoatUsage.Breitensport1E,
+    boatUsage: BoatUsage.Breitensport,
     currentValue: 0,
     weight: 0,
     load: '',
@@ -30,7 +30,7 @@ export function convertNewFormToResource(vm: ResourceNewFormModel): ResourceMode
   }
   _resource.category = vm.category ?? ResourceType.Undefined;
   _resource.subType = vm.boatType ?? BoatType.b1x;
-  _resource.usage = vm.boatUsage ?? BoatUsage.Breitensport1E;
+  _resource.usage = vm.boatUsage ?? BoatUsage.Breitensport;
   _resource.currentValue = parseInt(vm.currentValue + ''); // make sure it's a number (input returns string)
   _resource.weight = parseInt(vm.weight + ''); // make sure it's a number (input returns string)
   _resource.load = vm.load  ?? '';

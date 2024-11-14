@@ -46,7 +46,7 @@ export function convertFormToResource(resource: ResourceModel | undefined, vm: R
     }
     resource.category = vm.resourceType ?? ResourceType.Undefined;
     resource.subType = vm.boatType ?? BoatType.b1x;
-    resource.usage = vm.boatUsage ?? BoatUsage.Breitensport1E;
+    resource.usage = vm.boatUsage ?? BoatUsage.Breitensport;
     resource.currentValue = parseInt(vm.currentValue + ''); // make sure it's a number (input returns string)
     resource.weight = parseInt(vm.weight + ''); // make sure it's a number (input returns string)
     resource.load = vm.load ?? '';

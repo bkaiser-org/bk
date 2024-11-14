@@ -3,49 +3,41 @@ import { Category } from './category-model';
 export type BoatUsageCategory = Category;
 
 export enum BoatUsage {
-    CGig,
-    Breitensport1E,
-    Breitensport2E,
-    BreitensportSkiff,
-    Regattierende,
+    Kandidierende,
+    Breitensport,
+    Routinierte,
+    Leistungssport,
     Private
 }
 
 export const BoatUsages: BoatUsageCategory[] = [
+  {
+    id: BoatUsage.Kandidierende,
+    abbreviation: 'Kand',
+    name: 'kandidierende',
+    i18nBase: 'resource.boat.usage.kandidierende',
+    icon: 'boat-outline'
+},
     {
-        id: BoatUsage.CGig,
-        abbreviation: 'CGig',
-        name: 'cGig',
-        i18nBase: 'resource.boat.usage.cGig',
+        id: BoatUsage.Breitensport,
+        abbreviation: 'BSP',
+        name: 'breitensport',
+        i18nBase: 'resource.boat.usage.breitensport',
         icon: 'boat-outline'
     },
     {
-        id: BoatUsage.Breitensport1E,
-        abbreviation: 'BS1E',
-        name: 'breitensport1E',
-        i18nBase: 'resource.boat.usage.breitensport1E',
+        id: BoatUsage.Routinierte,
+        abbreviation: 'ROUT',
+        name: 'routinierte',
+        i18nBase: 'resource.boat.usage.routinierte',
         icon: 'boat-outline'
     },
     {
-        id: BoatUsage.Breitensport2E,
-        abbreviation: 'BS2E',
-        name: 'breitensport2E',
-        i18nBase: 'resource.boat.usage.breitensport2E',
+        id: BoatUsage.Leistungssport,
+        abbreviation: 'LSP',
+        name: 'leistungssport',
+        i18nBase: 'resource.boat.usage.leistungssport',
         icon: 'boat-outline'
-    },
-    {
-        id: BoatUsage.BreitensportSkiff,
-        abbreviation: 'BSS',
-        name: 'breitensportSkiff',
-        i18nBase: 'resource.boat.usage.breitensportSkiff',
-        icon: 'boat-outline'
-    },
-    {
-        id: BoatUsage.Regattierende,
-        abbreviation: 'LS',
-        name: 'regattierende',
-        i18nBase: 'resource.boat.usage.regattierende',
-        icon: 'medal-outline'
     },
     {
         id: BoatUsage.Private,
