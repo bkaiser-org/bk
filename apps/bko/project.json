@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/bko",
         "index": "apps/bko/src/index.html",
         "browser": "apps/bko/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "apps/bko/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [

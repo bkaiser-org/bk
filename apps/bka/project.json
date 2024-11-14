@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/bka",
         "index": "apps/bka/src/index.html",
         "browser": "apps/bka/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "apps/bka/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [

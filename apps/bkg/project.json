@@ -16,7 +16,6 @@
         "index": "apps/bkg/src/index.html",
         "browser": "apps/bkg/src/main.ts",
         "polyfills": [
-          "zone.js"
         ],
         "tsConfig": "apps/bkg/tsconfig.app.json",
         "inlineStyleLanguage": "scss",

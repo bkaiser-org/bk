@@ -7,7 +7,7 @@
   "tags": [],
   "targets": {
     "config": {
-      "command": "ts-node ./set-env.ts",
+      "command": "ts-node ./set-env.js",
       "cache": true
     },
     "build": {
@@ -18,7 +18,7 @@
         "outputPath": "dist/apps/p13",
         "index": "apps/p13/src/index.html",
         "browser": "apps/p13/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "apps/p13/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [

@@ -6,7 +6,7 @@ import {
   ApplicationConfig,
   importProvidersFrom,
   isDevMode,
-  provideZoneChangeDetection,
+  provideExperimentalZonelessChangeDetection
 } from '@angular/core';
 import {
   RouteReuseStrategy,
@@ -55,7 +55,7 @@ initializeAppCheck(app, {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideExperimentalZonelessChangeDetection(),
     { provide: ENV, useValue: environment },
     provideAnimations(),
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

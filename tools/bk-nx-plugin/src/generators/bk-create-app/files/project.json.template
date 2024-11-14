@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/<%= tenant_id %>",
         "index": "apps/<%= tenant_id %>/src/index.html",
         "browser": "apps/<%= tenant_id %>/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "apps/<%= tenant_id %>/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
