@@ -106,6 +106,19 @@ ion-modal ion-toolbar {
   --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
 }
 
+.login-modal {
+  --height: 300px;
+  --width: 400px;
+  z-index: 100;
+  --border-radius: 10px;
+  --border-color: black;
+  --border-style: solid;
+  --border-width: 1px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
+}
+
 .date-modal {
   --height: 480px;
   --width: 400px;

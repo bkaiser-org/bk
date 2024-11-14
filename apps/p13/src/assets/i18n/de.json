@@ -834,7 +834,8 @@
     "loginEmail": {
       "label": "E-Mail",
       "placeholder": "ssss@ssssssss.sss",
-      "error": "Bitte eine gültige Email Adresse eingeben."
+      "error": "Bitte eine gültige Email Adresse eingeben.",
+      "helper": "Bitte verwende die gleiche E-Mail Adresse, auf der du die Vereinsinformationen erhälst."
     },
     "loginPassword": {
       "label": "Passwort",
