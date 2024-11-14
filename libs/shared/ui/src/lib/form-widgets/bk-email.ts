@@ -15,7 +15,7 @@ import { bkTranslate, EMAIL_LENGTH } from '@bk/util';
   ],
   template: `
   <ion-item lines="none">
-    <ion-input #bkEmail [name]="name()" [value]="value()" (ionInput)="onTextChange($event)"
+    <ion-input #bkEmail [name]="name()" [value]="value()" (ionInput)="onTextChange($event)" (ionChange)="committed.emit()"
       labelPlacement="floating"
       label="{{'@input.' + name() + '.label' | translate | async }}"
       placeholder="{{'@input.' + name() + '.placeholder' | translate | async }}"
@@ -46,6 +46,7 @@ export class BkEmailComponent implements AfterViewInit {
 
   public ionInput = viewChild.required<IonInput>('bkEmail');
   public changed = output<string>();
+  public committed = output<void>();
 
   ngAfterViewInit(): void {
     if (!this.readOnly() && this.showError() === true) {
