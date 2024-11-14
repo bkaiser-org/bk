@@ -28,7 +28,7 @@ export const personNewValidations = staticSuite((model: PersonNewFormModel, fiel
   ssnValidations('ssn', model.ssn);
   stringValidations('notes', model.notes, DESCRIPTION_LENGTH);
   tagsValidations('tags', model.tags);
-  test('modelType', 'personModelType', () => {
+  test('modelType', 'modelType must be Person', () => {
     enforce(model.modelType).equals(ModelType.Person);
   });
 
@@ -47,50 +47,50 @@ export const personNewValidations = staticSuite((model: PersonNewFormModel, fiel
 
   // cross field validations
   omitWhen(model.dateOfBirth === '', () => {
-    test('dateOfBirth', 'personDateOfBirthNotFuture', () => {
+    test('dateOfBirth', 'dateOfBirth must be in the past', () => {
       enforce(isFutureDate(model.dateOfBirth!)).isFalsy();
     })
   });
 
   omitWhen(model.dateOfDeath === '', () => {
-    test('dateOfDeath', 'personDateOfDeathNotFuture', () => {
+    test('dateOfDeath', 'dateOfDeath must be in the past', () => {
       enforce(isFutureDate(model.dateOfDeath!)).isFalsy();
     })
   });
 
   omitWhen(model.dateOfDeath === '' || model.dateOfBirth === '', () => {
-    test('dateOfDeath', 'personDateOfDeathAfterBirth', () => {
+    test('dateOfDeath', 'death must be after birth', () => {
       enforce(isAfterDate(model.dateOfDeath!, model.dateOfBirth!)).isTruthy();
     });
   });
 
   omitWhen(model.zipCode === '', () => {
-    test('city', 'personZipRequiresCity', () => {
+    test('city', 'zipCode requires a city', () => {
       enforce(model.city).isNotEmpty();
     });
-    test('countryCode', 'personZipRequiresCountry', () => {
+    test('countryCode', 'zipCode requires a countryCode', () => {
       enforce(model.countryCode).isNotEmpty();
     })
   });
   omitWhen(model.city === '', () => {
-    test('zipCode', 'personCityRequiresZip', () => {
+    test('zipCode', 'city requires a zipCode', () => {
       enforce(model.zipCode).isNotEmpty();
     });
-    test('zipCode', 'personZipRequiresCountry', () => {
+    test('zipCode', 'city requires a countryCode', () => {
       enforce(model.countryCode).isNotEmpty();
     })
   });
   omitWhen(model.zipCode === '' || model.countryCode !== 'CH', () => {
-    test('zipCode', 'personSwissZipNumeric', () => {
+    test('zipCode', 'a swiss zipCode must be a numeric string', () => {
       enforce(model.zipCode).isNumeric();
     });
-    test('zipCode', 'personSwissZipLength', () => {
+    test('zipCode', 'a swiss zipCode must be 4 numbers long', () => {
       enforce(model.zipCode!.length).equals(4);
     })
   });
 
   omitWhen(model.dateOfEntry === '' || model.dateOfExit === '', () => {
-    test('dateOfExit', 'membershipExitAfterEntry', () => {
+    test('dateOfExit', 'exit must be after entry', () => {
       enforce(isAfterDate(model.dateOfExit!, model.dateOfEntry!)).isTruthy();
     });
   });
