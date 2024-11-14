@@ -36,6 +36,7 @@ export * from './lib/form-widgets/bk-email';
 export * from './lib/form-widgets/bk-iban';
 export * from './lib/form-widgets/bk-number-input';
 export * from './lib/form-widgets/bk-notes';
+export * from './lib/form-widgets/bk-password-input';
 export * from './lib/form-widgets/bk-phone';
 export * from './lib/form-widgets/bk-text-input';
 export * from './lib/form-widgets/bk-time-input';

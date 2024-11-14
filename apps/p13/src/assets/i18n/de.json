@@ -947,6 +947,11 @@
     "owner": {
       "label": "Besitzer"
     },
+    "password": {
+      "label": "Passwort",
+      "placeholder": "Passwort",
+      "error": "Das Passwort muss mindestens 6 Zeichen lang sein."
+    },
     "participants": {
       "label": "Teilnehmer",
       "placeholder": "Anzahl und Art Teilnehmer",
@@ -1918,29 +1923,25 @@
         }
       },
       "usage": {
-        "cGig": {
-          "label": "C-Gig",
-          "description": "C-Gig Boote für Breitensport und Kandidaten"
+        "kandidierende": {
+          "label": "Kandidierende",
+          "description": "Boote für Kandidierende (C-Gigs & Coastal)"
         },
-        "breitensport1E": {
-          "label": "Schmale Boote Breitensport",
-          "description": "Schmale Boote für Breitensport mit mind. 1 erfahrenen Rudernden"
+        "breitensport": {
+          "label": "Breitensport",
+          "description": "Alle Aktivmitglieder in Abhängigkeit des jeweiligen Leistungsniveaus"
         },
-        "breitensport2E": {
-          "label": "Spezial Boote",
-          "description": "Spezial Boote mit mind. 2 erfahrenen Rudernden"
+        "routinierte": {
+          "label": "Routinierte",
+          "description": "Sehr routinierte Aktivmitglieder, Vorrang für Trainings und Regatten"
         },
-        "breitensportSkiff": {
-          "label": "Skiffs Breitensport",
-          "description": "Skiffs für Breitensport"
-        },
-        "regattierende": {
-          "label": "Regattierende und Junioren",
-          "description": "Boote ausschliesslich für Regattierende und Junioren"
+        "leistungssport": {
+          "label": "Leistungssport",
+          "description": "Regattierende, Masters in Abstimmung mit Head Coach"
         },
         "private": {
           "label": "Privatboot",
-          "description": "Das Boot ist im Privatbesitz eines Clubmitglieds und kann von Club-Mitgliedern nicht verwendet werden. Modellmässig sind wir hier nicht ganz korrekt, denn wir erfassen ein Boot im Privatbesitz, meinen aber eigentlich den nutzbaren Bootsplatz."
+          "description": "Das Boot ist im Privatbesitz eines Clubmitglieds und kann von Club-Mitgliedern nicht verwendet werden."
         }
       }
     },

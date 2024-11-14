@@ -70,6 +70,8 @@ export const STORE_DATETIME_LENGTH = 14;
 export const LOCKER_LENGTH = 3;
 export const KEY_LENGTH = 5;
 export const URL_LENGTH = 1000;
+export const PASSWORD_MIN_LENGTH = 6;
+export const PASSWORD_MAX_LENGTH = 24;
 
 // misc form field values
 export const DESCRIPTION_ROWS = 5;
@@ -117,6 +119,6 @@ export type InputType = 'date' | 'datetime-local' | 'email' | 'month' | 'number'
  *  * see: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
 ---------------------------------------------------------------------------*/
 export type AutoComplete = 'name' | 'email' | 'tel' | 'url' | 'off' | 'given-name'
-| 'family-name' | 'new-password' | 'organization' | 'street-address' | 'country'
+| 'family-name' | 'new-password' | 'current-password' | 'organization' | 'street-address' | 'country'
 | 'country-name' | 'postal-code' | 'bday' | 'address-level2'; 
 
