@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { getImgixUrlWithAutoParams, navigateByUrl, ENV } from '@bk/util';
+import { getImgixUrlWithAutoParams, navigateByUrl, ENV, EMAIL_LENGTH } from '@bk/util';
 import { FormsModule } from '@angular/forms';
 import { IonButton, IonCol, IonContent, IonGrid, IonImg, IonInput, IonItem, IonLabel, IonNote, IonRow } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '@bk/ui';
@@ -87,7 +87,7 @@ import { AsyncPipe } from '@angular/common';
                 type="email"
                 [clearInput]="true"
                 [counter]="true"
-                maxlength="30"
+                [maxlength]="maxLength"
                 label="{{ '@input.loginEmail.label' | translate | async }}"
                 labelPlacement="floating"
                 required
@@ -116,13 +116,14 @@ import { AsyncPipe } from '@angular/common';
     `
 })
 export class PasswordResetPageComponent {
-  private router = inject(Router);
-  private authService = inject(AuthService);
-  private env = inject(ENV);
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
+  private readonly env = inject(ENV);
 
   public logoUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.logoUrl)}`;
   public backgroundImageUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.welcomeBannerUrl)}`;
   public email: string | undefined;
+  protected maxLength = EMAIL_LENGTH;
 
   /**
   * If the form is valid it will call the AuthData service to reset the user's password displaying a loading

@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { getImgixUrlWithAutoParams, navigateByUrl, ENV } from '@bk/util';
+import { getImgixUrlWithAutoParams, navigateByUrl, ENV, EMAIL_LENGTH } from '@bk/util';
 import { FormsModule } from '@angular/forms';
 import { IonButton, IonCol, IonContent, IonGrid, IonImg, IonInput, IonItem, IonLabel, IonNote, IonRow } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '@bk/ui';
@@ -22,6 +22,8 @@ import { AuthService } from './auth.service';
     align-items: center;
   justify-content: center;
   height: 100%;
+  padding: 20px;
+  margin: 20px;
 }
 
 .background-image {
@@ -53,7 +55,7 @@ import { AuthService } from './auth.service';
 }
 
 .logo {
-  max-width: 300px;
+  max-width: 200px;
   text-align: center;
   display: block;
   margin-left: auto;
@@ -63,7 +65,7 @@ import { AuthService } from './auth.service';
 }
 
 .button-container {
-  margin-top: 20px;
+  margin: 20px;
 }
 
 .native-input {
@@ -94,7 +96,7 @@ ion-input, ion-textarea {
             type="email"
             [clearInput]="true"
             [counter]="true"
-            maxlength="30"
+            [maxlength]="maxLength"
             label="{{ '@input.loginEmail.label' | translate | async }}"
             labelPlacement="floating"
             required
@@ -142,15 +144,16 @@ ion-input, ion-textarea {
   encapsulation: ViewEncapsulation.None
 })
 export class LoginPageComponent {
-  private router = inject(Router);
-  private authService = inject(AuthService);
-  private env = inject(ENV);
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
+  private readonly env = inject(ENV);
 
   public logoUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.logoUrl)}`;
   public backgroundImageUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.welcomeBannerUrl)}`;
   public email = '';
   public password = '';
   protected isContentLoaded = false;
+  protected maxLength = EMAIL_LENGTH;
 
   ionViewDidEnter(): void {
     this.isContentLoaded = true;
