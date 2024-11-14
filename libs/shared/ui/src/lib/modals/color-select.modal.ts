@@ -1,9 +1,8 @@
 import { Component, Injectable, OnInit, inject, input } from '@angular/core';
-import { IonButton, IonContent, IonHeader, IonItem, IonModal, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@bk/pipes';
 import { ChromePickerComponent, IColorPickerConfig, COLOR_PICKER_CONFIG, ColorPickerControl, ColorType } from '@iplab/ngx-color-picker';
-import { BkChangeConfirmationComponent } from '../form/bk-change-confirmation';
+import { IonButton, IonContent, IonHeader, IonItem, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
 
 const DEFAULT_COLOR = '#2196F3';
 
@@ -19,10 +18,9 @@ class ColorPickerConfiguration implements IColorPickerConfig {
   selector: 'bk-color-select-modal',
   standalone: true,
   imports: [
-    BkChangeConfirmationComponent,
     TranslatePipe, AsyncPipe,
     ChromePickerComponent,
-    IonModal, IonContent, IonButton, IonItem, IonHeader, IonToolbar, IonTitle
+    IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonButton
   ],
   providers: [
     { provide: COLOR_PICKER_CONFIG, useClass: ColorPickerConfiguration }
@@ -43,7 +41,7 @@ class ColorPickerConfiguration implements IColorPickerConfig {
   `
 })
 export class ColorSelectModalComponent implements OnInit{
-  private modalController = inject(ModalController);
+  private readonly modalController = inject(ModalController);
   public hexColor = input(DEFAULT_COLOR);
   public colorControl = new ColorPickerControl();
 

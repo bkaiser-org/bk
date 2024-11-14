@@ -3,7 +3,7 @@ import { AddressChannel, AddressChannels, AddressUsage, AddressUsages, getCatego
 import { BkCheckComponent, BkNotesComponent, BkTagsComponent, BkSpinnerComponent, BkEmailComponent, BkPhoneComponent, BkIbanComponent, BkTextInputComponent, BkCatInputComponent } from '@bk/ui';
 import { AddressFormModel, addressFormModelShape, addressFormValidations } from '@bk/models';
 import { SwissCitySelectComponent } from './swissCities/swiss-city-select.modal';
-import { IonCol, IonGrid, IonInput, IonRow, ModalController } from '@ionic/angular/standalone';
+import { IonCol, IonGrid, IonRow, ModalController } from '@ionic/angular/standalone';
 import { AbstractFormComponent } from '@bk/base';
 import { AddressTags } from '@bk/util';
 import { vestForms } from 'ngx-vest-forms';
@@ -15,7 +15,7 @@ import { vestForms } from 'ngx-vest-forms';
     vestForms,
     BkCatInputComponent, BkTextInputComponent, BkCheckComponent, BkTagsComponent, BkNotesComponent, BkSpinnerComponent,
     BkEmailComponent, BkPhoneComponent, BkIbanComponent,
-    IonGrid, IonRow, IonCol, IonInput
+    IonGrid, IonRow, IonCol
 ],
   template: `
   @if(vm(); as vm) {

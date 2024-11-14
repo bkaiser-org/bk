@@ -1,10 +1,10 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
-import { IonButton, IonContent, IonIcon, IonImg, ModalController } from '@ionic/angular/standalone';
+import { IonButton, IonContent, IonIcon, ModalController, Platform } from '@ionic/angular/standalone';
 import { Image, newImage } from '@bk/models';
 import { ModelType } from '@bk/categories';
-import { getImgixUrlWithAutoParams } from '@bk/util';
+import { ENV, getImgixUrlWithAutoParams } from '@bk/util';
 import { BkHeaderComponent, BkTextInputComponent } from '@bk/ui';
 import { pickPhoto, uploadFileToModel } from './document.util';
 
@@ -17,7 +17,7 @@ import { pickPhoto, uploadFileToModel } from './document.util';
   imports: [
     TranslatePipe, AsyncPipe, SvgIconPipe,
     BkHeaderComponent, BkTextInputComponent,
-    IonContent, IonImg, IonButton, IonIcon
+    IonContent, IonButton, IonIcon
   ],
   template: `
       <bk-header title="{{ '@content.section.operation.selectImage.title' | translate | async }}" [isModal]="true" />
@@ -36,7 +36,9 @@ import { pickPhoto, uploadFileToModel } from './document.util';
   `
 })
 export class ImageSelectModalComponent {
-  private modelController = inject(ModalController);
+  private readonly modelController = inject(ModalController);
+  private readonly platform = inject(Platform);
+  private readonly env = inject(ENV);
 
   public key = input.required<string>();     // usually the key of a section
   public modelType = input(ModelType.Section); // the model type of the key
@@ -47,11 +49,11 @@ export class ImageSelectModalComponent {
 
   // select a photo from the camera or the photo library
   protected async pickImage() {
-    const _file = await pickPhoto();
+    const _file = await pickPhoto(this.platform);
     const _key = this.key();
     if (_file && _key) {
       // upload the file to the storage
-      const _path = await uploadFileToModel(_file, this.modelType(), _key);
+      const _path = await uploadFileToModel(this.modelController, this.env.auth.tenantId, _file, this.modelType(), _key);
       if (_path) {
         this.image.url = _path;
         this.image.actionUrl = getImgixUrlWithAutoParams(_path);

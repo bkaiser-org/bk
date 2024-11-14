@@ -1,7 +1,6 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { BkChangeConfirmationComponent, BkHeaderComponent, BkSpinnerComponent } from '@bk/ui';
 import { AddressFormModel, AddressModel } from '@bk/models';
-import { IonButton, IonContent, IonModal, ModalController } from '@ionic/angular/standalone';
 import { AddressFormComponent } from './address-form';
 import { getAddressModalTitle } from './address.util';
 import { convertAddressToForm, convertFormToAddress } from './address-form.util';
@@ -9,14 +8,15 @@ import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@bk/pipes';
 import { AuthorizationService } from '@bk/base';
 import { ModelType } from '@bk/categories';
+import { IonContent, ModalController } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'bk-address-edit-modal',
   standalone: true,
   imports: [
     BkSpinnerComponent, AddressFormComponent, BkHeaderComponent, BkChangeConfirmationComponent,
-    TranslatePipe, AsyncPipe,
-    IonModal, IonContent, IonButton
+    IonContent,
+    TranslatePipe, AsyncPipe
   ],
   template: `
     <bk-header title="{{ title() | translate | async }}" [isModal]="true" />
@@ -33,7 +33,7 @@ import { ModelType } from '@bk/categories';
   `
 })
 export class AddressEditModalComponent {
-  private modalController = inject(ModalController);
+  private readonly modalController = inject(ModalController);
   protected authorizationService = inject(AuthorizationService);
 
   public address = input.required<AddressModel>();

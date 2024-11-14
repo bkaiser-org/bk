@@ -1,24 +1,23 @@
 import { Component, effect, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppNavigationService, isInSplitPane, navigateByUrl } from '@bk/util';
+import { AppNavigationService, isInSplitPane } from '@bk/util';
 import { selectMenuItem } from './menu.util';
-import { IonAccordion, IonAccordionGroup, IonIcon, IonItem, IonItemDivider, IonLabel, IonList, MenuController } from '@ionic/angular/standalone';
+import { IonAccordion, IonAccordionGroup, IonIcon, IonItem, IonItemDivider, IonLabel, IonList, MenuController, ModalController } from '@ionic/angular/standalone';
 import { AuthorizationService } from '@bk/base';
 import { SvgIconPipe, TranslatePipe } from '@bk/pipes';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { MenuAction } from '@bk/categories';
 import { MenuItemModel } from '@bk/models';
-import { BkSpinnerComponent } from '@bk/ui';
 import { MenuItemService } from './menu-item.service';
 import { Observable } from 'rxjs';
-import { AuthService } from '@bk/auth';
+import { AuthService, LoginModalComponent } from '@bk/auth';
 
 @Component({
   selector: 'bk-menu',
   standalone: true,
   imports: [
-    TranslatePipe, AsyncPipe, JsonPipe, SvgIconPipe,
-    BkSpinnerComponent, BkMenuComponent,
+    TranslatePipe, AsyncPipe, SvgIconPipe,
+    BkMenuComponent,
     IonList, IonItem, IonIcon, IonLabel, IonAccordionGroup, IonAccordion, IonItemDivider
   ],
   template: `
@@ -70,11 +69,12 @@ import { AuthService } from '@bk/auth';
 })
 export class BkMenuComponent {
   public authService = inject(AuthService);
+  protected modalController = inject(ModalController);
   public authorizationService = inject(AuthorizationService);
   public appNavigationService = inject(AppNavigationService);
-  private menuItemService = inject(MenuItemService);
-  private router = inject(Router);
-  private menuController = inject(MenuController);
+  private readonly menuItemService = inject(MenuItemService);
+  private readonly router = inject(Router);
+  private readonly menuController = inject(MenuController);
 
   public menuName = input.required<string>();
   public menuItem$!: Observable<MenuItemModel>;
@@ -89,12 +89,29 @@ export class BkMenuComponent {
 
   public async select(menuItem: MenuItemModel): Promise<void> {
     this.appNavigationService.resetLinkHistory(menuItem.url);
-    if (menuItem.url === '/auth/logout') {
-      await this.authService.logout();
-      await navigateByUrl(this.router, '/auth/login', menuItem.data);
-    } else {
-      await selectMenuItem(this.router, menuItem);
+    switch(menuItem.url) {
+      case '/auth/login':
+        await this.login();
+        break;
+      case '/auth/logout':
+        await this.logout();
+        break;
+      default:
+        await selectMenuItem(this.router, menuItem);
     }
     if (!isInSplitPane()) this.menuController.close('main');
+  }
+
+  private async login(): Promise<void> {
+    //         await navigateByUrl(this.router, menuItem.url, menuItem.data);
+    const _modal = await this.modalController.create({
+      component: LoginModalComponent,
+    });
+    _modal.present();
+  }
+
+  private async logout(): Promise<void> {
+    await this.authService.logout();
+    //await navigateByUrl(this.router, '/auth/login', menuItem.data);
   }
 }

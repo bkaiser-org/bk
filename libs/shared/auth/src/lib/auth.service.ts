@@ -30,17 +30,17 @@ interface AuthenticationState {
   providedIn: 'root',
 })
 export class AuthService {
-  private auth = inject(AUTH);
-  private toastController = inject(ToastController);
-  private router = inject(Router);
-  private env = inject(ENV);
+  private readonly auth = inject(AUTH);
+  private readonly toastController = inject(ToastController);
+  private readonly router = inject(Router);
+  private readonly env = inject(ENV);
 
   // sources
- private user$ = authState(this.auth);
+ private readonly user$ = authState(this.auth);
 
   // state
-  private state = signal<AuthenticationState>({
-    firebaseUser: undefined,
+  private readonly state = signal<AuthenticationState>({
+    firebaseUser: undefined
   });
 
   // selectors

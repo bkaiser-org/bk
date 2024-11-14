@@ -1,9 +1,9 @@
 import { Component, DestroyRef, OnInit, computed, inject, input } from '@angular/core';
 import { BaseModel } from '@bk/models';
-import { CategoryNamePipe, LogoPipe, TranslatePipe } from '@bk/pipes';
-import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonModal, IonRow, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
+import { TranslatePipe } from '@bk/pipes';
+import { IonCol, IonContent, IonGrid, IonRow, ModalController } from '@ionic/angular/standalone';
 import { NameByModelPipe } from '../models/name-by-model.pipe';
-import { BkAvatarLabelComponent, BkHeaderComponent, BkSearchbarComponent, BkSpinnerComponent } from '@bk/ui';
+import { BkAvatarLabelComponent, BkHeaderComponent, BkSpinnerComponent } from '@bk/ui';
 import { AsyncPipe } from '@angular/common';
 import { ListType, ListTypes, SectionTypes, getCollectionNameFromModelType } from '@bk/categories';
 import { DataService } from '../models/data.service';
@@ -19,11 +19,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'bk-model-select-modal',
   standalone: true,
-  imports: [ 
-    TranslatePipe, LogoPipe, NameByModelPipe, AsyncPipe, CategoryNamePipe,
-    BkSearchbarComponent, BkAvatarLabelComponent, BkSpinnerComponent, BkHeaderComponent,
-    IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonGrid, IonRow, IonCol,
-    IonButtons, IonButton, IonIcon, IonLabel
+  imports: [
+    TranslatePipe,  AsyncPipe, NameByModelPipe,
+    BkAvatarLabelComponent, BkSpinnerComponent, BkHeaderComponent,
+    IonContent, IonGrid, IonRow, IonCol
   ],
   template: `
     <bk-header title="{{ finalTitle() | translate | async }}" [isModal]="true" [isSearchable]="true" (ionInput)="onSearchtermChange($event)"/>
@@ -52,7 +51,7 @@ export class BkModelSelectComponent extends SearchableComponent implements OnIni
   public bkListType = input.required<ListType>();
 
   // we need to clone the initial query, because searchData will add query attributes every time it is called
-  private bkInitialQuery = computed(() => structuredClone(ListTypes[this.bkListType()]).initialQuery ?? []);
+  private readonly bkInitialQuery = computed(() => structuredClone(ListTypes[this.bkListType()]).initialQuery ?? []);
   public betterTitle = input<string>(); // optionally overwrite the title set in the ListType
   protected finalTitle = computed(() => this.betterTitle() ?? this.title());
 
