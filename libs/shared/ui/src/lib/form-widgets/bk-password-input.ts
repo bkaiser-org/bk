@@ -15,7 +15,7 @@ import { MaskitoDirective } from '@maskito/angular';
 
 // passwordMask is used as default in bk-password-input
 export const passwordMask: MaskitoOptions = {
-  mask: /^[a-zA-Z0-9-_!@?:;äüö$*+&()=]+$/,
+  mask: /^[a-zA-Z0-9_!@?:;äüö$*+&()=]+$/,
 };
 
 
@@ -62,7 +62,7 @@ export class BkPasswordInputComponent implements AfterViewInit {
 
   public autocomplete = input<AutoComplete>('current-password'); // Automated input assistance in filling out form field values
   public clearInput = input(true); // show an icon to clear the input field
-  public copyable = input(false); // if true, a button to copy the value of the input field is shown
+  public copyable = input(true); // if true, a button to copy the value of the input field is shown
   public inputMode = input<InputMode>('text'); // A hint to the browser for which keyboard to display.
   public mask = input<MaskitoOptions>(passwordMask);
 
