@@ -30,7 +30,7 @@ import { ENV } from '@bk/util';
 
           <ion-row>
             <ion-col size="12">                                               <!-- password -->
-              <bk-password-input [setFocus]="setFocusOnPasswordField" [value]="vm.password!" (changed)="updateField('password', $event)" />
+              <bk-password-input name="loginPassword" [setFocus]="setFocusOnPasswordField" [value]="vm.password!" (changed)="updateField('password', $event)" />
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -68,11 +68,6 @@ export class LoginFormComponent {
       let _errorMessage = _result.errors[0].message;
       if (_errorMessage && _errorMessage.length > 0) {
         _errorMessage = `@validation.${_errorMessage}`;
-        // print out more information to find the exact validation error
-        if (this.env.production === false) {
-          console.log(this.vm());
-          console.log(_result);
-        }
       }
       console.warn(_errorMessage);
       this.errorMessage.emit(_errorMessage ?? '');

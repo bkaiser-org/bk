@@ -20,97 +20,82 @@ import { AsyncPipe } from '@angular/common';
       IonContent, IonImg, IonLabel, IonItem, IonInput, IonNote, IonGrid, IonRow, IonCol, IonButton
     ],
     styles: `
-    .login-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.background-image {
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.7;
-  z-index: 1;
-}
-
-.login-form {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 600px;
-  width: 90%;
-  text-align: center;
-  z-index: 5;
-}
-
-.title {
-  text-align: center;
-  font-size: 2rem;
-}
-
-.logo {
-  max-width: 300px;
-  text-align: center;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  z-index: 10;
-}
-
-.button-container {
-  margin-top: 20px;
-}
-
-.native-input {
-  background-color: white;
-}
+    .background-image {
+      filter: blur(8px);
+      -webkit-filter: blur(8px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+      z-index: 1;
+    }
+    @media (width <= 600px) {
+      .pwdreset-container {  display: flex; height: 100%; padding: 10px; }
+      .pwdreset-form { background-color: white; width: 100%; text-align: center; z-index: 5; }
+    }
+    @media (width > 600px) {
+      .pwdreset-container {  display: flex; align-items: center; justify-content: center; height: 100%; padding: 20px; margin: 20px; }
+      .pwdreset-form { background-color: white; border-radius: 10px; max-width: 600px; width: 90%; text-align: center; z-index: 5; }
+    }
+    .title { text-align: center; font-size: 2rem; padding: 20px; }
+    .logo { max-width: 150px; text-align: center; display: block; margin-left: auto; margin-right: auto; width: 50%; z-index: 10; padding: 20px; }
+    ion-col { justify-content: center; align-items: center; }
     `,
     template: `
       <bk-header title="{{'@auth.operation.pwdreset.title' | translate | async }}" />
       <ion-content>
-        <div class="login-container">
+        <div class="pwdreset-container">
           <img class="background-image" [src]="backgroundImageUrl" alt="Background Image" />
-          <div class="login-form">
-            <ion-img class="logo" [src]="logoUrl" alt="logo" (click)="gotoHome()"></ion-img>
-            <ion-label class="title"><strong>{{ '@auth.operation.pwdreset.title' | translate | async }}</strong></ion-label>
-            <ion-item lines="none">
-              <ion-input [(ngModel)]="email"
-                [autofocus]="true"
-                type="email"
-                [clearInput]="true"
-                [counter]="true"
-                [maxlength]="maxLength"
-                label="{{ '@input.loginEmail.label' | translate | async }}"
-                labelPlacement="floating"
-                required
-                errorText="{{'@input.loginEmail.error' | translate | async}}"
-                placeholder="{{ '@input.loginEmail.placeholder' | translate | async }}">
-              </ion-input>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-note>{{'@auth.operation.pwdreset.note' | translate | async}}</ion-note>
-            </ion-item>
-              <div class="button-container">
-                <ion-grid>
-                  <ion-row>
-                    <ion-col size="4">
-                      <ion-button expand="block" fill="outline" (click)="gotoHome()">{{'@general.operation.change.cancel' | translate | async}}</ion-button>
-                    </ion-col>
-                    <ion-col size="2" offset="6">
-                      <ion-button expand="block" [disabled]="!email || email.length < 5 || !email.includes('@') || !email.includes('.')" (click)="resetPassword()">{{'@general.operation.change.ok' | translate | async}}</ion-button>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-            </div>  
-          </div>
+          @defer () {
+            <div class="pwdreset-form">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-img class="logo" [src]="logoUrl" alt="logo" (click)="gotoHome()"></ion-img>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-label class="title"><strong>{{ '@auth.operation.pwdreset.title' | translate | async }}</strong></ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-item lines="none">
+                      <ion-input [(ngModel)]="email"
+                        [autofocus]="true"
+                        type="email"
+                        [clearInput]="true"
+                        [counter]="true"
+                        [maxlength]="maxLength"
+                        label="{{ '@input.loginEmail.label' | translate | async }}"
+                        labelPlacement="floating"
+                        required
+                        errorText="{{'@input.loginEmail.error' | translate | async}}"
+                        placeholder="{{ '@input.loginEmail.placeholder' | translate | async }}">
+                      </ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-note>{{'@auth.operation.pwdreset.note' | translate | async}}</ion-note>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-item lines="none">
+                      <ion-button slot="start" size="default" fill="outline" (click)="gotoHome()">{{'@general.operation.change.cancel' | translate | async}}</ion-button>
+                      <ion-button slot="end" size="default" [disabled]="!email || email.length < 5 || !email.includes('@') || !email.includes('.')" (click)="resetPassword()">{{'@general.operation.change.ok' | translate | async}}</ion-button>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          }
         </div>
       </ion-content>
     `

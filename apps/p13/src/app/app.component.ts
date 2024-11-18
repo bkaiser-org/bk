@@ -106,20 +106,20 @@ import { ModelType } from '@bk/categories';
     <ion-app>
       <ion-split-pane contentId="main">
         <ion-menu side="start" menuId="main" contentId="main" type="overlay">
-          <ion-header>
-            <ion-toolbar color="secondary">
-              <ion-title>{{
-                '@menu.main.title' | translate | async
-              }}</ion-title>
-            </ion-toolbar>
-          </ion-header>
-          <ion-content>
-            <bk-menu [menuName]="mainMenuName" />
-            @if (authorizationService.currentUser()?.showDebugInfo === true) {
-            <bk-auth-info />
-            }
-          </ion-content>
-        </ion-menu>
+        <ion-header>
+          <ion-toolbar color="secondary">
+            <ion-title>{{
+              '@menu.main.title' | translate | async
+            }}</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <bk-menu [menuName]="mainMenuName" />
+          @if (authorizationService.currentUser()?.showDebugInfo === true) {
+          <bk-auth-info />
+          }
+        </ion-content>
+      </ion-menu>
         <ion-router-outlet id="main" />
       </ion-split-pane>
     </ion-app>

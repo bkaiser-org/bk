@@ -1,145 +1,89 @@
 import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { getImgixUrlWithAutoParams, navigateByUrl, ENV, EMAIL_LENGTH } from '@bk/util';
-import { FormsModule } from '@angular/forms';
-import { IonButton, IonCol, IonContent, IonGrid, IonImg, IonInput, IonItem, IonLabel, IonNote, IonRow } from '@ionic/angular/standalone';
+import { getImgixUrlWithAutoParams, navigateByUrl, ENV } from '@bk/util';
+import { IonButton, IonCol, IonContent, IonGrid, IonImg, IonItem, IonLabel, IonNote, IonRow } from '@ionic/angular/standalone';
 import { BkHeaderComponent } from '@bk/ui';
 import { TranslatePipe } from '@bk/pipes';
 import { AsyncPipe } from '@angular/common';
 import { AuthService } from './auth.service';
+import { LoginFormComponent } from './login.form';
+import { AuthCredentials } from '@bk/models';
 
 @Component({
   selector: 'bk-login-page',
   standalone: true,
   imports: [
     TranslatePipe, AsyncPipe, 
-    FormsModule, BkHeaderComponent,
-    IonContent, IonImg, IonLabel, IonItem, IonInput, IonNote, IonGrid, IonRow, IonCol, IonButton
+    BkHeaderComponent, LoginFormComponent,
+    IonContent, IonImg, IonLabel, IonNote, IonGrid, IonRow, IonCol, IonButton, IonItem
   ],
   styles: `
-  .login-container { 
-    display: flex; 
-    align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 20px;
-  margin: 20px;
-}
-
-.background-image {
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.7;
-  z-index: 1;
-}
-
-.login-form {
-  padding: 20px;
-  border-radius: 10px;
-  width: 600px;
-  max-width: 600px;
-  width: 90%;
-  text-align: center;
-  z-index: 5;
-}
-
-.title {
-  text-align: center;
-  font-size: 2rem;
-}
-
-.logo {
-  max-width: 200px;
-  text-align: center;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  z-index: 10;
-}
-
-.button-container {
-  margin: 20px;
-}
-
-.native-input {
-  background-color: white;
-}
-
-ion-input, ion-textarea {
-  --background: var(--bk-form-background);
-  border-radius: 5px;
-  --padding-start: 10px;
-  --inner-padding-end: 10px;
- }
-
+  .background-image {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+    z-index: 1;
+  }
+  @media (width <= 600px) {
+    .login-form { background-color: white; width: 100%; text-align: center; z-index: 5; }
+    .login-container {  display: flex; height: 100%; padding: 10px; }
+  }
+  @media (width > 600px) {
+    .login-form { background-color: white; border-radius: 10px; max-width: 600px; width: 90%; text-align: center; z-index: 5; }
+    .login-container {  display: flex; align-items: center; justify-content: center; height: 100%; padding: 20px; margin: 20px; }
+  }
+  .title { text-align: center; font-size: 2rem; padding: 20px; }
+  .logo { max-width: 150px; text-align: center; display: block; margin-left: auto; margin-right: auto; width: 50%; z-index: 10; padding: 20px; }
+  ion-col { justify-content: center; align-items: center; }
   `,
   template: `
   <bk-header title="{{ '@auth.operation.login.title' | translate | async }}" />
-<ion-content>
-  <div class="login-container">
-    <img class="background-image" [src]="backgroundImageUrl" alt="Background" />
-    <div class="login-form">
-        <ion-img class="logo" [src]="logoUrl" alt="logo" (click)="gotoHome()" />
-        <ion-label class="title"><strong>{{ '@auth.operation.login.title' | translate | async}}</strong></ion-label>
-        @if(isContentLoaded) {
-          <ion-item lines="none">
-          <ion-input [(ngModel)]="email" 
-            (ionChange)="gotoField(passwordField)"
-            [autofocus]="true"
-            type="email"
-            [clearInput]="true"
-            [counter]="true"
-            [maxlength]="maxLength"
-            label="{{ '@input.loginEmail.label' | translate | async }}"
-            labelPlacement="floating"
-            required
-            errorText="{{'@input.loginEmail.error' | translate | async}}"
-            placeholder="{{ '@input.loginEmail.placeholder' | translate | async }}">
-          </ion-input>
-        </ion-item>
-        }
-    
-        <ion-item lines="none">
-          <ion-input [(ngModel)]="password" #passwordField
-            type="password"
-            [clearInput]="true"
-            [counter]="true"
-            maxlength="24"
-            label="{{ '@input.loginPassword.label' | translate | async }}"
-            labelPlacement="floating"
-            required
-            minlength="6"
-            errorText="{{'@input.loginPassword.error' | translate | async}}"
-            placeholder="{{ '@input.loginPassword.placeholder' | translate | async }}">
-          </ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-note>{{'@auth.operation.login.note' | translate | async}}</ion-note>
-        </ion-item>  
-        <div class="button-container">
+  <ion-content>
+    <div class="login-container">
+      <img class="background-image" [src]="backgroundImageUrl" alt="Background" />
+      @defer () {
+        <div class="login-form">
           <ion-grid>
             <ion-row>
-              <ion-col>
-                <ion-button [disabled]="!email || !password" (click)="login()">{{ '@auth.operation.login.title' | translate | async}}</ion-button>
+              <ion-img class="logo" [src]="logoUrl" alt="logo" (click)="gotoHome()" />
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+                <ion-label class="title"><strong>{{ '@auth.operation.login.title' | translate | async}}</strong></ion-label>
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col>
-                <ion-button fill="outline" (click)="resetPassword()" size="small" >{{ '@auth.operation.pwdreset.title' | translate | async }}</ion-button>
+              <bk-login-form (changedData)="onDataChange($event)" (changedFormState)="onFormStateChange($event)" />
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+              <ion-item lines="none">
+                <ion-button slot="start" size="default" fill="outline" (click)="gotoHome()">{{ '@general.operation.change.cancel' | translate | async }}</ion-button>
+                <ion-button slot="end" size="default" [disabled]="!formCanBeSaved" (click)="login()">{{ '@auth.operation.login.title' | translate | async}}</ion-button>
+              </ion-item>
               </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+              <ion-note>{{'@auth.operation.login.note' | translate | async}}</ion-note>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+                <ion-button fill="outline" (click)="resetPassword()" size="small" >{{ '@auth.operation.pwdreset.title' | translate | async }}</ion-button>
+              </ion-col>  
             </ion-row>
           </ion-grid>
         </div>
+      }
     </div>
-  </div>
-</ion-content>
+  </ion-content>
   `,
   encapsulation: ViewEncapsulation.None
 })
@@ -150,17 +94,16 @@ export class LoginPageComponent {
 
   public logoUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.logoUrl)}`;
   public backgroundImageUrl = `${this.env.app.imgixBaseUrl}/${getImgixUrlWithAutoParams(this.env.app.welcomeBannerUrl)}`;
-  public email = '';
-  public password = '';
-  protected isContentLoaded = false;
-  protected maxLength = EMAIL_LENGTH;
 
-  ionViewDidEnter(): void {
-    this.isContentLoaded = true;
-  }
+  protected formCanBeSaved = false;
+  public currentCredentials: AuthCredentials | undefined;
   
-  public async resetPassword(): Promise<void> {
-    await navigateByUrl(this.router, this.env.auth.passwordResetUrl);
+  public onDataChange(form: AuthCredentials): void {
+    this.currentCredentials = form;
+  }
+
+  public onFormStateChange(formCanBeSaved: boolean): void {
+    this.formCanBeSaved = formCanBeSaved;
   }
 
   public async gotoHome(): Promise<void> {
@@ -171,11 +114,13 @@ export class LoginPageComponent {
    * Login a returning user with already existing credentials.
    */
   public async login(): Promise<void> {
-    this.authService.login(this.email, this.password);
+    if (this.currentCredentials?.email && this.currentCredentials?.password) {
+      this.authService.login(this.currentCredentials.email, this.currentCredentials.password);
+    }
   }
 
-  protected gotoField(element: IonInput): void {
-    element.setFocus();
+  public async resetPassword(): Promise<void> {
+    await navigateByUrl(this.router, this.env.auth.passwordResetUrl);
   }
 }
 

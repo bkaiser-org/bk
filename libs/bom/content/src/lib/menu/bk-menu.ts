@@ -89,15 +89,10 @@ export class BkMenuComponent {
 
   public async select(menuItem: MenuItemModel): Promise<void> {
     this.appNavigationService.resetLinkHistory(menuItem.url);
-    switch(menuItem.url) {
-      case '/auth/login':
-        await this.login();
-        break;
-      case '/auth/logout':
-        await this.logout();
-        break;
-      default:
-        await selectMenuItem(this.router, menuItem);
+    if (menuItem.url.startsWith('/auth/logout')) {
+      await this.logout();
+    } else {
+      await selectMenuItem(this.router, menuItem);
     }
     if (!isInSplitPane()) this.menuController.close('main');
   }

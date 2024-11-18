@@ -3930,7 +3930,7 @@
         "title": "Anmelden",
         "confirmation": "Willkommen im Mitgliederbereich !",
         "error": "Die Anmeldung war nicht erfolgreich. Bitte prüfe die E-Mail Adresse und das Passwort und versuche es nochmals.",
-        "note": "Falls du noch kein Passwort hast oder dieses nicht kennst, kannst du unten auf den Button 'Passwort zurücksetzen' klicken und ein neues Passwort setzen."
+        "note": "Falls du noch kein Passwort hast oder dieses nicht kennst, kannst du mit dem Button unten ein neues Passwort setzen."
       },
       "pwdreset": {
         "title": "Passwort zurücksetzen...",

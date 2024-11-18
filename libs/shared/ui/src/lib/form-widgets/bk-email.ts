@@ -49,11 +49,14 @@ export class BkEmailComponent implements AfterViewInit {
   public committed = output<void>();
 
   ngAfterViewInit(): void {
-    if (!this.readOnly() && this.showError() === true) {
-      this.ionInput().errorText = bkTranslate('@input.' + this.name() + '.error');
-    }
-    if (!this.readOnly() && this.showHelper() === true) {
-      this.ionInput().helperText = bkTranslate('@input.' + this.name() + '.helper');
+    const _name = this.name();
+    if (_name && !this.readOnly()) {
+      if (this.showError() === true) {
+        this.ionInput().errorText = bkTranslate(`@input.${_name}.error`);
+      }
+      if (this.showHelper() === true) {
+        this.ionInput().helperText = bkTranslate(`@input.${_name}.helper`);
+      }  
     }
   }
 
