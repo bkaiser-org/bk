@@ -1,5 +1,13 @@
 # app specific tokens
 # P13
+
+runConfig:
+  minInstances: 0
+  maxInstances: 10
+  concurrency: 10
+  cpu: 1
+  memoryMiB: 1024
+
 env:
   - variable: NEXT_PUBLIC_FIREBASE_APP_ID
     secret: NEXT_PUBLIC_P13_FIREBASE_APP_ID
