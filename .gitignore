@@ -55,7 +55,6 @@ firestore-debug.log
 .DS_Store
 Thumbs.db
 
-**/nx.json
 .nx/cache
 .nx/workspace-data
 
