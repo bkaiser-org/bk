@@ -1,5 +1,6 @@
 # app specific tokens
 # P13
+env:
   - variable: NEXT_PUBLIC_FIREBASE_APP_ID
     secret: NEXT_PUBLIC_P13_FIREBASE_APP_ID
 
